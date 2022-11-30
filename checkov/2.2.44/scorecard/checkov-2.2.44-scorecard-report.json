@@ -1,0 +1,155 @@
+{
+	"date": "2022-11-14",
+	"repo": {
+		"name": "github.com/bridgecrewio/checkov",
+		"commit": "8a1d54926de96bacc5a3510531d28461b6361f50"
+	},
+	"scorecard": {
+		"version": "v4.8.0-60-g52640d5",
+		"commit": "52640d5eab23a6a220cb933a1326dfaf8d8f5bff"
+	},
+	"score": 7.1,
+	"checks": [{
+		"name": "Maintained",
+		"score": 10,
+		"reason": "30 commit(s) out of 30 and 15 issue activity out of 30 found in the last 90 days -- score normalized to 10",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project is \"actively maintained\".",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#maintained"
+		}
+	}, {
+		"name": "Code-Review",
+		"score": 3,
+		"reason": "10 out of last 30 changesets reviewed before merge -- score normalized to 3",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#code-review"
+		}
+	}, {
+		"name": "Vulnerabilities",
+		"score": 10,
+		"reason": "no vulnerabilities detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has open, known unfixed vulnerabilities.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#vulnerabilities"
+		}
+	}, {
+		"name": "CII-Best-Practices",
+		"score": 2,
+		"reason": "badge detected: in_progress",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has an OpenSSF (formerly CII) Best Practices Badge.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#cii-best-practices"
+		}
+	}, {
+		"name": "Signed-Releases",
+		"score": -1,
+		"reason": "no releases found",
+		"details": ["Warn: no GitHub releases found"],
+		"documentation": {
+			"short": "Determines if the project cryptographically signs release artifacts.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#signed-releases"
+		}
+	}, {
+		"name": "Branch-Protection",
+		"score": 6,
+		"reason": "branch protection is not maximal on development and all release branches",
+		"details": ["Info: 'force pushes' disabled on branch 'master'", "Info: 'allow deletion' disabled on branch 'master'", "Warn: no status checks found to merge onto branch 'master'", "Info: number of required reviewers is 2 on branch 'master'", "Warn: codeowner review is not required on branch 'master'"],
+		"documentation": {
+			"short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#branch-protection"
+		}
+	}, {
+		"name": "License",
+		"score": 10,
+		"reason": "license file detected",
+		"details": ["Info: : LICENSE:1"],
+		"documentation": {
+			"short": "Determines if the project has defined a license.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#license"
+		}
+	}, {
+		"name": "Dependency-Update-Tool",
+		"score": 10,
+		"reason": "update tool detected",
+		"details": ["Info: Dependabot detected: .github/dependabot.yml:1"],
+		"documentation": {
+			"short": "Determines if the project uses a dependency update tool.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#dependency-update-tool"
+		}
+	}, {
+		"name": "Security-Policy",
+		"score": 10,
+		"reason": "security policy file detected",
+		"details": ["Info: Found linked content in security policy: SECURITY.md", "Info: Found text in security policy: SECURITY.md", "Info: Found disclosure, vulnerability, and/or timelines in security policy: SECURITY.md", "Info: security policy detected in current repo: SECURITY.md"],
+		"documentation": {
+			"short": "Determines if the project has published a security policy.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#security-policy"
+		}
+	}, {
+		"name": "Dangerous-Workflow",
+		"score": 10,
+		"reason": "no dangerous workflow patterns detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#dangerous-workflow"
+		}
+	}, {
+		"name": "Token-Permissions",
+		"reason": "non read-only tokens detected in GitHub workflows",
+		"details": ["Warn: no topLevel permission defined: .github/workflows/build.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/build.yml/master?enable=permissions", "Info: topLevel permissions set to 'read-all': .github/workflows/codeql-analysis.yml:24: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/codeql-analysis.yml/master?enable=permissions", "Info: jobLevel 'actions' permission set to 'read': .github/workflows/codeql-analysis.yml:31: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/codeql-analysis.yml/master?enable=permissions", "Info: jobLevel 'contents' permission set to 'read': .github/workflows/codeql-analysis.yml:32: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/codeql-analysis.yml/master?enable=permissions", "Info: topLevel permissions set to 'read-all': .github/workflows/coverage.yaml:8: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/coverage.yaml/master?enable=permissions", "Warn: jobLevel 'contents' permission set to 'write': .github/workflows/coverage.yaml:14: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/coverage.yaml/master?enable=permissions", "Info: topLevel permissions set to 'read-all': .github/workflows/nightly.yml:9: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/nightly.yml/master?enable=permissions", "Warn: jobLevel 'contents' permission set to 'write': .github/workflows/nightly.yml:16: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/nightly.yml/master?enable=permissions", "Info: topLevel permissions set to 'read-all': .github/workflows/pipenv-update.yml:7: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/pipenv-update.yml/master?enable=permissions", "Warn: jobLevel 'contents' permission set to 'write': .github/workflows/pipenv-update.yml:13: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/pipenv-update.yml/master?enable=permissions", "Info: topLevel permissions set to 'read-all': .github/workflows/pr-test.yml:5: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/pr-test.yml/master?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/pr-title.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/pr-title.yaml/master?enable=permissions", "Info: topLevel permissions set to 'read-all': .github/workflows/security.yaml:11: update your workflow using https://app.stepsecurity.io/secureworkflow/bridgecrewio/checkov/security.yaml/master?enable=permissions"],
+		"documentation": {
+			"short": "Determines if the project's workflows follow the principle of least privilege.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#token-permissions"
+		}
+	}, {
+		"name": "SAST",
+		"score": 10,
+		"reason": "SAST tool is run on all commits",
+		"details": ["Info: all commits (10) are checked with a SAST tool", "Info: SAST tool detected: CodeQL"],
+		"documentation": {
+			"short": "Determines if the project uses static code analysis.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#sast"
+		}
+	}, {
+		"name": "Binary-Artifacts",
+		"score": 10,
+		"reason": "no binaries found in the repo",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#binary-artifacts"
+		}
+	}, {
+		"name": "Packaging",
+		"score": 10,
+		"reason": "publishing workflow detected",
+		"details": ["Info: GitHub publishing workflow used in run https://api.github.com/repos/bridgecrewio/checkov/actions/runs/3462006842: .github/workflows/build.yml:133"],
+		"documentation": {
+			"short": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#packaging"
+		}
+	}, {
+		"name": "Pinned-Dependencies",
+		"score": 2,
+		"reason": "dependency not pinned by hash detected -- score normalized to 2",
+		"details": ["Warn: containerImage not pinned by hash: .gitpod.Dockerfile:1: pin your Docker image by updating gitpod/workspace-python to gitpod/workspace-python@sha256:4cb530ccee74073d6dc43f745f7600a44eb030e2f4f393646b8dc52842dfa931", "Warn: containerImage not pinned by hash: Dockerfile:1: pin your Docker image by updating python to python@sha256:dccd682d9660c36897507618d00835d83dc6c0e92ba21253dc3c48411b9c9df9", "Warn: containerImage not pinned by hash: Dockerfile.pyston:1: pin your Docker image by updating pyston/slim to pyston/slim@sha256:078eccc767f568d1a75c98aa2fd010ab17c032d611021015203497ea51f7f1e5", "Warn: containerImage not pinned by hash: admissioncontroller/Dockerfile:2: pin your Docker image by updating python to python@sha256:dccd682d9660c36897507618d00835d83dc6c0e92ba21253dc3c48411b9c9df9", "Warn: containerImage not pinned by hash: docs/7.Scan Examples/Dockerfile.md:18: pin your Docker image by updating node to node@sha256:743707dbaca64ff4ec8673a6e0c4d03d048e32b4e8ff3e89ee0d19f772433dcd", "Warn: containerImage not pinned by hash: kubernetes/Dockerfile:1: pin your Docker image by updating python to python@sha256:dccd682d9660c36897507618d00835d83dc6c0e92ba21253dc3c48411b9c9df9", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_AddExists/failure/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_AliasIsUnique/failure/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_AliasIsUnique/failure/Dockerfile:4", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_AliasIsUnique/failure/Dockerfile:7", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_AliasIsUnique/success/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_AliasIsUnique/success/Dockerfile:4", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_HealthcheckExists/failure/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_HealthcheckExists/success/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_MaintainerExists/failure/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_ReferenceLatestTag/failure_default_version_tag/Dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_ReferenceLatestTag/failure_latest_version_tag/Dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_ReferenceLatestTag/success/Dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_ReferenceLatestTag/success_multi_stage/Dockerfile:1: pin your Docker image by updating alpine:3 to alpine:3@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_ReferenceLatestTag/success_multi_stage/Dockerfile:4", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_ReferenceLatestTag/success_multi_stage_capital/Dockerfile:1: pin your Docker image by updating alpine:3 to alpine:3@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_ReferenceLatestTag/success_multi_stage_capital/Dockerfile:4", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_ReferenceLatestTag/success_multi_stage_capital/Dockerfile:7", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_ReferenceLatestTag/success_multi_stage_scratch/Dockerfile:4", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_RootUser/failure/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_RootUser/success/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_RunUsingAPT/failure/Dockerfile:1: pin your Docker image by updating busybox to busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_RunUsingAPT/success/Dockerfile:1: pin your Docker image by updating busybox to busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_UpdateNotAlone/failure/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_UpdateNotAlone/failure/Dockerfile.simple:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_UpdateNotAlone/success/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_UserExists/failure/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_UserExists/success/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_WorkdirIsAbsolute/failure/Dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_WorkdirIsAbsolute/failure/Dockerfile.simple:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: tests/dockerfile/checks/example_WorkdirIsAbsolute/success/Dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: tests/dockerfile/image_referencer/resources/Dockerfile.multi_platform:1: pin your Docker image by updating golang:alpine to golang:alpine@sha256:dc4f4756a4fb91b6f496a958e11e00c0621130c8dfbb31ac0737b0229ad6ad9c", "Warn: containerImage not pinned by hash: tests/dockerfile/image_referencer/resources/Dockerfile.multi_platform:8: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: tests/dockerfile/image_referencer/resources/Dockerfile.multi_stage:2: pin your Docker image by updating maven:3.8-openjdk-17-slim to maven:3.8-openjdk-17-slim@sha256:502e781d39f0b40fbd02eb23f5b7663618b76ba52034da218c64e92f6c5647be", "Warn: containerImage not pinned by hash: tests/dockerfile/image_referencer/resources/Dockerfile.multi_stage:10: pin your Docker image by updating amazonlinux:2 to amazonlinux:2@sha256:f0ad031d65bf6cd219d8621d2a304d884c6a809ca2b20855eac371df92f4fcaf", "Warn: containerImage not pinned by hash: tests/dockerfile/image_referencer/resources/Dockerfile.simple:1: pin your Docker image by updating php to php@sha256:661fd5a2877bfac903851d4d6eb4b02dc43960f36d9353eb1adefed1cf3011d2", "Warn: containerImage not pinned by hash: tests/dockerfile/resources/expose_port/fail/Dockerfile:1: pin your Docker image by updating node to node@sha256:743707dbaca64ff4ec8673a6e0c4d03d048e32b4e8ff3e89ee0d19f772433dcd", "Warn: containerImage not pinned by hash: tests/dockerfile/resources/expose_port/pass/Dockerfile:1: pin your Docker image by updating gliderlabs/alpine to gliderlabs/alpine@sha256:23b993692b943f0799b3f36042d8a1331557103eb4ac2c0b8ab36cab9f399f8b", "Warn: containerImage not pinned by hash: tests/dockerfile/resources/expose_port/skip/Dockerfile:1: pin your Docker image by updating gliderlabs/alpine to gliderlabs/alpine@sha256:23b993692b943f0799b3f36042d8a1331557103eb4ac2c0b8ab36cab9f399f8b", "Warn: containerImage not pinned by hash: tests/dockerfile/resources/name_variations/.Dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: tests/dockerfile/resources/name_variations/Dockerfile.prod:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: tests/dockerfile/resources/name_variations/prod.dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: tests/dockerfile/resources/wildcard_skip/Dockerfile:1: pin your Docker image by updating python to python@sha256:dccd682d9660c36897507618d00835d83dc6c0e92ba21253dc3c48411b9c9df9", "Warn: containerImage not pinned by hash: tests/sca_image/examples/dockerfile/Dockerfile:1: pin your Docker image by updating ubuntu to ubuntu@sha256:4b1d0c4a2d2aaf63b37111f34eb9fa89fa1bf53dd6e4ca954d47caebca4005c2", "Warn: containerImage not pinned by hash: tests/secrets/resources/file_type/Dockerfile:1", "Warn: containerImage not pinned by hash: tests/secrets/resources/file_type/Dockerfile.simple:1", "Warn: downloadThenRun not pinned by hash: .gitpod.Dockerfile:4-8", "Warn: pipCommand not pinned by hash: Dockerfile:29", "Warn: pipCommand not pinned by hash: Dockerfile.pyston:26-34", "Warn: pipCommand not pinned by hash: admissioncontroller/Dockerfile:11", "Warn: pipCommand not pinned by hash: admissioncontroller/Dockerfile:12", "Warn: npmCommand not pinned by hash: docs/7.Scan Examples/Dockerfile.md:21", "Warn: pipCommand not pinned by hash: kubernetes/Dockerfile:8", "Warn: pipCommand not pinned by hash: tests/dockerfile/checks/example_WorkdirIsAbsolute/failure/Dockerfile:3", "Warn: pipCommand not pinned by hash: tests/dockerfile/checks/example_WorkdirIsAbsolute/failure/Dockerfile:8", "Warn: pipCommand not pinned by hash: tests/dockerfile/checks/example_WorkdirIsAbsolute/success/Dockerfile:3", "Warn: pipCommand not pinned by hash: tests/dockerfile/checks/example_WorkdirIsAbsolute/success/Dockerfile:14", "Warn: npmCommand not pinned by hash: tests/dockerfile/resources/expose_port/fail/Dockerfile:4", "Warn: pipCommand not pinned by hash: .github/workflows/build.yml:55", "Warn: pipCommand not pinned by hash: .github/workflows/build.yml:93", "Warn: pipCommand not pinned by hash: .github/workflows/build.yml:121", "Warn: pipCommand not pinned by hash: .github/workflows/build.yml:154", "Warn: pipCommand not pinned by hash: .github/workflows/codeql-analysis.yml:43", "Warn: pipCommand not pinned by hash: .github/workflows/codeql-analysis.yml:54", "Warn: pipCommand not pinned by hash: .github/workflows/coverage.yaml:33", "Warn: pipCommand not pinned by hash: .github/workflows/pipenv-update.yml:31", "Warn: pipCommand not pinned by hash: .github/workflows/pr-test.yml:27", "Warn: pipCommand not pinned by hash: .github/workflows/pr-test.yml:41", "Warn: pipCommand not pinned by hash: .github/workflows/pr-test.yml:66", "Warn: pipCommand not pinned by hash: .github/workflows/pr-test.yml:98", "Warn: pipCommand not pinned by hash: .github/workflows/pr-test.yml:146", "Info: GitHub-owned GitHubActions are pinned", "Info: Third-party GitHubActions are pinned"],
+		"documentation": {
+			"short": "Determines if the project has declared and pinned the dependencies of its build process.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#pinned-dependencies"
+		}
+	}, {
+		"name": "Fuzzing",
+		"reason": "project is not fuzzed",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project uses fuzzing.",
+			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#fuzzing"
+		}
+	}]
+}
