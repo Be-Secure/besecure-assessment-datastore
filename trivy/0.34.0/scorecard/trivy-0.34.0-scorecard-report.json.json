@@ -1,0 +1,151 @@
+{
+	"date": "2022-11-21",
+	"repo": {
+		"name": "github.com/aquasecurity/trivy",
+		"commit": "604a73d325bd13d43a43738c2445d9a81372a95a"
+	},
+	"scorecard": {
+		"version": "v4.8.0-70-g4692162",
+		"commit": "469216299ac3e161ebb995302ff8eb4ac43bb199"
+	},
+	"score": 6.5,
+	"checks": [{
+		"name": "Maintained",
+		"score": 10,
+		"reason": "30 commit(s) out of 30 and 14 issue activity out of 30 found in the last 90 days -- score normalized to 10",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project is \"actively maintained\".",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#maintained"
+		}
+	}, {
+		"name": "Code-Review",
+		"score": 9,
+		"reason": "29 out of last 30 changesets reviewed before merge -- score normalized to 9",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#code-review"
+		}
+	}, {
+		"name": "CII-Best-Practices",
+		"reason": "no badge detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has an OpenSSF (formerly CII) Best Practices Badge.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#cii-best-practices"
+		}
+	}, {
+		"name": "Vulnerabilities",
+		"score": 10,
+		"reason": "no vulnerabilities detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has open, known unfixed vulnerabilities.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#vulnerabilities"
+		}
+	}, {
+		"name": "Signed-Releases",
+		"score": 6,
+		"reason": "4 out of 5 artifacts are signed or have provenance",
+		"details": ["Warn: release artifact v0.34.0 does not have provenance: https://api.github.com/repos/aquasecurity/trivy/releases/81532711", "Info: signed release artifact: trivy_0.34.0_checksums.txt.sig: https://api.github.com/repos/aquasecurity/trivy/releases/assets/82896796", "Warn: release artifact v0.33.0 does not have provenance: https://api.github.com/repos/aquasecurity/trivy/releases/80980022", "Info: signed release artifact: trivy_0.33.0_checksums.txt.sig: https://api.github.com/repos/aquasecurity/trivy/releases/assets/82257444", "Warn: release artifact v0.32.1 does not have provenance: https://api.github.com/repos/aquasecurity/trivy/releases/78445156", "Info: signed release artifact: trivy_0.32.1_checksums.txt.sig: https://api.github.com/repos/aquasecurity/trivy/releases/assets/79294183", "Warn: release artifact v0.32.0 does not have provenance: https://api.github.com/repos/aquasecurity/trivy/releases/77401037", "Info: signed release artifact: trivy_0.32.0_checksums.txt.sig: https://api.github.com/repos/aquasecurity/trivy/releases/assets/78085353", "Warn: release artifact v0.31.3 does not have provenance: https://api.github.com/repos/aquasecurity/trivy/releases/75604726", "Warn: release artifact v0.31.3 not signed: https://api.github.com/repos/aquasecurity/trivy/releases/75604726"],
+		"documentation": {
+			"short": "Determines if the project cryptographically signs release artifacts.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#signed-releases"
+		}
+	}, {
+		"name": "Branch-Protection",
+		"score": 8,
+		"reason": "branch protection is not maximal on development and all release branches",
+		"details": ["Info: 'force pushes' disabled on branch 'main'", "Info: 'allow deletion' disabled on branch 'main'", "Info: status check found to merge onto on branch 'main'", "Warn: number of required reviewers is only 1 on branch 'main'", "Info: codeowner review is required on branch 'main'"],
+		"documentation": {
+			"short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#branch-protection"
+		}
+	}, {
+		"name": "Dependency-Update-Tool",
+		"score": 10,
+		"reason": "update tool detected",
+		"details": ["Info: Dependabot detected: .github/dependabot.yml:1"],
+		"documentation": {
+			"short": "Determines if the project uses a dependency update tool.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#dependency-update-tool"
+		}
+	}, {
+		"name": "License",
+		"score": 10,
+		"reason": "license file detected",
+		"details": ["Info: : LICENSE:1"],
+		"documentation": {
+			"short": "Determines if the project has defined a license.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#license"
+		}
+	}, {
+		"name": "Dangerous-Workflow",
+		"score": 10,
+		"reason": "no dangerous workflow patterns detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#dangerous-workflow"
+		}
+	}, {
+		"name": "Token-Permissions",
+		"reason": "non read-only tokens detected in GitHub workflows",
+		"details": ["Warn: no topLevel permission defined: .github/workflows/canary.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/canary.yaml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/mkdocs-dev.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/mkdocs-dev.yaml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/mkdocs-latest.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/mkdocs-latest.yaml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/publish-chart.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/publish-chart.yaml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/release.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/release.yaml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/reusable-release.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=permissions", "Info: jobLevel 'contents' permission set to 'read': .github/workflows/reusable-release.yaml:27: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/scan.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/scan.yaml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/semantic-pr.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/semantic-pr.yaml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/stale-issues.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/stale-issues.yaml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/test.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=permissions"],
+		"documentation": {
+			"short": "Determines if the project's workflows follow the principle of least privilege.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#token-permissions"
+		}
+	}, {
+		"name": "SAST",
+		"reason": "SAST tool is not run on all commits -- score normalized to 0",
+		"details": ["Warn: 0 commits out of 30 are checked with a SAST tool", "Warn: CodeQL tool not detected"],
+		"documentation": {
+			"short": "Determines if the project uses static code analysis.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#sast"
+		}
+	}, {
+		"name": "Binary-Artifacts",
+		"score": 10,
+		"reason": "no binaries found in the repo",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#binary-artifacts"
+		}
+	}, {
+		"name": "Security-Policy",
+		"reason": "security policy file not detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has published a security policy.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#security-policy"
+		}
+	}, {
+		"name": "Fuzzing",
+		"reason": "project is not fuzzed",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project uses fuzzing.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#fuzzing"
+		}
+	}, {
+		"name": "Packaging",
+		"score": 10,
+		"reason": "publishing workflow detected",
+		"details": ["Info: GitHub publishing workflow used in run https://api.github.com/repos/aquasecurity/trivy/actions/runs/3521516642: .github/workflows/test.yaml:85"],
+		"documentation": {
+			"short": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#packaging"
+		}
+	}, {
+		"name": "Pinned-Dependencies",
+		"reason": "dependency not pinned by hash detected -- score normalized to 0",
+		"details": ["Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/canary.yaml:27: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/canary.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/canary.yaml:34: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/canary.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/canary.yaml:41: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/canary.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/canary.yaml:48: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/canary.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/canary.yaml:55: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/canary.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/mkdocs-dev.yaml:15: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/mkdocs-dev.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/mkdocs-dev.yaml:19: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/mkdocs-dev.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/mkdocs-latest.yaml:17: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/mkdocs-latest.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/mkdocs-latest.yaml:21: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/mkdocs-latest.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/publish-chart.yaml:33: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/publish-chart.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release.yaml:22: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/release.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release.yaml:27: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/release.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release.yaml:38: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/release.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/reusable-release.yaml:33: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/reusable-release.yaml:37: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/reusable-release.yaml:43: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/reusable-release.yaml:49: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/reusable-release.yaml:56: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/reusable-release.yaml:63: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/reusable-release.yaml:68: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/reusable-release.yaml:73: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/reusable-release.yaml:79: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/reusable-release.yaml:90: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/reusable-release.yaml:102: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/reusable-release.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/scan.yaml:13: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/scan.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/scan.yaml:16: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/scan.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/semantic-pr.yaml:15: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/semantic-pr.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/stale-issues.yaml:10: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/stale-issues.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/test.yaml:92: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/test.yaml:96: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test.yaml:102: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test.yaml:105: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/test.yaml:110: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test.yaml:120: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test.yaml:124: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test.yaml:19: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test.yaml:22: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: third-party GitHubAction not pinned by hash: .github/workflows/test.yaml:35: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test.yaml:54: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test.yaml:57: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test.yaml:69: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test.yaml:72: update your workflow using https://app.stepsecurity.io/secureworkflow/aquasecurity/trivy/test.yaml/main?enable=pin", "Warn: containerImage not pinned by hash: Dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: Dockerfile.canary:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: Dockerfile.protoc:1: pin your Docker image by updating golang to golang@sha256:dc76ef03e54c34a00dcdca81e55c242d24b34d231637776c4bb5c1a8e8514253", "Warn: containerImage not pinned by hash: docs/build/Dockerfile:1: pin your Docker image by updating squidfunk/mkdocs-material to squidfunk/mkdocs-material@sha256:e08e5bb0d79e65bae3500b1ad3094e3e267a93d667487a3e4f9c0f69a0d60187", "Warn: containerImage not pinned by hash: docs/docs/advanced/container/embed-in-dockerfile.md:9: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: docs/docs/advanced/container/embed-in-dockerfile.md:22", "Warn: containerImage not pinned by hash: examples/misconf/custom-data/configs/Dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: examples/misconf/custom-policy/dockerfile/configs/Dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: examples/misconf/go-testing/configs/Dockerfile.allowed:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: examples/misconf/go-testing/configs/Dockerfile.denied:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: examples/misconf/mixed/configs/Dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: containerImage not pinned by hash: examples/misconf/namespace-exception/configs/Dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b", "Warn: goCommand not pinned by hash: Dockerfile.protoc:11", "Warn: goCommand not pinned by hash: Dockerfile.protoc:12", "Warn: pipCommand not pinned by hash: docs/build/Dockerfile:10", "Warn: downloadThenRun not pinned by hash: docs/docs/advanced/container/embed-in-dockerfile.md:11-13", "Warn: pipCommand not pinned by hash: .github/workflows/mkdocs-dev.yaml:24", "Warn: pipCommand not pinned by hash: .github/workflows/mkdocs-dev.yaml:25", "Warn: pipCommand not pinned by hash: .github/workflows/mkdocs-latest.yaml:26", "Warn: pipCommand not pinned by hash: .github/workflows/mkdocs-latest.yaml:27", "Warn: pipCommand not pinned by hash: .github/workflows/test.yaml:129"],
+		"documentation": {
+			"short": "Determines if the project has declared and pinned the dependencies of its build process.",
+			"url": "https://github.com/ossf/scorecard/blob/469216299ac3e161ebb995302ff8eb4ac43bb199/docs/checks.md#pinned-dependencies"
+		}
+	}]
+}

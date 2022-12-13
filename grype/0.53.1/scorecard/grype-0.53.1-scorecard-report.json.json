@@ -1,0 +1,173 @@
+{
+	"date": "2022-11-30",
+	"repo": {
+		"name": "github.com/anchore/grype",
+		"commit": "36c4604383b991d53537c6f2430da1f1d248e87d"
+	},
+	"scorecard": {
+		"version": "v4.8.0",
+		"commit": "c40859202d739b31fd060ac5b30d17326cd74275"
+	},
+	"score": 7.8,
+	"checks": [{
+		"name": "Binary-Artifacts",
+		"score": 9,
+		"reason": "binaries present in source code",
+		"details": ["Warn: binary detected: test/integration/test-fixtures/image-debian-match-coverage/java/example-java-app-maven-0.1.0.jar:1"],
+		"documentation": {
+			"short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#binary-artifacts"
+		}
+	}, {
+		"name": "Branch-Protection",
+		"score": -1,
+		"reason": "internal error: error during branchesHandler.setup: internal error: githubv4.Query: Resource not accessible by integration",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#branch-protection"
+		}
+	}, {
+		"name": "CI-Tests",
+		"score": 10,
+		"reason": "30 out of 30 merged PRs checked by a CI test -- score normalized to 10",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project runs tests before pull requests are merged.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#ci-tests"
+		}
+	}, {
+		"name": "CII-Best-Practices",
+		"score": 2,
+		"reason": "badge detected: in_progress",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has an OpenSSF (formerly CII) Best Practices Badge.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#cii-best-practices"
+		}
+	}, {
+		"name": "Code-Review",
+		"score": 10,
+		"reason": "30 out of last 30 changesets reviewed before merge -- score normalized to 10",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#code-review"
+		}
+	}, {
+		"name": "Contributors",
+		"score": 10,
+		"reason": "5 different organizations found -- score normalized to 10",
+		"details": ["Info: contributors work for anchore,bold-technologies,chainguard-dev,ptwikis,wiki-ai"],
+		"documentation": {
+			"short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#contributors"
+		}
+	}, {
+		"name": "Dangerous-Workflow",
+		"score": 10,
+		"reason": "no dangerous workflow patterns detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#dangerous-workflow"
+		}
+	}, {
+		"name": "Dependency-Update-Tool",
+		"score": 10,
+		"reason": "update tool detected",
+		"details": ["Info: Dependabot detected"],
+		"documentation": {
+			"short": "Determines if the project uses a dependency update tool.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#dependency-update-tool"
+		}
+	}, {
+		"name": "Fuzzing",
+		"score": 10,
+		"reason": "project is fuzzed with [OSSFuzz]",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project uses fuzzing.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#fuzzing"
+		}
+	}, {
+		"name": "License",
+		"score": 10,
+		"reason": "license file detected",
+		"details": ["Info: : LICENSE:1"],
+		"documentation": {
+			"short": "Determines if the project has defined a license.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#license"
+		}
+	}, {
+		"name": "Maintained",
+		"score": 10,
+		"reason": "30 commit(s) out of 30 and 0 issue activity out of 30 found in the last 90 days -- score normalized to 10",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project is \"actively maintained\".",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#maintained"
+		}
+	}, {
+		"name": "Packaging",
+		"score": -1,
+		"reason": "no published package detected",
+		"details": ["Warn: no GitHub publishing workflow detected"],
+		"documentation": {
+			"short": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#packaging"
+		}
+	}, {
+		"name": "Pinned-Dependencies",
+		"score": 7,
+		"reason": "dependency not pinned by hash detected -- score normalized to 7",
+		"details": ["Warn: containerImage not pinned by hash: test/cli/test-fixtures/image-java-subprocess/Dockerfile:1: pin your Docker image by updating openjdk to openjdk@sha256:d2c0bd4450268777610fab98fcf3ee713e5f2cc07180969893d7d99483fafa66", "Warn: containerImage not pinned by hash: test/cli/test-fixtures/image-node-subprocess/Dockerfile:1: pin your Docker image by updating node to node@sha256:a0976cffecd3fad1697615eb14542e25deb2234f3beb4448417bfe88585ca4f8", "Warn: containerImage not pinned by hash: test/install/environments/Dockerfile-alpine-3.6:1: pin your Docker image by updating alpine to alpine@sha256:8914eb54f968791faf6a8638949e480fef81e697984fba772b3976835194c6d4", "Warn: containerImage not pinned by hash: test/install/environments/Dockerfile-ubuntu-20.04:1: pin your Docker image by updating ubuntu to ubuntu@sha256:4b1d0c4a2d2aaf63b37111f34eb9fa89fa1bf53dd6e4ca954d47caebca4005c2", "Info: GitHub-owned GitHubActions are pinned", "Info: Third-party GitHubActions are pinned", "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles", "Info: no insecure (not pinned by hash) dependency downloads found in shell scripts"],
+		"documentation": {
+			"short": "Determines if the project has declared and pinned the dependencies of its build process.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#pinned-dependencies"
+		}
+	}, {
+		"name": "SAST",
+		"score": 7,
+		"reason": "SAST tool detected but not run on all commmits",
+		"details": ["Warn: 0 commits out of 30 are checked with a SAST tool", "Info: SAST tool detected: CodeQL"],
+		"documentation": {
+			"short": "Determines if the project uses static code analysis.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#sast"
+		}
+	}, {
+		"name": "Security-Policy",
+		"score": 10,
+		"reason": "security policy file detected",
+		"details": ["Info: security policy detected in current repo: SECURITY.md:1"],
+		"documentation": {
+			"short": "Determines if the project has published a security policy.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#security-policy"
+		}
+	}, {
+		"name": "Signed-Releases",
+		"reason": "0 out of 5 artifacts are signed or have provenance",
+		"details": ["Warn: release artifact v0.53.1 does not have provenance: https://api.github.com/repos/anchore/grype/releases/83781712", "Warn: release artifact v0.53.1 not signed: https://api.github.com/repos/anchore/grype/releases/83781712", "Warn: release artifact v0.53.0 does not have provenance: https://api.github.com/repos/anchore/grype/releases/83610395", "Warn: release artifact v0.53.0 not signed: https://api.github.com/repos/anchore/grype/releases/83610395", "Warn: release artifact v0.52.0 does not have provenance: https://api.github.com/repos/anchore/grype/releases/81985217", "Warn: release artifact v0.52.0 not signed: https://api.github.com/repos/anchore/grype/releases/81985217", "Warn: release artifact v0.51.0 does not have provenance: https://api.github.com/repos/anchore/grype/releases/80147367", "Warn: release artifact v0.51.0 not signed: https://api.github.com/repos/anchore/grype/releases/80147367", "Warn: release artifact v0.50.2 does not have provenance: https://api.github.com/repos/anchore/grype/releases/77697745", "Warn: release artifact v0.50.2 not signed: https://api.github.com/repos/anchore/grype/releases/77697745"],
+		"documentation": {
+			"short": "Determines if the project cryptographically signs release artifacts.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#signed-releases"
+		}
+	}, {
+		"name": "Token-Permissions",
+		"reason": "non read-only tokens detected in GitHub workflows",
+		"details": ["Info: topLevel 'contents' permission set to 'read': .github/workflows/codeql-analysis.yml:24: update your workflow using https://app.stepsecurity.io/secureworkflow/anchore/grype/codeql-analysis.yml/main?enable=permissions", "Info: topLevel 'packages' permission set to 'read': .github/workflows/release.yaml:17: update your workflow using https://app.stepsecurity.io/secureworkflow/anchore/grype/release.yaml/main?enable=permissions", "Info: topLevel 'contents' permission set to 'read': .github/workflows/release.yaml:16: update your workflow using https://app.stepsecurity.io/secureworkflow/anchore/grype/release.yaml/main?enable=permissions", "Warn: jobLevel 'packages' permission set to 'write': .github/workflows/release.yaml:172: update your workflow using https://app.stepsecurity.io/secureworkflow/anchore/grype/release.yaml/main?enable=permissions", "Info: topLevel permissions set to 'read-all': .github/workflows/scorecards.yml:9: update your workflow using https://app.stepsecurity.io/secureworkflow/anchore/grype/scorecards.yml/main?enable=permissions", "Info: topLevel 'contents' permission set to 'read': .github/workflows/update-bootstrap-tools.yml:13: update your workflow using https://app.stepsecurity.io/secureworkflow/anchore/grype/update-bootstrap-tools.yml/main?enable=permissions", "Info: topLevel 'contents' permission set to 'read': .github/workflows/update-syft-release.yml:13: update your workflow using https://app.stepsecurity.io/secureworkflow/anchore/grype/update-syft-release.yml/main?enable=permissions", "Info: topLevel 'contents' permission set to 'read': .github/workflows/validations.yaml:15: update your workflow using https://app.stepsecurity.io/secureworkflow/anchore/grype/validations.yaml/main?enable=permissions"],
+		"documentation": {
+			"short": "Determines if the project's workflows follow the principle of least privilege.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#token-permissions"
+		}
+	}, {
+		"name": "Vulnerabilities",
+		"score": 10,
+		"reason": "no vulnerabilities detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has open, known unfixed vulnerabilities.",
+			"url": "https://github.com/ossf/scorecard/blob/c40859202d739b31fd060ac5b30d17326cd74275/docs/checks.md#vulnerabilities"
+		}
+	}]
+}
