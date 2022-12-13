@@ -1,0 +1,155 @@
+{
+	"date": "2022-11-14",
+	"repo": {
+		"name": "github.com/grafana/grafana",
+		"commit": "b398e8640dffecadc9ee9744b44d45c6e7c98da8"
+	},
+	"scorecard": {
+		"version": "v4.8.0-62-g439f90a",
+		"commit": "439f90ac7d46379c876401d748feea4553a796c9"
+	},
+	"score": 7.6,
+	"checks": [{
+		"name": "Code-Review",
+		"score": 10,
+		"reason": "30 out of last 30 changesets reviewed before merge -- score normalized to 10",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#code-review"
+		}
+	}, {
+		"name": "Maintained",
+		"score": 10,
+		"reason": "30 commit(s) out of 30 and 6 issue activity out of 30 found in the last 90 days -- score normalized to 10",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project is \"actively maintained\".",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#maintained"
+		}
+	}, {
+		"name": "Vulnerabilities",
+		"score": 10,
+		"reason": "no vulnerabilities detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has open, known unfixed vulnerabilities.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#vulnerabilities"
+		}
+	}, {
+		"name": "CII-Best-Practices",
+		"score": 2,
+		"reason": "badge detected: in_progress",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has an OpenSSF (formerly CII) Best Practices Badge.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#cii-best-practices"
+		}
+	}, {
+		"name": "Signed-Releases",
+		"reason": "0 out of 5 artifacts are signed or have provenance",
+		"details": ["Warn: release artifact v9.2.5 does not have provenance: https://api.github.com/repos/grafana/grafana/releases/83299041", "Warn: release artifact v9.2.5 not signed: https://api.github.com/repos/grafana/grafana/releases/83299041", "Warn: release artifact v9.3.0-beta1 does not have provenance: https://api.github.com/repos/grafana/grafana/releases/83169591", "Warn: release artifact v9.3.0-beta1 not signed: https://api.github.com/repos/grafana/grafana/releases/83169591", "Warn: release artifact v9.2.4 does not have provenance: https://api.github.com/repos/grafana/grafana/releases/82393921", "Warn: release artifact v9.2.4 not signed: https://api.github.com/repos/grafana/grafana/releases/82393921", "Warn: release artifact v9.2.3 does not have provenance: https://api.github.com/repos/grafana/grafana/releases/81643125", "Warn: release artifact v9.2.3 not signed: https://api.github.com/repos/grafana/grafana/releases/81643125", "Warn: release artifact v9.2.2 does not have provenance: https://api.github.com/repos/grafana/grafana/releases/80922531", "Warn: release artifact v9.2.2 not signed: https://api.github.com/repos/grafana/grafana/releases/80922531"],
+		"documentation": {
+			"short": "Determines if the project cryptographically signs release artifacts.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#signed-releases"
+		}
+	}, {
+		"name": "Branch-Protection",
+		"score": 8,
+		"reason": "branch protection is not maximal on development and all release branches",
+		"details": ["Info: 'force pushes' disabled on branch 'main'", "Info: 'allow deletion' disabled on branch 'main'", "Info: status check found to merge onto on branch 'main'", "Warn: number of required reviewers is only 1 on branch 'main'", "Warn: codeowner review is not required on branch 'main'"],
+		"documentation": {
+			"short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#branch-protection"
+		}
+	}, {
+		"name": "Security-Policy",
+		"score": 10,
+		"reason": "security policy file detected",
+		"details": ["Info: Found linked content in security policy: SECURITY.md", "Info: Found text in security policy: SECURITY.md", "Info: Found disclosure, vulnerability, and/or timelines in security policy: SECURITY.md", "Info: security policy detected in current repo: SECURITY.md"],
+		"documentation": {
+			"short": "Determines if the project has published a security policy.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#security-policy"
+		}
+	}, {
+		"name": "License",
+		"score": 10,
+		"reason": "license file detected",
+		"details": ["Info: : LICENSE:1"],
+		"documentation": {
+			"short": "Determines if the project has defined a license.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#license"
+		}
+	}, {
+		"name": "Dangerous-Workflow",
+		"score": 10,
+		"reason": "no dangerous workflow patterns detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#dangerous-workflow"
+		}
+	}, {
+		"name": "Dependency-Update-Tool",
+		"score": 10,
+		"reason": "update tool detected",
+		"details": ["Info: Dependabot detected: .github/dependabot.yml:1"],
+		"documentation": {
+			"short": "Determines if the project uses a dependency update tool.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#dependency-update-tool"
+		}
+	}, {
+		"name": "Packaging",
+		"score": -1,
+		"reason": "no published package detected",
+		"details": ["Warn: no GitHub publishing workflow detected"],
+		"documentation": {
+			"short": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#packaging"
+		}
+	}, {
+		"name": "Token-Permissions",
+		"reason": "non read-only tokens detected in GitHub workflows",
+		"details": ["Warn: no topLevel permission defined: .github/workflows/backport.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/backport.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/bump-version.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/bump-version.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/close-milestone.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/close-milestone.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/cloud-data-sources-code-coverage.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/cloud-data-sources-code-coverage.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/codeql-analysis.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/codeql-analysis.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/commands.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/commands.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/detect-breaking-changes-build-skip.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/detect-breaking-changes-build-skip.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/detect-breaking-changes-build.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/detect-breaking-changes-build.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/detect-breaking-changes-report.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/detect-breaking-changes-report.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/doc-validator.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/doc-validator.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/enterprise-pr-check.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/enterprise-pr-check.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/github-release.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/github-release.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/issue-labeled.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/issue-labeled.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/metrics-collector.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/metrics-collector.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/milestone.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/milestone.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/ox-code-coverage.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/ox-code-coverage.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/pr-checks.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/pr-checks.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/pr-codeql-analysis-go.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/pr-codeql-analysis-go.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/pr-codeql-analysis-javascript.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/pr-codeql-analysis-javascript.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/pr-codeql-analysis-python.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/pr-codeql-analysis-python.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/pr-commands-closed.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/pr-commands-closed.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/pr-commands.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/pr-commands.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/publish.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/publish.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/remove-milestone.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/remove-milestone.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/sbom-report.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/sbom-report.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/stale.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/stale.yml/main?enable=permissions", "Warn: no topLevel permission defined: .github/workflows/update-changelog.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/grafana/grafana/update-changelog.yml/main?enable=permissions"],
+		"documentation": {
+			"short": "Determines if the project's workflows follow the principle of least privilege.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#token-permissions"
+		}
+	}, {
+		"name": "Pinned-Dependencies",
+		"score": -1,
+		"reason": "internal error: error parsing shell code: scripts/build/ci-wix/Dockerfile:1:30: a command can only contain words and redirects; encountered (",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has declared and pinned the dependencies of its build process.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#pinned-dependencies"
+		}
+	}, {
+		"name": "SAST",
+		"score": 5,
+		"reason": "SAST tool is not run on all commits -- score normalized to 5",
+		"details": ["Warn: 15 commits out of 30 are checked with a SAST tool", "Warn: CodeQL tool not detected"],
+		"documentation": {
+			"short": "Determines if the project uses static code analysis.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#sast"
+		}
+	}, {
+		"name": "Binary-Artifacts",
+		"score": 9,
+		"reason": "binaries present in source code",
+		"details": ["Warn: binary detected: scripts/go/bin/revive:1"],
+		"documentation": {
+			"short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#binary-artifacts"
+		}
+	}, {
+		"name": "Fuzzing",
+		"score": 10,
+		"reason": "project is fuzzed with [OSSFuzz]",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project uses fuzzing.",
+			"url": "https://github.com/ossf/scorecard/blob/439f90ac7d46379c876401d748feea4553a796c9/docs/checks.md#fuzzing"
+		}
+	}]
+}
