@@ -1,0 +1,154 @@
+{
+	"date": "2022-11-28",
+	"repo": {
+		"name": "github.com/apache/druid",
+		"commit": "edd076ca696e3ebcb45c4b0219440a50add9e13a"
+	},
+	"scorecard": {
+		"version": "v4.8.0-79-gd8fefc9",
+		"commit": "d8fefc9b246db3600c777e9d60d441d7c386ce1d"
+	},
+	"score": 7.3,
+	"checks": [{
+		"name": "Code-Review",
+		"score": 10,
+		"reason": "30 out of last 30 changesets reviewed before merge -- score normalized to 10",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#code-review"
+		}
+	}, {
+		"name": "Maintained",
+		"score": 10,
+		"reason": "30 commit(s) out of 30 and 1 issue activity out of 30 found in the last 90 days -- score normalized to 10",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project is \"actively maintained\".",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#maintained"
+		}
+	}, {
+		"name": "CII-Best-Practices",
+		"reason": "no badge detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has an OpenSSF (formerly CII) Best Practices Badge.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#cii-best-practices"
+		}
+	}, {
+		"name": "Vulnerabilities",
+		"score": 10,
+		"reason": "no vulnerabilities detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has open, known unfixed vulnerabilities.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#vulnerabilities"
+		}
+	}, {
+		"name": "Signed-Releases",
+		"score": -1,
+		"reason": "no releases found",
+		"details": ["Warn: no GitHub releases found"],
+		"documentation": {
+			"short": "Determines if the project cryptographically signs release artifacts.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#signed-releases"
+		}
+	}, {
+		"name": "Branch-Protection",
+		"score": 1,
+		"reason": "branch protection is not maximal on development and all release branches",
+		"details": ["Info: 'force pushes' disabled on branch 'master'", "Info: 'allow deletion' disabled on branch 'master'", "Warn: no status checks found to merge onto branch 'master'", "Warn: number of required reviewers is only 0 on branch 'master'", "Warn: codeowner review is not required on branch 'master'", "Warn: branch protection not enabled for branch '0.16.1-incubating'", "Warn: branch protection not enabled for branch '0.12.3'"],
+		"documentation": {
+			"short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#branch-protection"
+		}
+	}, {
+		"name": "License",
+		"score": 10,
+		"reason": "license file detected",
+		"details": ["Info: : .github/scripts/setup_generate_license.sh:1"],
+		"documentation": {
+			"short": "Determines if the project has defined a license.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#license"
+		}
+	}, {
+		"name": "Packaging",
+		"score": -1,
+		"reason": "no published package detected",
+		"details": ["Warn: no GitHub publishing workflow detected"],
+		"documentation": {
+			"short": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#packaging"
+		}
+	}, {
+		"name": "Dependency-Update-Tool",
+		"score": 10,
+		"reason": "update tool detected",
+		"details": ["Info: Dependabot detected: .github/dependabot.yml:1"],
+		"documentation": {
+			"short": "Determines if the project uses a dependency update tool.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#dependency-update-tool"
+		}
+	}, {
+		"name": "Dangerous-Workflow",
+		"score": 10,
+		"reason": "no dangerous workflow patterns detected",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#dangerous-workflow"
+		}
+	}, {
+		"name": "Token-Permissions",
+		"reason": "non read-only tokens detected in GitHub workflows",
+		"details": ["Warn: no topLevel permission defined: .github/workflows/static-checks.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=permissions"],
+		"documentation": {
+			"short": "Determines if the project's workflows follow the principle of least privilege.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#token-permissions"
+		}
+	}, {
+		"name": "SAST",
+		"score": 10,
+		"reason": "SAST tool is run on all commits",
+		"details": ["Info: all commits (30) are checked with a SAST tool", "Warn: CodeQL tool not detected"],
+		"documentation": {
+			"short": "Determines if the project uses static code analysis.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#sast"
+		}
+	}, {
+		"name": "Fuzzing",
+		"reason": "project is not fuzzed",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project uses fuzzing.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#fuzzing"
+		}
+	}, {
+		"name": "Binary-Artifacts",
+		"score": 10,
+		"reason": "no binaries found in the repo",
+		"details": null,
+		"documentation": {
+			"short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#binary-artifacts"
+		}
+	}, {
+		"name": "Security-Policy",
+		"score": 10,
+		"reason": "security policy file detected",
+		"details": ["Info: Found linked content in security policy: github.com/apache/.github/.github/SECURITY.md", "Info: Found text in security policy: github.com/apache/.github/.github/SECURITY.md", "Info: Found disclosure, vulnerability, and/or timelines in security policy: github.com/apache/.github/.github/SECURITY.md", "Info: security policy detected in org repo: github.com/apache/.github/.github/SECURITY.md"],
+		"documentation": {
+			"short": "Determines if the project has published a security policy.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#security-policy"
+		}
+	}, {
+		"name": "Pinned-Dependencies",
+		"score": 7,
+		"reason": "dependency not pinned by hash detected -- score normalized to 7",
+		"details": ["Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:96: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:98: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:138: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:140: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:57: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:59: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:83: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:85: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:109: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:111: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:122: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:124: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:158: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:169: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:171: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:183: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:185: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:41: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:43: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:70: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/static-checks.yml:72: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/druid/static-checks.yml/master?enable=pin", "Warn: containerImage not pinned by hash: distribution/docker/Dockerfile:26: pin your Docker image by updating maven:3.8.6-jdk-11-slim to maven:3.8.6-jdk-11-slim@sha256:2cb7c73ba2fd0f7ae64cfabd99180030ec85841a1197b4ae821d21836cb0aa3b", "Warn: containerImage not pinned by hash: distribution/docker/Dockerfile:52: pin your Docker image by updating busybox:1.35.0-glibc to busybox:1.35.0-glibc@sha256:c148f117b8f4141a435a98c93d9c615e603afc5d100e80b747e8ef5f1b0774e1", "Warn: containerImage not pinned by hash: distribution/docker/Dockerfile:54", "Warn: containerImage not pinned by hash: distribution/docker/Dockerfile.mariadb:21", "Warn: containerImage not pinned by hash: distribution/docker/Dockerfile.mysql:21", "Warn: containerImage not pinned by hash: distribution/docker/DockerfileBuildTarAdvanced:22", "Warn: containerImage not pinned by hash: examples/quickstart/tutorial/hadoop/docker/Dockerfile:18: pin your Docker image by updating centos to centos@sha256:a27fd8080b517143cbbbab9dfb7c8571c40d67d534bbdee55bd6c473f432b177", "Warn: containerImage not pinned by hash: examples/quickstart/tutorial/hadoop3/docker/Dockerfile:18: pin your Docker image by updating centos to centos@sha256:a27fd8080b517143cbbbab9dfb7c8571c40d67d534bbdee55bd6c473f432b177", "Warn: containerImage not pinned by hash: integration-tests-ex/image/docker/Dockerfile:37: pin your Docker image by updating openjdk to openjdk@sha256:d696170b024866d67864c6ae8b0fe2557177d225bca10d507cc7956947224658", "Warn: containerImage not pinned by hash: integration-tests/docker/Dockerfile:17", "Warn: containerImage not pinned by hash: integration-tests/docker/Dockerfile:30", "Warn: pipCommand not pinned by hash: .github/scripts/setup_generate_license.sh:18", "Warn: pipCommand not pinned by hash: .github/scripts/setup_generate_license.sh:19", "Info: Third-party GitHubActions are pinned", "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles", "Info: no insecure (not pinned by hash) dependency downloads found in shell scripts"],
+		"documentation": {
+			"short": "Determines if the project has declared and pinned the dependencies of its build process.",
+			"url": "https://github.com/ossf/scorecard/blob/d8fefc9b246db3600c777e9d60d441d7c386ce1d/docs/checks.md#pinned-dependencies"
+		}
+	}]
+}
