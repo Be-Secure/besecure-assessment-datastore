@@ -1,4 +1,4 @@
-# BeS Assessement DataStore
+# BeS Assessment DataStore
 
 BeS DataStore include assessment conducted on the latest version of Open Source Projects of Interest (OSSPoI ) for the BeS Community.
 
