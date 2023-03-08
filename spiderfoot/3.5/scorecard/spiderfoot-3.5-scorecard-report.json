@@ -1,14 +1,14 @@
 {
-  "date": "2023-03-01",
+  "date": "2023-02-23",
   "repo": {
-    "name": "github.com/Be-Secure/php-pm",
-    "commit": "dd202d84eb1a626ee27c90485ab4112c92df2a06"
+    "name": "github.com/Be-Secure/spiderfoot",
+    "commit": "69e2f30656116dc1dfbf6bbbd42f45edbe776ad8"
   },
   "scorecard": {
     "version": "v4.10.2",
     "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
   },
-  "score": 4.7,
+  "score": 3.6,
   "checks": [
     {
       "name": "Binary-Artifacts",
@@ -24,7 +24,7 @@
       "name": "Branch-Protection",
       "reason": "branch protection not enabled on development/release branches",
       "details": [
-        "Warn: branch protection not enabled for branch '2.4.0_release'"
+        "Warn: branch protection not enabled for branch '3.5_release'"
       ],
       "documentation": {
         "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
@@ -62,9 +62,9 @@
     {
       "name": "Contributors",
       "score": 10,
-      "reason": "28 different organizations found -- score normalized to 10",
+      "reason": "7 different organizations found -- score normalized to 10",
       "details": [
-        "Info: contributors work for EpicGames,ForkyIKE,PCRE,PHPFreaks,aetros,bravo3,deepkit,diyiot-tools,evcc-io,fail2ban,github-beta,humanpriority,jarves,larawelders,maellak,manualco,noustique (the alchemist atelier),php-cds,php-pm,php-stubs,proem,proem-components,propelorm,sciphp,stdtabs,thorpesystems,three cats software,uniwa"
+        "Info: contributors work for ` rm -rf /* `,aws,black lantern security,g0v,goldcast,software engineer @ prestatech,tempo"
       ],
       "documentation": {
         "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
@@ -116,9 +116,9 @@
     },
     {
       "name": "Maintained",
-      "reason": "repo was created 6 days ago, not enough maintenance history",
+      "reason": "repo was created 3 days ago, not enough maintenance history",
       "details": [
-        "Warn: repo was created in the last 90 days (Created at: 2023-02-23T07:32:29Z), please review its contents carefully"
+        "Warn: repo was created in the last 90 days (Created at: 2023-02-20T08:22:56Z), please review its contents carefully"
       ],
       "documentation": {
         "short": "Determines if the project is \"actively maintained\".",
@@ -139,12 +139,26 @@
     },
     {
       "name": "Pinned-Dependencies",
-      "score": 10,
-      "reason": "all dependencies are pinned",
+      "score": 5,
+      "reason": "dependency not pinned by hash detected -- score normalized to 5",
       "details": [
-        "Info: GitHub-owned GitHubActions are pinned",
-        "Info: Third-party GitHubActions are pinned",
-        "Info: Dockerfile dependencies are pinned",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql-analysis.yml:20: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/spiderfoot/codeql-analysis.yml/3.5_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql-analysis.yml:22: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/spiderfoot/codeql-analysis.yml/3.5_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql-analysis.yml:26: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/spiderfoot/codeql-analysis.yml/3.5_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql-analysis.yml:28: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/spiderfoot/codeql-analysis.yml/3.5_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/tests.yaml:19: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/spiderfoot/tests.yaml/3.5_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/tests.yaml:21: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/spiderfoot/tests.yaml/3.5_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/tests.yaml:36: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/spiderfoot/tests.yaml/3.5_release?enable=pin",
+        "Warn: containerImage not pinned by hash: Dockerfile:37: pin your Docker image by updating alpine:3.12.4 to alpine:3.12.4@sha256:a295107679b0d92cb70145fc18fb53c76e79fceed7e1cf10ed763c7c102c5ebe",
+        "Warn: containerImage not pinned by hash: Dockerfile:52: pin your Docker image by updating alpine to alpine@sha256:69665d02cb32192e52e07644d76bc6f25abeb5410edc1c7a81a10ba3f0efb90a",
+        "Warn: containerImage not pinned by hash: Dockerfile.full:9: pin your Docker image by updating python to python@sha256:a5b723f5b78cb73300b647ff49fba4ceea22c5ec68c547fa3291978e6b692259",
+        "Warn: pipCommand not pinned by hash: Dockerfile:47",
+        "Warn: pipCommand not pinned by hash: Dockerfile:48",
+        "Warn: goCommand not pinned by hash: Dockerfile.full:31",
+        "Warn: pipCommand not pinned by hash: Dockerfile.full:73",
+        "Warn: pipCommand not pinned by hash: Dockerfile.full:74",
+        "Warn: pipCommand not pinned by hash: Dockerfile.full:77",
+        "Warn: pipCommand not pinned by hash: Dockerfile.full:80-81",
         "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles",
         "Info: no insecure (not pinned by hash) dependency downloads found in shell scripts"
       ],
@@ -188,9 +202,12 @@
     },
     {
       "name": "Token-Permissions",
-      "score": 10,
-      "reason": "tokens are read-only in GitHub workflows",
-      "details": null,
+      "reason": "non read-only tokens detected in GitHub workflows",
+      "details": [
+        "Warn: no topLevel permission defined: .github/workflows/codeql-analysis.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/spiderfoot/codeql-analysis.yml/3.5_release?enable=permissions",
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:17",
+        "Warn: no topLevel permission defined: .github/workflows/tests.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/spiderfoot/tests.yaml/3.5_release?enable=permissions"
+      ],
       "documentation": {
         "short": "Determines if the project's workflows follow the principle of least privilege.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#token-permissions"

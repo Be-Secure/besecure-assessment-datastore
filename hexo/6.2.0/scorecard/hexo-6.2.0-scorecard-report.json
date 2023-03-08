@@ -1,14 +1,14 @@
 {
-  "date": "2023-03-01",
+  "date": "2023-02-27",
   "repo": {
-    "name": "github.com/Be-Secure/php-pm",
-    "commit": "dd202d84eb1a626ee27c90485ab4112c92df2a06"
+    "name": "github.com/Be-Secure/hexo",
+    "commit": "4e92834e9d8ddef5fae64420bd975ada2ac11b0f"
   },
   "scorecard": {
     "version": "v4.10.2",
     "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
   },
-  "score": 4.7,
+  "score": 4.6,
   "checks": [
     {
       "name": "Binary-Artifacts",
@@ -24,7 +24,7 @@
       "name": "Branch-Protection",
       "reason": "branch protection not enabled on development/release branches",
       "details": [
-        "Warn: branch protection not enabled for branch '2.4.0_release'"
+        "Warn: branch protection not enabled for branch '6.2.0_release'"
       ],
       "documentation": {
         "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
@@ -62,9 +62,9 @@
     {
       "name": "Contributors",
       "score": 10,
-      "reason": "28 different organizations found -- score normalized to 10",
+      "reason": "44 different organizations found -- score normalized to 10",
       "details": [
-        "Info: contributors work for EpicGames,ForkyIKE,PCRE,PHPFreaks,aetros,bravo3,deepkit,diyiot-tools,evcc-io,fail2ban,github-beta,humanpriority,jarves,larawelders,maellak,manualco,noustique (the alchemist atelier),php-cds,php-pm,php-stubs,proem,proem-components,propelorm,sciphp,stdtabs,thorpesystems,three cats software,uniwa"
+        "Info: contributors work for AimonaStudio,BejDev,Dcard,DimensionDev,HMUniversity,ISU-WebDevClub,JSCIG,LGBT-CN,LemonVM,MoeFE,OpenIPDB,PDFE,ProgramLeague,Py-Contributors,SukkaLab,The-Run-Philosophy-Organization,University-of-Bread,Vibrant-Colors,an it company,archlinuxcn,beyondstorage,bread-os,coveraje,darukjs,datafuselabs,dcard,dream-navigator,hacktku,hexojs,hexojs @sspanel-uim @openipdb,infra-design,klugesoftware gmbh,mozilla-japan,n/a,next-theme,nodejs,pkuphysu,slidedown,sspanel-uim,tc39,theme-suka,tikv,toeverything,tsinghua university"
       ],
       "documentation": {
         "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
@@ -83,9 +83,10 @@
     },
     {
       "name": "Dependency-Update-Tool",
-      "reason": "no update tool detected",
+      "score": 10,
+      "reason": "update tool detected",
       "details": [
-        "Warn: Config file not detected in source location for dependabot, renovatebot, Sonatype Lift, or\n\t\t\tPyUp (Python). We recommend setting this configuration in code so it can be easily verified by others."
+        "Info: Dependabot detected: .github/dependabot.yml:1"
       ],
       "documentation": {
         "short": "Determines if the project uses a dependency update tool.",
@@ -116,9 +117,9 @@
     },
     {
       "name": "Maintained",
-      "reason": "repo was created 6 days ago, not enough maintenance history",
+      "reason": "repo was created 4 days ago, not enough maintenance history",
       "details": [
-        "Warn: repo was created in the last 90 days (Created at: 2023-02-23T07:32:29Z), please review its contents carefully"
+        "Warn: repo was created in the last 90 days (Created at: 2023-02-23T07:25:10Z), please review its contents carefully"
       ],
       "documentation": {
         "short": "Determines if the project is \"actively maintained\".",
@@ -139,11 +140,25 @@
     },
     {
       "name": "Pinned-Dependencies",
-      "score": 10,
-      "reason": "all dependencies are pinned",
+      "score": 7,
+      "reason": "dependency not pinned by hash detected -- score normalized to 7",
       "details": [
-        "Info: GitHub-owned GitHubActions are pinned",
-        "Info: Third-party GitHubActions are pinned",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/benchmark.yml:22: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/benchmark.yml/6.2.0_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/benchmark.yml:24: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/benchmark.yml/6.2.0_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/benchmark.yml:39: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/benchmark.yml/6.2.0_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/benchmark.yml:41: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/benchmark.yml/6.2.0_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/benchmark.yml:49: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/benchmark.yml/6.2.0_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/benchmark.yml:56: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/benchmark.yml/6.2.0_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/commenter.yml:10: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/commenter.yml/6.2.0_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/linter.yml:9: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/linter.yml/6.2.0_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/linter.yml:11: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/linter.yml/6.2.0_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/release-drafter.yml:12: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/release-drafter.yml/6.2.0_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/tester.yml:14: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/tester.yml/6.2.0_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/tester.yml:16: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/tester.yml/6.2.0_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/tester.yml:32: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/tester.yml/6.2.0_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/tester.yml:34: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/tester.yml/6.2.0_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/tester.yml:44: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/tester.yml/6.2.0_release?enable=pin",
+        "Warn: npmCommand not pinned by hash: .github/workflows/linter.yml:16",
         "Info: Dockerfile dependencies are pinned",
         "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles",
         "Info: no insecure (not pinned by hash) dependency downloads found in shell scripts"
@@ -188,9 +203,15 @@
     },
     {
       "name": "Token-Permissions",
-      "score": 10,
-      "reason": "tokens are read-only in GitHub workflows",
-      "details": null,
+      "reason": "non read-only tokens detected in GitHub workflows",
+      "details": [
+        "Warn: no topLevel permission defined: .github/workflows/benchmark.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/benchmark.yml/6.2.0_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/commenter.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/commenter.yml/6.2.0_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/linter.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/linter.yml/6.2.0_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/release-drafter.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/release-drafter.yml/6.2.0_release?enable=permissions",
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:17",
+        "Warn: no topLevel permission defined: .github/workflows/tester.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/hexo/tester.yml/6.2.0_release?enable=permissions"
+      ],
       "documentation": {
         "short": "Determines if the project's workflows follow the principle of least privilege.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#token-permissions"

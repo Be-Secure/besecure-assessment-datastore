@@ -1,14 +1,14 @@
 {
-  "date": "2023-03-01",
+  "date": "2023-03-02",
   "repo": {
-    "name": "github.com/Be-Secure/php-pm",
-    "commit": "dd202d84eb1a626ee27c90485ab4112c92df2a06"
+    "name": "github.com/Be-Secure/kaa",
+    "commit": "6b5e4eb152e972f8e99dabfb0df17c61b8d92c6e"
   },
   "scorecard": {
     "version": "v4.10.2",
     "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
   },
-  "score": 4.7,
+  "score": 4.4,
   "checks": [
     {
       "name": "Binary-Artifacts",
@@ -24,7 +24,7 @@
       "name": "Branch-Protection",
       "reason": "branch protection not enabled on development/release branches",
       "details": [
-        "Warn: branch protection not enabled for branch '2.4.0_release'"
+        "Warn: branch protection not enabled for branch '1.4.13_release'"
       ],
       "documentation": {
         "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
@@ -62,9 +62,9 @@
     {
       "name": "Contributors",
       "score": 10,
-      "reason": "28 different organizations found -- score normalized to 10",
+      "reason": "6 different organizations found -- score normalized to 10",
       "details": [
-        "Info: contributors work for EpicGames,ForkyIKE,PCRE,PHPFreaks,aetros,bravo3,deepkit,diyiot-tools,evcc-io,fail2ban,github-beta,humanpriority,jarves,larawelders,maellak,manualco,noustique (the alchemist atelier),php-cds,php-pm,php-stubs,proem,proem-components,propelorm,sciphp,stdtabs,thorpesystems,three cats software,uniwa"
+        "Info: contributors work for NixOS,kaaproject,maxlab,n/a,theCore-embedded,thingsboard"
       ],
       "documentation": {
         "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
@@ -103,12 +103,8 @@
     },
     {
       "name": "License",
-      "score": 10,
-      "reason": "license file detected",
-      "details": [
-        "Info: License file found in expected location: LICENSE:1",
-        "Info: FSF or OSI recognized license: LICENSE:1"
-      ],
+      "reason": "license file not detected",
+      "details": null,
       "documentation": {
         "short": "Determines if the project has defined a license.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#license"
@@ -116,10 +112,8 @@
     },
     {
       "name": "Maintained",
-      "reason": "repo was created 6 days ago, not enough maintenance history",
-      "details": [
-        "Warn: repo was created in the last 90 days (Created at: 2023-02-23T07:32:29Z), please review its contents carefully"
-      ],
+      "reason": "1 commit(s) out of 30 and 0 issue activity out of 0 found in the last 90 days -- score normalized to 0",
+      "details": null,
       "documentation": {
         "short": "Determines if the project is \"actively maintained\".",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#maintained"
@@ -190,7 +184,9 @@
       "name": "Token-Permissions",
       "score": 10,
       "reason": "tokens are read-only in GitHub workflows",
-      "details": null,
+      "details": [
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:17"
+      ],
       "documentation": {
         "short": "Determines if the project's workflows follow the principle of least privilege.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#token-permissions"

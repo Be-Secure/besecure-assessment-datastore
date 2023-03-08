@@ -1,14 +1,14 @@
 {
-  "date": "2023-03-01",
+  "date": "2023-02-23",
   "repo": {
-    "name": "github.com/Be-Secure/php-pm",
-    "commit": "dd202d84eb1a626ee27c90485ab4112c92df2a06"
+    "name": "github.com/Be-Secure/codeclimate",
+    "commit": "f8f34a204193f4733387c965ab69e6d90407c10c"
   },
   "scorecard": {
     "version": "v4.10.2",
     "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
   },
-  "score": 4.7,
+  "score": 4.1,
   "checks": [
     {
       "name": "Binary-Artifacts",
@@ -24,7 +24,7 @@
       "name": "Branch-Protection",
       "reason": "branch protection not enabled on development/release branches",
       "details": [
-        "Warn: branch protection not enabled for branch '2.4.0_release'"
+        "Warn: branch protection not enabled for branch 'v0.90.0_release'"
       ],
       "documentation": {
         "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
@@ -62,9 +62,9 @@
     {
       "name": "Contributors",
       "score": 10,
-      "reason": "28 different organizations found -- score normalized to 10",
+      "reason": "24 different organizations found -- score normalized to 10",
       "details": [
-        "Info: contributors work for EpicGames,ForkyIKE,PCRE,PHPFreaks,aetros,bravo3,deepkit,diyiot-tools,evcc-io,fail2ban,github-beta,humanpriority,jarves,larawelders,maellak,manualco,noustique (the alchemist atelier),php-cds,php-pm,php-stubs,proem,proem-components,propelorm,sciphp,stdtabs,thorpesystems,three cats software,uniwa"
+        "Info: contributors work for ArtCatOpenSource,amazon web services,archlinux-downgrade,artsy,betterment,code climate,codeclimate,custommade,dracula,freckle,github,hardscrabble,nytimes,nytm,prawnpdf,railsbridge-nyc,reify,restyled-io,rubinius,rubysec,stripe,súper,wyeworks,yesodweb"
       ],
       "documentation": {
         "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
@@ -116,9 +116,9 @@
     },
     {
       "name": "Maintained",
-      "reason": "repo was created 6 days ago, not enough maintenance history",
+      "reason": "repo was created 3 days ago, not enough maintenance history",
       "details": [
-        "Warn: repo was created in the last 90 days (Created at: 2023-02-23T07:32:29Z), please review its contents carefully"
+        "Warn: repo was created in the last 90 days (Created at: 2023-02-20T04:49:48Z), please review its contents carefully"
       ],
       "documentation": {
         "short": "Determines if the project is \"actively maintained\".",
@@ -139,12 +139,12 @@
     },
     {
       "name": "Pinned-Dependencies",
-      "score": 10,
-      "reason": "all dependencies are pinned",
+      "score": 7,
+      "reason": "dependency not pinned by hash detected -- score normalized to 7",
       "details": [
+        "Warn: containerImage not pinned by hash: Dockerfile:1: pin your Docker image by updating alpine to alpine@sha256:69665d02cb32192e52e07644d76bc6f25abeb5410edc1c7a81a10ba3f0efb90a",
         "Info: GitHub-owned GitHubActions are pinned",
         "Info: Third-party GitHubActions are pinned",
-        "Info: Dockerfile dependencies are pinned",
         "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles",
         "Info: no insecure (not pinned by hash) dependency downloads found in shell scripts"
       ],
@@ -190,7 +190,9 @@
       "name": "Token-Permissions",
       "score": 10,
       "reason": "tokens are read-only in GitHub workflows",
-      "details": null,
+      "details": [
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:17"
+      ],
       "documentation": {
         "short": "Determines if the project's workflows follow the principle of least privilege.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#token-permissions"
@@ -198,8 +200,8 @@
     },
     {
       "name": "Vulnerabilities",
-      "score": 10,
-      "reason": "no vulnerabilities detected",
+      "score": -1,
+      "reason": "internal error: vulnerabilitiesClient.ListUnfixedVulnerabilities: osvscanner.DoScan: vulnerabilities found",
       "details": null,
       "documentation": {
         "short": "Determines if the project has open, known unfixed vulnerabilities.",

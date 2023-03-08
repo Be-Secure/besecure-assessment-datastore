@@ -1,14 +1,14 @@
 {
-  "date": "2023-03-01",
+  "date": "2023-02-27",
   "repo": {
-    "name": "github.com/Be-Secure/php-pm",
-    "commit": "dd202d84eb1a626ee27c90485ab4112c92df2a06"
+    "name": "github.com/Be-Secure/espocrm",
+    "commit": "2ecd58a1011c4afdcaae55d2298cfa3a7b528b4f"
   },
   "scorecard": {
     "version": "v4.10.2",
     "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
   },
-  "score": 4.7,
+  "score": 3.8,
   "checks": [
     {
       "name": "Binary-Artifacts",
@@ -24,7 +24,7 @@
       "name": "Branch-Protection",
       "reason": "branch protection not enabled on development/release branches",
       "details": [
-        "Warn: branch protection not enabled for branch '2.4.0_release'"
+        "Warn: branch protection not enabled for branch '7.1.10_release'"
       ],
       "documentation": {
         "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
@@ -62,9 +62,9 @@
     {
       "name": "Contributors",
       "score": 10,
-      "reason": "28 different organizations found -- score normalized to 10",
+      "reason": "5 different organizations found -- score normalized to 10",
       "details": [
-        "Info: contributors work for EpicGames,ForkyIKE,PCRE,PHPFreaks,aetros,bravo3,deepkit,diyiot-tools,evcc-io,fail2ban,github-beta,humanpriority,jarves,larawelders,maellak,manualco,noustique (the alchemist atelier),php-cds,php-pm,php-stubs,proem,proem-components,propelorm,sciphp,stdtabs,thorpesystems,three cats software,uniwa"
+        "Info: contributors work for dubas-pro,eblasoft,espocrm,forestsoftgmbh,smartpointers"
       ],
       "documentation": {
         "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
@@ -106,8 +106,8 @@
       "score": 10,
       "reason": "license file detected",
       "details": [
-        "Info: License file found in expected location: LICENSE:1",
-        "Info: FSF or OSI recognized license: LICENSE:1"
+        "Info: License file found in expected location: LICENSE.txt:1",
+        "Info: FSF or OSI recognized license: LICENSE.txt:1"
       ],
       "documentation": {
         "short": "Determines if the project has defined a license.",
@@ -116,9 +116,9 @@
     },
     {
       "name": "Maintained",
-      "reason": "repo was created 6 days ago, not enough maintenance history",
+      "reason": "repo was created 4 days ago, not enough maintenance history",
       "details": [
-        "Warn: repo was created in the last 90 days (Created at: 2023-02-23T07:32:29Z), please review its contents carefully"
+        "Warn: repo was created in the last 90 days (Created at: 2023-02-23T07:23:00Z), please review its contents carefully"
       ],
       "documentation": {
         "short": "Determines if the project is \"actively maintained\".",
@@ -139,11 +139,15 @@
     },
     {
       "name": "Pinned-Dependencies",
-      "score": 10,
-      "reason": "all dependencies are pinned",
+      "score": 7,
+      "reason": "dependency not pinned by hash detected -- score normalized to 7",
       "details": [
-        "Info: GitHub-owned GitHubActions are pinned",
-        "Info: Third-party GitHubActions are pinned",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test-integration.yml:35: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/espocrm/test-integration.yml/7.1.10_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test-integration.yml:40: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/espocrm/test-integration.yml/7.1.10_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/test-integration.yml:45: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/espocrm/test-integration.yml/7.1.10_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/test.yml:32: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/espocrm/test.yml/7.1.10_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/test.yml:35: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/espocrm/test.yml/7.1.10_release?enable=pin",
+        "Warn: npmCommand not pinned by hash: .github/workflows/test-integration.yml:59",
         "Info: Dockerfile dependencies are pinned",
         "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles",
         "Info: no insecure (not pinned by hash) dependency downloads found in shell scripts"
@@ -167,8 +171,14 @@
     },
     {
       "name": "Security-Policy",
-      "reason": "security policy file not detected",
-      "details": null,
+      "score": 10,
+      "reason": "security policy file detected",
+      "details": [
+        "Info: Found linked content in security policy: .github/SECURITY.md",
+        "Info: Found text in security policy: .github/SECURITY.md",
+        "Info: Found disclosure, vulnerability, and/or timelines in security policy: .github/SECURITY.md",
+        "Info: security policy detected in current repo: .github/SECURITY.md"
+      ],
       "documentation": {
         "short": "Determines if the project has published a security policy.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#security-policy"
@@ -188,9 +198,12 @@
     },
     {
       "name": "Token-Permissions",
-      "score": 10,
-      "reason": "tokens are read-only in GitHub workflows",
-      "details": null,
+      "reason": "non read-only tokens detected in GitHub workflows",
+      "details": [
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:17",
+        "Warn: no topLevel permission defined: .github/workflows/test-integration.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/espocrm/test-integration.yml/7.1.10_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/test.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/espocrm/test.yml/7.1.10_release?enable=permissions"
+      ],
       "documentation": {
         "short": "Determines if the project's workflows follow the principle of least privilege.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#token-permissions"
@@ -198,8 +211,8 @@
     },
     {
       "name": "Vulnerabilities",
-      "score": 10,
-      "reason": "no vulnerabilities detected",
+      "score": -1,
+      "reason": "internal error: vulnerabilitiesClient.ListUnfixedVulnerabilities: osvscanner.DoScan: vulnerabilities found",
       "details": null,
       "documentation": {
         "short": "Determines if the project has open, known unfixed vulnerabilities.",
