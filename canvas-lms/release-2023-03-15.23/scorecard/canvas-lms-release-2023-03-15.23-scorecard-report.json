@@ -1,14 +1,14 @@
 {
   "date": "2023-03-01",
   "repo": {
-    "name": "github.com/Be-Secure/php-pm",
-    "commit": "dd202d84eb1a626ee27c90485ab4112c92df2a06"
+    "name": "github.com/Be-Secure/canvas-lms",
+    "commit": "880a608a5511da5404bd0c1015d933072aad4b80"
   },
   "scorecard": {
     "version": "v4.10.2",
     "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
   },
-  "score": 4.7,
+  "score": 4.6,
   "checks": [
     {
       "name": "Binary-Artifacts",
@@ -24,7 +24,7 @@
       "name": "Branch-Protection",
       "reason": "branch protection not enabled on development/release branches",
       "details": [
-        "Warn: branch protection not enabled for branch '2.4.0_release'"
+        "Warn: branch protection not enabled for branch 'release/2023-03-15.23_release'"
       ],
       "documentation": {
         "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
@@ -52,7 +52,8 @@
     },
     {
       "name": "Code-Review",
-      "reason": "0 out of last 30 changesets reviewed before merge -- score normalized to 0",
+      "score": 8,
+      "reason": "25 out of last 30 changesets reviewed before merge -- score normalized to 8",
       "details": null,
       "documentation": {
         "short": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
@@ -62,9 +63,9 @@
     {
       "name": "Contributors",
       "score": 10,
-      "reason": "28 different organizations found -- score normalized to 10",
+      "reason": "18 different organizations found -- score normalized to 10",
       "details": [
-        "Info: contributors work for EpicGames,ForkyIKE,PCRE,PHPFreaks,aetros,bravo3,deepkit,diyiot-tools,evcc-io,fail2ban,github-beta,humanpriority,jarves,larawelders,maellak,manualco,noustique (the alchemist atelier),php-cds,php-pm,php-stubs,proem,proem-components,propelorm,sciphp,stdtabs,thorpesystems,three cats software,uniwa"
+        "Info: contributors work for 12spokes,JATC-North,LumioHX,Netflix,NetflixUI,derivita,derivita (@derivita),get-bridge,ims global,instructure,instructure-react,journeyable,lumio,lumiohx,netflix,plaid,urug,whatwg"
       ],
       "documentation": {
         "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
@@ -118,7 +119,7 @@
       "name": "Maintained",
       "reason": "repo was created 6 days ago, not enough maintenance history",
       "details": [
-        "Warn: repo was created in the last 90 days (Created at: 2023-02-23T07:32:29Z), please review its contents carefully"
+        "Warn: repo was created in the last 90 days (Created at: 2023-02-22T10:29:24Z), please review its contents carefully"
       ],
       "documentation": {
         "short": "Determines if the project is \"actively maintained\".",
@@ -139,15 +140,9 @@
     },
     {
       "name": "Pinned-Dependencies",
-      "score": 10,
-      "reason": "all dependencies are pinned",
-      "details": [
-        "Info: GitHub-owned GitHubActions are pinned",
-        "Info: Third-party GitHubActions are pinned",
-        "Info: Dockerfile dependencies are pinned",
-        "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles",
-        "Info: no insecure (not pinned by hash) dependency downloads found in shell scripts"
-      ],
+      "score": -1,
+      "reason": "internal error: internal error: invalid Dockerfile: Syntax error - can't find = in \"\\\"production\\\"\". Must be of the form: name=value",
+      "details": null,
       "documentation": {
         "short": "Determines if the project has declared and pinned the dependencies of its build process.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#pinned-dependencies"
@@ -190,7 +185,9 @@
       "name": "Token-Permissions",
       "score": 10,
       "reason": "tokens are read-only in GitHub workflows",
-      "details": null,
+      "details": [
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:17"
+      ],
       "documentation": {
         "short": "Determines if the project's workflows follow the principle of least privilege.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#token-permissions"
@@ -198,8 +195,8 @@
     },
     {
       "name": "Vulnerabilities",
-      "score": 10,
-      "reason": "no vulnerabilities detected",
+      "score": -1,
+      "reason": "internal error: vulnerabilitiesClient.ListUnfixedVulnerabilities: osvscanner.DoScan: vulnerabilities found",
       "details": null,
       "documentation": {
         "short": "Determines if the project has open, known unfixed vulnerabilities.",

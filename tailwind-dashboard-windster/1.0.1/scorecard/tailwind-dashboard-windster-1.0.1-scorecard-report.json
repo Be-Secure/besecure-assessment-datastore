@@ -1,8 +1,8 @@
 {
-  "date": "2023-03-01",
+  "date": "2023-02-23",
   "repo": {
-    "name": "github.com/Be-Secure/php-pm",
-    "commit": "dd202d84eb1a626ee27c90485ab4112c92df2a06"
+    "name": "github.com/Be-Secure/tailwind-dashboard-windster",
+    "commit": "a767b0f50733ccf19c822e644cf1fc73bc0a5ad4"
   },
   "scorecard": {
     "version": "v4.10.2",
@@ -24,7 +24,7 @@
       "name": "Branch-Protection",
       "reason": "branch protection not enabled on development/release branches",
       "details": [
-        "Warn: branch protection not enabled for branch '2.4.0_release'"
+        "Warn: branch protection not enabled for branch '1.0.1_release'"
       ],
       "documentation": {
         "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
@@ -62,9 +62,9 @@
     {
       "name": "Contributors",
       "score": 10,
-      "reason": "28 different organizations found -- score normalized to 10",
+      "reason": "3 different organizations found -- score normalized to 10",
       "details": [
-        "Info: contributors work for EpicGames,ForkyIKE,PCRE,PHPFreaks,aetros,bravo3,deepkit,diyiot-tools,evcc-io,fail2ban,github-beta,humanpriority,jarves,larawelders,maellak,manualco,noustique (the alchemist atelier),php-cds,php-pm,php-stubs,proem,proem-components,propelorm,sciphp,stdtabs,thorpesystems,three cats software,uniwa"
+        "Info: contributors work for bergside,co founder themesberg,themesberg"
       ],
       "documentation": {
         "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
@@ -103,11 +103,11 @@
     },
     {
       "name": "License",
-      "score": 10,
+      "score": 9,
       "reason": "license file detected",
       "details": [
-        "Info: License file found in expected location: LICENSE:1",
-        "Info: FSF or OSI recognized license: LICENSE:1"
+        "Info: License file found in expected location: LICENSE.md:1",
+        "Warn: Any licence detected not an FSF or OSI recognized license: LICENSE.md:1"
       ],
       "documentation": {
         "short": "Determines if the project has defined a license.",
@@ -116,9 +116,9 @@
     },
     {
       "name": "Maintained",
-      "reason": "repo was created 6 days ago, not enough maintenance history",
+      "reason": "repo was created 0 days ago, not enough maintenance history",
       "details": [
-        "Warn: repo was created in the last 90 days (Created at: 2023-02-23T07:32:29Z), please review its contents carefully"
+        "Warn: repo was created in the last 90 days (Created at: 2023-02-23T11:54:17Z), please review its contents carefully"
       ],
       "documentation": {
         "short": "Determines if the project is \"actively maintained\".",
@@ -190,7 +190,9 @@
       "name": "Token-Permissions",
       "score": 10,
       "reason": "tokens are read-only in GitHub workflows",
-      "details": null,
+      "details": [
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:17"
+      ],
       "documentation": {
         "short": "Determines if the project's workflows follow the principle of least privilege.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#token-permissions"
