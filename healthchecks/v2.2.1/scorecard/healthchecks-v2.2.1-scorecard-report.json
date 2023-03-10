@@ -1,14 +1,14 @@
 {
-  "date": "2023-02-28",
+  "date": "2023-03-01",
   "repo": {
-    "name": "github.com/Be-Secure/Lightning",
-    "commit": "a9a97ff810fee508441233d0a0b150381de482b0"
+    "name": "github.com/Be-Secure/healthchecks",
+    "commit": "0849bc974bc38cc75146f7c860bcce4febbf4255"
   },
   "scorecard": {
     "version": "v4.10.2",
     "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
   },
-  "score": 4.1,
+  "score": 3,
   "checks": [
     {
       "name": "Binary-Artifacts",
@@ -24,7 +24,7 @@
       "name": "Branch-Protection",
       "reason": "branch protection not enabled on development/release branches",
       "details": [
-        "Warn: branch protection not enabled for branch 'release_2.8.1'"
+        "Warn: branch protection not enabled for branch 'v2.2.1_release'"
       ],
       "documentation": {
         "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
@@ -62,9 +62,9 @@
     {
       "name": "Contributors",
       "score": 10,
-      "reason": "8 different organizations found -- score normalized to 10",
+      "reason": "6 different organizations found -- score normalized to 10",
       "details": [
-        "Info: contributors work for Comcast,comcast,comcast via onetwosee,metrological,onetwosee,planning-nl,redspace,theREDspace"
+        "Info: contributors work for daraco it services,healthchecks,pagertree,panic inc,panicinc,rubrik"
       ],
       "documentation": {
         "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
@@ -116,9 +116,9 @@
     },
     {
       "name": "Maintained",
-      "reason": "repo was created 10 days ago, not enough maintenance history",
+      "reason": "repo was created 4 days ago, not enough maintenance history",
       "details": [
-        "Warn: repo was created in the last 90 days (Created at: 2023-02-17T13:41:11Z), please review its contents carefully"
+        "Warn: repo was created in the last 90 days (Created at: 2023-02-24T07:34:26Z), please review its contents carefully"
       ],
       "documentation": {
         "short": "Determines if the project is \"actively maintained\".",
@@ -139,15 +139,33 @@
     },
     {
       "name": "Pinned-Dependencies",
-      "score": 9,
-      "reason": "dependency not pinned by hash detected -- score normalized to 9",
+      "score": 5,
+      "reason": "dependency not pinned by hash detected -- score normalized to 5",
       "details": [
-        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:42: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/Lightning/codeql.yml/release_2.8.1?enable=pin",
-        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:46: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/Lightning/codeql.yml/release_2.8.1?enable=pin",
-        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:60: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/Lightning/codeql.yml/release_2.8.1?enable=pin",
-        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:73: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/Lightning/codeql.yml/release_2.8.1?enable=pin",
-        "Info: Third-party GitHubActions are pinned",
-        "Info: Dockerfile dependencies are pinned",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql-analysis.yml:23: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/codeql-analysis.yml/v2.2.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql-analysis.yml:26: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/codeql-analysis.yml/v2.2.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql-analysis.yml:31: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/codeql-analysis.yml/v2.2.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:41: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/codeql.yml/v2.2.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:45: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/codeql.yml/v2.2.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:59: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/codeql.yml/v2.2.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:72: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/codeql.yml/v2.2.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/django.yml:26: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/django.yml/v2.2.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/django.yml:28: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/django.yml/v2.2.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/publish_docker_image.yml:14: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/publish_docker_image.yml/v2.2.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/publish_docker_image.yml:21: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/publish_docker_image.yml/v2.2.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/publish_docker_image.yml:24: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/publish_docker_image.yml/v2.2.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/publish_docker_image.yml:31: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/publish_docker_image.yml/v2.2.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/publish_docker_image.yml:36: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/publish_docker_image.yml/v2.2.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/publish_docker_image.yml:39: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/publish_docker_image.yml/v2.2.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/publish_docker_image.yml:42: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/publish_docker_image.yml/v2.2.1_release?enable=pin",
+        "Warn: containerImage not pinned by hash: docker/Dockerfile:1: pin your Docker image by updating python:3.10-slim-buster to python:3.10-slim-buster@sha256:c059afb019e7aea99777e54b3e0ff8c970ef552b737fb4acbd842916c751fcfd",
+        "Warn: containerImage not pinned by hash: docker/Dockerfile:12: pin your Docker image by updating python to python@sha256:86b2fe5e3cf5b979f4b21849ad340762f4a15129583c8134c6c2dc4a880942e6",
+        "Warn: pipCommand not pinned by hash: docker/Dockerfile:5-7",
+        "Warn: pipCommand not pinned by hash: docker/Dockerfile:25-27",
+        "Warn: pipCommand not pinned by hash: docker/Dockerfile:25-27",
+        "Warn: pipCommand not pinned by hash: .github/workflows/django.yml:41",
+        "Warn: pipCommand not pinned by hash: .github/workflows/django.yml:42",
+        "Warn: pipCommand not pinned by hash: .github/workflows/django.yml:43",
         "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles",
         "Info: no insecure (not pinned by hash) dependency downloads found in shell scripts"
       ],
@@ -191,12 +209,14 @@
     },
     {
       "name": "Token-Permissions",
-      "score": 9,
       "reason": "non read-only tokens detected in GitHub workflows",
       "details": [
-        "Warn: no topLevel permission defined: .github/workflows/codeql.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/Lightning/codeql.yml/release_2.8.1?enable=permissions",
-        "Info: jobLevel 'actions' permission set to 'read': .github/workflows/codeql.yml:27",
-        "Info: jobLevel 'contents' permission set to 'read': .github/workflows/codeql.yml:28",
+        "Warn: no topLevel permission defined: .github/workflows/codeql-analysis.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/codeql-analysis.yml/v2.2.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/codeql.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/codeql.yml/v2.2.1_release?enable=permissions",
+        "Info: jobLevel 'actions' permission set to 'read': .github/workflows/codeql.yml:26",
+        "Info: jobLevel 'contents' permission set to 'read': .github/workflows/codeql.yml:27",
+        "Warn: no topLevel permission defined: .github/workflows/django.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/django.yml/v2.2.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/publish_docker_image.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/healthchecks/publish_docker_image.yml/v2.2.1_release?enable=permissions",
         "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:17"
       ],
       "documentation": {

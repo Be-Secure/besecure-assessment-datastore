@@ -1,0 +1,94 @@
+[
+  {
+    "number": 2,
+    "created_at": "2023-02-21T16:35:40Z",
+    "updated_at": "2023-02-21T18:41:52Z",
+    "url": "https://api.github.com/repos/Be-Secure/ros_comm/code-scanning/alerts/2",
+    "html_url": "https://github.com/Be-Secure/ros_comm/security/code-scanning/2",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/bind-socket-all-network-interfaces",
+      "severity": "error",
+      "description": "Binding a socket to all network interfaces",
+      "name": "py/bind-socket-all-network-interfaces",
+      "tags": ["external/cwe/cwe-200","security"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.12.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.15.14_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "adc87c81dd08f1e7c72ac71099270772e763ebc1",
+      "message": {
+        "text": "'::' binds a socket to all interfaces.\n'0.0.0.0' binds a socket to all interfaces."
+      },
+      "location": {
+        "path": "clients/rospy/src/rospy/impl/udpros.py",
+        "start_line": 77,
+        "end_line": 77,
+        "start_column": 9,
+        "end_column": 65
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/ros_comm/code-scanning/alerts/2/instances"
+  },
+  {
+    "number": 1,
+    "created_at": "2023-02-21T16:35:40Z",
+    "updated_at": "2023-02-21T18:41:52Z",
+    "url": "https://api.github.com/repos/Be-Secure/ros_comm/code-scanning/alerts/1",
+    "html_url": "https://github.com/Be-Secure/ros_comm/security/code-scanning/1",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/bind-socket-all-network-interfaces",
+      "severity": "error",
+      "description": "Binding a socket to all network interfaces",
+      "name": "py/bind-socket-all-network-interfaces",
+      "tags": ["external/cwe/cwe-200","security"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.12.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.15.14_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "adc87c81dd08f1e7c72ac71099270772e763ebc1",
+      "message": {
+        "text": "'::' binds a socket to all interfaces.\n'0.0.0.0' binds a socket to all interfaces."
+      },
+      "location": {
+        "path": "clients/rospy/src/rospy/impl/tcpros_base.py",
+        "start_line": 204,
+        "end_line": 204,
+        "start_column": 9,
+        "end_column": 75
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/ros_comm/code-scanning/alerts/1/instances"
+  }
+]

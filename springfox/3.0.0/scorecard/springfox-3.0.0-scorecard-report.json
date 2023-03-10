@@ -1,8 +1,8 @@
 {
-  "date": "2023-02-28",
+  "date": "2023-03-01",
   "repo": {
-    "name": "github.com/Be-Secure/Lightning",
-    "commit": "a9a97ff810fee508441233d0a0b150381de482b0"
+    "name": "github.com/Be-Secure/springfox",
+    "commit": "f19a776a0aa39391675974a9ec39e8a0042a4343"
   },
   "scorecard": {
     "version": "v4.10.2",
@@ -12,9 +12,11 @@
   "checks": [
     {
       "name": "Binary-Artifacts",
-      "score": 10,
-      "reason": "no binaries found in the repo",
-      "details": null,
+      "score": 9,
+      "reason": "binaries present in source code",
+      "details": [
+        "Warn: binary detected: gradle/wrapper/gradle-wrapper.jar:1"
+      ],
       "documentation": {
         "short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#binary-artifacts"
@@ -24,7 +26,7 @@
       "name": "Branch-Protection",
       "reason": "branch protection not enabled on development/release branches",
       "details": [
-        "Warn: branch protection not enabled for branch 'release_2.8.1'"
+        "Warn: branch protection not enabled for branch '3.0.0_release'"
       ],
       "documentation": {
         "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
@@ -62,9 +64,9 @@
     {
       "name": "Contributors",
       "score": 10,
-      "reason": "8 different organizations found -- score normalized to 10",
+      "reason": "15 different organizations found -- score normalized to 10",
       "details": [
-        "Info: contributors work for Comcast,comcast,comcast via onetwosee,metrological,onetwosee,planning-nl,redspace,theREDspace"
+        "Info: contributors work for OpenAPITools,Swagger2Markup,billforward,bol.com,bolcom,datastax,deutsche telekom,escalon system-entwicklung,idexx laboratories,jhipster,line fukuoka,orange,resilience4j,springfox,ziplet"
       ],
       "documentation": {
         "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
@@ -116,10 +118,9 @@
     },
     {
       "name": "Maintained",
-      "reason": "repo was created 10 days ago, not enough maintenance history",
-      "details": [
-        "Warn: repo was created in the last 90 days (Created at: 2023-02-17T13:41:11Z), please review its contents carefully"
-      ],
+      "score": 1,
+      "reason": "2 commit(s) out of 30 and 0 issue activity out of 0 found in the last 90 days -- score normalized to 1",
+      "details": null,
       "documentation": {
         "short": "Determines if the project is \"actively maintained\".",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#maintained"
@@ -142,10 +143,10 @@
       "score": 9,
       "reason": "dependency not pinned by hash detected -- score normalized to 9",
       "details": [
-        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:42: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/Lightning/codeql.yml/release_2.8.1?enable=pin",
-        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:46: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/Lightning/codeql.yml/release_2.8.1?enable=pin",
-        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:60: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/Lightning/codeql.yml/release_2.8.1?enable=pin",
-        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:73: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/Lightning/codeql.yml/release_2.8.1?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:42: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/springfox/codeql.yml/3.0.0_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:46: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/springfox/codeql.yml/3.0.0_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:60: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/springfox/codeql.yml/3.0.0_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:73: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/springfox/codeql.yml/3.0.0_release?enable=pin",
         "Info: Third-party GitHubActions are pinned",
         "Info: Dockerfile dependencies are pinned",
         "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles",
@@ -194,7 +195,7 @@
       "score": 9,
       "reason": "non read-only tokens detected in GitHub workflows",
       "details": [
-        "Warn: no topLevel permission defined: .github/workflows/codeql.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/Lightning/codeql.yml/release_2.8.1?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/codeql.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/springfox/codeql.yml/3.0.0_release?enable=permissions",
         "Info: jobLevel 'actions' permission set to 'read': .github/workflows/codeql.yml:27",
         "Info: jobLevel 'contents' permission set to 'read': .github/workflows/codeql.yml:28",
         "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:17"
