@@ -1,0 +1,692 @@
+[
+  {
+    "number": 110,
+    "created_at": "2023-05-03T10:25:06Z",
+    "updated_at": "2023-05-03T10:25:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/110",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/110",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/clear-text-logging",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "go/clear-text-logging",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-315","external/cwe/cwe-359","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "Sensitive data returned by an access to Password flows to a logging call."
+      },
+      "location": {
+        "path": "internal/httpclient/client.go",
+        "start_line": 181,
+        "end_line": 181,
+        "start_column": 24,
+        "end_column": 36
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/110/instances"
+  },
+  {
+    "number": 109,
+    "created_at": "2023-05-03T10:25:06Z",
+    "updated_at": "2023-05-03T10:25:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/109",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/109",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/constant-oauth2-state",
+      "severity": "error",
+      "description": "Use of constant `state` value in OAuth 2.0 URL",
+      "name": "go/constant-oauth2-state",
+      "tags": ["external/cwe/cwe-352","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "Using a constant state string to create oauth2 URLs."
+      },
+      "location": {
+        "path": "test/mock-client/main.go",
+        "start_line": 64,
+        "end_line": 64,
+        "start_column": 25,
+        "end_column": 48
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/109/instances"
+  },
+  {
+    "number": 108,
+    "created_at": "2023-05-03T10:25:06Z",
+    "updated_at": "2023-05-03T10:25:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/108",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/108",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/reflected-xss",
+      "severity": "error",
+      "description": "Reflected cross-site scripting",
+      "name": "go/reflected-xss",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "Cross-site scripting vulnerability due to user-provided value.\nCross-site scripting vulnerability due to user-provided value."
+      },
+      "location": {
+        "path": "test/mock-lcp/main.go",
+        "start_line": 122,
+        "end_line": 122,
+        "start_column": 17,
+        "end_column": 80
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/108/instances"
+  },
+  {
+    "number": 107,
+    "created_at": "2023-05-03T10:25:06Z",
+    "updated_at": "2023-05-03T10:25:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/107",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/107",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/reflected-xss",
+      "severity": "error",
+      "description": "Reflected cross-site scripting",
+      "name": "go/reflected-xss",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "Cross-site scripting vulnerability due to user-provided value.\nCross-site scripting vulnerability due to user-provided value.\nCross-site scripting vulnerability due to user-provided value."
+      },
+      "location": {
+        "path": "test/mock-cb/main.go",
+        "start_line": 21,
+        "end_line": 21,
+        "start_column": 18,
+        "end_column": 155
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/107/instances"
+  },
+  {
+    "number": 106,
+    "created_at": "2023-05-03T10:25:06Z",
+    "updated_at": "2023-05-03T10:25:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/106",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/106",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/weak-crypto-key",
+      "severity": "error",
+      "description": "Use of a weak cryptographic key",
+      "name": "go/weak-crypto-key",
+      "tags": ["external/cwe/cwe-326","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "The size of this RSA key should be at least 2048 bits."
+      },
+      "location": {
+        "path": "internal/mock_generator_rs256.go",
+        "start_line": 20,
+        "end_line": 20,
+        "start_column": 43,
+        "end_column": 46
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/106/instances"
+  },
+  {
+    "number": 105,
+    "created_at": "2023-05-03T10:23:01Z",
+    "updated_at": "2023-05-03T10:23:01Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/105",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/105",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/missing-rate-limiting",
+      "severity": "warning",
+      "description": "Missing rate limiting",
+      "name": "js/missing-rate-limiting",
+      "tags": ["external/cwe/cwe-307","external/cwe/cwe-400","external/cwe/cwe-770","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": "/language:javascript",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "This route handler performs authorization, but is not rate-limited."
+      },
+      "location": {
+        "path": "test/e2e/oauth2-client/src/index.js",
+        "start_line": 401,
+        "end_line": 449,
+        "start_column": 36,
+        "end_column": 2
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/105/instances"
+  },
+  {
+    "number": 104,
+    "created_at": "2023-05-03T10:23:01Z",
+    "updated_at": "2023-05-03T10:23:01Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/104",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/104",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/missing-rate-limiting",
+      "severity": "warning",
+      "description": "Missing rate limiting",
+      "name": "js/missing-rate-limiting",
+      "tags": ["external/cwe/cwe-307","external/cwe/cwe-400","external/cwe/cwe-770","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": "/language:javascript",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "This route handler performs authorization, but is not rate-limited."
+      },
+      "location": {
+        "path": "test/e2e/oauth2-client/src/index.js",
+        "start_line": 301,
+        "end_line": 333,
+        "start_column": 29,
+        "end_column": 2
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/104/instances"
+  },
+  {
+    "number": 103,
+    "created_at": "2023-05-03T10:23:01Z",
+    "updated_at": "2023-05-03T10:23:01Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/103",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/103",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/missing-rate-limiting",
+      "severity": "warning",
+      "description": "Missing rate limiting",
+      "name": "js/missing-rate-limiting",
+      "tags": ["external/cwe/cwe-307","external/cwe/cwe-400","external/cwe/cwe-770","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": "/language:javascript",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "This route handler performs authorization, but is not rate-limited."
+      },
+      "location": {
+        "path": "test/e2e/oauth2-client/src/index.js",
+        "start_line": 275,
+        "end_line": 299,
+        "start_column": 25,
+        "end_column": 2
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/103/instances"
+  },
+  {
+    "number": 102,
+    "created_at": "2023-05-03T10:23:01Z",
+    "updated_at": "2023-05-03T10:23:01Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/102",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/102",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/missing-rate-limiting",
+      "severity": "warning",
+      "description": "Missing rate limiting",
+      "name": "js/missing-rate-limiting",
+      "tags": ["external/cwe/cwe-307","external/cwe/cwe-400","external/cwe/cwe-770","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": "/language:javascript",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "This route handler performs authorization, but is not rate-limited."
+      },
+      "location": {
+        "path": "test/e2e/oauth2-client/src/index.js",
+        "start_line": 182,
+        "end_line": 205,
+        "start_column": 33,
+        "end_column": 2
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/102/instances"
+  },
+  {
+    "number": 101,
+    "created_at": "2023-05-03T10:23:01Z",
+    "updated_at": "2023-05-03T10:23:01Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/101",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/101",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/missing-rate-limiting",
+      "severity": "warning",
+      "description": "Missing rate limiting",
+      "name": "js/missing-rate-limiting",
+      "tags": ["external/cwe/cwe-307","external/cwe/cwe-400","external/cwe/cwe-770","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": "/language:javascript",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "This route handler performs authorization, but is not rate-limited."
+      },
+      "location": {
+        "path": "test/e2e/oauth2-client/src/index.js",
+        "start_line": 89,
+        "end_line": 117,
+        "start_column": 25,
+        "end_column": 2
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/101/instances"
+  },
+  {
+    "number": 100,
+    "created_at": "2023-05-03T10:23:01Z",
+    "updated_at": "2023-05-03T10:23:01Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/100",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/100",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/hardcoded-credentials",
+      "severity": "warning",
+      "description": "Hard-coded credentials",
+      "name": "js/hardcoded-credentials",
+      "tags": ["external/cwe/cwe-259","external/cwe/cwe-321","external/cwe/cwe-798","security"],
+      "security_severity_level": "critical"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": "/language:javascript",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "The hard-coded value \"804cd9c9-b447-4df0-b9f0-3126893d3a8e\" is used as key."
+      },
+      "location": {
+        "path": "test/e2e/oauth2-client/src/index.js",
+        "start_line": 51,
+        "end_line": 51,
+        "start_column": 13,
+        "end_column": 51
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/100/instances"
+  },
+  {
+    "number": 99,
+    "created_at": "2023-05-03T10:23:01Z",
+    "updated_at": "2023-05-03T10:23:01Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/99",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/99",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/clear-text-cookie",
+      "severity": "warning",
+      "description": "Clear text transmission of sensitive cookie",
+      "name": "js/clear-text-cookie",
+      "tags": ["external/cwe/cwe-311","external/cwe/cwe-312","external/cwe/cwe-319","external/cwe/cwe-614","security"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": "/language:javascript",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "Sensitive cookie sent without enforcing SSL encryption."
+      },
+      "location": {
+        "path": "test/e2e/oauth2-client/src/index.js",
+        "start_line": 50,
+        "end_line": 58,
+        "start_column": 3,
+        "end_column": 5
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/99/instances"
+  },
+  {
+    "number": 98,
+    "created_at": "2023-05-03T10:23:01Z",
+    "updated_at": "2023-05-03T10:23:01Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/98",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/98",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/sensitive-get-query",
+      "severity": "warning",
+      "description": "Sensitive data read from GET request",
+      "name": "js/sensitive-get-query",
+      "tags": ["external/cwe/cwe-598","security"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": "/language:javascript",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "Route handler for GET requests uses query parameter as sensitive data."
+      },
+      "location": {
+        "path": "test/e2e/oauth2-client/src/index.js",
+        "start_line": 278,
+        "end_line": 278,
+        "start_column": 20,
+        "end_column": 43
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/98/instances"
+  },
+  {
+    "number": 97,
+    "created_at": "2023-05-03T10:23:01Z",
+    "updated_at": "2023-05-03T10:23:01Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/97",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/97",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/sensitive-get-query",
+      "severity": "warning",
+      "description": "Sensitive data read from GET request",
+      "name": "js/sensitive-get-query",
+      "tags": ["external/cwe/cwe-598","security"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": "/language:javascript",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "Route handler for GET requests uses query parameter as sensitive data."
+      },
+      "location": {
+        "path": "test/e2e/oauth2-client/src/index.js",
+        "start_line": 246,
+        "end_line": 246,
+        "start_column": 15,
+        "end_column": 38
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/97/instances"
+  },
+  {
+    "number": 96,
+    "created_at": "2023-05-03T10:23:01Z",
+    "updated_at": "2023-05-03T10:23:01Z",
+    "url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/96",
+    "html_url": "https://github.com/Be-Secure/hydra/security/code-scanning/96",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/sensitive-get-query",
+      "severity": "warning",
+      "description": "Sensitive data read from GET request",
+      "name": "js/sensitive-get-query",
+      "tags": ["external/cwe/cwe-598","security"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.0.3_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": "/language:javascript",
+      "state": "open",
+      "commit_sha": "e6bbf66a437b6cf317b9f517efc83327a1b4b591",
+      "message": {
+        "text": "Route handler for GET requests uses query parameter as sensitive data."
+      },
+      "location": {
+        "path": "test/e2e/oauth2-client/src/index.js",
+        "start_line": 93,
+        "end_line": 93,
+        "start_column": 15,
+        "end_column": 38
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/hydra/code-scanning/alerts/96/instances"
+  }
+]
