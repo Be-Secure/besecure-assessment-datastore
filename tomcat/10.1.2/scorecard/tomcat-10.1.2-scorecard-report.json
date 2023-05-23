@@ -1,151 +1,233 @@
 {
-	"date": "2022-11-14",
-	"repo": {
-		"name": "github.com/apache/tomcat",
-		"commit": "1e8ed80849f2766d3c5b27e09ef53029e1a1a88e"
-	},
-	"scorecard": {
-		"version": "v4.8.0-60-g52640d5",
-		"commit": "52640d5eab23a6a220cb933a1326dfaf8d8f5bff"
-	},
-	"score": 4.9,
-	"checks": [{
-		"name": "Code-Review",
-		"reason": "1 out of last 30 changesets reviewed before merge -- score normalized to 0",
-		"details": null,
-		"documentation": {
-			"short": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#code-review"
-		}
-	}, {
-		"name": "Maintained",
-		"score": 10,
-		"reason": "30 commit(s) out of 30 and 0 issue activity out of 0 found in the last 90 days -- score normalized to 10",
-		"details": null,
-		"documentation": {
-			"short": "Determines if the project is \"actively maintained\".",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#maintained"
-		}
-	}, {
-		"name": "CII-Best-Practices",
-		"reason": "no badge detected",
-		"details": null,
-		"documentation": {
-			"short": "Determines if the project has an OpenSSF (formerly CII) Best Practices Badge.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#cii-best-practices"
-		}
-	}, {
-		"name": "Vulnerabilities",
-		"score": 10,
-		"reason": "no vulnerabilities detected",
-		"details": null,
-		"documentation": {
-			"short": "Determines if the project has open, known unfixed vulnerabilities.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#vulnerabilities"
-		}
-	}, {
-		"name": "Signed-Releases",
-		"score": -1,
-		"reason": "no releases found",
-		"details": ["Warn: no GitHub releases found"],
-		"documentation": {
-			"short": "Determines if the project cryptographically signs release artifacts.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#signed-releases"
-		}
-	}, {
-		"name": "Branch-Protection",
-		"score": 3,
-		"reason": "branch protection is not maximal on development and all release branches",
-		"details": ["Info: 'force pushes' disabled on branch 'main'", "Info: 'allow deletion' disabled on branch 'main'", "Warn: no status checks found to merge onto branch 'main'", "Warn: number of required reviewers is only 0 on branch 'main'", "Warn: codeowner review is not required on branch 'main'"],
-		"documentation": {
-			"short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#branch-protection"
-		}
-	}, {
-		"name": "Packaging",
-		"score": -1,
-		"reason": "no published package detected",
-		"details": ["Warn: no GitHub publishing workflow detected"],
-		"documentation": {
-			"short": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#packaging"
-		}
-	}, {
-		"name": "License",
-		"score": 10,
-		"reason": "license file detected",
-		"details": ["Info: : LICENSE:1"],
-		"documentation": {
-			"short": "Determines if the project has defined a license.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#license"
-		}
-	}, {
-		"name": "Token-Permissions",
-		"reason": "non read-only tokens detected in GitHub workflows",
-		"details": ["Warn: no topLevel permission defined: .github/workflows/ci.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/tomcat/ci.yml/main?enable=permissions"],
-		"documentation": {
-			"short": "Determines if the project's workflows follow the principle of least privilege.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#token-permissions"
-		}
-	}, {
-		"name": "Dangerous-Workflow",
-		"score": 10,
-		"reason": "no dangerous workflow patterns detected",
-		"details": null,
-		"documentation": {
-			"short": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#dangerous-workflow"
-		}
-	}, {
-		"name": "Dependency-Update-Tool",
-		"reason": "no update tool detected",
-		"details": ["Warn: Config file not detected in source location for dependabot, renovatebot, Sonatype Lift, or\n\t\t\tPyUp (Python). We recommend setting this configuration in code so it can be easily verified by others."],
-		"documentation": {
-			"short": "Determines if the project uses a dependency update tool.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#dependency-update-tool"
-		}
-	}, {
-		"name": "Binary-Artifacts",
-		"reason": "binaries present in source code",
-		"details": ["Warn: binary detected: test/deployment/context.jar:1", "Warn: binary detected: test/deployment/dir with spaces/context.jar:1", "Warn: binary detected: test/webapp-fragments-empty-absolute-ordering/WEB-INF/lib/resources.jar:1", "Warn: binary detected: test/webapp-fragments/WEB-INF/lib/resources.jar:1", "Warn: binary detected: test/webapp-fragments/WEB-INF/lib/resources2.jar:1", "Warn: binary detected: test/webapp-virtual-webapp/src/main/webapp-a/WEB-INF/lib/rsrc.jar:1", "Warn: binary detected: test/webapp/WEB-INF/classes/org/apache/tomcat/Bug58096.class:1", "Warn: binary detected: test/webapp/WEB-INF/lib/test-lib.jar:1", "Warn: binary detected: test/webresources/dir1-internal.jar:1", "Warn: binary detected: test/webresources/dir1.jar:1", "Warn: binary detected: test/webresources/non-static-resources.jar:1", "Warn: binary detected: webapps/examples/WEB-INF/lib/taglibs-standard-impl-1.2.5-migrated-0.0.1.jar:1", "Warn: binary detected: webapps/examples/WEB-INF/lib/taglibs-standard-spec-1.2.5-migrated-0.0.1.jar:1"],
-		"documentation": {
-			"short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#binary-artifacts"
-		}
-	}, {
-		"name": "Security-Policy",
-		"score": 10,
-		"reason": "security policy file detected",
-		"details": ["Info: Found linked content in security policy: github.com/apache/.github/.github/SECURITY.md", "Info: Found text in security policy: github.com/apache/.github/.github/SECURITY.md", "Info: Found disclosure, vulnerability, and/or timelines in security policy: github.com/apache/.github/.github/SECURITY.md", "Info: security policy detected in org repo: github.com/apache/.github/.github/SECURITY.md"],
-		"documentation": {
-			"short": "Determines if the project has published a security policy.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#security-policy"
-		}
-	}, {
-		"name": "Fuzzing",
-		"score": 10,
-		"reason": "project is fuzzed with [OSSFuzz]",
-		"details": null,
-		"documentation": {
-			"short": "Determines if the project uses fuzzing.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#fuzzing"
-		}
-	}, {
-		"name": "Pinned-Dependencies",
-		"score": 7,
-		"reason": "dependency not pinned by hash detected -- score normalized to 7",
-		"details": ["Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/ci.yml:43: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/tomcat/ci.yml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/ci.yml:45: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/tomcat/ci.yml/main?enable=pin", "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/ci.yml:56: update your workflow using https://app.stepsecurity.io/secureworkflow/apache/tomcat/ci.yml/main?enable=pin", "Warn: containerImage not pinned by hash: modules/stuffed/Dockerfile:17: pin your Docker image by updating openjdk to openjdk@sha256:287e76dded1b9d052eefcc99e466420d220da44f26ab0b84889d36608ee98a43", "Warn: containerImage not pinned by hash: modules/stuffed/DockerfileGraal:17: pin your Docker image by updating busybox to busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c", "Info: Third-party GitHubActions are pinned", "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles", "Info: no insecure (not pinned by hash) dependency downloads found in shell scripts"],
-		"documentation": {
-			"short": "Determines if the project has declared and pinned the dependencies of its build process.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#pinned-dependencies"
-		}
-	}, {
-		"name": "SAST",
-		"reason": "SAST tool is not run on all commits -- score normalized to 0",
-		"details": ["Warn: 0 commits out of 1 are checked with a SAST tool", "Warn: CodeQL tool not detected"],
-		"documentation": {
-			"short": "Determines if the project uses static code analysis.",
-			"url": "https://github.com/ossf/scorecard/blob/52640d5eab23a6a220cb933a1326dfaf8d8f5bff/docs/checks.md#sast"
-		}
-	}]
+  "date": "2023-05-18",
+  "repo": {
+    "name": "github.com/Be-Secure/tomcat",
+    "commit": "e9e70ab84e45fc3d521fab3e2c9243353510ad32"
+  },
+  "scorecard": {
+    "version": "v4.10.2",
+    "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
+  },
+  "score": 3.2,
+  "checks": [
+    {
+      "name": "Binary-Artifacts",
+      "score": 0,
+      "reason": "binaries present in source code",
+      "details": [
+        "Warn: binary detected: test/deployment/context.jar:1",
+        "Warn: binary detected: test/deployment/dir with spaces/context.jar:1",
+        "Warn: binary detected: test/webapp-fragments-empty-absolute-ordering/WEB-INF/lib/resources.jar:1",
+        "Warn: binary detected: test/webapp-fragments/WEB-INF/lib/resources.jar:1",
+        "Warn: binary detected: test/webapp-fragments/WEB-INF/lib/resources2.jar:1",
+        "Warn: binary detected: test/webapp-virtual-webapp/src/main/webapp-a/WEB-INF/lib/rsrc.jar:1",
+        "Warn: binary detected: test/webapp/WEB-INF/classes/org/apache/tomcat/Bug58096.class:1",
+        "Warn: binary detected: test/webapp/WEB-INF/lib/test-lib.jar:1",
+        "Warn: binary detected: test/webresources/dir1-internal.jar:1",
+        "Warn: binary detected: test/webresources/dir1.jar:1",
+        "Warn: binary detected: test/webresources/non-static-resources.jar:1",
+        "Warn: binary detected: webapps/examples/WEB-INF/lib/taglibs-standard-impl-1.2.5-migrated-0.0.1.jar:1",
+        "Warn: binary detected: webapps/examples/WEB-INF/lib/taglibs-standard-spec-1.2.5-migrated-0.0.1.jar:1"
+      ],
+      "documentation": {
+        "short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#binary-artifacts"
+      }
+    },
+    {
+      "name": "Branch-Protection",
+      "score": 0,
+      "reason": "branch protection not enabled on development/release branches",
+      "details": [
+        "Warn: branch protection not enabled for branch '10.1.2_release'"
+      ],
+      "documentation": {
+        "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#branch-protection"
+      }
+    },
+    {
+      "name": "CI-Tests",
+      "score": -1,
+      "reason": "no pull request found",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project runs tests before pull requests are merged.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#ci-tests"
+      }
+    },
+    {
+      "name": "CII-Best-Practices",
+      "score": 0,
+      "reason": "no badge detected",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has an OpenSSF (formerly CII) Best Practices Badge.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#cii-best-practices"
+      }
+    },
+    {
+      "name": "Code-Review",
+      "score": 0,
+      "reason": "0 out of last 30 changesets reviewed before merge -- score normalized to 0",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#code-review"
+      }
+    },
+    {
+      "name": "Contributors",
+      "score": 10,
+      "reason": "88 different organizations found -- score normalized to 10",
+      "details": [
+        "Info: contributors work for 5llihremmus,AdoptOpenJDK,BaseBeast,BaseJorge,BlackVelvetSydney,CrazyFramework,Database-Genius,Debian,EpicGames,GrafixWiz,JavaNCSS,JorgeAraica,LadiesLoveIt,Liperama,Logorama,MGSolutions,NOIP-CCC-USACO,NVIDIAGameWorks,One-Language,RealBase,Recyclero,SmartIron,SolitaryWanderer,TogetherOS,WiQuery,anydatasource,apache,apache software foundation,apache-archiva,b3log,chadis,cloudfoundry,cloudfoundry-community,codehaus-mojo,codehaus-plexus,collective,dataphin,devRant-Community,dwyl,facebook,freefair,fuchsia-agency,fuchsia-agency @kashanuniversity @one-language @slurpcode @64-shades,fusesource,gridsome,gwt-maven-plugin,jWeekend,javagrowing,jazzband,jboss,jclouds,jenkinsci,jetty-project,joinfaces,kawa-software,lastnpe,liferay,materna-se,maven-mojo,modcluster,mojohaus,msktutil,munging,netty,netty-contrib,openjson,osgi,pico-8,potluck-dinner,rainbow-xsl,reactor,red hat,redback,risk-first,servicemesher,siemens,siemens ag,spring-projects,vmware,websvnphp,webtide,wicketstuff,working at vmware inc contributing to apache software foundation,woshidaniu-com,woshidaniuGroup,woshidaniugroup,yogdaan,zero-to-mastery"
+      ],
+      "documentation": {
+        "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#contributors"
+      }
+    },
+    {
+      "name": "Dangerous-Workflow",
+      "score": 10,
+      "reason": "no dangerous workflow patterns detected",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#dangerous-workflow"
+      }
+    },
+    {
+      "name": "Dependency-Update-Tool",
+      "score": 0,
+      "reason": "no update tool detected",
+      "details": [
+        "Warn: Config file not detected in source location for dependabot, renovatebot, Sonatype Lift, or\n\t\t\tPyUp (Python). We recommend setting this configuration in code so it can be easily verified by others."
+      ],
+      "documentation": {
+        "short": "Determines if the project uses a dependency update tool.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#dependency-update-tool"
+      }
+    },
+    {
+      "name": "Fuzzing",
+      "score": 0,
+      "reason": "project is not fuzzed",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project uses fuzzing.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#fuzzing"
+      }
+    },
+    {
+      "name": "License",
+      "score": 10,
+      "reason": "license file detected",
+      "details": [
+        "Info: License file found in expected location: LICENSE:1",
+        "Info: FSF or OSI recognized license: LICENSE:1"
+      ],
+      "documentation": {
+        "short": "Determines if the project has defined a license.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#license"
+      }
+    },
+    {
+      "name": "Maintained",
+      "score": 0,
+      "reason": "1 commit(s) out of 30 and 0 issue activity out of 0 found in the last 90 days -- score normalized to 0",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project is \"actively maintained\".",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#maintained"
+      }
+    },
+    {
+      "name": "Packaging",
+      "score": -1,
+      "reason": "no published package detected",
+      "details": [
+        "Warn: no GitHub publishing workflow detected"
+      ],
+      "documentation": {
+        "short": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#packaging"
+      }
+    },
+    {
+      "name": "Pinned-Dependencies",
+      "score": 7,
+      "reason": "dependency not pinned by hash detected -- score normalized to 7",
+      "details": [
+        "Warn: containerImage not pinned by hash: modules/stuffed/Dockerfile:17: pin your Docker image by updating openjdk to openjdk@sha256:9b448de897d211c9e0ec635a485650aed6e28d4eca1efbc34940560a480b3f1f",
+        "Warn: containerImage not pinned by hash: modules/stuffed/DockerfileGraal:17: pin your Docker image by updating busybox to busybox@sha256:9e2bbca079387d7965c3a9cee6d0c53f4f4e63ff7637877a83c4c05f2a666112",
+        "Info: GitHub-owned GitHubActions are pinned",
+        "Info: Third-party GitHubActions are pinned",
+        "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles",
+        "Info: no insecure (not pinned by hash) dependency downloads found in shell scripts"
+      ],
+      "documentation": {
+        "short": "Determines if the project has declared and pinned the dependencies of its build process.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#pinned-dependencies"
+      }
+    },
+    {
+      "name": "SAST",
+      "score": 0,
+      "reason": "no SAST tool detected",
+      "details": [
+        "Warn: no pull requests merged into dev branch",
+        "Warn: CodeQL tool not detected"
+      ],
+      "documentation": {
+        "short": "Determines if the project uses static code analysis.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#sast"
+      }
+    },
+    {
+      "name": "Security-Policy",
+      "score": 0,
+      "reason": "security policy file not detected",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has published a security policy.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#security-policy"
+      }
+    },
+    {
+      "name": "Signed-Releases",
+      "score": -1,
+      "reason": "no releases found",
+      "details": [
+        "Warn: no GitHub releases found"
+      ],
+      "documentation": {
+        "short": "Determines if the project cryptographically signs release artifacts.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#signed-releases"
+      }
+    },
+    {
+      "name": "Token-Permissions",
+      "score": 10,
+      "reason": "tokens are read-only in GitHub workflows",
+      "details": [
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:16"
+      ],
+      "documentation": {
+        "short": "Determines if the project's workflows follow the principle of least privilege.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#token-permissions"
+      }
+    },
+    {
+      "name": "Vulnerabilities",
+      "score": -1,
+      "reason": "internal error: vulnerabilitiesClient.ListUnfixedVulnerabilities: osvscanner.DoScan: vulnerabilities found",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has open, known unfixed vulnerabilities.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#vulnerabilities"
+      }
+    }
+  ]
 }
