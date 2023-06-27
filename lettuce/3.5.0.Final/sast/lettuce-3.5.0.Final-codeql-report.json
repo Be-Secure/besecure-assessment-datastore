@@ -1,0 +1,95 @@
+
+[
+  {
+    "number": 2,
+    "created_at": "2023-06-07T07:04:37Z",
+    "updated_at": "2023-06-07T07:04:37Z",
+    "url": "https://api.github.com/repos/Be-Secure/lettuce/code-scanning/alerts/2",
+    "html_url": "https://github.com/Be-Secure/lettuce/security/code-scanning/2",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/tainted-numeric-cast",
+      "severity": "error",
+      "description": "User-controlled data in numeric cast",
+      "name": "java/tainted-numeric-cast",
+      "tags": ["external/cwe/cwe-197","external/cwe/cwe-681","security"],
+      "security_severity_level": "critical"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.3"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/3.5.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "8377b0aefd7615631fc24271476e7387b3a90bc5",
+      "message": {
+        "text": "This cast to a narrower type depends on a user-provided value, potentially causing truncation."
+      },
+      "location": {
+        "path": "src/main/java/io/lettuce/core/output/StringMatchResultOutput.java",
+        "start_line": 62,
+        "end_line": 62,
+        "start_column": 20,
+        "end_column": 33
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/lettuce/code-scanning/alerts/2/instances"
+  },
+  {
+    "number": 1,
+    "created_at": "2023-06-07T07:04:37Z",
+    "updated_at": "2023-06-07T07:04:37Z",
+    "url": "https://api.github.com/repos/Be-Secure/lettuce/code-scanning/alerts/1",
+    "html_url": "https://github.com/Be-Secure/lettuce/security/code-scanning/1",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.3"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/3.5.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "8377b0aefd7615631fc24271476e7387b3a90bc5",
+      "message": {
+        "text": "Cryptographic algorithm SHA1 is weak and should not be used."
+      },
+      "location": {
+        "path": "src/main/java/io/lettuce/core/codec/Base16.java",
+        "start_line": 89,
+        "end_line": 89,
+        "start_column": 32,
+        "end_column": 65
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/lettuce/code-scanning/alerts/1/instances"
+  }
+]
