@@ -1,0 +1,54 @@
+[
+    {
+        "number": 1,
+        "created_at": "2023-07-11T19:39:59Z",
+        "updated_at": "2023-07-11T19:40:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/dvc/code-scanning/alerts/1",
+        "html_url": "https://github.com/Be-Secure/dvc/security/code-scanning/1",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "py/overly-large-range",
+            "severity": "warning",
+            "description": "Overly permissive regular expression range",
+            "name": "py/overly-large-range",
+            "tags": [
+                "correctness",
+                "external/cwe/cwe-020",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/3.5.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"python\"}",
+            "category": ".github/workflows/codeql.yml:analyze/language:python",
+            "state": "open",
+            "commit_sha": "1b2291ca83443c00658deef8bebe746940a8e106",
+            "message": {
+                "text": "Suspicious character range that is equivalent to \\[0-9:;<=>?\\]."
+            },
+            "location": {
+                "path": "tests/func/parsing/test_errors.py",
+                "start_line": 18,
+                "end_line": 18,
+                "start_column": 48,
+                "end_column": 51
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/dvc/code-scanning/alerts/1/instances"
+    }
+]
