@@ -1,0 +1,1518 @@
+[
+    {
+        "number": 3595,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3595",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3595",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/non-overriding-package-private",
+            "severity": "warning",
+            "description": "Confusing non-overriding of package-private method",
+            "name": "java/non-overriding-package-private",
+            "tags": [
+                "maintainability",
+                "readability"
+            ]
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This method does not override BasicDataSource.getConnectionProperties because it is private to another package."
+            },
+            "location": {
+                "path": "server/src/main/java/org/apache/druid/metadata/BasicDataSourceExt.java",
+                "start_line": 104,
+                "end_line": 104,
+                "start_column": 21,
+                "end_column": 44
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3595/instances"
+    },
+    {
+        "number": 3594,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3594",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3594",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an underflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an underflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an underflow."
+            },
+            "location": {
+                "path": "server/src/main/java/org/apache/druid/server/coordinator/ServerHolder.java",
+                "start_line": 113,
+                "end_line": 113,
+                "start_column": 26,
+                "end_column": 44
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3594/instances"
+    },
+    {
+        "number": 3593,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3593",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3593",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "server/src/main/java/org/apache/druid/server/coordination/ChangeRequestHistory.java",
+                "start_line": 296,
+                "end_line": 296,
+                "start_column": 26,
+                "end_column": 37
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3593/instances"
+    },
+    {
+        "number": 3592,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3592",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3592",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an underflow."
+            },
+            "location": {
+                "path": "server/src/main/java/org/apache/druid/server/coordination/BatchDataSegmentAnnouncer.java",
+                "start_line": 450,
+                "end_line": 450,
+                "start_column": 7,
+                "end_column": 14
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3592/instances"
+    },
+    {
+        "number": 3591,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3591",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3591",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "server/src/main/java/org/apache/druid/server/coordination/BatchDataSegmentAnnouncer.java",
+                "start_line": 418,
+                "end_line": 418,
+                "start_column": 7,
+                "end_column": 14
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3591/instances"
+    },
+    {
+        "number": 3590,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3590",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3590",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "server/src/main/java/org/apache/druid/server/coordination/BatchDataSegmentAnnouncer.java",
+                "start_line": 174,
+                "end_line": 174,
+                "start_column": 15,
+                "end_column": 61
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3590/instances"
+    },
+    {
+        "number": 3589,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3589",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3589",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an underflow."
+            },
+            "location": {
+                "path": "server/src/main/java/org/apache/druid/segment/realtime/appenderator/BatchAppenderator.java",
+                "start_line": 356,
+                "end_line": 356,
+                "start_column": 14,
+                "end_column": 57
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3589/instances"
+    },
+    {
+        "number": 3588,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3588",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3588",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "server/src/main/java/org/apache/druid/rpc/indexing/SpecificTaskServiceLocator.java",
+                "start_line": 86,
+                "end_line": 86,
+                "start_column": 47,
+                "end_column": 81
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3588/instances"
+    },
+    {
+        "number": 3587,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3587",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3587",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/test/java/org/apache/druid/segment/serde/HyperUniquesSerdeForTest.java",
+                "start_line": 121,
+                "end_line": 121,
+                "start_column": 30,
+                "end_column": 66
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3587/instances"
+    },
+    {
+        "number": 3586,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3586",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3586",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/test/java/org/apache/druid/segment/join/table/IndexedTableJoinMatcherTest.java",
+                "start_line": 590,
+                "end_line": 590,
+                "start_column": 33,
+                "end_column": 40
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3586/instances"
+    },
+    {
+        "number": 3585,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3585",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3585",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/test/java/org/apache/druid/segment/ListCursor.java",
+                "start_line": 208,
+                "end_line": 208,
+                "start_column": 5,
+                "end_column": 12
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3585/instances"
+    },
+    {
+        "number": 3584,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3584",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3584",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/test/java/org/apache/druid/query/dimension/TestDimensionSelector.java",
+                "start_line": 74,
+                "end_line": 74,
+                "start_column": 35,
+                "end_column": 43
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3584/instances"
+    },
+    {
+        "number": 3583,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3583",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3583",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/test/java/org/apache/druid/java/util/common/guava/SequenceTestHelper.java",
+                "start_line": 152,
+                "end_line": 152,
+                "start_column": 22,
+                "end_column": 37
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3583/instances"
+    },
+    {
+        "number": 3582,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3582",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3582",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/test/java/org/apache/druid/java/util/common/guava/SequenceTestHelper.java",
+                "start_line": 131,
+                "end_line": 131,
+                "start_column": 32,
+                "end_column": 47
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3582/instances"
+    },
+    {
+        "number": 3581,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3581",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3581",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/test/java/org/apache/druid/java/util/common/guava/SequenceTestHelper.java",
+                "start_line": 116,
+                "end_line": 116,
+                "start_column": 20,
+                "end_column": 36
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3581/instances"
+    },
+    {
+        "number": 3580,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3580",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3580",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/test/java/org/apache/druid/java/util/common/guava/SequenceTestHelper.java",
+                "start_line": 72,
+                "end_line": 72,
+                "start_column": 20,
+                "end_column": 36
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3580/instances"
+    },
+    {
+        "number": 3579,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3579",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3579",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/test/java/org/apache/druid/frame/processor/SuperSorterTest.java",
+                "start_line": 722,
+                "end_line": 722,
+                "start_column": 30,
+                "end_column": 45
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3579/instances"
+    },
+    {
+        "number": 3578,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3578",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3578",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/utils/CircularBuffer.java",
+                "start_line": 70,
+                "end_line": 70,
+                "start_column": 21,
+                "end_column": 48
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3578/instances"
+    },
+    {
+        "number": 3577,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3577",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3577",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/utils/CircularBuffer.java",
+                "start_line": 50,
+                "end_line": 50,
+                "start_column": 12,
+                "end_column": 19
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3577/instances"
+    },
+    {
+        "number": 3576,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3576",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3576",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an underflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an underflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/timeline/SegmentId.java",
+                "start_line": 279,
+                "end_line": 279,
+                "start_column": 16,
+                "end_column": 34
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3576/instances"
+    },
+    {
+        "number": 3575,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3575",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3575",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/segment/writeout/ByteBufferWriteOutBytes.java",
+                "start_line": 83,
+                "end_line": 83,
+                "start_column": 5,
+                "end_column": 22
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3575/instances"
+    },
+    {
+        "number": 3574,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3574",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3574",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an underflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an underflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an underflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/segment/serde/cell/CellIndexReader.java",
+                "start_line": 41,
+                "end_line": 41,
+                "start_column": 20,
+                "end_column": 44
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3574/instances"
+    },
+    {
+        "number": 3573,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3573",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3573",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/segment/join/PossiblyNullDimensionSelector.java",
+                "start_line": 185,
+                "end_line": 185,
+                "start_column": 14,
+                "end_column": 46
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3573/instances"
+    },
+    {
+        "number": 3572,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3572",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3572",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/segment/join/PossiblyNullDimensionSelector.java",
+                "start_line": 144,
+                "end_line": 144,
+                "start_column": 14,
+                "end_column": 54
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3572/instances"
+    },
+    {
+        "number": 3571,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3571",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3571",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an underflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an underflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an underflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/segment/join/PossiblyNullDimensionSelector.java",
+                "start_line": 116,
+                "end_line": 116,
+                "start_column": 40,
+                "end_column": 59
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3571/instances"
+    },
+    {
+        "number": 3570,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3570",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3570",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an underflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an underflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an underflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/segment/join/PossiblyNullDimensionSelector.java",
+                "start_line": 107,
+                "end_line": 107,
+                "start_column": 40,
+                "end_column": 59
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3570/instances"
+    },
+    {
+        "number": 3569,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3569",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3569",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/segment/join/PossiblyNullDimensionSelector.java",
+                "start_line": 91,
+                "end_line": 91,
+                "start_column": 12,
+                "end_column": 63
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3569/instances"
+    },
+    {
+        "number": 3568,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3568",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3568",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/segment/incremental/OnheapIncrementalIndex.java",
+                "start_line": 572,
+                "end_line": 572,
+                "start_column": 69,
+                "end_column": 95
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3568/instances"
+    },
+    {
+        "number": 3567,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3567",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3567",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/segment/incremental/OnheapIncrementalIndex.java",
+                "start_line": 563,
+                "end_line": 563,
+                "start_column": 23,
+                "end_column": 49
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3567/instances"
+    },
+    {
+        "number": 3566,
+        "created_at": "2023-07-13T16:07:51Z",
+        "updated_at": "2023-07-13T16:07:52Z",
+        "url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3566",
+        "html_url": "https://github.com/Be-Secure/druid/security/code-scanning/3566",
+        "state": "fixed",
+        "fixed_at": "2023-07-14T10:34:35Z",
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/tainted-arithmetic",
+            "severity": "warning",
+            "description": "User-controlled data in arithmetic expression",
+            "name": "java/tainted-arithmetic",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-191",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.13.5"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/druid-26.0.0_release",
+            "analysis_key": ".github/workflows/codeql_build.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "fixed",
+            "commit_sha": "1ab945867f99314fed9038a60c4b9fdfe803153f",
+            "message": {
+                "text": "This arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow.\nThis arithmetic expression depends on a user-provided value, potentially causing an overflow."
+            },
+            "location": {
+                "path": "processing/src/main/java/org/apache/druid/segment/incremental/OnheapIncrementalIndex.java",
+                "start_line": 562,
+                "end_line": 562,
+                "start_column": 49,
+                "end_column": 75
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/druid/code-scanning/alerts/3566/instances"
+    }
+]
