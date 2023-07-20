@@ -1,0 +1,48 @@
+[
+  {
+    "number": 41,
+    "created_at": "2023-06-12T10:02:47Z",
+    "updated_at": "2023-06-12T10:02:47Z",
+    "url": "https://api.github.com/repos/Be-Secure/elasticsearch/code-scanning/alerts/41",
+    "html_url": "https://github.com/Be-Secure/elasticsearch/security/code-scanning/41",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/zipslip",
+      "severity": "error",
+      "description": "Arbitrary file write during archive extraction (\"Zip Slip\")",
+      "name": "java/zipslip",
+      "tags": ["external/cwe/cwe-022","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.3"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v7.6.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "db3792d41903293fef7155d5f22bd106e521b0e0",
+      "message": {
+        "text": "Unsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation."
+      },
+      "location": {
+        "path": "buildSrc/src/main/java/org/elasticsearch/gradle/tar/SymbolicLinkPreservingUntarTask.java",
+        "start_line": 106,
+        "end_line": 106,
+        "start_column": 59,
+        "end_column": 74
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/elasticsearch/code-scanning/alerts/41/instances"
+  }
+]

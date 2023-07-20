@@ -1,0 +1,1585 @@
+[
+    {
+        "number": 82,
+        "created_at": "2023-07-20T12:20:29Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/82",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/82",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/unsafe-deserialization",
+            "severity": "error",
+            "description": "Deserialization of user-controlled data",
+            "name": "java/unsafe-deserialization",
+            "tags": [
+                "external/cwe/cwe-502",
+                "security"
+            ],
+            "security_severity_level": "critical"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Unsafe deserialization depends on a user-provided value.\nUnsafe deserialization depends on a user-provided value."
+            },
+            "location": {
+                "path": "flink-connectors/flink-connector-hive/src/main/java/org/apache/flink/connectors/hive/HiveTablePartitionSerializer.java",
+                "start_line": 60,
+                "end_line": 60,
+                "start_column": 45,
+                "end_column": 69
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/82/instances"
+    },
+    {
+        "number": 81,
+        "created_at": "2023-07-20T12:20:29Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/81",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/81",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/concatenated-command-line",
+            "severity": "error",
+            "description": "Building a command line with string concatenation",
+            "name": "java/concatenated-command-line",
+            "tags": [
+                "external/cwe/cwe-078",
+                "external/cwe/cwe-088",
+                "security"
+            ],
+            "security_severity_level": "critical"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Command line is built with string concatenation."
+            },
+            "location": {
+                "path": "flink-yarn-tests/src/test/java/org/apache/flink/yarn/YARNHighAvailabilityITCase.java",
+                "start_line": 379,
+                "end_line": 379,
+                "start_column": 56,
+                "end_column": 81
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/81/instances"
+    },
+    {
+        "number": 80,
+        "created_at": "2023-07-20T12:20:29Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/80",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/80",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type long to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-table/flink-table-runtime/src/main/java/org/apache/flink/table/runtime/functions/aggregate/hyperloglog/XXH64.java",
+                "start_line": 155,
+                "end_line": 155,
+                "start_column": 13,
+                "end_column": 25
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/80/instances"
+    },
+    {
+        "number": 79,
+        "created_at": "2023-07-20T12:20:29Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/79",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/79",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type long to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-table/flink-table-runtime/src/main/java/org/apache/flink/table/runtime/functions/aggregate/hyperloglog/XXH64.java",
+                "start_line": 112,
+                "end_line": 112,
+                "start_column": 17,
+                "end_column": 30
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/79/instances"
+    },
+    {
+        "number": 78,
+        "created_at": "2023-07-20T12:20:29Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/78",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/78",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type long to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-table/flink-table-runtime/src/main/java/org/apache/flink/table/runtime/functions/aggregate/hyperloglog/XXH64.java",
+                "start_line": 65,
+                "end_line": 65,
+                "start_column": 13,
+                "end_column": 25
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/78/instances"
+    },
+    {
+        "number": 77,
+        "created_at": "2023-07-20T10:57:13Z",
+        "updated_at": "2023-07-20T10:57:13Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/77",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/77",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "py/insecure-temporary-file",
+            "severity": "error",
+            "description": "Insecure temporary file",
+            "name": "py/insecure-temporary-file",
+            "tags": [
+                "external/cwe/cwe-377",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"python\"}",
+            "category": "/language:python",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Call to deprecated function tempfile.mktemp may be insecure."
+            },
+            "location": {
+                "path": "flink-python/pyflink/datastream/formats/tests/test_parquet.py",
+                "start_line": 204,
+                "end_line": 204,
+                "start_column": 34,
+                "end_column": 86
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/77/instances"
+    },
+    {
+        "number": 76,
+        "created_at": "2023-07-20T10:57:13Z",
+        "updated_at": "2023-07-20T10:57:13Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/76",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/76",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "py/insecure-temporary-file",
+            "severity": "error",
+            "description": "Insecure temporary file",
+            "name": "py/insecure-temporary-file",
+            "tags": [
+                "external/cwe/cwe-377",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"python\"}",
+            "category": "/language:python",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Call to deprecated function tempfile.mktemp may be insecure."
+            },
+            "location": {
+                "path": "flink-python/pyflink/datastream/formats/tests/test_parquet.py",
+                "start_line": 101,
+                "end_line": 101,
+                "start_column": 29,
+                "end_column": 81
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/76/instances"
+    },
+    {
+        "number": 75,
+        "created_at": "2023-07-20T10:57:13Z",
+        "updated_at": "2023-07-20T10:57:13Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/75",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/75",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "py/insecure-temporary-file",
+            "severity": "error",
+            "description": "Insecure temporary file",
+            "name": "py/insecure-temporary-file",
+            "tags": [
+                "external/cwe/cwe-377",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"python\"}",
+            "category": "/language:python",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Call to deprecated function tempfile.mktemp may be insecure."
+            },
+            "location": {
+                "path": "flink-python/pyflink/datastream/formats/tests/test_parquet.py",
+                "start_line": 92,
+                "end_line": 92,
+                "start_column": 29,
+                "end_column": 81
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/75/instances"
+    },
+    {
+        "number": 74,
+        "created_at": "2023-07-20T10:57:13Z",
+        "updated_at": "2023-07-20T10:57:13Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/74",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/74",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "py/insecure-temporary-file",
+            "severity": "error",
+            "description": "Insecure temporary file",
+            "name": "py/insecure-temporary-file",
+            "tags": [
+                "external/cwe/cwe-377",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"python\"}",
+            "category": "/language:python",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Call to deprecated function tempfile.mktemp may be insecure."
+            },
+            "location": {
+                "path": "flink-python/pyflink/datastream/formats/tests/test_parquet.py",
+                "start_line": 83,
+                "end_line": 83,
+                "start_column": 29,
+                "end_column": 81
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/74/instances"
+    },
+    {
+        "number": 73,
+        "created_at": "2023-07-20T10:57:13Z",
+        "updated_at": "2023-07-20T10:57:13Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/73",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/73",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "py/insecure-temporary-file",
+            "severity": "error",
+            "description": "Insecure temporary file",
+            "name": "py/insecure-temporary-file",
+            "tags": [
+                "external/cwe/cwe-377",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"python\"}",
+            "category": "/language:python",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Call to deprecated function tempfile.mktemp may be insecure."
+            },
+            "location": {
+                "path": "flink-python/pyflink/datastream/formats/tests/test_parquet.py",
+                "start_line": 74,
+                "end_line": 74,
+                "start_column": 29,
+                "end_column": 81
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/73/instances"
+    },
+    {
+        "number": 72,
+        "created_at": "2023-07-20T10:57:13Z",
+        "updated_at": "2023-07-20T10:57:13Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/72",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/72",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "py/insecure-temporary-file",
+            "severity": "error",
+            "description": "Insecure temporary file",
+            "name": "py/insecure-temporary-file",
+            "tags": [
+                "external/cwe/cwe-377",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"python\"}",
+            "category": "/language:python",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Call to deprecated function tempfile.mktemp may be insecure."
+            },
+            "location": {
+                "path": "flink-python/pyflink/datastream/formats/tests/test_parquet.py",
+                "start_line": 65,
+                "end_line": 65,
+                "start_column": 29,
+                "end_column": 81
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/72/instances"
+    },
+    {
+        "number": 71,
+        "created_at": "2023-07-20T10:57:13Z",
+        "updated_at": "2023-07-20T10:57:13Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/71",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/71",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "py/insecure-temporary-file",
+            "severity": "error",
+            "description": "Insecure temporary file",
+            "name": "py/insecure-temporary-file",
+            "tags": [
+                "external/cwe/cwe-377",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"python\"}",
+            "category": "/language:python",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Call to deprecated function tempfile.mktemp may be insecure."
+            },
+            "location": {
+                "path": "flink-python/pyflink/datastream/formats/tests/test_csv.py",
+                "start_line": 127,
+                "end_line": 127,
+                "start_column": 30,
+                "end_column": 78
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/71/instances"
+    },
+    {
+        "number": 70,
+        "created_at": "2023-07-20T10:57:13Z",
+        "updated_at": "2023-07-20T10:57:13Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/70",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/70",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "py/insecure-temporary-file",
+            "severity": "error",
+            "description": "Insecure temporary file",
+            "name": "py/insecure-temporary-file",
+            "tags": [
+                "external/cwe/cwe-377",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"python\"}",
+            "category": "/language:python",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Call to deprecated function tempfile.mktemp may be insecure."
+            },
+            "location": {
+                "path": "flink-python/pyflink/datastream/formats/tests/test_csv.py",
+                "start_line": 40,
+                "end_line": 40,
+                "start_column": 30,
+                "end_column": 78
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/70/instances"
+    },
+    {
+        "number": 69,
+        "created_at": "2023-07-20T10:57:13Z",
+        "updated_at": "2023-07-20T10:57:13Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/69",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/69",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "py/insecure-temporary-file",
+            "severity": "error",
+            "description": "Insecure temporary file",
+            "name": "py/insecure-temporary-file",
+            "tags": [
+                "external/cwe/cwe-377",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"python\"}",
+            "category": "/language:python",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Call to deprecated function tempfile.mktemp may be insecure."
+            },
+            "location": {
+                "path": "flink-python/pyflink/datastream/formats/tests/test_avro.py",
+                "start_line": 41,
+                "end_line": 41,
+                "start_column": 31,
+                "end_column": 80
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/69/instances"
+    },
+    {
+        "number": 62,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/62",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/62",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type long to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-tests/src/test/java/org/apache/flink/test/operators/GroupReduceITCase.java",
+                "start_line": 1650,
+                "end_line": 1650,
+                "start_column": 17,
+                "end_column": 33
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/62/instances"
+    },
+    {
+        "number": 61,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/61",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/61",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type int to narrower destination type byte."
+            },
+            "location": {
+                "path": "flink-tests/src/test/java/org/apache/flink/test/checkpointing/SavepointITCase.java",
+                "start_line": 1499,
+                "end_line": 1499,
+                "start_column": 17,
+                "end_column": 29
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/61/instances"
+    },
+    {
+        "number": 60,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/60",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/60",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type long to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-tests/src/test/java/org/apache/flink/test/checkpointing/EventTimeWindowCheckpointingITCase.java",
+                "start_line": 747,
+                "end_line": 747,
+                "start_column": 21,
+                "end_column": 37
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/60/instances"
+    },
+    {
+        "number": 59,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/59",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/59",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type Long to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-table/flink-table-planner/src/test/java/org/apache/flink/table/planner/plan/utils/JavaUserDefinedAggFunctions.java",
+                "start_line": 157,
+                "end_line": 157,
+                "start_column": 13,
+                "end_column": 41
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/59/instances"
+    },
+    {
+        "number": 58,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/58",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/58",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type long to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-table/flink-table-common/src/main/java/org/apache/flink/table/utils/DateTimeUtils.java",
+                "start_line": 778,
+                "end_line": 778,
+                "start_column": 13,
+                "end_column": 35
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/58/instances"
+    },
+    {
+        "number": 57,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/57",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/57",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type long to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-table/flink-table-common/src/main/java/org/apache/flink/table/utils/DateTimeUtils.java",
+                "start_line": 296,
+                "end_line": 296,
+                "start_column": 13,
+                "end_column": 35
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/57/instances"
+    },
+    {
+        "number": 56,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/56",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/56",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type long to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-table/flink-table-common/src/main/java/org/apache/flink/table/data/TimestampData.java",
+                "start_line": 83,
+                "end_line": 83,
+                "start_column": 13,
+                "end_column": 35
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/56/instances"
+    },
+    {
+        "number": 55,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/55",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/55",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type int to narrower destination type byte."
+            },
+            "location": {
+                "path": "flink-runtime/src/test/java/org/apache/flink/runtime/execution/librarycache/BlobLibraryCacheManagerTest.java",
+                "start_line": 230,
+                "end_line": 230,
+                "start_column": 13,
+                "end_column": 24
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/55/instances"
+    },
+    {
+        "number": 54,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/54",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/54",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type int to narrower destination type byte."
+            },
+            "location": {
+                "path": "flink-runtime/src/test/java/org/apache/flink/runtime/execution/librarycache/BlobLibraryCacheManagerTest.java",
+                "start_line": 97,
+                "end_line": 97,
+                "start_column": 13,
+                "end_column": 24
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/54/instances"
+    },
+    {
+        "number": 53,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/53",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/53",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type int to narrower destination type byte."
+            },
+            "location": {
+                "path": "flink-runtime/src/test/java/org/apache/flink/runtime/blob/BlobCacheCleanupTest.java",
+                "start_line": 250,
+                "end_line": 250,
+                "start_column": 13,
+                "end_column": 24
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/53/instances"
+    },
+    {
+        "number": 52,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/52",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/52",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type int to narrower destination type byte."
+            },
+            "location": {
+                "path": "flink-runtime/src/test/java/org/apache/flink/runtime/blob/BlobCacheCleanupTest.java",
+                "start_line": 100,
+                "end_line": 100,
+                "start_column": 13,
+                "end_column": 24
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/52/instances"
+    },
+    {
+        "number": 51,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/51",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/51",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type double to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-runtime/src/main/java/org/apache/flink/runtime/throughput/BufferSizeEMA.java",
+                "start_line": 65,
+                "end_line": 65,
+                "start_column": 9,
+                "end_column": 73
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/51/instances"
+    },
+    {
+        "number": 50,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/50",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/50",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type long to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-runtime/src/main/java/org/apache/flink/runtime/io/network/partition/SortBasedDataBuffer.java",
+                "start_line": 351,
+                "end_line": 351,
+                "start_column": 13,
+                "end_column": 58
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/50/instances"
+    },
+    {
+        "number": 49,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/49",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/49",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type double to narrower destination type long."
+            },
+            "location": {
+                "path": "flink-runtime/src/main/java/org/apache/flink/runtime/executiongraph/failover/flip1/ExponentialDelayRestartBackoffTimeStrategy.java",
+                "start_line": 123,
+                "end_line": 123,
+                "start_column": 13,
+                "end_column": 50
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/49/instances"
+    },
+    {
+        "number": 48,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/48",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/48",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type long to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-python/src/main/java/org/apache/flink/table/runtime/typeutils/serializers/python/TimestampSerializer.java",
+                "start_line": 127,
+                "end_line": 127,
+                "start_column": 13,
+                "end_column": 35
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/48/instances"
+    },
+    {
+        "number": 47,
+        "created_at": "2023-03-13T08:26:28Z",
+        "updated_at": "2023-07-20T12:20:30Z",
+        "url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/47",
+        "html_url": "https://github.com/Be-Secure/flink/security/code-scanning/47",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "java/implicit-cast-in-compound-assignment",
+            "severity": "warning",
+            "description": "Implicit narrowing conversion in compound assignment",
+            "name": "java/implicit-cast-in-compound-assignment",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-192",
+                "external/cwe/cwe-197",
+                "external/cwe/cwe-681",
+                "reliability",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/release-1.17.1_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"java\"}",
+            "category": "/language:java",
+            "state": "open",
+            "commit_sha": "8ad31998eb62ddf6c66f372a1938f1998c92f84b",
+            "message": {
+                "text": "Implicit cast of source type long to narrower destination type int."
+            },
+            "location": {
+                "path": "flink-python/src/main/java/org/apache/flink/table/runtime/operators/python/aggregate/arrow/stream/AbstractStreamArrowPythonBoundedRowsOperator.java",
+                "start_line": 174,
+                "end_line": 174,
+                "start_column": 17,
+                "end_column": 51
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/flink/code-scanning/alerts/47/instances"
+    }
+]
