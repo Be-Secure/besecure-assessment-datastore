@@ -1,0 +1,53 @@
+[
+    {
+        "number": 36,
+        "created_at": "2023-07-20T06:48:57Z",
+        "updated_at": "2023-07-20T06:48:57Z",
+        "url": "https://api.github.com/repos/Be-Secure/gramine/code-scanning/alerts/36",
+        "html_url": "https://github.com/Be-Secure/gramine/security/code-scanning/36",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "py/insecure-temporary-file",
+            "severity": "error",
+            "description": "Insecure temporary file",
+            "name": "py/insecure-temporary-file",
+            "tags": [
+                "external/cwe/cwe-377",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.0"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v1.5_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"python\"}",
+            "category": "/language:python",
+            "state": "open",
+            "commit_sha": "3d6c97d19d0c9eb926af1b67d24f468e6e97c535",
+            "message": {
+                "text": "Call to deprecated function tempfile.mktemp may be insecure."
+            },
+            "location": {
+                "path": "subprojects/mbedtls-mbedtls-3.4.0/mbedtls-mbedtls-3.4.0/scripts/ecp_comb_table.py",
+                "start_line": 171,
+                "end_line": 171,
+                "start_column": 15,
+                "end_column": 48
+            },
+            "classifications": [
+                "library"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/gramine/code-scanning/alerts/36/instances"
+    }
+]
