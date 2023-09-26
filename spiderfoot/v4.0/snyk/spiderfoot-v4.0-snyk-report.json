@@ -1,0 +1,3513 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "python/InsecureHash",
+              "name": "InsecureHash",
+              "shortDescription": {
+                "text": "Use of Password Hash With Insufficient Computational Effort"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nSensitive information should never be stored in plain text, since this makes it very easy for unauthorized users, whether malicious insiders or outside attackers, to access. Hashing methods are used to make stored passwords and other sensitive data unreadable to users. For example, when a password is defined for the first time, it is hashed and then stored. The next time that user attempts to log on, the password they enter is hashed following the same procedure and compared with the stored value. In this way, the original password never needs to be stored in the system.\n\nHashing is a one-way scheme, meaning a hashed password cannot be reverse engineered. However, if an outdated or custom programmed hashing scheme is used, it becomes simple for an attacker with powerful modern computing power to gain access to the hashes used. This opens up access to all stored password information, leading to breached security. Therefore, it is essential for developers to understand modern, secure password hashing techniques.\n\n## Best practices for prevention\n* Use strong standard algorithms for hashing rather than simpler but outdated methods or DIY hashing schemes, which may have inherent weaknesses.\n* Use modular design for all code dealing with hashing so it can be swapped out as security standards change over time.\n* Use salting in combination with hashing (While this places more demands on resources, it is an essential step for tighter security.).\n* Implement zero-trust architecture to ensure that access to password data is granted only for legitimate business purposes.\n* Increase developer awareness of current standards in data security and cryptography.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "InsecureHash",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-916"
+                ]
+              }
+            },
+            {
+              "id": "python/incomplete~url~sanitazation",
+              "name": "incomplete~url~sanitazation",
+              "shortDescription": {
+                "text": "Incomplete URL sanitization"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\nFunctions like `startswith` or `endswith` used to sanitize/validate a URL can be bypassed. An attacker can provide a URL that starts or ends with the matched value and still have control over other part of the URL. This allows attackers to bypass URL validation leading to other potential security issues like Open Redirect (OR) or Server Side Request Forgery (SSRF).\n\n## Best practices for prevention\n* Use dedicated libraries to sanitize or validate URLS\n* Use a whitelist (or blocklist) approach to accept only trusted URLs",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "incomplete~url~sanitazation",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/fake-name/ReadableWebProxy/commit/7a24595ead16306c638e2f0763f9e977166fbb5c?diff=split#diff-7377f673ea73b36446671aba7b1e6291L143",
+                    "lines": [
+                      {
+                        "line": "  def wantsUrl(url):",
+                        "lineNumber": 217,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    netloc = urllib.parse.urlsplit(url).netloc",
+                        "lineNumber": 218,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    return netloc.lower().endswith(\"www.webnovel.com\")",
+                        "lineNumber": 142,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    return netloc.lower().endswith(\".webnovel.com\")",
+                        "lineNumber": 219,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "ast",
+                        "lineNumber": 220,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\\ No newline at end of file",
+                        "lineNumber": 221,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/minio/minio-py/commit/d3f78bd2823694ec174bbd0c71bc9eac62700c2f?diff=split#diff-fcb41fe0cf76def6ffe532956529148bL140",
+                    "lines": [
+                      {
+                        "line": "    raise InvalidEndpointError('endpoint')",
+                        "lineNumber": 137,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "if hostname.endswith('amazonaws.com') and (hostname != 's3.amazonaws.com'):",
+                        "lineNumber": 139,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    raise InvalidEndpointError('endpoint')",
+                        "lineNumber": 140,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    raise InvalidEndpointError('Hostname does not meet URL standards.')",
+                        "lineNumber": 182,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "if hostname.endswith('.amazonaws.com') and (hostname != 's3.amazonaws.com'):",
+                        "lineNumber": 184,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    raise InvalidEndpointError('Amazon S3 hostname should be s3.amazonaws.com.')",
+                        "lineNumber": 185,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/tdryer/hangups/commit/4e597f4f182cf8e1d9426cc50084cbb767d0dedf?diff=split#diff-8f2b2a6645c82b7a69d429e453132015L79",
+                    "lines": [
+                      {
+                        "line": "    raise ValueError('The given URI \"%s\" is not valid' % url)",
+                        "lineNumber": 76,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "if hostname.endswith('google.com'):",
+                        "lineNumber": 78,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    kwargs['headers'] = kwargs.get('headers') or {}",
+                        "lineNumber": 79,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    kwargs['headers'].update(",
+                        "lineNumber": 80,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "# Ensure we don't accidentally send the authorization header to a",
+                        "lineNumber": 116,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "# non-Google domain:",
+                        "lineNumber": 117,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "assert urllib.parse.urlparse(url).hostname.endswith('.google.com')",
+                        "lineNumber": 118,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "headers = headers or {}",
+                        "lineNumber": 119,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "headers.update(self._authorization_headers)",
+                        "lineNumber": 120,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 10,
+                "cwe": [
+                  "CWE-20"
+                ]
+              }
+            },
+            {
+              "id": "python/ServerInformationExposure",
+              "name": "ServerInformationExposure",
+              "shortDescription": {
+                "text": "Server Information Exposure"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nWhen a command to your site or application fails, it should do so gracefully, meaning that the user is informed that there has been a problem, rather than experiencing erratic behavior, such as crashing, hanging, or returning a 404 or similar generic error page.\n\nIn some cases, developers include information in an error message to help pinpoint the source of an error; these may include username, password, application path, stack values, and other internal details. When this weakness is present, if these logs are accessible to an attacker, it may give them clues as to the inner workings of the app, helping them plan a focused attack. For example, clues revealing SQL database details may help plan an SQL injection attack.\n\n## Best practices for prevention\n* Keep error messages to the barest minimum of helpful information that users absolutely need to know.\n* Use consistent error messages that do not give attackers clues that they might be on the right track to a successful attack, such as \"File not found\" or \"User name does not exist\".\n* Ensure that debugging information is removed from code prior to release.\n* Create clear policy for the types of errors that must be logged, which messages will be displayed to users, and which details will be logged for later alerting and debugging.\n* When logging error details, never include sensitive information such as passwords.\n* Implement naming conventions that will help you flag and defend sensitive information.\n* Use dynamic (white box) test techniques to identify conditions that could cause errors and failures and test thoroughly to ensure that the code performs gracefully without revealing sensitive data under these stress conditions.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "ServerInformationExposure",
+                  "Security",
+                  "SourceStackTrace",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/wrr/wwwhisper/commit/ffe422f8ced03d78c1b4f131f5f8ec04f289b347?diff=split#diff-a12f6e8860689ff7bf0d3f3c46190897L212",
+                    "lines": [
+                      {
+                        "line": "    location.revoke_access(user_uuid)",
+                        "lineNumber": 209,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    return HttpResponseNoContent()",
+                        "lineNumber": 210,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    return http.HttpResponseNoContent()",
+                        "lineNumber": 205,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "except LookupError as ex:",
+                        "lineNumber": 211,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    return HttpResponseNotFound(ex)",
+                        "lineNumber": 212,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    return http.HttpResponseNotFound(str(ex))",
+                        "lineNumber": 207,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/tsuru/mysqlapi/commit/3d7b853b21adaa1e8773f8a2ee2d173d1fec9181?diff=split#diff-7fc082285cdef6d1f1123e5e1e4bb308L73",
+                    "lines": [
+                      {
+                        "line": "try:",
+                        "lineNumber": 70,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    db.drop_user(name, hostname)",
+                        "lineNumber": 71,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "except Exception, e:",
+                        "lineNumber": 72,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    return HttpResponse(e[1], status=500)",
+                        "lineNumber": 73,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    return HttpResponse(e.args[-1], status=500)",
+                        "lineNumber": 73,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "return HttpResponse(\"\", status=200)",
+                        "lineNumber": 74,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/feinheit/django-facebook-graph/commit/dc8d743a9acdc2f59dd40556c97e1c8147a7612a?diff=split#diff-167067b2fd7589f2a39841f5c3ca5d69L104",
+                    "lines": [
+                      {
+                        "line": "try:",
+                        "lineNumber": 101,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    me = graph.get_object(\"me\")",
+                        "lineNumber": 102,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "except facebook.GraphAPIError as e:",
+                        "lineNumber": 103,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    return HttpResponse(e)",
+                        "lineNumber": 104,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    return redirect('fb_login')",
+                        "lineNumber": 104,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "# if the user has already a facebook connection, abort and show",
+                        "lineNumber": 106,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 79,
+                "cwe": [
+                  "CWE-209"
+                ]
+              }
+            },
+            {
+              "id": "python/Ssrf",
+              "name": "Ssrf",
+              "shortDescription": {
+                "text": "Server-Side Request Forgery (SSRF)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\nIn a server-side request forgery attack, a malicious user supplies a URL (an external URL or a network IP address such as 127.0.0.1) to the application's back end. The server then accesses the URL and shares its results, which may include sensitive information such as AWS metadata, internal configuration information, or database contents with the attacker. Because the request comes from the back end, it bypasses access controls, potentially exposing information the user does not have sufficient privileges to receive. The attacker can then exploit this information to gain access, modify the web application, or demand a ransom payment.\n\n## Best practices for prevention\n* Blacklists are problematic and attackers have numerous ways to bypass them; ideally, use a whitelist of all permitted domains and IP addresses.\n* Use authentication even within your own network to prevent exploitation of server-side requests.\n* Implement zero trust and sanitize and validate all URL and header data returning to the server from the user. Strip invalid or suspect characters, then inspect to be certain it contains a valid and expected value.\n* Ideally, avoid sending server requests based on user-provided data altogether.\n* Ensure that you are not sending raw response bodies from the server directly to the client. Only deliver expected responses.\n* Disable suspect and exploitable URL schemas. Common culprits include obscure and little-used schemas such as `file://`, `dict://`, `ftp://`, and `gopher://`.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "Ssrf",
+                  "Security",
+                  "SourceNonServer",
+                  "SourceLocalEnv",
+                  "SourceCLI",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-918"
+                ]
+              }
+            },
+            {
+              "id": "python/PT",
+              "name": "PT",
+              "shortDescription": {
+                "text": "Path Traversal"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nA Directory Traversal attack (also known as path traversal) aims to access files and directories that are stored outside the intended folder. By manipulating files with \"dot-dot-slash (../)\" sequences and its variations, or by using absolute file paths, it may be possible to access arbitrary files and directories stored on file system, including application source code, configuration, and other critical system files.\n\nBeing able to access and manipulate an arbitrary path leads to vulnerabilities when a program is being run with privileges that the user providing the path should not have. A website with a path traversal vulnerability would allow users access to sensitive files on the server hosting it. CLI programs may also be vulnerable to path traversal if they are being ran with elevated privileges (such as with the setuid or setgid flags in Unix systems).\n\nDirectory Traversal vulnerabilities can be generally divided into two types:\n\n- **Information Disclosure**: Allows the attacker to gain information about the folder structure or read the contents of sensitive files on the system.\n\n`st` is a module for serving static files on web pages, and contains a [vulnerability of this type](https://snyk.io/vuln/npm:st:20140206). In our example, we will serve files from the `public` route.\n\nIf an attacker requests the following URL from our server, it will in turn leak the sensitive private key of the root user.\n\n```\ncurl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa\n```\n**Note** `%2e` is the URL encoded version of `.` (dot).\n\n- **Writing arbitrary files**: Allows the attacker to create or replace existing files. This type of vulnerability is also known as `Zip-Slip`.\n\nOne way to achieve this is by using a malicious `zip` archive that holds path traversal filenames. When each filename in the zip archive gets concatenated to the target extraction folder, without validation, the final path ends up outside of the target folder. If an executable or a configuration file is overwritten with a file containing malicious code, the problem can turn into an arbitrary code execution issue quite easily.\n\nThe following is an example of a `zip` archive with one benign file and one malicious file. Extracting the malicious file will result in traversing out of the target folder, ending up in `/root/.ssh/` overwriting the `authorized_keys` file:\n\n```\n2018-04-15 22:04:29 .....           19           19  good.txt\n2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys\n```",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "PT",
+                  "Security",
+                  "SourceLocalEnv",
+                  "SourceCLI",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/pynickle/amazing-python/commit/80d2cc8c3e2c8330416b91f17a09b51830915b86?diff=split#diff-f626b00ab4d99fdbd4cb2bd61ae29469L118",
+                    "lines": [
+                      {
+                        "line": "if request.method == \"POST\":",
+                        "lineNumber": 161,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    try:",
+                        "lineNumber": 162,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        f = request.files['file']",
+                        "lineNumber": 163,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        filename = f.filename",
+                        "lineNumber": 118,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        filename = secure_filename(f.filename)",
+                        "lineNumber": 164,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        f.save(filename)",
+                        "lineNumber": 165,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        with open(filename, \"r\", encoding=\"utf-8\") as f:",
+                        "lineNumber": 166,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            success, errors = words_validate(f.read())",
+                        "lineNumber": 167,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/WhaleShark-Team/cobra/commit/1ac467a2c1cf8427a5bf60031677817140fe181c?diff=split#diff-dc0ad7c98d7072655327746f1bc95b3aL72",
+                    "lines": [
+                      {
+                        "line": "task_type = 1",
+                        "lineNumber": 70,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "# check if there is a file or gitlab url",
+                        "lineNumber": 71,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "if len(request.files) == 0:",
+                        "lineNumber": 72,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    # no files, should check username and password",
+                        "lineNumber": 73,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    task_type = 1",
+                        "lineNumber": 74,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "# there is a file, check file format and uncompress it.",
+                        "lineNumber": 88,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "task_type = 2",
+                        "lineNumber": 89,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "upload_src = request.files['file']",
+                        "lineNumber": 90,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "filename = str(int(time.time())) + '_' + upload_src.filename",
+                        "lineNumber": 90,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "filename = str(int(time.time())) + '_' + secure_filename(upload_src.filename)",
+                        "lineNumber": 91,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "filepath = 'uploads/' + filename",
+                        "lineNumber": 92,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "upload_src.save(filepath)",
+                        "lineNumber": 93,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "# if you upload a rar file, upload_src.mimetype will returns \"application/octet-stream\"",
+                        "lineNumber": 95,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/Wordseer/wordseer/commit/ea92ade27f7a7a12d057a2b71daf9ffa1cf4385e?diff=split#diff-e86334029c6a0118169cce848ff474ddR13",
+                    "lines": [
+                      {
+                        "line": " PROJECT_ROUTE = \"/projects/\"",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " ",
+                        "lineNumber": 11,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "def allowed_file(filename):",
+                        "lineNumber": 12,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    return os.path.splitext(filename)[1] in app.config[\"ALLOWED_EXTENSIONS\"]",
+                        "lineNumber": 13,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": " @app.route(PROJECT_ROUTE, methods=[\"GET\", \"POST\"])",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " def projects():",
+                        "lineNumber": 16,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "if request.method == \"POST\":",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    uploaded_file = request.files[\"uploaded_file\"]",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    if uploaded_file and allowed_file(uploaded_file.filename):",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        filename = secure_filename(uploaded_file.filename)",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        dest_path = os.path.join(app.config[\"UPLOAD_DIR\"],",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            filename)",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        uploaded_file.save(dest_path)",
+                        "lineNumber": 48,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        #TODO: send the user somewhere useful?",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 553,
+                "cwe": [
+                  "CWE-23"
+                ]
+              }
+            },
+            {
+              "id": "python/ssl~wrap_socket~without~protocol",
+              "name": "ssl~wrap_socket~without~protocol",
+              "shortDescription": {
+                "text": "Missing protocol in ssl.wrap_socket"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nCalling `ssl.wrap_socket` without specifying the `ssl_version` results in using a protocol version that is deprecated due to no longer being strong enough.\nImplementing encryption for the transmission and storage of sensitive information is essential. But encryption standards are constantly changing since attackers have more and more powerful resources at their disposal-along with more sophisticated attack algorithms. This means that encryption is only useful if it meets current standards appropriate for the type of data being transmitted or stored.\n\n\n## Best practices for prevention\n* Avoid calling `ssl.wrap_socket` without specifying the `ssl_version`\n\n\n## References\n\n* [ssl.wrap_socket](https://docs.python.org/3/library/ssl.html#ssl.wrap_socket)",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "ssl~wrap_socket~without~protocol",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/Gallopsled/pwntools/commit/5fe760e70be3dc30a6e87b32bfb7fb009eb6b067?diff=split#diff-5979bfeb2208b5aa5b3f6ada06d80b92L84",
+                    "lines": [
+                      {
+                        "line": "        if ssl:",
+                        "lineNumber": 83,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            self.sock = _ssl.wrap_socket(self.sock)",
+                        "lineNumber": 83,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            self.sock = _ssl.wrap_socket(self.sock,**ssl_args)",
+                        "lineNumber": 84,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "def _connect(self, fam, typ):",
+                        "lineNumber": 86,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/tornadoweb/tornado/commit/cfa8857b819579170a7fc949bcf8c27cca040215?diff=split#diff-46c2c62b2b1964831d9332ba934cb623L428",
+                    "lines": [
+                      {
+                        "line": "def _handle_connect(self):",
+                        "lineNumber": 431,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    # TODO(bdarnell): cert verification, etc",
+                        "lineNumber": 426,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    self.socket = ssl.wrap_socket(self.socket,",
+                        "lineNumber": 432,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                                  do_handshake_on_connect=False)",
+                        "lineNumber": 428,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "                                  do_handshake_on_connect=False,",
+                        "lineNumber": 433,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                                  **self._ssl_options)",
+                        "lineNumber": 434,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    # Don't call the superclass's _handle_connect (which is responsible",
+                        "lineNumber": 435,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/lxc/pylxd/commit/17cddd8c84443214972c6d1cdd03b378ec3b82fb?diff=split#diff-62c66f6d66b8da5f1f0e9608b759fc35L68",
+                    "lines": [
+                      {
+                        "line": "(cert_file, key_file) = self._get_ssl_certs()",
+                        "lineNumber": 66,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "self.sock = ssl.wrap_socket(sock, certfile=cert_file,",
+                        "lineNumber": 67,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                            keyfile=key_file)",
+                        "lineNumber": 68,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "                            keyfile=key_file,",
+                        "lineNumber": 68,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                            ssl_version=ssl.PROTOCOL_TLSv1_2)",
+                        "lineNumber": 69,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 27,
+                "cwe": [
+                  "CWE-327"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "python/InsecureHash",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "hashlib.md5 is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[hashlib.md5](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "spiderfoot/db.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1718,
+                  "endLine": 1718,
+                  "startColumn": 24,
+                  "endColumn": 124
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "2058c74836849478ca7f2e48fd1e98139530fbd1822e1866638bbeb42b25c8e4",
+            "1": "a2db85fa.2dd6d7a6.79e62dc9.139c59a8.1a0abf6d.ba14daf2.66bab55e.ebed174f.97da360b.2dd6d7a6.f04405c4.139c59a8.1a0abf6d.ba14daf2.65068a99.ebed174f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "spiderfoot/db.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1718,
+                            "endLine": 1718,
+                            "startColumn": 24,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 155,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureHash",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "hashlib.md5 is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[hashlib.md5](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "modules/sfp_punkspider.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 67,
+                  "endLine": 67,
+                  "startColumn": 19,
+                  "endColumn": 87
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "615bf9c32710375c1765d01ed9ac841076e54bc8ccd76cca41c5ee80caab0cb9",
+            "1": "a2db85fa.aebb833b.79e62dc9.139c59a8.bab9de6f.ba14daf2.081ac3f4.b60afa86.a2db85fa.aebb833b.f04405c4.139c59a8.e26e24d8.ba14daf2.65068a99.8a73a01e"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "modules/sfp_punkspider.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 67,
+                            "endLine": 67,
+                            "startColumn": 19,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 155,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureHash",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "hashlib.md5 is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[hashlib.md5](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "modules/sfp_gravatar.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 77,
+                  "endLine": 77,
+                  "startColumn": 22,
+                  "endColumn": 90
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "b7f387a7366027716fc16b9d0f06de9d8e415e9127ccf935e02fa77953c09afd",
+            "1": "73f1ff92.2dd6d7a6.79e62dc9.139c59a8.056de048.ba14daf2.081ac3f4.fe22d96c.73f1ff92.2dd6d7a6.f04405c4.139c59a8.e26e24d8.ba14daf2.65068a99.fe22d96c"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "modules/sfp_gravatar.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 77,
+                            "endLine": 77,
+                            "startColumn": 22,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 155,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/incomplete~url~sanitazation",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Security checks on the substrings of an unparsed URL are often vulnerable to bypassing.",
+            "markdown": "Security checks on the substrings of an unparsed URL are often vulnerable to bypassing.",
+            "arguments": []
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "modules/sfp_abstractapi.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 263,
+                  "endLine": 263,
+                  "startColumn": 20,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "622e2e21915ebe4865ce2df4d191a5316a81524565116198928948d18d7c0f2b",
+            "1": "0ce97fba.7eeeeed1.67b4e3c5.139c59a8.1cd10918.b6d30b09.b69c6615.ebed174f.0ce97fba.7eeeeed1.67b4e3c5.139c59a8.1cd10918.b6d30b09.081ac3f4.ebed174f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "modules/sfp_abstractapi.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 263,
+                            "endLine": 263,
+                            "startColumn": 20,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 502,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/ServerInformationExposure",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "The stack trace from an exception flows into render and is leaked to the user. This may disclose sensitive server information to the attackers.",
+            "markdown": "The stack trace from {0} {1} into {2} and is leaked to the user. This may disclose sensitive server information to the attackers.",
+            "arguments": [
+              "[an exception](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7)",
+              "[render](8)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sfwebui.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 191,
+                  "endLine": 191,
+                  "startColumn": 16,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e533c46429d8a2a1483b01c8d1baf820073810987d020a7b7b2db7b77694a039",
+            "1": "8a30cfc6.ecc4e7fd.d2b05817.139c59a8.c0dfe0ef.ba14daf2.75d4ed92.f72ce814.973f29f2.577bab1d.d2b05817.af10751c.4e9c8380.ba14daf2.5e787d07.c0b72c2c"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 772,
+                            "endLine": 773,
+                            "startColumn": 25,
+                            "endColumn": 13
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 772,
+                            "endLine": 773,
+                            "startColumn": 25,
+                            "endColumn": 13
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 773,
+                            "endLine": 773,
+                            "startColumn": 59,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 774,
+                            "endLine": 774,
+                            "startColumn": 62,
+                            "endColumn": 63
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 774,
+                            "endLine": 774,
+                            "startColumn": 31,
+                            "endColumn": 65
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 181,
+                            "endLine": 181,
+                            "startColumn": 40,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 191,
+                            "endLine": 191,
+                            "startColumn": 37,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 191,
+                            "endLine": 191,
+                            "startColumn": 29,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 191,
+                            "endLine": 191,
+                            "startColumn": 16,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 554,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/ServerInformationExposure",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "The stack trace from an exception flows into render and is leaked to the user. This may disclose sensitive server information to the attackers.",
+            "markdown": "The stack trace from {0} {1} into {2} and is leaked to the user. This may disclose sensitive server information to the attackers.",
+            "arguments": [
+              "[an exception](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7)",
+              "[render](8)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sfwebui.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 828,
+                  "endLine": 828,
+                  "startColumn": 24,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "fba4be570591b8a92b31ba5fa38427a40b3860179c7037f2c45f71fe626a6a7f",
+            "1": "b2dd68c0.577bab1d.d2b05817.af10751c.4e9c8380.ba14daf2.5e787d07.c0b72c2c.973f29f2.577bab1d.d2b05817.af10751c.4e9c8380.ba14daf2.5e787d07.c0b72c2c"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 826,
+                            "endLine": 827,
+                            "startColumn": 29,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 826,
+                            "endLine": 827,
+                            "startColumn": 29,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 827,
+                            "endLine": 827,
+                            "startColumn": 63,
+                            "endColumn": 64
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 828,
+                            "endLine": 828,
+                            "startColumn": 66,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 828,
+                            "endLine": 828,
+                            "startColumn": 35,
+                            "endColumn": 69
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 181,
+                            "endLine": 181,
+                            "startColumn": 40,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 191,
+                            "endLine": 191,
+                            "startColumn": 37,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 191,
+                            "endLine": 191,
+                            "startColumn": 29,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfwebui.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 191,
+                            "endLine": 191,
+                            "startColumn": 16,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 554,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/Ssrf",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a command line argument flows into requests.get, where it is used as an URL to perform a request. This may result in a Server Side Request Forgery vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to perform a request. This may result in a Server Side Request Forgery vulnerability.",
+            "arguments": [
+              "[a command line argument](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19),(20),(21),(22),(23),(24),(25),(26),(27),(28),(29),(30),(31),(32),(33),(34),(35),(36),(37),(38),(39),(40),(41),(42),(43),(44),(45),(46)",
+              "[requests.get](47)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sfcli.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 375,
+                  "endLine": 375,
+                  "startColumn": 21,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "3569b8b742e9083090d0dbb5fc303d936d3cbd4daeac10f14645cf05f7b87e71",
+            "1": "befed5bc.ecc4e7fd.3b7b86da.139c59a8.25ac000c.ba14daf2.75d4ed92.b60afa86.ca5c7e19.a20cef67.3b7b86da.60a4407f.25ac000c.8e406cb9.aa1eca5d.073a31b1"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1362,
+                            "endLine": 1362,
+                            "startColumn": 12,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1362,
+                            "endLine": 1362,
+                            "startColumn": 12,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1362,
+                            "endLine": 1362,
+                            "startColumn": 5,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1365,
+                            "endLine": 1365,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1365,
+                            "endLine": 1365,
+                            "startColumn": 8,
+                            "endColumn": 14
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1367,
+                            "endLine": 1367,
+                            "startColumn": 24,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1367,
+                            "endLine": 1367,
+                            "startColumn": 19,
+                            "endColumn": 23
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1367,
+                            "endLine": 1367,
+                            "startColumn": 13,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1373,
+                            "endLine": 1373,
+                            "startColumn": 29,
+                            "endColumn": 32
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1373,
+                            "endLine": 1373,
+                            "startColumn": 23,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1373,
+                            "endLine": 1373,
+                            "startColumn": 9,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1373,
+                            "endLine": 1373,
+                            "startColumn": 5,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1374,
+                            "endLine": 1374,
+                            "startColumn": 5,
+                            "endColumn": 6
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1402,
+                            "endLine": 1402,
+                            "startColumn": 9,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1433,
+                            "endLine": 1433,
+                            "startColumn": 5,
+                            "endColumn": 6
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 560,
+                            "endLine": 560,
+                            "startColumn": 17,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 563,
+                            "endLine": 563,
+                            "startColumn": 26,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 17,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 563,
+                            "endLine": 563,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 18,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1445,
+                            "endLine": 1445,
+                            "startColumn": 9,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 19,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 117,
+                            "endLine": 117,
+                            "startColumn": 16,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 20,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 124,
+                            "endLine": 124,
+                            "startColumn": 16,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 21,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 141,
+                            "endLine": 141,
+                            "startColumn": 23,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 22,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 152,
+                            "endLine": 152,
+                            "startColumn": 12,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 23,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 575,
+                            "endLine": 575,
+                            "startColumn": 20,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 24,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 576,
+                            "endLine": 576,
+                            "startColumn": 79,
+                            "endColumn": 83
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 25,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 576,
+                            "endLine": 576,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 26,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 223,
+                            "endLine": 223,
+                            "startColumn": 17,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 27,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 224,
+                            "endLine": 224,
+                            "startColumn": 9,
+                            "endColumn": 13
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 28,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 934,
+                            "endLine": 934,
+                            "startColumn": 21,
+                            "endColumn": 25
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 29,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 933,
+                            "endLine": 933,
+                            "startColumn": 21,
+                            "endColumn": 25
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 30,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 353,
+                            "endLine": 353,
+                            "startColumn": 17,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 31,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 355,
+                            "endLine": 355,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 32,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 689,
+                            "endLine": 689,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 33,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 413,
+                            "endLine": 413,
+                            "startColumn": 21,
+                            "endColumn": 25
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 34,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 429,
+                            "endLine": 429,
+                            "startColumn": 31,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 35,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 429,
+                            "endLine": 429,
+                            "startColumn": 31,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 36,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 428,
+                            "endLine": 428,
+                            "startColumn": 55,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 37,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 726,
+                            "endLine": 726,
+                            "startColumn": 19,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 38,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 726,
+                            "endLine": 726,
+                            "startColumn": 19,
+                            "endColumn": 53
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 39,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 726,
+                            "endLine": 726,
+                            "startColumn": 19,
+                            "endColumn": 75
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 40,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 726,
+                            "endLine": 726,
+                            "startColumn": 13,
+                            "endColumn": 75
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 41,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 740,
+                            "endLine": 740,
+                            "startColumn": 26,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 42,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 353,
+                            "endLine": 353,
+                            "startColumn": 23,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 43,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 354,
+                            "endLine": 354,
+                            "startColumn": 16,
+                            "endColumn": 19
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 44,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 358,
+                            "endLine": 358,
+                            "startColumn": 27,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 45,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 373,
+                            "endLine": 373,
+                            "startColumn": 39,
+                            "endColumn": 42
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 46,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 376,
+                            "endLine": 376,
+                            "startColumn": 21,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 47,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 375,
+                            "endLine": 375,
+                            "startColumn": 21,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 354,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/Ssrf",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a command line argument flows into requests.post, where it is used as an URL to perform a request. This may result in a Server Side Request Forgery vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to perform a request. This may result in a Server Side Request Forgery vulnerability.",
+            "arguments": [
+              "[a command line argument](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19),(20),(21),(22),(23),(24),(25),(26),(27),(28),(29),(30),(31),(32),(33),(34),(35),(36),(37),(38),(39),(40),(41),(42),(43),(44),(45),(46)",
+              "[requests.post](47)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sfcli.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 386,
+                  "endLine": 386,
+                  "startColumn": 21,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "58b4f8d356b39ca5df1184cc8cfc2cfc3fd76a3c7dc3d8ae2ca5f71e11f7d1fc",
+            "1": "7d6693a1.b1ff0823.3b7b86da.3456c081.25ac000c.ba14daf2.75d4ed92.b60afa86.ca5c7e19.a20cef67.3b7b86da.60a4407f.25ac000c.8e406cb9.aa1eca5d.073a31b1"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1362,
+                            "endLine": 1362,
+                            "startColumn": 12,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1362,
+                            "endLine": 1362,
+                            "startColumn": 12,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1362,
+                            "endLine": 1362,
+                            "startColumn": 5,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1365,
+                            "endLine": 1365,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1365,
+                            "endLine": 1365,
+                            "startColumn": 8,
+                            "endColumn": 14
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1367,
+                            "endLine": 1367,
+                            "startColumn": 24,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1367,
+                            "endLine": 1367,
+                            "startColumn": 19,
+                            "endColumn": 23
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1367,
+                            "endLine": 1367,
+                            "startColumn": 13,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1373,
+                            "endLine": 1373,
+                            "startColumn": 29,
+                            "endColumn": 32
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1373,
+                            "endLine": 1373,
+                            "startColumn": 23,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1373,
+                            "endLine": 1373,
+                            "startColumn": 9,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1373,
+                            "endLine": 1373,
+                            "startColumn": 5,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1374,
+                            "endLine": 1374,
+                            "startColumn": 5,
+                            "endColumn": 6
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1402,
+                            "endLine": 1402,
+                            "startColumn": 9,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1433,
+                            "endLine": 1433,
+                            "startColumn": 5,
+                            "endColumn": 6
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 560,
+                            "endLine": 560,
+                            "startColumn": 17,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 563,
+                            "endLine": 563,
+                            "startColumn": 26,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 17,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 563,
+                            "endLine": 563,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 18,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1445,
+                            "endLine": 1445,
+                            "startColumn": 9,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 19,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 117,
+                            "endLine": 117,
+                            "startColumn": 16,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 20,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 124,
+                            "endLine": 124,
+                            "startColumn": 16,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 21,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 141,
+                            "endLine": 141,
+                            "startColumn": 23,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 22,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 152,
+                            "endLine": 152,
+                            "startColumn": 12,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 23,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 575,
+                            "endLine": 575,
+                            "startColumn": 20,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 24,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 576,
+                            "endLine": 576,
+                            "startColumn": 79,
+                            "endColumn": 83
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 25,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 576,
+                            "endLine": 576,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 26,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 223,
+                            "endLine": 223,
+                            "startColumn": 17,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 27,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 224,
+                            "endLine": 224,
+                            "startColumn": 9,
+                            "endColumn": 13
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 28,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 934,
+                            "endLine": 934,
+                            "startColumn": 21,
+                            "endColumn": 25
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 29,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 933,
+                            "endLine": 933,
+                            "startColumn": 21,
+                            "endColumn": 25
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 30,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 353,
+                            "endLine": 353,
+                            "startColumn": 17,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 31,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 355,
+                            "endLine": 355,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 32,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 689,
+                            "endLine": 689,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 33,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 413,
+                            "endLine": 413,
+                            "startColumn": 21,
+                            "endColumn": 25
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 34,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 429,
+                            "endLine": 429,
+                            "startColumn": 31,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 35,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 429,
+                            "endLine": 429,
+                            "startColumn": 31,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 36,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 428,
+                            "endLine": 428,
+                            "startColumn": 55,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 37,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 726,
+                            "endLine": 726,
+                            "startColumn": 19,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 38,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 726,
+                            "endLine": 726,
+                            "startColumn": 19,
+                            "endColumn": 53
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 39,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 726,
+                            "endLine": 726,
+                            "startColumn": 19,
+                            "endColumn": 75
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 40,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 726,
+                            "endLine": 726,
+                            "startColumn": 13,
+                            "endColumn": 75
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 41,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 740,
+                            "endLine": 740,
+                            "startColumn": 26,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 42,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 353,
+                            "endLine": 353,
+                            "startColumn": 23,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 43,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 354,
+                            "endLine": 354,
+                            "startColumn": 16,
+                            "endColumn": 19
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 44,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 358,
+                            "endLine": 358,
+                            "startColumn": 27,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 45,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 373,
+                            "endLine": 373,
+                            "startColumn": 39,
+                            "endColumn": 42
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 46,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 387,
+                            "endLine": 387,
+                            "startColumn": 21,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 47,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 386,
+                            "endLine": 386,
+                            "startColumn": 21,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 354,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/PT",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "arguments": [
+              "[a command line argument](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8)",
+              "[open](9)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sfcli.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1383,
+                  "endLine": 1383,
+                  "startColumn": 18,
+                  "endColumn": 22
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "1fd1cd6c78916860d4a45d7ab56b0cfea0374e9a3d5935e7c4db2263a7d22509",
+            "1": "26f1400e.ec365ac4.79e62dc9.139c59a8.ca3952ef.ba14daf2.75d4ed92.8eaf8d90.ebf6bb51.ec365ac4.e6e72a62.0eac8534.51ec7ee4.59e3a579.7730d335.3acd807d"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1362,
+                            "endLine": 1362,
+                            "startColumn": 12,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1362,
+                            "endLine": 1362,
+                            "startColumn": 12,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1362,
+                            "endLine": 1362,
+                            "startColumn": 5,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1365,
+                            "endLine": 1365,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1377,
+                            "endLine": 1377,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1379,
+                            "endLine": 1379,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1381,
+                            "endLine": 1381,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1381,
+                            "endLine": 1381,
+                            "startColumn": 8,
+                            "endColumn": 14
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1383,
+                            "endLine": 1383,
+                            "startColumn": 23,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sfcli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1383,
+                            "endLine": 1383,
+                            "startColumn": 18,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 552,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/ssl~wrap_socket~without~protocol",
+          "ruleIndex": 5,
+          "level": "warning",
+          "message": {
+            "text": "Call to deprecated method ssl.wrap_socket does not specify a protocol, which may result in an insecure default being used",
+            "markdown": "Call to deprecated method {0} does not specify a protocol, which may result in an insecure default being used",
+            "arguments": [
+              "[ssl.wrap_socket](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "sflib.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1179,
+                  "endLine": 1179,
+                  "startColumn": 16,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "24deb7895c1cd66fc5b7f596ea54fa04db3780d5731182d229a65ca9906a8d45",
+            "1": "8a9351cb.fb7d73ec.79e62dc9.139c59a8.3e18df67.fc2dc843.b69c6615.04a2ddfd.8a9351cb.fb7d73ec.79e62dc9.139c59a8.3e18df67.fc2dc843.b69c6615.04a2ddfd"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "sflib.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1179,
+                            "endLine": 1179,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 552,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "JavaScript",
+            "files": 17,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Python",
+            "files": 502,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}
