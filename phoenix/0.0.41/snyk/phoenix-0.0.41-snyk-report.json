@@ -1,0 +1,2021 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "python/PT",
+              "name": "PT",
+              "shortDescription": {
+                "text": "Path Traversal"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nA Directory Traversal attack (also known as path traversal) aims to access files and directories that are stored outside the intended folder. By manipulating files with \"dot-dot-slash (../)\" sequences and its variations, or by using absolute file paths, it may be possible to access arbitrary files and directories stored on file system, including application source code, configuration, and other critical system files.\n\nBeing able to access and manipulate an arbitrary path leads to vulnerabilities when a program is being run with privileges that the user providing the path should not have. A website with a path traversal vulnerability would allow users access to sensitive files on the server hosting it. CLI programs may also be vulnerable to path traversal if they are being ran with elevated privileges (such as with the setuid or setgid flags in Unix systems).\n\nDirectory Traversal vulnerabilities can be generally divided into two types:\n\n- **Information Disclosure**: Allows the attacker to gain information about the folder structure or read the contents of sensitive files on the system.\n\n`st` is a module for serving static files on web pages, and contains a [vulnerability of this type](https://snyk.io/vuln/npm:st:20140206). In our example, we will serve files from the `public` route.\n\nIf an attacker requests the following URL from our server, it will in turn leak the sensitive private key of the root user.\n\n```\ncurl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa\n```\n**Note** `%2e` is the URL encoded version of `.` (dot).\n\n- **Writing arbitrary files**: Allows the attacker to create or replace existing files. This type of vulnerability is also known as `Zip-Slip`.\n\nOne way to achieve this is by using a malicious `zip` archive that holds path traversal filenames. When each filename in the zip archive gets concatenated to the target extraction folder, without validation, the final path ends up outside of the target folder. If an executable or a configuration file is overwritten with a file containing malicious code, the problem can turn into an arbitrary code execution issue quite easily.\n\nThe following is an example of a `zip` archive with one benign file and one malicious file. Extracting the malicious file will result in traversing out of the target folder, ending up in `/root/.ssh/` overwriting the `authorized_keys` file:\n\n```\n2018-04-15 22:04:29 .....           19           19  good.txt\n2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys\n```",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "PT",
+                  "Security",
+                  "SourceResourceAccess",
+                  "SourceNetworkRequest",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/pynickle/amazing-python/commit/80d2cc8c3e2c8330416b91f17a09b51830915b86?diff=split#diff-f626b00ab4d99fdbd4cb2bd61ae29469L118",
+                    "lines": [
+                      {
+                        "line": "if request.method == \"POST\":",
+                        "lineNumber": 161,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    try:",
+                        "lineNumber": 162,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        f = request.files['file']",
+                        "lineNumber": 163,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        filename = f.filename",
+                        "lineNumber": 118,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        filename = secure_filename(f.filename)",
+                        "lineNumber": 164,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        f.save(filename)",
+                        "lineNumber": 165,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        with open(filename, \"r\", encoding=\"utf-8\") as f:",
+                        "lineNumber": 166,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            success, errors = words_validate(f.read())",
+                        "lineNumber": 167,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/WhaleShark-Team/cobra/commit/1ac467a2c1cf8427a5bf60031677817140fe181c?diff=split#diff-dc0ad7c98d7072655327746f1bc95b3aL72",
+                    "lines": [
+                      {
+                        "line": "task_type = 1",
+                        "lineNumber": 70,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "# check if there is a file or gitlab url",
+                        "lineNumber": 71,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "if len(request.files) == 0:",
+                        "lineNumber": 72,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    # no files, should check username and password",
+                        "lineNumber": 73,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    task_type = 1",
+                        "lineNumber": 74,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "# there is a file, check file format and uncompress it.",
+                        "lineNumber": 88,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "task_type = 2",
+                        "lineNumber": 89,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "upload_src = request.files['file']",
+                        "lineNumber": 90,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "filename = str(int(time.time())) + '_' + upload_src.filename",
+                        "lineNumber": 90,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "filename = str(int(time.time())) + '_' + secure_filename(upload_src.filename)",
+                        "lineNumber": 91,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "filepath = 'uploads/' + filename",
+                        "lineNumber": 92,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "upload_src.save(filepath)",
+                        "lineNumber": 93,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "# if you upload a rar file, upload_src.mimetype will returns \"application/octet-stream\"",
+                        "lineNumber": 95,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/Wordseer/wordseer/commit/ea92ade27f7a7a12d057a2b71daf9ffa1cf4385e?diff=split#diff-e86334029c6a0118169cce848ff474ddR13",
+                    "lines": [
+                      {
+                        "line": " PROJECT_ROUTE = \"/projects/\"",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " ",
+                        "lineNumber": 11,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "def allowed_file(filename):",
+                        "lineNumber": 12,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    return os.path.splitext(filename)[1] in app.config[\"ALLOWED_EXTENSIONS\"]",
+                        "lineNumber": 13,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": " @app.route(PROJECT_ROUTE, methods=[\"GET\", \"POST\"])",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " def projects():",
+                        "lineNumber": 16,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "if request.method == \"POST\":",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    uploaded_file = request.files[\"uploaded_file\"]",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    if uploaded_file and allowed_file(uploaded_file.filename):",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        filename = secure_filename(uploaded_file.filename)",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        dest_path = os.path.join(app.config[\"UPLOAD_DIR\"],",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            filename)",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        uploaded_file.save(dest_path)",
+                        "lineNumber": 48,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        #TODO: send the user somewhere useful?",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 553,
+                "cwe": [
+                  "CWE-23"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "python/PT",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from data from a remote resource flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "arguments": [
+              "[data from a remote resource](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19)",
+              "[open](20)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/phoenix/datasets/fixtures.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 474,
+                  "endLine": 474,
+                  "startColumn": 18,
+                  "endColumn": 22
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "155fc346a083692a04c757fdfde3f0a4ed43f5508daca41f82d96960f7ed4406",
+            "1": "2e8ddaeb.d7b93995.187bf175.9dd33a03.f3eda546.ba14daf2.6c6edc8a.004fd7f2.0f24be95.9b6d0c63.187bf175.0f2f7f5a.ba62a2ca.a5d7f69f.0a848f8d.f46ed94e"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 493,
+                            "endLine": 493,
+                            "startColumn": 27,
+                            "endColumn": 69
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 493,
+                            "endLine": 493,
+                            "startColumn": 27,
+                            "endColumn": 69
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 493,
+                            "endLine": 493,
+                            "startColumn": 16,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 493,
+                            "endLine": 493,
+                            "startColumn": 9,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 495,
+                            "endLine": 495,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 496,
+                            "endLine": 496,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 496,
+                            "endLine": 496,
+                            "startColumn": 13,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 494,
+                            "endLine": 494,
+                            "startColumn": 16,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 503,
+                            "endLine": 503,
+                            "startColumn": 21,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 469,
+                            "endLine": 469,
+                            "startColumn": 23,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 470,
+                            "endLine": 470,
+                            "startColumn": 37,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 470,
+                            "endLine": 470,
+                            "startColumn": 37,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 470,
+                            "endLine": 470,
+                            "startColumn": 26,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 470,
+                            "endLine": 470,
+                            "startColumn": 9,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 471,
+                            "endLine": 471,
+                            "startColumn": 45,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 471,
+                            "endLine": 471,
+                            "startColumn": 20,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 471,
+                            "endLine": 471,
+                            "startColumn": 20,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 17,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 471,
+                            "endLine": 471,
+                            "startColumn": 9,
+                            "endColumn": 74
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 18,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 473,
+                            "endLine": 473,
+                            "startColumn": 41,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 19,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 474,
+                            "endLine": 474,
+                            "startColumn": 23,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 20,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 474,
+                            "endLine": 474,
+                            "startColumn": 18,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 561,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/PT",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from data from a remote resource flows into urllib.request.urlretrieve, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.",
+            "arguments": [
+              "[data from a remote resource](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18)",
+              "[urllib.request.urlretrieve](19)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/phoenix/datasets/fixtures.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 477,
+                  "endLine": 477,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "9649428182b8f3cbface5b2b0c3dfe976d7ad8c18585964894a617fdbfb930db",
+            "1": "194c35b0.577bab1d.ac02c6b2.0f2f7f5a.42a20936.ba14daf2.53d3383a.100d6fba.ebdf5327.9b6d0c63.ac02c6b2.0f2f7f5a.43ef9fcb.73cfdf26.0a848f8d.f46ed94e"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 493,
+                            "endLine": 493,
+                            "startColumn": 27,
+                            "endColumn": 69
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 493,
+                            "endLine": 493,
+                            "startColumn": 27,
+                            "endColumn": 69
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 493,
+                            "endLine": 493,
+                            "startColumn": 16,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 493,
+                            "endLine": 493,
+                            "startColumn": 9,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 495,
+                            "endLine": 495,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 496,
+                            "endLine": 496,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 496,
+                            "endLine": 496,
+                            "startColumn": 13,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 494,
+                            "endLine": 494,
+                            "startColumn": 16,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 503,
+                            "endLine": 503,
+                            "startColumn": 21,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 469,
+                            "endLine": 469,
+                            "startColumn": 23,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 470,
+                            "endLine": 470,
+                            "startColumn": 37,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 470,
+                            "endLine": 470,
+                            "startColumn": 37,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 470,
+                            "endLine": 470,
+                            "startColumn": 26,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 470,
+                            "endLine": 470,
+                            "startColumn": 9,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 471,
+                            "endLine": 471,
+                            "startColumn": 45,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 471,
+                            "endLine": 471,
+                            "startColumn": 20,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 472,
+                            "endLine": 472,
+                            "startColumn": 9,
+                            "endColumn": 23
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 17,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 473,
+                            "endLine": 473,
+                            "startColumn": 12,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 18,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 477,
+                            "endLine": 477,
+                            "startColumn": 45,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 19,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 477,
+                            "endLine": 477,
+                            "startColumn": 9,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 561,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/PT",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from data from a remote resource flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.",
+            "arguments": [
+              "[data from a remote resource](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19)",
+              "[open](20)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/phoenix/datasets/fixtures.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 478,
+                  "endLine": 478,
+                  "startColumn": 14,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "c311b15e708abcb8dd06359559c4520d0400dccabd1987b921694c18a7baf6a9",
+            "1": "2e8ddaeb.d7b93995.187bf175.9dd33a03.f3eda546.ba14daf2.6c6edc8a.004fd7f2.0f24be95.9b6d0c63.187bf175.0f2f7f5a.4608c58f.a5d7f69f.0a848f8d.f46ed94e"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 493,
+                            "endLine": 493,
+                            "startColumn": 27,
+                            "endColumn": 69
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 493,
+                            "endLine": 493,
+                            "startColumn": 27,
+                            "endColumn": 69
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 493,
+                            "endLine": 493,
+                            "startColumn": 16,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 493,
+                            "endLine": 493,
+                            "startColumn": 9,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 495,
+                            "endLine": 495,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 496,
+                            "endLine": 496,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 496,
+                            "endLine": 496,
+                            "startColumn": 13,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 494,
+                            "endLine": 494,
+                            "startColumn": 16,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 503,
+                            "endLine": 503,
+                            "startColumn": 21,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 469,
+                            "endLine": 469,
+                            "startColumn": 23,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 470,
+                            "endLine": 470,
+                            "startColumn": 37,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 470,
+                            "endLine": 470,
+                            "startColumn": 37,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 470,
+                            "endLine": 470,
+                            "startColumn": 26,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 470,
+                            "endLine": 470,
+                            "startColumn": 9,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 471,
+                            "endLine": 471,
+                            "startColumn": 45,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 471,
+                            "endLine": 471,
+                            "startColumn": 20,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 471,
+                            "endLine": 471,
+                            "startColumn": 20,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 17,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 471,
+                            "endLine": 471,
+                            "startColumn": 9,
+                            "endColumn": 74
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 18,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 473,
+                            "endLine": 473,
+                            "startColumn": 41,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 19,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 478,
+                            "endLine": 478,
+                            "startColumn": 19,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 20,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/phoenix/datasets/fixtures.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 478,
+                            "endLine": 478,
+                            "startColumn": 14,
+                            "endColumn": 18
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 561,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/PT",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.",
+            "arguments": [
+              "[a command line argument](0)",
+              "[flows](1),(2),(3),(4),(5)",
+              "[open](6)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "scripts/data/convert_arize_docs_query_csv_to_jsonl.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 22,
+                  "endLine": 22,
+                  "startColumn": 10,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "5db94c4408e039ea3f20667e98f37534265de7d4fd522dee01c2c514e0942402",
+            "1": "2e8ddaeb.66d5216c.187bf175.139c59a8.f3eda546.ba14daf2.081ac3f4.a4830b9a.2e8ddaeb.66d5216c.5fe980be.9cd2dfe0.4608c58f.a5d7f69f.f6dc7859.f46ed94e"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/convert_arize_docs_query_csv_to_jsonl.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 18,
+                            "endLine": 18,
+                            "startColumn": 12,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/convert_arize_docs_query_csv_to_jsonl.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 18,
+                            "endLine": 18,
+                            "startColumn": 12,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/convert_arize_docs_query_csv_to_jsonl.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 18,
+                            "endLine": 18,
+                            "startColumn": 5,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/convert_arize_docs_query_csv_to_jsonl.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 20,
+                            "endLine": 20,
+                            "startColumn": 28,
+                            "endColumn": 32
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/convert_arize_docs_query_csv_to_jsonl.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "endLine": 22,
+                            "startColumn": 15,
+                            "endColumn": 19
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/convert_arize_docs_query_csv_to_jsonl.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "endLine": 22,
+                            "startColumn": 15,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/convert_arize_docs_query_csv_to_jsonl.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "endLine": 22,
+                            "startColumn": 10,
+                            "endColumn": 14
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 511,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/PT",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a command line argument flows into shutil.rmtree, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to remove arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to remove arbitrary files.",
+            "arguments": [
+              "[a command line argument](0)",
+              "[flows](1),(2),(3),(4)",
+              "[shutil.rmtree](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "scripts/data/build_llama_index_with_recursive_character_text_splitter.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 114,
+                  "endLine": 114,
+                  "startColumn": 5,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "31fdaa206aad867bcf1f67a570fe41c05846e10354bc32443cf4b5fa7f30818e",
+            "1": "d5c0229d.e3d9b656.79e62dc9.b5f6ec27.31097569.ba14daf2.081ac3f4.6eb46ac5.d5c0229d.e3d9b656.e6e72a62.9cd2dfe0.a5fb405f.a5d7f69f.f6dc7859.395368c9"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/build_llama_index_with_recursive_character_text_splitter.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 95,
+                            "endLine": 95,
+                            "startColumn": 12,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/build_llama_index_with_recursive_character_text_splitter.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 95,
+                            "endLine": 95,
+                            "startColumn": 12,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/build_llama_index_with_recursive_character_text_splitter.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 95,
+                            "endLine": 95,
+                            "startColumn": 5,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/build_llama_index_with_recursive_character_text_splitter.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 114,
+                            "endLine": 114,
+                            "startColumn": 19,
+                            "endColumn": 23
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/build_llama_index_with_recursive_character_text_splitter.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 114,
+                            "endLine": 114,
+                            "startColumn": 19,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/build_llama_index_with_recursive_character_text_splitter.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 114,
+                            "endLine": 114,
+                            "startColumn": 5,
+                            "endColumn": 18
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 511,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/PT",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a command line argument flows into shutil.rmtree, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to remove arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to remove arbitrary files.",
+            "arguments": [
+              "[a command line argument](0)",
+              "[flows](1),(2),(3),(4)",
+              "[shutil.rmtree](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "scripts/data/build_langchain_vector_store.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 113,
+                  "endLine": 113,
+                  "startColumn": 5,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "acf9d866bf61076f5f818339cce72eaa8ba9078f9b6a3e38e040f72592bcae0c",
+            "1": "d5c0229d.e3d9b656.7e696774.b5f6ec27.719ec7b9.ba14daf2.cafb86a3.6eb46ac5.d5c0229d.e3d9b656.7e696774.9cd2dfe0.a5fb405f.a5d7f69f.f6dc7859.395368c9"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/build_langchain_vector_store.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 101,
+                            "endLine": 101,
+                            "startColumn": 12,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/build_langchain_vector_store.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 101,
+                            "endLine": 101,
+                            "startColumn": 12,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/build_langchain_vector_store.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 101,
+                            "endLine": 101,
+                            "startColumn": 5,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/build_langchain_vector_store.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 113,
+                            "endLine": 113,
+                            "startColumn": 19,
+                            "endColumn": 23
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/build_langchain_vector_store.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 113,
+                            "endLine": 113,
+                            "startColumn": 19,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "scripts/data/build_langchain_vector_store.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 113,
+                            "endLine": 113,
+                            "startColumn": 5,
+                            "endColumn": 18
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 511,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "HTML",
+            "files": 1,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "JavaScript",
+            "files": 6,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "TypeScript",
+            "files": 192,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Python",
+            "files": 151,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}
