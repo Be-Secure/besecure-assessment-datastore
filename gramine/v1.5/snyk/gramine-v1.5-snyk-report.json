@@ -1,0 +1,488 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "python/NoHardcodedPasswords/test",
+              "name": "NoHardcodedPasswords/test",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "NoHardcodedPasswords",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/timgrossmann/TwitPy/commit/a4ef575a6b4bc46cde5c6f4b044cf8402a2391c4?diff=split#diff-958d99effc816f39c7c564e49561306fL4",
+                    "lines": [
+                      {
+                        "line": "from twitpy import TwitPy",
+                        "lineNumber": 1,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  raise ImportError(\"Missing config.py. Did you copy it from config.py.dist?\")",
+                        "lineNumber": 5,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "TwitPy(username=\"t_tomgrossmann\", password=\"****\") \\",
+                        "lineNumber": 3,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "TwitPy(username=config.USERNAME, password=config.PASSWORD,",
+                        "lineNumber": 7,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  chrome_path=config.CHROME_PATH) \\",
+                        "lineNumber": 8,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  .login() \\",
+                        "lineNumber": 9,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  .follow_from_recom(amount=250) \\",
+                        "lineNumber": 5,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "  .follow_from_recom(amount=5) \\",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/openstack/sahara/commit/444cd0e2f4e252bb9e7f699cb7e1c45f315e54c7?diff=split#diff-ef5fd68b9b268896bb327a593971c9d0L51",
+                    "lines": [
+                      {
+                        "line": "try:",
+                        "lineNumber": 57,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    ssh.set_missing_host_key_policy(AutoAddPolicy())",
+                        "lineNumber": 58,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    ssh.connect(host, username='root', password='swordfish')",
+                        "lineNumber": 50,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    ssh.connect(host, username=NODE_USER, password=NODE_PASSWORD)",
+                        "lineNumber": 59,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    chan = ssh.get_transport().open_session()",
+                        "lineNumber": 60,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    chan.exec_command(cmd)",
+                        "lineNumber": 61,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/wf1314/zhihu-terminal/commit/8042f1263a6aad419ea6410fa8014f8c706c5022?diff=split#diff-b1a925f111fb1ff1bc708bbb589a0950L116",
+                    "lines": [
+                      {
+                        "line": "from setting import USER, PASSWORD",
+                        "lineNumber": 113,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "async def test():",
+                        "lineNumber": 114,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    client = ZhihuClient(user='', password='')",
+                        "lineNumber": 115,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    client = ZhihuClient(user=USER, password=PASSWORD)",
+                        "lineNumber": 115,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    await client.login(load_cookies=True)",
+                        "lineNumber": 116,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    spider = ZhihuSpider(client)",
+                        "lineNumber": 117,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    await spider.get_recommend_article()",
+                        "lineNumber": 118,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 179,
+                "cwe": [
+                  "CWE-798",
+                  "CWE-259"
+                ]
+              }
+            },
+            {
+              "id": "python/Jinja2AutoEscapeFalse",
+              "name": "Jinja2AutoEscapeFalse",
+              "shortDescription": {
+                "text": "Jinja auto-escape is set to false."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nJinja2 is a python templating library that can be configured to escape values and avoid XSS vulnerabilities. However, the library by default sets the autoescaping to false.\n\nA cross-site scripting attack occurs when the attacker tricks a legitimate web-based application or site to accept a request as originating from a trusted source.\n\nThis is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML)  in order to perform actions that are otherwise typically blocked by the browser's Same Origin Policy.\n\nInjecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability.\n\nEscaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as  `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they've been correctly escaped in the application code and in this way the attempted attack is diverted.\n\nThe most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware.\n\n### Types of attacks\nThere are a few methods by which XSS can be manipulated:\n\n|Type|Origin|Description|\n|--|--|--|\n|**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.|\n|**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user's browser.|\n|**DOM-based**|Client|The attacker forces the user's browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.|\n|**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.|\n\n### Affected environments\nThe following environments are susceptible to an XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n## Best practices for prevention\nThis section describes the top best practices designed to specifically protect your code:\n\n* Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches.\n* Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents.\n* Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n* Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions.\n* Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack.\n* Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "Jinja2AutoEscapeFalse",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/pallets/jinja/commit/d767d27f12710ddb332731aa6eacdfffdb5801d6?diff=split#diff-b096534cf5e66f487efd00c464cf19b3L475",
+                    "lines": [
+                      {
+                        "line": "def test_autoescape_macros(self):",
+                        "lineNumber": 473,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    env = Environment(autoescape=False, extensions=['jinja2.ext.autoescape'])",
+                        "lineNumber": 474,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    env = Environment(autoescape=False, extensions=['jinja.ext.autoescape'])",
+                        "lineNumber": 465,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    template = (",
+                        "lineNumber": 475,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        '{% macro m() %}<html>{% endmacro %}'",
+                        "lineNumber": 476,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/alanmcruickshank/sqlfluff/commit/7ebd003db8018d603c6750209bdae6f9d5932772?diff=split#diff-194c35328c635537a15ed65c37e578baL212",
+                    "lines": [
+                      {
+                        "line": "from jinja2 import Environment, StrictUndefined  # noqa",
+                        "lineNumber": 209,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "from jinja2.sandbox import SandboxedEnvironment  # noqa ",
+                        "lineNumber": 210,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "# We explicitly want to preserve newlines.",
+                        "lineNumber": 211,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "env = Environment(",
+                        "lineNumber": 211,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "env = SandboxedEnvironment(",
+                        "lineNumber": 212,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    keep_trailing_newline=True, undefined=StrictUndefined,",
+                        "lineNumber": 213,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    # The do extension allows the \"do\" directive",
+                        "lineNumber": 214,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    autoescape=False, extensions=['jinja2.ext.do']",
+                        "lineNumber": 215,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": ")",
+                        "lineNumber": 216,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/taoufik07/responder/commit/671499bb43a2ab3fdf780cc5d392c7025bbcfc9f?diff=split#diff-554e129ce3806dd33d00eac71a9a086eL225",
+                    "lines": [
+                      {
+                        "line": "    )",
+                        "lineNumber": 236,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "else:",
+                        "lineNumber": 237,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    env = jinja2.Environment(loader=jinja2.BaseLoader, autoescape=False)",
+                        "lineNumber": 224,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    env = jinja2.Environment(",
+                        "lineNumber": 238,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        loader=jinja2.BaseLoader, autoescape=jinja2.select_autoescape([])",
+                        "lineNumber": 239,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    )",
+                        "lineNumber": 240,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "template = env.from_string(s)",
+                        "lineNumber": 242,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 4,
+                "cwe": [
+                  "CWE-79"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "python/NoHardcodedPasswords/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode passwords in code. Found hardcoded password used in a dictionary key.",
+            "markdown": "Do not hardcode passwords in code. Found {0} password used in a dictionary key.",
+            "arguments": [
+              "[hardcoded](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "libos/test/regression/test_libos.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 127,
+                  "endLine": 127,
+                  "startColumn": 13,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "043a4d654fa8f55cdcadc010436019b8c1ea7a794daaa20305eb3871608eba10",
+            "1": "16691f08.8c71063f.79e62dc9.121a8b1d.605752f4.7576f4b9.d9859cc3.0990edd8.7fd95ccc.c8d625b7.79e62dc9.1451f385.605752f4.c0f23ee5.d9859cc3.1f8292de"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "libos/test/regression/test_libos.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 127,
+                            "endLine": 127,
+                            "startColumn": 20,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 400,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/Jinja2AutoEscapeFalse",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "jinja2.Environment is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.",
+            "markdown": "{0} is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.",
+            "arguments": [
+              "[jinja2.Environment](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "python/graminelibos/gen_jinja_env.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 94,
+                  "endLine": 94,
+                  "startColumn": 11,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "bba490b035ee80d5d70e255c93bb6b28856901c84c7a4799ccf38a4e1c9094e8",
+            "1": "1ba848e8.99c0327a.c5659e12.25c84091.259d7a14.98983cf0.d0ec5399.f3f9d705.1ba848e8.99c0327a.c5659e12.25c84091.259d7a14.98983cf0.d0ec5399.f3f9d705"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "python/graminelibos/gen_jinja_env.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 94,
+                            "endLine": 94,
+                            "startColumn": 11,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 550,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "Python",
+            "files": 38,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": false,
+            "lang": "HTML",
+            "files": 2,
+            "type": "FAILED_PARSING"
+          }
+        ]
+      }
+    }
+  ]
+}
