@@ -1,0 +1,1148 @@
+[
+    {
+        "number": 72,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/72",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/72",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/weak-crypto-key",
+            "severity": "error",
+            "description": "Use of a weak cryptographic key",
+            "name": "go/weak-crypto-key",
+            "tags": [
+                "external/cwe/cwe-326",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "The size of this RSA key should be at least 2048 bits."
+            },
+            "location": {
+                "path": "orderer/mocks/util/util.go",
+                "start_line": 21,
+                "end_line": 21,
+                "start_column": 50,
+                "end_column": 54
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/72/instances"
+    },
+    {
+        "number": 71,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/71",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/71",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/bad-redirect-check",
+            "severity": "error",
+            "description": "Bad redirect check",
+            "name": "go/bad-redirect-check",
+            "tags": [
+                "external/cwe/cwe-601",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This is a check that this value, which flows into a redirect, has a leading slash, but not that it does not have '/' or '\\' in its second position.\nThis is a check that this value, which flows into a redirect, has a leading slash, but not that it does not have '/' or '\\' in its second position.\nThis is a check that this value, which flows into a redirect, has a leading slash, but not that it does not have '/' or '\\' in its second position."
+            },
+            "location": {
+                "path": "common/policies/policy.go",
+                "start_line": 337,
+                "end_line": 337,
+                "start_column": 5,
+                "end_column": 41
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/71/instances"
+    },
+    {
+        "number": 70,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/70",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/70",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "orderer/common/filerepo/filerepo.go",
+                "start_line": 111,
+                "end_line": 111,
+                "start_column": 25,
+                "end_column": 33
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/70/instances"
+    },
+    {
+        "number": 69,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/69",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/69",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "orderer/common/filerepo/filerepo.go",
+                "start_line": 92,
+                "end_line": 92,
+                "start_column": 23,
+                "end_column": 27
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/69/instances"
+    },
+    {
+        "number": 68,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/68",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/68",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "internal/fileutil/fileutil.go",
+                "start_line": 105,
+                "end_line": 105,
+                "start_column": 23,
+                "end_column": 27
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/68/instances"
+    },
+    {
+        "number": 67,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/67",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/67",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "internal/fileutil/fileutil.go",
+                "start_line": 90,
+                "end_line": 90,
+                "start_column": 23,
+                "end_column": 27
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/67/instances"
+    },
+    {
+        "number": 66,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/66",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/66",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "internal/fileutil/syncdir.go",
+                "start_line": 20,
+                "end_line": 20,
+                "start_column": 22,
+                "end_column": 29
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/66/instances"
+    },
+    {
+        "number": 65,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/65",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/65",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "internal/fileutil/fileutil.go",
+                "start_line": 73,
+                "end_line": 73,
+                "start_column": 20,
+                "end_column": 27
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/65/instances"
+    },
+    {
+        "number": 64,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/64",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/64",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "internal/fileutil/fileutil.go",
+                "start_line": 62,
+                "end_line": 62,
+                "start_column": 24,
+                "end_column": 31
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/64/instances"
+    },
+    {
+        "number": 63,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/63",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/63",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "internal/fileutil/fileutil.go",
+                "start_line": 36,
+                "end_line": 36,
+                "start_column": 27,
+                "end_column": 35
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/63/instances"
+    },
+    {
+        "number": 62,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/62",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/62",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "internal/fileutil/fileutil.go",
+                "start_line": 28,
+                "end_line": 28,
+                "start_column": 36,
+                "end_column": 49
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/62/instances"
+    },
+    {
+        "number": 61,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/61",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/61",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "internal/fileutil/fileutil.go",
+                "start_line": 28,
+                "end_line": 28,
+                "start_column": 22,
+                "end_column": 34
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/61/instances"
+    },
+    {
+        "number": 60,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/60",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/60",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "common/ledger/blkstorage/blockstore_provider.go",
+                "start_line": 137,
+                "end_line": 137,
+                "start_column": 25,
+                "end_column": 59
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/60/instances"
+    },
+    {
+        "number": 59,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/59",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/59",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "common/ledger/blkstorage/blockfile_rw.go",
+                "start_line": 50,
+                "end_line": 50,
+                "start_column": 27,
+                "end_column": 37
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/59/instances"
+    },
+    {
+        "number": 58,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/58",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/58",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "common/ledger/blkstorage/blockfile_helper.go",
+                "start_line": 175,
+                "end_line": 175,
+                "start_column": 35,
+                "end_column": 88
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/58/instances"
+    },
+    {
+        "number": 57,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/57",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/57",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "common/ledger/blkstorage/blockfile_helper.go",
+                "start_line": 167,
+                "end_line": 167,
+                "start_column": 28,
+                "end_column": 36
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/57/instances"
+    },
+    {
+        "number": 56,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/56",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/56",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "common/ledger/blkstorage/blockfile_helper.go",
+                "start_line": 138,
+                "end_line": 138,
+                "start_column": 35,
+                "end_column": 42
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/56/instances"
+    },
+    {
+        "number": 55,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/55",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/55",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/path-injection",
+            "severity": "error",
+            "description": "Uncontrolled data used in path expression",
+            "name": "go/path-injection",
+            "tags": [
+                "external/cwe/cwe-022",
+                "external/cwe/cwe-023",
+                "external/cwe/cwe-036",
+                "external/cwe/cwe-073",
+                "external/cwe/cwe-099",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "This path depends on a user-provided value."
+            },
+            "location": {
+                "path": "common/ledger/blkstorage/block_stream.go",
+                "start_line": 59,
+                "end_line": 59,
+                "start_column": 29,
+                "end_column": 37
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/55/instances"
+    },
+    {
+        "number": 54,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/54",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/54",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/zipslip",
+            "severity": "error",
+            "description": "Arbitrary file access during archive extraction (\"Zip Slip\")",
+            "name": "go/zipslip",
+            "tags": [
+                "external/cwe/cwe-022",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "Unsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation."
+            },
+            "location": {
+                "path": "core/container/externalbuilder/tar.go",
+                "start_line": 34,
+                "end_line": 34,
+                "start_column": 3,
+                "end_column": 27
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/54/instances"
+    },
+    {
+        "number": 53,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/53",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/53",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/zipslip",
+            "severity": "error",
+            "description": "Arbitrary file access during archive extraction (\"Zip Slip\")",
+            "name": "go/zipslip",
+            "tags": [
+                "external/cwe/cwe-022",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "Unsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation."
+            },
+            "location": {
+                "path": "common/ledger/testutil/test_util.go",
+                "start_line": 125,
+                "end_line": 157,
+                "start_column": 2,
+                "end_column": 3
+            },
+            "classifications": [
+                "test"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/53/instances"
+    },
+    {
+        "number": 52,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/52",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/52",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/incorrect-integer-conversion",
+            "severity": "warning",
+            "description": "Incorrect conversion between integer types",
+            "name": "go/incorrect-integer-conversion",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-681",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "Incorrect conversion of a 64-bit integer from strconv.ParseInt to a lower bit size type int without an upper bound check."
+            },
+            "location": {
+                "path": "gossip/gossip/config.go",
+                "start_line": 119,
+                "end_line": 119,
+                "start_column": 15,
+                "end_column": 24
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/52/instances"
+    },
+    {
+        "number": 51,
+        "created_at": "2023-10-03T10:09:00Z",
+        "updated_at": "2023-10-03T10:09:00Z",
+        "url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/51",
+        "html_url": "https://github.com/Be-Secure/fabric/security/code-scanning/51",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/incorrect-integer-conversion",
+            "severity": "warning",
+            "description": "Incorrect conversion between integer types",
+            "name": "go/incorrect-integer-conversion",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-681",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.14.6"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.5.4_release",
+            "analysis_key": ".github/workflows/codeql.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": "/language:go",
+            "state": "open",
+            "commit_sha": "75e1ef49ee58bf1b25852da6b0d4e93da627596f",
+            "message": {
+                "text": "Incorrect conversion of a 64-bit integer from strconv.ParseInt to a lower bit size type int without an upper bound check."
+            },
+            "location": {
+                "path": "gossip/discovery/discovery_impl.go",
+                "start_line": 214,
+                "end_line": 214,
+                "start_column": 11,
+                "end_column": 22
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/fabric/code-scanning/alerts/51/instances"
+    }
+]
