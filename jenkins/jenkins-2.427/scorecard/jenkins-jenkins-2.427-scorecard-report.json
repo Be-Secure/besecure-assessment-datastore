@@ -1,0 +1,246 @@
+{
+    "date": "2023-10-10",
+    "repo": {
+        "name": "github.com/Be-Secure/jenkins",
+        "commit": "b3e3122857d002a1a9e64ed38373874ff0bb80a8"
+    },
+    "scorecard": {
+        "version": "v4.10.2",
+        "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
+    },
+    "score": 3.5,
+    "checks": [
+        {
+            "name": "Binary-Artifacts",
+            "score": 8,
+            "reason": "binaries present in source code",
+            "details": [
+                "Warn: binary detected: test/src/test/resources/hudson/util/ProcessTreeKiller-test-project.jar:1",
+                "Warn: binary detected: test/src/test/resources/plugins/annotations-test-sources.jar:1"
+            ],
+            "documentation": {
+                "short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#binary-artifacts"
+            }
+        },
+        {
+            "name": "Branch-Protection",
+            "score": 0,
+            "reason": "branch protection not enabled on development/release branches",
+            "details": [
+                "Warn: branch protection not enabled for branch 'jenkins-2.427_release'"
+            ],
+            "documentation": {
+                "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#branch-protection"
+            }
+        },
+        {
+            "name": "CI-Tests",
+            "score": -1,
+            "reason": "no pull request found",
+            "details": null,
+            "documentation": {
+                "short": "Determines if the project runs tests before pull requests are merged.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#ci-tests"
+            }
+        },
+        {
+            "name": "CII-Best-Practices",
+            "score": 0,
+            "reason": "no badge detected",
+            "details": null,
+            "documentation": {
+                "short": "Determines if the project has an OpenSSF (formerly CII) Best Practices Badge.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#cii-best-practices"
+            }
+        },
+        {
+            "name": "Code-Review",
+            "score": 0,
+            "reason": "0 out of last 30 changesets reviewed before merge -- score normalized to 0",
+            "details": null,
+            "documentation": {
+                "short": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#code-review"
+            }
+        },
+        {
+            "name": "Contributors",
+            "score": 10,
+            "reason": "73 different organizations found -- score normalized to 10",
+            "details": [
+                "Info: contributors work for AdoptOpenJDK,Arcaniax-Development,BreizhJUG,BrnoJAM,Dockins,IntellectualSites,IntellectualSites-Internal,Jenkins-Le-guide-complet,KainosSoftwareLtd,LegoMatterhorn,NotMyFault-org,PaperMC,PerfCake,SonarQubeCommunity,ToulouseJAM,ToulouseJug,allons-y,apache,apache-archiva,api-neuchatel,billgo,breizhcamp,cdevents,cdfoundation,check-spelling,cloudbeers,cloudbees,codehaus-mojo,codehaus-plexus,debezium,docker,docker-captains,futurerussia-ch,garnercorp,gwt-maven-plugin,hub4j-test-org,infinispan,infradna,java-schema-utilities,jboss-switchyard,jclouds,jenkins-infra,jenkins-ru,jenkinsci,jenkinsci-cert,jenkinsci-transfer,jetty-project,jszip,kainossoftwareltd,kawa-software,keptn,launchableinc,librecores,maven-mojo,mocklab,mojohaus,neanes,oVirt,open-feature,openshift,openstack4j,radargun,red hat,redback,smooks,spbspu-kspt,stapler,tobar-segais,todogroup,webtide,winsw,wiremock,wiremock @jenkinsci @cdfoundation"
+            ],
+            "documentation": {
+                "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#contributors"
+            }
+        },
+        {
+            "name": "Dangerous-Workflow",
+            "score": 10,
+            "reason": "no dangerous workflow patterns detected",
+            "details": null,
+            "documentation": {
+                "short": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#dangerous-workflow"
+            }
+        },
+        {
+            "name": "Dependency-Update-Tool",
+            "score": 10,
+            "reason": "update tool detected",
+            "details": [
+                "Info: Dependabot detected: .github/dependabot.yml:1"
+            ],
+            "documentation": {
+                "short": "Determines if the project uses a dependency update tool.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#dependency-update-tool"
+            }
+        },
+        {
+            "name": "Fuzzing",
+            "score": 0,
+            "reason": "project is not fuzzed",
+            "details": null,
+            "documentation": {
+                "short": "Determines if the project uses fuzzing.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#fuzzing"
+            }
+        },
+        {
+            "name": "License",
+            "score": 10,
+            "reason": "license file detected",
+            "details": [
+                "Info: License file found in expected location: LICENSE.txt:1",
+                "Info: FSF or OSI recognized license: LICENSE.txt:1"
+            ],
+            "documentation": {
+                "short": "Determines if the project has defined a license.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#license"
+            }
+        },
+        {
+            "name": "Maintained",
+            "score": 0,
+            "reason": "repo was created 0 days ago, not enough maintenance history",
+            "details": [
+                "Warn: repo was created in the last 90 days (Created at: 2023-10-10T12:34:00Z), please review its contents carefully"
+            ],
+            "documentation": {
+                "short": "Determines if the project is \"actively maintained\".",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#maintained"
+            }
+        },
+        {
+            "name": "Packaging",
+            "score": -1,
+            "reason": "no published package detected",
+            "details": [
+                "Warn: no GitHub publishing workflow detected"
+            ],
+            "documentation": {
+                "short": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#packaging"
+            }
+        },
+        {
+            "name": "Pinned-Dependencies",
+            "score": 0,
+            "reason": "dependency not pinned by hash detected -- score normalized to 0",
+            "details": [
+                "Warn: third-party GitHubAction not pinned by hash: .github/workflows/announce-lts-rc.yml:19: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/announce-lts-rc.yml/jenkins-2.427_release?enable=pin",
+                "Warn: third-party GitHubAction not pinned by hash: .github/workflows/changelog.yml:27: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/changelog.yml/jenkins-2.427_release?enable=pin",
+                "Warn: third-party GitHubAction not pinned by hash: .github/workflows/changelog.yml:34: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/changelog.yml/jenkins-2.427_release?enable=pin",
+                "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/changelog.yml:38: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/changelog.yml/jenkins-2.427_release?enable=pin",
+                "Warn: third-party GitHubAction not pinned by hash: .github/workflows/changelog.yml:47: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/changelog.yml/jenkins-2.427_release?enable=pin",
+                "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/changelog.yml:54: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/changelog.yml/jenkins-2.427_release?enable=pin",
+                "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:47: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/codeql.yml/jenkins-2.427_release?enable=pin",
+                "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:51: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/codeql.yml/jenkins-2.427_release?enable=pin",
+                "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:65: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/codeql.yml/jenkins-2.427_release?enable=pin",
+                "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:78: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/codeql.yml/jenkins-2.427_release?enable=pin",
+                "Warn: third-party GitHubAction not pinned by hash: .github/workflows/label-conflicting-pr.yml:16: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/label-conflicting-pr.yml/jenkins-2.427_release?enable=pin",
+                "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/label-lts-prs.yaml:14: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/label-lts-prs.yaml/jenkins-2.427_release?enable=pin",
+                "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/publish-release-artifact.yml:17: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/publish-release-artifact.yml/jenkins-2.427_release?enable=pin",
+                "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/publish-release-artifact.yml:19: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/publish-release-artifact.yml/jenkins-2.427_release?enable=pin",
+                "Warn: containerImage not pinned by hash: .gitpod/Dockerfile:1: pin your Docker image by updating gitpod/workspace-full to gitpod/workspace-full@sha256:fff2dddffbc1dceff41125a87e2f1f7d06a89db9ccd5c74d6f14d35d28b8f0bd",
+                "Warn: downloadThenRun not pinned by hash: .github/workflows/changelog.yml:67"
+            ],
+            "documentation": {
+                "short": "Determines if the project has declared and pinned the dependencies of its build process.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#pinned-dependencies"
+            }
+        },
+        {
+            "name": "SAST",
+            "score": 0,
+            "reason": "no SAST tool detected",
+            "details": [
+                "Warn: no pull requests merged into dev branch",
+                "Warn: CodeQL tool not detected"
+            ],
+            "documentation": {
+                "short": "Determines if the project uses static code analysis.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#sast"
+            }
+        },
+        {
+            "name": "Security-Policy",
+            "score": 0,
+            "reason": "security policy file not detected",
+            "details": null,
+            "documentation": {
+                "short": "Determines if the project has published a security policy.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#security-policy"
+            }
+        },
+        {
+            "name": "Signed-Releases",
+            "score": -1,
+            "reason": "no releases found",
+            "details": [
+                "Warn: no GitHub releases found"
+            ],
+            "documentation": {
+                "short": "Determines if the project cryptographically signs release artifacts.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#signed-releases"
+            }
+        },
+        {
+            "name": "Token-Permissions",
+            "score": 0,
+            "reason": "non read-only tokens detected in GitHub workflows",
+            "details": [
+                "Warn: no topLevel permission defined: .github/workflows/announce-lts-rc.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/announce-lts-rc.yml/jenkins-2.427_release?enable=permissions",
+                "Info: topLevel 'contents' permission set to 'read': .github/workflows/changelog.yml:13",
+                "Warn: jobLevel 'contents' permission set to 'write': .github/workflows/changelog.yml:19: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/changelog.yml/jenkins-2.427_release?enable=permissions",
+                "Warn: no topLevel permission defined: .github/workflows/codeql.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/codeql.yml/jenkins-2.427_release?enable=permissions",
+                "Info: jobLevel 'actions' permission set to 'read': .github/workflows/codeql.yml:32",
+                "Info: jobLevel 'contents' permission set to 'read': .github/workflows/codeql.yml:33",
+                "Info: topLevel 'contents' permission set to 'read': .github/workflows/publish-release-artifact.yml:8",
+                "Warn: jobLevel 'contents' permission set to 'write': .github/workflows/publish-release-artifact.yml:75: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/publish-release-artifact.yml/jenkins-2.427_release?enable=permissions",
+                "Warn: jobLevel 'contents' permission set to 'write': .github/workflows/publish-release-artifact.yml:109: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/publish-release-artifact.yml/jenkins-2.427_release?enable=permissions",
+                "Warn: jobLevel 'contents' permission set to 'write': .github/workflows/publish-release-artifact.yml:144: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/publish-release-artifact.yml/jenkins-2.427_release?enable=permissions",
+                "Warn: jobLevel 'contents' permission set to 'write': .github/workflows/publish-release-artifact.yml:179: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/publish-release-artifact.yml/jenkins-2.427_release?enable=permissions",
+                "Warn: jobLevel 'contents' permission set to 'write': .github/workflows/publish-release-artifact.yml:43: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/jenkins/publish-release-artifact.yml/jenkins-2.427_release?enable=permissions",
+                "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:16"
+            ],
+            "documentation": {
+                "short": "Determines if the project's workflows follow the principle of least privilege.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#token-permissions"
+            }
+        },
+        {
+            "name": "Vulnerabilities",
+            "score": -1,
+            "reason": "internal error: vulnerabilitiesClient.ListUnfixedVulnerabilities: osvscanner.DoScan: vulnerabilities found",
+            "details": null,
+            "documentation": {
+                "short": "Determines if the project has open, known unfixed vulnerabilities.",
+                "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#vulnerabilities"
+            }
+        }
+    ]
+}
