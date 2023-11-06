@@ -1,0 +1,738 @@
+[
+  {
+    "number": 46,
+    "created_at": "2023-11-03T09:44:14Z",
+    "updated_at": "2023-11-03T09:44:15Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/46",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/46",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/implicit-cast-in-compound-assignment",
+      "severity": "warning",
+      "description": "Implicit narrowing conversion in compound assignment",
+      "name": "java/implicit-cast-in-compound-assignment",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "Implicit cast of source type long to narrower destination type int."
+      },
+      "location": {
+        "path": "zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java",
+        "start_line": 379,
+        "end_line": 379,
+        "start_column": 9,
+        "end_column": 51
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/46/instances"
+  },
+  {
+    "number": 45,
+    "created_at": "2023-11-03T09:44:14Z",
+    "updated_at": "2023-11-03T09:44:15Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/45",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/45",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/redos",
+      "severity": "error",
+      "description": "Inefficient regular expression",
+      "name": "java/redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "This part of the regular expression may cause exponential backtracking on strings starting with '-BEGIN PUBLIC KEY-' and containing many repetitions of '\\n'."
+      },
+      "location": {
+        "path": "zookeeper-server/src/main/java/org/apache/zookeeper/util/PemReader.java",
+        "start_line": 82,
+        "end_line": 84,
+        "start_column": 43,
+        "end_column": 59
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/45/instances"
+  },
+  {
+    "number": 44,
+    "created_at": "2023-11-03T09:44:14Z",
+    "updated_at": "2023-11-03T09:44:15Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/44",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/44",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/redos",
+      "severity": "error",
+      "description": "Inefficient regular expression",
+      "name": "java/redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "This part of the regular expression may cause exponential backtracking on strings starting with '-BEGIN PRIVATE KEY-' and containing many repetitions of '\\n'."
+      },
+      "location": {
+        "path": "zookeeper-server/src/main/java/org/apache/zookeeper/util/PemReader.java",
+        "start_line": 76,
+        "end_line": 78,
+        "start_column": 44,
+        "end_column": 60
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/44/instances"
+  },
+  {
+    "number": 43,
+    "created_at": "2023-11-03T09:44:14Z",
+    "updated_at": "2023-11-03T09:44:15Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/43",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/43",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/redos",
+      "severity": "error",
+      "description": "Inefficient regular expression",
+      "name": "java/redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "This part of the regular expression may cause exponential backtracking on strings starting with '-BEGIN CERTIFICATE-' and containing many repetitions of '\\n'."
+      },
+      "location": {
+        "path": "zookeeper-server/src/main/java/org/apache/zookeeper/util/PemReader.java",
+        "start_line": 70,
+        "end_line": 72,
+        "start_column": 41,
+        "end_column": 57
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/43/instances"
+  },
+  {
+    "number": 42,
+    "created_at": "2023-11-03T09:44:14Z",
+    "updated_at": "2023-11-03T09:44:15Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/42",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/42",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/unsafe-hostname-verification",
+      "severity": "error",
+      "description": "Unsafe hostname verification",
+      "name": "java/unsafe-hostname-verification",
+      "tags": ["external/cwe/cwe-297","security"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "The hostname verifier defined by this type always accepts any certificate, even if the hostname does not match."
+      },
+      "location": {
+        "path": "zookeeper-server/src/test/java/org/apache/zookeeper/server/admin/JettyAdminServerTest.java",
+        "start_line": 134,
+        "end_line": 134,
+        "start_column": 55,
+        "end_column": 63
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/42/instances"
+  },
+  {
+    "number": 41,
+    "created_at": "2023-11-03T09:44:14Z",
+    "updated_at": "2023-11-03T09:44:15Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/41",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/41",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/insecure-trustmanager",
+      "severity": "error",
+      "description": "`TrustManager` that accepts all certificates",
+      "name": "java/insecure-trustmanager",
+      "tags": ["external/cwe/cwe-295","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "This uses TrustManager, which is defined in JettyAdminServerTest$ and trusts any certificate."
+      },
+      "location": {
+        "path": "zookeeper-server/src/test/java/org/apache/zookeeper/server/admin/JettyAdminServerTest.java",
+        "start_line": 119,
+        "end_line": 119,
+        "start_column": 27,
+        "end_column": 40
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/41/instances"
+  },
+  {
+    "number": 40,
+    "created_at": "2023-11-03T09:44:14Z",
+    "updated_at": "2023-11-03T09:44:15Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/40",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/40",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "Cryptographic algorithm SHA1 is weak and should not be used."
+      },
+      "location": {
+        "path": "zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/DigestAuthenticationProvider.java",
+        "start_line": 126,
+        "end_line": 126,
+        "start_column": 16,
+        "end_column": 59
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/40/instances"
+  },
+  {
+    "number": 39,
+    "created_at": "2023-11-03T09:44:14Z",
+    "updated_at": "2023-11-03T09:44:15Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/39",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/39",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/xss",
+      "severity": "error",
+      "description": "Cross-site scripting",
+      "name": "java/xss",
+      "tags": ["external/cwe/cwe-079","security"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "Cross-site scripting vulnerability due to a user-provided value."
+      },
+      "location": {
+        "path": "zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/CommandListener.java",
+        "start_line": 92,
+        "end_line": 92,
+        "start_column": 42,
+        "end_column": 52
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/39/instances"
+  },
+  {
+    "number": 38,
+    "created_at": "2023-11-03T09:41:57Z",
+    "updated_at": "2023-11-03T09:41:59Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/38",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/38",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-multi-character-sanitization",
+      "severity": "warning",
+      "description": "Incomplete multi-character sanitization",
+      "name": "js/incomplete-multi-character-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "This string may still contain <script, which may cause an HTML element injection vulnerability."
+      },
+      "location": {
+        "path": "zookeeper-docs/src/main/resources/markdown/skin/prototype.js",
+        "start_line": 624,
+        "end_line": 624,
+        "start_column": 12,
+        "end_column": 81
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/38/instances"
+  },
+  {
+    "number": 37,
+    "created_at": "2023-11-03T09:41:57Z",
+    "updated_at": "2023-11-03T09:41:59Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/37",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/37",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "zookeeper-docs/src/main/resources/markdown/skin/prototype.js",
+        "start_line": 719,
+        "end_line": 719,
+        "start_column": 18,
+        "end_column": 39
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/37/instances"
+  },
+  {
+    "number": 36,
+    "created_at": "2023-11-03T09:41:57Z",
+    "updated_at": "2023-11-03T09:41:59Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/36",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/36",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "zookeeper-docs/src/main/resources/markdown/skin/prototype.js",
+        "start_line": 718,
+        "end_line": 718,
+        "start_column": 39,
+        "end_column": 60
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/36/instances"
+  },
+  {
+    "number": 35,
+    "created_at": "2023-11-03T09:41:57Z",
+    "updated_at": "2023-11-03T09:41:59Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/35",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/35",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "This replaces only the first occurrence of \"\\n\"."
+      },
+      "location": {
+        "path": "zookeeper-contrib/zookeeper-contrib-loggraph/src/main/resources/webapp/org/apache/zookeeper/graph/resources/loggraph.server.js",
+        "start_line": 316,
+        "end_line": 316,
+        "start_column": 23,
+        "end_column": 40
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/35/instances"
+  },
+  {
+    "number": 34,
+    "created_at": "2023-11-03T09:41:57Z",
+    "updated_at": "2023-11-03T09:41:59Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/34",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/34",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/bad-tag-filter",
+      "severity": "warning",
+      "description": "Bad HTML filtering regexp",
+      "name": "js/bad-tag-filter",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","external/cwe/cwe-184","external/cwe/cwe-185","external/cwe/cwe-186","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "This regular expression matches <script>...</script>, but not <script >...\\n</script>"
+      },
+      "location": {
+        "path": "zookeeper-docs/src/main/resources/markdown/skin/prototype.js",
+        "start_line": 624,
+        "end_line": 624,
+        "start_column": 26,
+        "end_column": 73
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/34/instances"
+  },
+  {
+    "number": 33,
+    "created_at": "2023-11-03T09:41:57Z",
+    "updated_at": "2023-11-03T09:41:59Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/33",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/33",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/bad-tag-filter",
+      "severity": "warning",
+      "description": "Bad HTML filtering regexp",
+      "name": "js/bad-tag-filter",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","external/cwe/cwe-184","external/cwe/cwe-185","external/cwe/cwe-186","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "This regular expression does not match script end tags like </script\\t\\n bar>."
+      },
+      "location": {
+        "path": "zookeeper-docs/src/main/resources/markdown/skin/prototype.js",
+        "start_line": 52,
+        "end_line": 52,
+        "start_column": 20,
+        "end_column": 59
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/33/instances"
+  },
+  {
+    "number": 32,
+    "created_at": "2023-11-03T09:41:57Z",
+    "updated_at": "2023-11-03T09:41:59Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/32",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/32",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/xss-through-dom",
+      "severity": "warning",
+      "description": "DOM text reinterpreted as HTML",
+      "name": "js/xss-through-dom",
+      "tags": ["external/cwe/cwe-116","security"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "DOM text is reinterpreted as HTML without escaping meta-characters."
+      },
+      "location": {
+        "path": "zookeeper-contrib/zookeeper-contrib-loggraph/src/main/resources/webapp/org/apache/zookeeper/graph/resources/loggraph.js",
+        "start_line": 52,
+        "end_line": 52,
+        "start_column": 26,
+        "end_column": 260
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/32/instances"
+  },
+  {
+    "number": 31,
+    "created_at": "2023-11-03T09:41:57Z",
+    "updated_at": "2023-11-03T09:41:59Z",
+    "url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/31",
+    "html_url": "https://github.com/Be-Secure/zookeeper/security/code-scanning/31",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/redos",
+      "severity": "error",
+      "description": "Inefficient regular expression",
+      "name": "js/redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.15.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-3.9.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "fe9a016c41dc4c22444e9ae4228717ef3dd8f05d",
+      "message": {
+        "text": "This part of the regular expression may cause exponential backtracking on strings starting with '<a ' and containing many repetitions of '\"\"'."
+      },
+      "location": {
+        "path": "zookeeper-docs/src/main/resources/markdown/skin/prototype.js",
+        "start_line": 624,
+        "end_line": 624,
+        "start_column": 34,
+        "end_column": 57
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zookeeper/code-scanning/alerts/31/instances"
+  }
+]
