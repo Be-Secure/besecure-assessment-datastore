@@ -1,0 +1,127 @@
+{
+    "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+    "version": "2.1.0",
+    "runs": [
+        {
+            "tool": {
+                "driver": {
+                    "name": "SnykCode",
+                    "semanticVersion": "1.0.0",
+                    "version": "1.0.0",
+                    "rules": [
+                        {
+                            "id": "python/UnsupportedLanguage",
+                            "name": "UnsupportedLanguage",
+                            "shortDescription": {
+                                "text": "Python 2 source code"
+                            },
+                            "defaultConfiguration": {
+                                "level": "note"
+                            },
+                            "help": {
+                                "markdown": "## Details\n\nThe Python 2 interpreter has been unsupported since January 2020 and does not receive security updates.\nThese source files appear to be in the Python 2 syntax, and therefore depend on unsupported 3rd party components for operation.\n\n## Best practices for prevention\n* If this code is still in use, port it to Python 3",
+                                "text": ""
+                            },
+                            "properties": {
+                                "tags": [
+                                    "python",
+                                    "UnsupportedLanguage",
+                                    "Security"
+                                ],
+                                "categories": [
+                                    "Security"
+                                ],
+                                "exampleCommitFixes": [],
+                                "exampleCommitDescriptions": [],
+                                "precision": "very-high",
+                                "repoDatasetSize": 0,
+                                "cwe": [
+                                    "CWE-1104"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "results": [
+                {
+                    "ruleId": "python/UnsupportedLanguage",
+                    "ruleIndex": 0,
+                    "level": "note",
+                    "message": {
+                        "text": "This source file appears to be in Python 2. The Python 2 interpreter has been unsupported without security updates since January 2020. Consider porting this code to Python 3.",
+                        "markdown": "This source file appears to be in Python 2. The Python 2 interpreter has been unsupported without security updates since January 2020. Consider porting this code to Python 3.",
+                        "arguments": []
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "libzmix/bulletproofs_amcl/src/r1cs/gadgets/sage/calc_round_numbers.py",
+                                    "uriBaseId": "%SRCROOT%"
+                                },
+                                "region": {
+                                    "startLine": 1,
+                                    "endLine": 276,
+                                    "startColumn": 1,
+                                    "endColumn": 31
+                                }
+                            }
+                        }
+                    ],
+                    "fingerprints": {
+                        "0": "55bfcbee68cda86223fae365722c5dc6c077f0c6a2281efcf351068dfd490cd9",
+                        "1": "721db70e.50fac029.7af34598.6eca8a70.0a02b513.961e1887.22a8b49e.1c41c250.721db70e.50fac029.7af34598.6eca8a70.0a02b513.961e1887.22a8b49e.1c41c250"
+                    },
+                    "codeFlows": [
+                        {
+                            "threadFlows": [
+                                {
+                                    "locations": [
+                                        {
+                                            "location": {
+                                                "id": 0,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "libzmix/bulletproofs_amcl/src/r1cs/gadgets/sage/calc_round_numbers.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 1,
+                                                        "endLine": 276,
+                                                        "startColumn": 1,
+                                                        "endColumn": 31
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "properties": {
+                        "priorityScore": 217,
+                        "priorityScoreFactors": [
+                            {
+                                "label": true,
+                                "type": "hotFileSource"
+                            }
+                        ],
+                        "isAutofixable": false
+                    }
+                }
+            ],
+            "properties": {
+                "coverage": [
+                    {
+                        "isSupported": true,
+                        "lang": "Python",
+                        "files": 2,
+                        "type": "SUPPORTED"
+                    }
+                ]
+            }
+        }
+    ]
+}
