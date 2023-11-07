@@ -1,22 +1,20 @@
 {
-  "date": "2023-11-01",
+  "date": "2023-04-22",
   "repo": {
-    "name": "github.com/Be-Secure/TheHive",
-    "commit": "1dc3900c0f78bf69f2bff8ebf9b729b14392d983"
+    "name": "github.com/Be-Secure/cassandra",
+    "commit": "e7875db86530a80ed064464bfffc4c1fc31ff9f1"
   },
   "scorecard": {
     "version": "v4.10.2",
     "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
   },
-  "score": 4.8,
+  "score": 4.5,
   "checks": [
     {
       "name": "Binary-Artifacts",
-      "score": 9,
-      "reason": "binaries present in source code",
-      "details": [
-        "Warn: binary detected: lib/play-propfind.jar:1"
-      ],
+      "score": 10,
+      "reason": "no binaries found in the repo",
+      "details": null,
       "documentation": {
         "short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#binary-artifacts"
@@ -27,7 +25,7 @@
       "score": 0,
       "reason": "branch protection not enabled on development/release branches",
       "details": [
-        "Warn: branch protection not enabled for branch '4.1.24_release'"
+        "Warn: branch protection not enabled for branch 'cassandra-4.0'"
       ],
       "documentation": {
         "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
@@ -67,9 +65,9 @@
     {
       "name": "Contributors",
       "score": 10,
-      "reason": "4 different organizations found -- score normalized to 10",
+      "reason": "21 different organizations found -- score normalized to 10",
       "details": [
-        "Info: contributors work for LDO-CERT,alx dev,ldo-cert,strangebee"
+        "Info: contributors work for SkyAPM,anticlassic studios,apache,apollographql,apple,bigdatagenomics,clojurewerkz,cqlengine,datastax,dremio,facebook,gatling-cql,https://apache.org/,netflix,openjdk,openzipkin,projectnessie,pycassa,thelastpickle,thinkaurelius,"
       ],
       "documentation": {
         "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
@@ -113,8 +111,8 @@
       "score": 10,
       "reason": "license file detected",
       "details": [
-        "Info: License file found in expected location: LICENSE:1",
-        "Info: FSF or OSI recognized license: LICENSE:1"
+        "Info: License file found in expected location: LICENSE.txt:1",
+        "Info: FSF or OSI recognized license: LICENSE.txt:1"
       ],
       "documentation": {
         "short": "Determines if the project has defined a license.",
@@ -123,9 +121,11 @@
     },
     {
       "name": "Maintained",
-      "score": 1,
-      "reason": "2 commit(s) out of 30 and 0 issue activity out of 0 found in the last 90 days -- score normalized to 1",
-      "details": null,
+      "score": 0,
+      "reason": "repo was created 65 days ago, not enough maintenance history",
+      "details": [
+        "Warn: repo was created in the last 90 days (Created at: 2023-02-16T08:46:28Z), please review its contents carefully"
+      ],
       "documentation": {
         "short": "Determines if the project is \"actively maintained\".",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#maintained"
@@ -145,18 +145,20 @@
     },
     {
       "name": "Pinned-Dependencies",
-      "score": 2,
-      "reason": "dependency not pinned by hash detected -- score normalized to 2",
+      "score": 7,
+      "reason": "dependency not pinned by hash detected -- score normalized to 7",
       "details": [
-        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:48: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/TheHive/codeql.yml/4.1.24_release?enable=pin",
-        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:52: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/TheHive/codeql.yml/4.1.24_release?enable=pin",
-        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:66: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/TheHive/codeql.yml/4.1.24_release?enable=pin",
-        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:79: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/TheHive/codeql.yml/4.1.24_release?enable=pin",
-        "Warn: containerImage not pinned by hash: package/docker/Dockerfile:5: pin your Docker image by updating openjdk:8 to openjdk:8@sha256:86e863cc57215cfb181bd319736d0baf625fe8f150577f9eb58bd937f5452cb8",
-        "Warn: containerImage not pinned by hash: package/docker/Dockerfile:40: pin your Docker image by updating openjdk to openjdk@sha256:9b448de897d211c9e0ec635a485650aed6e28d4eca1efbc34940560a480b3f1f",
-        "Warn: downloadThenRun not pinned by hash: package/docker/Dockerfile:11-38",
-        "Warn: npmCommand not pinned by hash: package/docker/Dockerfile:11-38",
-        "Info: Third-party GitHubActions are pinned"
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:41: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/cassandra/codeql.yml/cassandra-4.0?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:43: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/cassandra/codeql.yml/cassandra-4.0?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:50: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/cassandra/codeql.yml/cassandra-4.0?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:80: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/cassandra/codeql.yml/cassandra-4.0?enable=pin",
+        "Warn: containerImage not pinned by hash: pylib/Dockerfile.ubuntu.py2:1: pin your Docker image by updating ubuntu to ubuntu@sha256:67211c14fa74f070d27cc59d69a7fa9aeff8e28ea118ef3babc295a0428a6d21",
+        "Warn: containerImage not pinned by hash: pylib/Dockerfile.ubuntu.py3:1: pin your Docker image by updating ubuntu to ubuntu@sha256:67211c14fa74f070d27cc59d69a7fa9aeff8e28ea118ef3babc295a0428a6d21",
+        "Warn: containerImage not pinned by hash: pylib/Dockerfile.ubuntu.py37:1: pin your Docker image by updating ubuntu to ubuntu@sha256:67211c14fa74f070d27cc59d69a7fa9aeff8e28ea118ef3babc295a0428a6d21",
+        "Warn: containerImage not pinned by hash: pylib/Dockerfile.ubuntu.py38:1: pin your Docker image by updating ubuntu to ubuntu@sha256:67211c14fa74f070d27cc59d69a7fa9aeff8e28ea118ef3babc295a0428a6d21",
+        "Info: Third-party GitHubActions are pinned",
+        "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles",
+        "Info: no insecure (not pinned by hash) dependency downloads found in shell scripts"
       ],
       "documentation": {
         "short": "Determines if the project has declared and pinned the dependencies of its build process.",
@@ -178,14 +180,9 @@
     },
     {
       "name": "Security-Policy",
-      "score": 10,
-      "reason": "security policy file detected",
-      "details": [
-        "Info: Found linked content in security policy: SECURITY.md",
-        "Info: Found text in security policy: SECURITY.md",
-        "Info: Found disclosure, vulnerability, and/or timelines in security policy: SECURITY.md",
-        "Info: security policy detected in current repo: SECURITY.md"
-      ],
+      "score": 0,
+      "reason": "security policy file not detected",
+      "details": null,
       "documentation": {
         "short": "Determines if the project has published a security policy.",
         "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#security-policy"
@@ -208,10 +205,10 @@
       "score": 9,
       "reason": "non read-only tokens detected in GitHub workflows",
       "details": [
-        "Warn: no topLevel permission defined: .github/workflows/codeql.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/TheHive/codeql.yml/4.1.24_release?enable=permissions",
-        "Info: jobLevel 'actions' permission set to 'read': .github/workflows/codeql.yml:33",
-        "Info: jobLevel 'contents' permission set to 'read': .github/workflows/codeql.yml:34",
-        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:17"
+        "Warn: no topLevel permission defined: .github/workflows/codeql.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/cassandra/codeql.yml/cassandra-4.0?enable=permissions",
+        "Info: jobLevel 'actions' permission set to 'read': .github/workflows/codeql.yml:26",
+        "Info: jobLevel 'contents' permission set to 'read': .github/workflows/codeql.yml:27",
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:18"
       ],
       "documentation": {
         "short": "Determines if the project's workflows follow the principle of least privilege.",
