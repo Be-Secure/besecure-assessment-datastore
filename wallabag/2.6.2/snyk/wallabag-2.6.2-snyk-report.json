@@ -1,0 +1,4877 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "php/InsecureHash/test",
+              "name": "InsecureHash/test",
+              "shortDescription": {
+                "text": "Use of Password Hash With Insufficient Computational Effort"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nSensitive information should never be stored in plain text, since this makes it very easy for unauthorized users, whether malicious insiders or outside attackers, to access. Hashing methods are used to make stored passwords and other sensitive data unreadable to users. For example, when a password is defined for the first time, it is hashed and then stored. The next time that user attempts to log on, the password they enter is hashed following the same procedure and compared with the stored value. In this way, the original password never needs to be stored in the system.\n\nHashing is a one-way scheme, meaning a hashed password cannot be reverse engineered. However, if an outdated or custom programmed hashing scheme is used, it becomes simple for an attacker with powerful modern computing power to gain access to the hashes used. This opens up access to all stored password information, leading to breached security. Therefore, it is essential for developers to understand modern, secure password hashing techniques.\n\n## Best practices for prevention\n* Use strong standard algorithms for hashing rather than simpler but outdated methods or DIY hashing schemes, which may have inherent weaknesses.\n* Use modular design for all code dealing with hashing so it can be swapped out as security standards change over time.\n* Use salting in combination with hashing (While this places more demands on resources, it is an essential step for tighter security.).\n* Implement zero-trust architecture to ensure that access to password data is granted only for legitimate business purposes.\n* Increase developer awareness of current standards in data security and cryptography.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "php",
+                  "InsecureHash",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/thecodingmachine/safe/blob/ed699e12e8e23dbaed7a1fce7dcc23a5b298fa13/generated/suhosin.php#L43-L45",
+                    "lines": [
+                      {
+                        "line": "    $result = \\sha256($str, $raw_output);",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "}else {",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    $result = \\sha256($str);",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "}",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "if ($result === FALSE) {",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 1,
+                "cwe": [
+                  "CWE-916"
+                ]
+              }
+            },
+            {
+              "id": "php/OR",
+              "name": "OR",
+              "shortDescription": {
+                "text": "Open Redirect"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\nAn open redirect attack takes place when a web application redirects the user to an unauthorized and untrusted site. In general, URL redirection refers to the ability of a website or application to redirect users to another site. This is often a benign and useful feature. For example, if a resource has moved to a new location, URL redirection can transfer the user to that location rather than displaying an error message.\nHowever, this ability can be exploited through social engineering, tricking the user into believing they are accessing one site when, in reality, they are being redirected to a dangerous site, such as a phishing site. Once there, the user may be further tricked into entering credentials or personally identifiable information (PII), believing they are still within the original, trusted domain. Attackers can then use these credentials to gain unauthorized access or leverage the user's PII for sale or ransom.\n\n## Best practices for prevention\n* When developing a site or web app, consider implementing a disclaimer page to remind users that they are leaving a secure site.\n* Adopt a zero-trust approach in which all input is treated with suspicion.\n* Validate all input against deny-lists to ensure it does not contain code to redirect the user. This method is good but inherently incomplete.\n* Be aware of all sources of untrusted input being sent to the server that could be used to redirect the user, such as cookies, URL components, filenames, query results, request headers, and more.\n* In particular, be aware of potential API calls that could send input indirectly to redirect the user.\n* To protect end users, use a firewall to block known malicious sites, train users to recognize basic signs of a phishing attack, and ensure that all network endpoints are patched with the most current updates.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "php",
+                  "OR",
+                  "Security",
+                  "SourceServer",
+                  "SourceHttpHeader",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/torrentpier/torrentpier/commit/b370d8478691d1341a79073f90f6975ac49ea1d1?diff=split#diff-15c3b776f7d7878c8455d74430040935L1872",
+                    "lines": [
+                      {
+                        "line": "function login_redirect ($url = '')",
+                        "lineNumber": 1869,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "{",
+                        "lineNumber": 1870,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  redirect(LOGIN_URL . '?redirect='. (($url) ? $url : $_SERVER['REQUEST_URI']));",
+                        "lineNumber": 1871,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    redirect(LOGIN_URL . '?redirect='. (($url) ? $url : (isset($_SERVER['REQUEST_URI']) ?: '/')));",
+                        "lineNumber": 1871,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "}",
+                        "lineNumber": 1872,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/klein/klein.php/commit/4d321652a45baac236720fc2ec63d9a540ec92ff?diff=split#diff-7e8a4cd3a979ec96dab6157b152a651fL283",
+                    "lines": [
+                      {
+                        "line": "$secure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'];",
+                        "lineNumber": 283,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "if (!$secure && $required) {",
+                        "lineNumber": 284,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    $url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];",
+                        "lineNumber": 285,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    header('Location: ' . $url);",
+                        "lineNumber": 283,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    self::$_headers->header('Location: ' . $url);",
+                        "lineNumber": 286,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "}",
+                        "lineNumber": 287,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "return $secure;",
+                        "lineNumber": 288,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/anilibria/anilibria/commit/14dadc9a3eaa057aab5fbe6a16d5bc205f76cd4e?diff=split#diff-d43494505a282f6b97f7fc1142fd6d89L3",
+                    "lines": [
+                      {
+                        "line": "<?php",
+                        "lineNumber": 1,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "require($_SERVER['DOCUMENT_ROOT'].'/private/config.php');",
+                        "lineNumber": 2,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "require($_SERVER['DOCUMENT_ROOT'].'/private/init/mysql.php');",
+                        "lineNumber": 3,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "require($_SERVER['DOCUMENT_ROOT'].'/private/init/memcache.php');",
+                        "lineNumber": 4,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "if($user){",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  die(header(\"Location: https://\".$_SERVER['SERVER_NAME']));",
+                        "lineNumber": 11,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "  die(header(\"Location: https://\".$var['origin_url']));",
+                        "lineNumber": 11,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "}",
+                        "lineNumber": 12,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 85,
+                "cwe": [
+                  "CWE-601"
+                ]
+              }
+            },
+            {
+              "id": "php/HardcodedCredential",
+              "name": "HardcodedCredential",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "php",
+                  "HardcodedCredential",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-798",
+                  "CWE-259"
+                ]
+              }
+            },
+            {
+              "id": "php/InsecureHash",
+              "name": "InsecureHash",
+              "shortDescription": {
+                "text": "Use of Password Hash With Insufficient Computational Effort"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nSensitive information should never be stored in plain text, since this makes it very easy for unauthorized users, whether malicious insiders or outside attackers, to access. Hashing methods are used to make stored passwords and other sensitive data unreadable to users. For example, when a password is defined for the first time, it is hashed and then stored. The next time that user attempts to log on, the password they enter is hashed following the same procedure and compared with the stored value. In this way, the original password never needs to be stored in the system.\n\nHashing is a one-way scheme, meaning a hashed password cannot be reverse engineered. However, if an outdated or custom programmed hashing scheme is used, it becomes simple for an attacker with powerful modern computing power to gain access to the hashes used. This opens up access to all stored password information, leading to breached security. Therefore, it is essential for developers to understand modern, secure password hashing techniques.\n\n## Best practices for prevention\n* Use strong standard algorithms for hashing rather than simpler but outdated methods or DIY hashing schemes, which may have inherent weaknesses.\n* Use modular design for all code dealing with hashing so it can be swapped out as security standards change over time.\n* Use salting in combination with hashing (While this places more demands on resources, it is an essential step for tighter security.).\n* Implement zero-trust architecture to ensure that access to password data is granted only for legitimate business purposes.\n* Increase developer awareness of current standards in data security and cryptography.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "php",
+                  "InsecureHash",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/thecodingmachine/safe/blob/ed699e12e8e23dbaed7a1fce7dcc23a5b298fa13/generated/suhosin.php#L43-L45",
+                    "lines": [
+                      {
+                        "line": "    $result = \\sha256($str, $raw_output);",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "}else {",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    $result = \\sha256($str);",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "}",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "if ($result === FALSE) {",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 1,
+                "cwe": [
+                  "CWE-916"
+                ]
+              }
+            },
+            {
+              "id": "php/HardcodedCredential/test",
+              "name": "HardcodedCredential/test",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "php",
+                  "HardcodedCredential",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-798",
+                  "CWE-259"
+                ]
+              }
+            },
+            {
+              "id": "php/HardcodedPassword/test",
+              "name": "HardcodedPassword/test",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "php",
+                  "HardcodedPassword",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-798",
+                  "CWE-259"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/CoreBundle/Command/GenerateUrlHashesCommandTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 84,
+                  "endLine": 84,
+                  "startColumn": 51,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "33a8e46fa5e8957026c3b16d3b934627273c386bcc3feb2eefb04f18c918f55b",
+            "1": "1a8a6890.464a7316.a2ebdfb2.84f920ce.ed5f44f3.d7ed1c6c.e69ac4ad.be170d97.1a8a6890.464a7316.a2ebdfb2.84f920ce.ed5f44f3.d7ed1c6c.e69ac4ad.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/CoreBundle/Command/GenerateUrlHashesCommandTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 84,
+                            "endLine": 84,
+                            "startColumn": 56,
+                            "endColumn": 62
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/CoreBundle/Command/GenerateUrlHashesCommandTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 84,
+                            "endLine": 84,
+                            "startColumn": 51,
+                            "endColumn": 55
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 390,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1018,
+                  "endLine": 1018,
+                  "startColumn": 16,
+                  "endColumn": 20
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "6e9d25d19457f934149423d2abe14a005473db1ba6d4667a620616a484234986",
+            "1": "6365d263.464a7316.2683ade8.84f920ce.ed5f44f3.b1cf01b2.e69ac4ad.be170d97.6365d263.464a7316.c3dea7ce.84f920ce.ed5f44f3.b1cf01b2.e69ac4ad.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1018,
+                            "endLine": 1018,
+                            "startColumn": 21,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1018,
+                            "endLine": 1018,
+                            "startColumn": 16,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1092,
+                  "endLine": 1092,
+                  "startColumn": 78,
+                  "endColumn": 82
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "23dc3c8aa54b80b8ec0fd6810ff9d3497258ee9b0bd7c69946b64455fd2260d0",
+            "1": "63a9054a.464a7316.b6856342.35351859.ed5f44f3.982e4b46.f4ffa1cb.be170d97.63a9054a.464a7316.c3dea7ce.35351859.ed5f44f3.982e4b46.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1092,
+                            "endLine": 1092,
+                            "startColumn": 83,
+                            "endColumn": 89
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1092,
+                            "endLine": 1092,
+                            "startColumn": 78,
+                            "endColumn": 82
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1092,
+                  "endLine": 1092,
+                  "startColumn": 120,
+                  "endColumn": 124
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "23dc3c8aa54b80b8ec0fd6810ff9d3497258ee9b0bd7c69946b64455fd2260d0",
+            "1": "63a9054a.464a7316.c4afd229.35351859.ed5f44f3.b1cf01b2.f4ffa1cb.be170d97.63a9054a.464a7316.c3dea7ce.35351859.ed5f44f3.b1cf01b2.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1092,
+                            "endLine": 1092,
+                            "startColumn": 125,
+                            "endColumn": 131
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1092,
+                            "endLine": 1092,
+                            "startColumn": 120,
+                            "endColumn": 124
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1098,
+                  "endLine": 1098,
+                  "startColumn": 34,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "c7ca6c605c9cdfb1e96b0d5fe6da30d784b062fea8a8a75671d59479b5f5e1f7",
+            "1": "0502d64a.464a7316.a2ebdfb2.1f72a0be.ed5f44f3.982e4b46.f4ffa1cb.6521de78.0502d64a.464a7316.a2ebdfb2.1f72a0be.ed5f44f3.982e4b46.a7efae7e.6521de78"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1098,
+                            "endLine": 1098,
+                            "startColumn": 39,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1098,
+                            "endLine": 1098,
+                            "startColumn": 34,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1099,
+                  "endLine": 1099,
+                  "startColumn": 34,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "76fab08a055d10a9dfc748fe863a0270961744fbbc0aec14893069a6366f3fa9",
+            "1": "0502d64a.464a7316.a2ebdfb2.1f72a0be.ed5f44f3.b1cf01b2.f4ffa1cb.6521de78.0502d64a.464a7316.a2ebdfb2.1f72a0be.ed5f44f3.b1cf01b2.a7efae7e.6521de78"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1099,
+                            "endLine": 1099,
+                            "startColumn": 39,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1099,
+                            "endLine": 1099,
+                            "startColumn": 34,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1100,
+                  "endLine": 1100,
+                  "startColumn": 39,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "395b6cb905c24ab7928c1e56064ed718b014aef5e7e249e722189d8851a84126",
+            "1": "0502d64a.464a7316.097bd1a5.de2ca2f0.ed5f44f3.982e4b46.f4ffa1cb.be170d97.0502d64a.464a7316.c3dea7ce.de2ca2f0.ed5f44f3.982e4b46.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1100,
+                            "endLine": 1100,
+                            "startColumn": 44,
+                            "endColumn": 50
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1100,
+                            "endLine": 1100,
+                            "startColumn": 39,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1101,
+                  "endLine": 1101,
+                  "startColumn": 36,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "f4714b46b6371e737d3cfd8c198710c4bf9828f1c878bd433c53db7f92af3250",
+            "1": "0502d64a.464a7316.097bd1a5.de2ca2f0.ed5f44f3.b1cf01b2.f4ffa1cb.be170d97.0502d64a.464a7316.c3dea7ce.de2ca2f0.ed5f44f3.b1cf01b2.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1101,
+                            "endLine": 1101,
+                            "startColumn": 41,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1101,
+                            "endLine": 1101,
+                            "startColumn": 36,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1108,
+                  "endLine": 1108,
+                  "startColumn": 78,
+                  "endColumn": 82
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "bb8664abe82e4f171b2a3c6e3058397e6664381d4065cb1bd6721860ec9b21fa",
+            "1": "63a9054a.464a7316.b6856342.35351859.ed5f44f3.982e4b46.f4ffa1cb.be170d97.63a9054a.464a7316.c3dea7ce.35351859.ed5f44f3.982e4b46.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1108,
+                            "endLine": 1108,
+                            "startColumn": 83,
+                            "endColumn": 89
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1108,
+                            "endLine": 1108,
+                            "startColumn": 78,
+                            "endColumn": 82
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1108,
+                  "endLine": 1108,
+                  "startColumn": 120,
+                  "endColumn": 124
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "bb8664abe82e4f171b2a3c6e3058397e6664381d4065cb1bd6721860ec9b21fa",
+            "1": "0502d64a.464a7316.c4afd229.35351859.ed5f44f3.b1cf01b2.f4ffa1cb.be170d97.0502d64a.464a7316.c3dea7ce.35351859.ed5f44f3.b1cf01b2.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1108,
+                            "endLine": 1108,
+                            "startColumn": 125,
+                            "endColumn": 131
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1108,
+                            "endLine": 1108,
+                            "startColumn": 120,
+                            "endColumn": 124
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1114,
+                  "endLine": 1114,
+                  "startColumn": 34,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "38ef40b68e18eeacfb48699e5e257aae36f201483bf5dcc33cc9d974245daa6f",
+            "1": "0502d64a.464a7316.a2ebdfb2.1f72a0be.ed5f44f3.982e4b46.f4ffa1cb.6521de78.0502d64a.464a7316.a2ebdfb2.1f72a0be.ed5f44f3.982e4b46.a7efae7e.6521de78"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1114,
+                            "endLine": 1114,
+                            "startColumn": 39,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1114,
+                            "endLine": 1114,
+                            "startColumn": 34,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1115,
+                  "endLine": 1115,
+                  "startColumn": 34,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "2004f226584ab3c4bd1feabe6ef08489e6d64a499253c08e89d072ad8fe0b48a",
+            "1": "0502d64a.464a7316.a2ebdfb2.1f72a0be.ed5f44f3.b1cf01b2.f4ffa1cb.6521de78.0502d64a.464a7316.a2ebdfb2.1f72a0be.ed5f44f3.b1cf01b2.a7efae7e.6521de78"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1115,
+                            "endLine": 1115,
+                            "startColumn": 39,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1115,
+                            "endLine": 1115,
+                            "startColumn": 34,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1116,
+                  "endLine": 1116,
+                  "startColumn": 36,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "0ac2d1797880d23076810d9f03f897afbddbf6a45794ea1931307a1f532ff4ab",
+            "1": "0502d64a.464a7316.097bd1a5.de2ca2f0.ed5f44f3.982e4b46.f4ffa1cb.be170d97.0502d64a.464a7316.c3dea7ce.de2ca2f0.ed5f44f3.982e4b46.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1116,
+                            "endLine": 1116,
+                            "startColumn": 41,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1116,
+                            "endLine": 1116,
+                            "startColumn": 36,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1117,
+                  "endLine": 1117,
+                  "startColumn": 37,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "5db6f2011ed58155c4f1fce6a6a280ee843d10c386a1777d0e6375c21639b9b1",
+            "1": "0502d64a.464a7316.097bd1a5.de2ca2f0.ed5f44f3.b1cf01b2.f4ffa1cb.be170d97.0502d64a.464a7316.c3dea7ce.de2ca2f0.ed5f44f3.b1cf01b2.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1117,
+                            "endLine": 1117,
+                            "startColumn": 42,
+                            "endColumn": 48
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1117,
+                            "endLine": 1117,
+                            "startColumn": 37,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "sha1 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1133,
+                  "endLine": 1133,
+                  "startColumn": 75,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "f7f459891c3b621eda2b6b7c41b37c6aa1119c0b7f36a3bec038617f33d7ae2e",
+            "1": "7dd21369.464a7316.a02e3d02.35351859.ed5f44f3.b9fcbdfd.f4ffa1cb.be170d97.7dd21369.464a7316.c3dea7ce.35351859.ed5f44f3.b9fcbdfd.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1133,
+                            "endLine": 1133,
+                            "startColumn": 80,
+                            "endColumn": 86
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/ApiBundle/Controller/EntryRestControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1133,
+                            "endLine": 1133,
+                            "startColumn": 75,
+                            "endColumn": 79
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 440,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/OR",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an HTTP header flows into redirect, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[an HTTP header](0)",
+              "[flows](1)",
+              "[redirect](2)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Controller/ConfigController.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 618,
+                  "endLine": 618,
+                  "startColumn": 16,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "2a7aed86784063ac67c890b1e129ba20d8f9ccd4f75a56b4973fc10afffb40cb",
+            "1": "44ac1e3e.464a7316.a2ebdfb2.c3fcf9bf.e22ac562.2f4e1548.41e21bb8.be170d97.276ab48f.464a7316.a2ebdfb2.d4a47fbb.7f70237d.fd8e3ebf.da0dd134.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/ConfigController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 618,
+                            "endLine": 618,
+                            "startColumn": 32,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/ConfigController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 618,
+                            "endLine": 618,
+                            "startColumn": 32,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/ConfigController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 618,
+                            "endLine": 618,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 582,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/OR",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an HTTP header flows into redirect, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[an HTTP header](0)",
+              "[flows](1)",
+              "[redirect](2)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Controller/ConfigController.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 638,
+                  "endLine": 638,
+                  "startColumn": 16,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "816a985391817cf75e29af66442a36658572156144685079cdea986fefbbf96a",
+            "1": "7827b1a9.464a7316.a2ebdfb2.42d2ca4d.e22ac562.2f4e1548.41e21bb8.be170d97.276ab48f.8d48cb62.a2ebdfb2.d4a47fbb.7f70237d.fd8e3ebf.da0dd134.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/ConfigController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 638,
+                            "endLine": 638,
+                            "startColumn": 32,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/ConfigController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 638,
+                            "endLine": 638,
+                            "startColumn": 32,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/ConfigController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 638,
+                            "endLine": 638,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 582,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/OR",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an HTTP header flows into redirect, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[an HTTP header](0)",
+              "[flows](1),(2),(3),(4)",
+              "[redirect](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 109,
+                  "endLine": 109,
+                  "startColumn": 16,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "34381bf902492ceb594ab65162cedd70bb2b8068bd0d4c3ff4b1705373937e25",
+            "1": "e6c5c26c.464a7316.a2ebdfb2.c3fcf9bf.51e16a03.2f4e1548.e0f2646f.be170d97.43f154ae.8eef96db.a2ebdfb2.d4a47fbb.7f70237d.fd8e3ebf.e0f2646f.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 107,
+                            "endLine": 107,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 107,
+                            "endLine": 107,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 107,
+                            "endLine": 107,
+                            "startColumn": 24,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 107,
+                            "endLine": 107,
+                            "startColumn": 9,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 109,
+                            "endLine": 109,
+                            "startColumn": 32,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 109,
+                            "endLine": 109,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 582,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/OR",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an HTTP header flows into redirect, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[an HTTP header](0)",
+              "[flows](1),(2),(3),(4)",
+              "[redirect](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 195,
+                  "endLine": 195,
+                  "startColumn": 24,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "f08c2458981095b33a4a226706b596bcaafbf6905b8e9e3f575f8a2cb695f811",
+            "1": "e6c5c26c.464a7316.a2ebdfb2.c3fcf9bf.51e16a03.2f4e1548.e0f2646f.be170d97.43f154ae.464a7316.a2ebdfb2.d4a47fbb.7f70237d.fd8e3ebf.e0f2646f.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 188,
+                            "endLine": 188,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 188,
+                            "endLine": 188,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 188,
+                            "endLine": 188,
+                            "startColumn": 24,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 188,
+                            "endLine": 188,
+                            "startColumn": 9,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 195,
+                            "endLine": 195,
+                            "startColumn": 40,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 195,
+                            "endLine": 195,
+                            "startColumn": 24,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 582,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/OR",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an HTTP header flows into redirect, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[an HTTP header](0)",
+              "[flows](1),(2),(3),(4)",
+              "[redirect](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 225,
+                  "endLine": 225,
+                  "startColumn": 16,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "84b080fb7bd570f4135c995d5b7b0c8fcab9d53e653a9b50abab08588fb4a9cd",
+            "1": "e6c5c26c.464a7316.a2ebdfb2.c3fcf9bf.51e16a03.2f4e1548.e0f2646f.be170d97.43f154ae.464a7316.a2ebdfb2.d4a47fbb.7f70237d.fd8e3ebf.e0f2646f.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 188,
+                            "endLine": 188,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 188,
+                            "endLine": 188,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 188,
+                            "endLine": 188,
+                            "startColumn": 24,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 188,
+                            "endLine": 188,
+                            "startColumn": 9,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 225,
+                            "endLine": 225,
+                            "startColumn": 32,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 225,
+                            "endLine": 225,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 582,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/OR",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an HTTP header flows into redirect, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[an HTTP header](0)",
+              "[flows](1),(2)",
+              "[redirect](3)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 260,
+                  "endLine": 260,
+                  "startColumn": 16,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "3d0a06402acd9c40775ad26e48caed5f696693848953735c844669a0dd2c8678",
+            "1": "43f154ae.464a7316.a2ebdfb2.abd479c7.9fa960fc.2f4e1548.41e21bb8.be170d97.43f154ae.464a7316.a2ebdfb2.d4a47fbb.7f70237d.fd8e3ebf.da0dd134.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 260,
+                            "endLine": 260,
+                            "startColumn": 58,
+                            "endColumn": 80
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 260,
+                            "endLine": 260,
+                            "startColumn": 58,
+                            "endColumn": 80
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 260,
+                            "endLine": 260,
+                            "startColumn": 32,
+                            "endColumn": 57
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 260,
+                            "endLine": 260,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 582,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/OR",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an HTTP header flows into redirect, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[an HTTP header](0)",
+              "[flows](1),(2),(3),(4)",
+              "[redirect](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 285,
+                  "endLine": 285,
+                  "startColumn": 16,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "34f5d798ccd71649f1ad2db8093b3665b02dd14a26e9ea335ca68baaa359a2ea",
+            "1": "e6c5c26c.464a7316.a2ebdfb2.c3fcf9bf.51e16a03.2f4e1548.e0f2646f.be170d97.43f154ae.464a7316.a2ebdfb2.d4a47fbb.7f70237d.fd8e3ebf.e0f2646f.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 283,
+                            "endLine": 283,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 283,
+                            "endLine": 283,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 283,
+                            "endLine": 283,
+                            "startColumn": 24,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 283,
+                            "endLine": 283,
+                            "startColumn": 9,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 285,
+                            "endLine": 285,
+                            "startColumn": 32,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/TagController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 285,
+                            "endLine": 285,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 582,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/OR",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an HTTP header flows into redirect, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[an HTTP header](0)",
+              "[flows](1),(2),(3),(4)",
+              "[redirect](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 133,
+                  "endLine": 133,
+                  "startColumn": 16,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "ce3bbf9510f9e5bdf78e0ce2530bc617fe17a79b69a9a0d405223d27593c92d9",
+            "1": "e6c5c26c.464a7316.a2ebdfb2.c3fcf9bf.51e16a03.2f4e1548.e0f2646f.be170d97.276ab48f.464a7316.a2ebdfb2.d4a47fbb.4c57c81e.98c7c24d.e0f2646f.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 131,
+                            "endLine": 131,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 131,
+                            "endLine": 131,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 131,
+                            "endLine": 131,
+                            "startColumn": 24,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 131,
+                            "endLine": 131,
+                            "startColumn": 9,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 133,
+                            "endLine": 133,
+                            "startColumn": 32,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 133,
+                            "endLine": 133,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 582,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/OR",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an HTTP header flows into redirect, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[an HTTP header](0)",
+              "[flows](1),(2),(3),(4)",
+              "[redirect](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 456,
+                  "endLine": 456,
+                  "startColumn": 16,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "4127c0aefdc734b32a66c203e6b3443aa3eaed57cd58a739f5ceb5e5a244fce4",
+            "1": "e6c5c26c.464a7316.a2ebdfb2.c3fcf9bf.51e16a03.2f4e1548.e0f2646f.be170d97.276ab48f.8eef96db.a2ebdfb2.d4a47fbb.7f70237d.fd8e3ebf.e0f2646f.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 454,
+                            "endLine": 454,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 454,
+                            "endLine": 454,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 454,
+                            "endLine": 454,
+                            "startColumn": 24,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 454,
+                            "endLine": 454,
+                            "startColumn": 9,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 456,
+                            "endLine": 456,
+                            "startColumn": 32,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 456,
+                            "endLine": 456,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 582,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/OR",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an HTTP header flows into redirect, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[an HTTP header](0)",
+              "[flows](1),(2),(3),(4)",
+              "[redirect](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 486,
+                  "endLine": 486,
+                  "startColumn": 16,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "13361ff32de0778e5f40eb985c160500c94958d7512f0cb1db16704fc300e1ba",
+            "1": "e6c5c26c.464a7316.a2ebdfb2.c3fcf9bf.51e16a03.2f4e1548.e0f2646f.be170d97.276ab48f.8eef96db.a2ebdfb2.d4a47fbb.7f70237d.fd8e3ebf.e0f2646f.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 484,
+                            "endLine": 484,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 484,
+                            "endLine": 484,
+                            "startColumn": 50,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 484,
+                            "endLine": 484,
+                            "startColumn": 24,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 484,
+                            "endLine": 484,
+                            "startColumn": 9,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 486,
+                            "endLine": 486,
+                            "startColumn": 32,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 486,
+                            "endLine": 486,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 582,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/OR",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an HTTP header flows into redirect, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[an HTTP header](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9)",
+              "[redirect](10)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 525,
+                  "endLine": 525,
+                  "startColumn": 16,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e546b8ac951c17019ad6820011dbca9268f0d6ea428602b0100eda9133f7ee82",
+            "1": "e6c5c26c.464a7316.a2ebdfb2.c3fcf9bf.51e16a03.2f4e1548.e0f2646f.be170d97.276ab48f.8eef96db.a2ebdfb2.d4a47fbb.e9821a87.fd8e3ebf.c69423ed.ddcaa6bc"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 520,
+                            "endLine": 520,
+                            "startColumn": 20,
+                            "endColumn": 42
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 520,
+                            "endLine": 520,
+                            "startColumn": 20,
+                            "endColumn": 42
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 520,
+                            "endLine": 520,
+                            "startColumn": 9,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 521,
+                            "endLine": 521,
+                            "startColumn": 53,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 521,
+                            "endLine": 521,
+                            "startColumn": 65,
+                            "endColumn": 73
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 521,
+                            "endLine": 521,
+                            "startColumn": 9,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 523,
+                            "endLine": 523,
+                            "startColumn": 50,
+                            "endColumn": 53
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 523,
+                            "endLine": 523,
+                            "startColumn": 24,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 523,
+                            "endLine": 523,
+                            "startColumn": 9,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 525,
+                            "endLine": 525,
+                            "startColumn": 32,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 525,
+                            "endLine": 525,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 582,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/OR",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an HTTP parameter flows into redirect, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as an URL to redirect the user. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[an HTTP parameter](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18)",
+              "[redirect](19)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 672,
+                  "endLine": 672,
+                  "startColumn": 24,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "3334cdd251be4df4c6cd74a93896f6488884d8a1d69350392937ccd156729e26",
+            "1": "7827b1a9.464a7316.a2ebdfb2.42d2ca4d.1e7d069c.2f4e1548.41e21bb8.be170d97.43f154ae.6cc018ee.a2ebdfb2.d4a47fbb.b3c7b36a.4cefce53.c69423ed.867a387e"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 618,
+                            "endLine": 618,
+                            "startColumn": 74,
+                            "endColumn": 94
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 618,
+                            "endLine": 618,
+                            "startColumn": 74,
+                            "endColumn": 94
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 618,
+                            "endLine": 618,
+                            "startColumn": 9,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 624,
+                            "endLine": 624,
+                            "startColumn": 113,
+                            "endColumn": 126
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 624,
+                            "endLine": 624,
+                            "startColumn": 23,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 624,
+                            "endLine": 624,
+                            "startColumn": 17,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 664,
+                            "endLine": 664,
+                            "startColumn": 48,
+                            "endColumn": 51
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 664,
+                            "endLine": 664,
+                            "startColumn": 48,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 664,
+                            "endLine": 664,
+                            "startColumn": 25,
+                            "endColumn": 77
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 664,
+                            "endLine": 664,
+                            "startColumn": 9,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 666,
+                            "endLine": 666,
+                            "startColumn": 65,
+                            "endColumn": 78
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 666,
+                            "endLine": 666,
+                            "startColumn": 20,
+                            "endColumn": 64
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 666,
+                            "endLine": 666,
+                            "startColumn": 9,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 669,
+                            "endLine": 669,
+                            "startColumn": 13,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 672,
+                            "endLine": 672,
+                            "startColumn": 77,
+                            "endColumn": 85
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 672,
+                            "endLine": 672,
+                            "startColumn": 77,
+                            "endColumn": 97
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 672,
+                            "endLine": 672,
+                            "startColumn": 67,
+                            "endColumn": 99
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 17,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 672,
+                            "endLine": 672,
+                            "startColumn": 66,
+                            "endColumn": 100
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 18,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 672,
+                            "endLine": 672,
+                            "startColumn": 40,
+                            "endColumn": 58
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 19,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Controller/EntryController.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 672,
+                            "endLine": 672,
+                            "startColumn": 24,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 582,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/HardcodedCredential",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found a hardcoded credential used in setUsername.",
+            "markdown": "Do not hardcode credentials in code. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded credential](0)",
+              "[setUsername](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/UserBundle/DataFixtures/UserFixtures.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 19,
+                  "endLine": 19,
+                  "startColumn": 9,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "d55b3e325d8d72ee8771d0638bae7e2dcef00cbd66ca16f848fe0f53d0518f50",
+            "1": "241fa77d.464a7316.d3ea0d26.ef31ce29.51e16a03.dd1e97fc.09ded7d0.be170d97.241fa77d.464a7316.d3ea0d26.ef31ce29.51e16a03.dd1e97fc.09ded7d0.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/UserBundle/DataFixtures/UserFixtures.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 19,
+                            "endLine": 19,
+                            "startColumn": 33,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/UserBundle/DataFixtures/UserFixtures.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 19,
+                            "endLine": 19,
+                            "startColumn": 9,
+                            "endColumn": 32
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 206,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/HardcodedCredential",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found a hardcoded credential used in setUsername.",
+            "markdown": "Do not hardcode credentials in code. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded credential](0)",
+              "[setUsername](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/UserBundle/DataFixtures/UserFixtures.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 42,
+                  "endLine": 42,
+                  "startColumn": 9,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "86f52bbc94f1703e425e844794628fac0b526840fa0d86080905cbb75bc24f9b",
+            "1": "241fa77d.464a7316.642c585f.ef31ce29.ffba61e3.dd1e97fc.ea968ee5.de475323.241fa77d.464a7316.642c585f.ef31ce29.ffba61e3.dd1e97fc.ea968ee5.de475323"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/UserBundle/DataFixtures/UserFixtures.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "endLine": 42,
+                            "startColumn": 33,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/UserBundle/DataFixtures/UserFixtures.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "endLine": 42,
+                            "startColumn": 9,
+                            "endColumn": 32
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 206,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash",
+          "ruleIndex": 3,
+          "level": "note",
+          "message": {
+            "text": "crc32 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[crc32](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Helper/DownloadImages.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 151,
+                  "endLine": 151,
+                  "startColumn": 22,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "58ee152284ff73ae8d98a32460cffd54e9ed4016975e3a8389707fe68db09030",
+            "1": "80f1517a.464a7316.2683ade8.7e6c2702.ed5f44f3.c7af05dd.f4ffa1cb.be170d97.80f1517a.464a7316.c3dea7ce.7e6c2702.ed5f44f3.c7af05dd.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Helper/DownloadImages.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 151,
+                            "endLine": 151,
+                            "startColumn": 27,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Helper/DownloadImages.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 151,
+                            "endLine": 151,
+                            "startColumn": 22,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 411,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash",
+          "ruleIndex": 3,
+          "level": "note",
+          "message": {
+            "text": "crc32 hash (used in hash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[crc32](0)",
+              "[hash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Helper/DownloadImages.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 265,
+                  "endLine": 265,
+                  "startColumn": 19,
+                  "endColumn": 23
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "3e25f815a0122952c84dff1c8f4044d547b33f42347c35e1aab918d4b7c9517c",
+            "1": "80f1517a.464a7316.2683ade8.1ca2dc1d.ed5f44f3.b1cf01b2.f4ffa1cb.be170d97.80f1517a.464a7316.c3dea7ce.1ca2dc1d.ed5f44f3.b1cf01b2.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Helper/DownloadImages.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 265,
+                            "endLine": 265,
+                            "startColumn": 24,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Helper/DownloadImages.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 265,
+                            "endLine": 265,
+                            "startColumn": 19,
+                            "endColumn": 23
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 411,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash",
+          "ruleIndex": 3,
+          "level": "note",
+          "message": {
+            "text": "SHA1 hash (used in sha1) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "SHA1 hash (used in {0}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Helper/EntriesExport.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 199,
+                  "endLine": 199,
+                  "startColumn": 25,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "8dbb6ebf53181b794a59f6ce397c1178776676dd518510e8d53dbefca9793f31",
+            "1": "dd2c2ac1.464a7316.c3dea7ce.10a2eb09.51e16a03.8d0599d8.a7efae7e.be170d97.dd2c2ac1.464a7316.c3dea7ce.10a2eb09.51e16a03.8d0599d8.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Helper/EntriesExport.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 199,
+                            "endLine": 199,
+                            "startColumn": 25,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 411,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/InsecureHash",
+          "ruleIndex": 3,
+          "level": "note",
+          "message": {
+            "text": "SHA1 hash (used in sha1) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "SHA1 hash (used in {0}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[sha1](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/Wallabag/CoreBundle/Helper/EntriesExport.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 235,
+                  "endLine": 235,
+                  "startColumn": 17,
+                  "endColumn": 21
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "92ea473aeb32aa3043caeb97899bc3cbe19f1d4548cbaa270c5c29eda06e6774",
+            "1": "80f1517a.464a7316.c3dea7ce.10a2eb09.51e16a03.8d0599d8.a7efae7e.be170d97.80f1517a.464a7316.c3dea7ce.10a2eb09.51e16a03.8d0599d8.a7efae7e.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/Wallabag/CoreBundle/Helper/EntriesExport.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 235,
+                            "endLine": 235,
+                            "startColumn": 17,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 411,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/HardcodedCredential/test",
+          "ruleIndex": 4,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found a hardcoded credential used in setUsername.",
+            "markdown": "Do not hardcode credentials in code. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded credential](0)",
+              "[setUsername](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/CoreBundle/Controller/SiteCredentialControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 146,
+                  "endLine": 146,
+                  "startColumn": 9,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "ae23f38d8f836c4df8024256795232b0179e4f7fa913c04f73124c51d312647b",
+            "1": "241fa77d.464a7316.d3ea0d26.ef31ce29.51e16a03.198f4272.09ded7d0.be170d97.241fa77d.464a7316.d3ea0d26.ef31ce29.51e16a03.198f4272.09ded7d0.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/CoreBundle/Controller/SiteCredentialControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 146,
+                            "endLine": 146,
+                            "startColumn": 34,
+                            "endColumn": 42
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/CoreBundle/Controller/SiteCredentialControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 146,
+                            "endLine": 146,
+                            "startColumn": 9,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 208,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/HardcodedCredential/test",
+          "ruleIndex": 4,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found a hardcoded credential used in setUsername.",
+            "markdown": "Do not hardcode credentials in code. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded credential](0)",
+              "[setUsername](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/CoreBundle/Helper/RedirectTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 41,
+                  "endLine": 41,
+                  "startColumn": 9,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "358aef56cc011565ec0c561cbe2f5b26de30dec2fac605512c38e0058b6743bc",
+            "1": "241fa77d.464a7316.a2ebdfb2.824d2503.51e16a03.70594887.399983c1.be170d97.241fa77d.464a7316.a2ebdfb2.824d2503.51e16a03.70594887.399983c1.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/CoreBundle/Helper/RedirectTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 41,
+                            "endLine": 41,
+                            "startColumn": 34,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/CoreBundle/Helper/RedirectTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 41,
+                            "endLine": 41,
+                            "startColumn": 9,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 158,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/HardcodedCredential/test",
+          "ruleIndex": 4,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found a hardcoded credential used in setUsername.",
+            "markdown": "Do not hardcode credentials in code. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded credential](0)",
+              "[setUsername](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/CoreBundle/Controller/ConfigControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 829,
+                  "endLine": 829,
+                  "startColumn": 9,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "102ebdf229eb4ad0389bb5575c3a0a6af150773e1a46bcf3ff1d545139deea6d",
+            "1": "241fa77d.464a7316.d3ea0d26.ce80f8b2.51e16a03.dd1e97fc.09ded7d0.be170d97.241fa77d.464a7316.d3ea0d26.ce80f8b2.51e16a03.dd1e97fc.09ded7d0.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/CoreBundle/Controller/ConfigControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 829,
+                            "endLine": 829,
+                            "startColumn": 28,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/CoreBundle/Controller/ConfigControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 829,
+                            "endLine": 829,
+                            "startColumn": 9,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 158,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "php/HardcodedPassword/test",
+          "ruleIndex": 5,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode passwords in code. Found a hardcoded password used in setPassword.",
+            "markdown": "Do not hardcode passwords in code. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded password](0)",
+              "[setPassword](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/Wallabag/CoreBundle/Controller/SiteCredentialControllerTest.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 147,
+                  "endLine": 147,
+                  "startColumn": 9,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "6fbee91f1e855d23588d66f96c1afa2e1d49cfc0cda3c21d3f3fef2b28f23b8e",
+            "1": "241fa77d.464a7316.d3ea0d26.10a2eb09.51e16a03.7c05e5f8.09ded7d0.be170d97.241fa77d.464a7316.d3ea0d26.10a2eb09.51e16a03.7c05e5f8.09ded7d0.be170d97"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/CoreBundle/Controller/SiteCredentialControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 147,
+                            "endLine": 147,
+                            "startColumn": 34,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/Wallabag/CoreBundle/Controller/SiteCredentialControllerTest.php",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 147,
+                            "endLine": 147,
+                            "startColumn": 9,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 203,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "JavaScript",
+            "files": 16,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "PHP",
+            "files": 314,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}
