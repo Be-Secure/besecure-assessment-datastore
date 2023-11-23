@@ -1,0 +1,206 @@
+[
+    {
+        "number": 171,
+        "created_at": "2023-11-01T14:49:08Z",
+        "updated_at": "2023-11-01T14:49:11Z",
+        "url": "https://api.github.com/repos/Be-Secure/spark/code-scanning/alerts/171",
+        "html_url": "https://github.com/Be-Secure/spark/security/code-scanning/171",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "py/clear-text-storage-sensitive-data",
+            "severity": "error",
+            "description": "Clear-text storage of sensitive information",
+            "name": "py/clear-text-storage-sensitive-data",
+            "tags": [
+                "external/cwe/cwe-312",
+                "external/cwe/cwe-315",
+                "external/cwe/cwe-359",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.15.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v3.5.0_release",
+            "analysis_key": ".github/workflows/codeql1.yml:analyze",
+            "environment": "{\"language\":\"python\"}",
+            "category": "/language:python",
+            "state": "open",
+            "commit_sha": "0a18556129158185b80df4d0067802109d119db9",
+            "message": {
+                "text": "This expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text."
+            },
+            "location": {
+                "path": "python/pyspark/serializers.py",
+                "start_line": 613,
+                "end_line": 613,
+                "start_column": 18,
+                "end_column": 21
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/spark/code-scanning/alerts/171/instances"
+    },
+    {
+        "number": 165,
+        "created_at": "2023-11-01T14:45:44Z",
+        "updated_at": "2023-11-01T14:45:45Z",
+        "url": "https://api.github.com/repos/Be-Secure/spark/code-scanning/alerts/165",
+        "html_url": "https://github.com/Be-Secure/spark/security/code-scanning/165",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "js/incomplete-multi-character-sanitization",
+            "severity": "warning",
+            "description": "Incomplete multi-character sanitization",
+            "name": "js/incomplete-multi-character-sanitization",
+            "tags": [
+                "correctness",
+                "external/cwe/cwe-020",
+                "external/cwe/cwe-080",
+                "external/cwe/cwe-116",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.15.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v3.5.0_release",
+            "analysis_key": ".github/workflows/codeql1.yml:analyze",
+            "environment": "{\"language\":\"javascript-typescript\"}",
+            "category": "/language:javascript-typescript",
+            "state": "open",
+            "commit_sha": "0a18556129158185b80df4d0067802109d119db9",
+            "message": {
+                "text": "This string may still contain <script, which may cause an HTML element injection vulnerability."
+            },
+            "location": {
+                "path": "core/src/main/resources/org/apache/spark/ui/static/historypage.js",
+                "start_line": 94,
+                "end_line": 94,
+                "start_column": 12,
+                "end_column": 59
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/spark/code-scanning/alerts/165/instances"
+    },
+    {
+        "number": 164,
+        "created_at": "2023-11-01T14:45:44Z",
+        "updated_at": "2023-11-01T14:45:45Z",
+        "url": "https://api.github.com/repos/Be-Secure/spark/code-scanning/alerts/164",
+        "html_url": "https://github.com/Be-Secure/spark/security/code-scanning/164",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "js/xss-through-dom",
+            "severity": "warning",
+            "description": "DOM text reinterpreted as HTML",
+            "name": "js/xss-through-dom",
+            "tags": [
+                "external/cwe/cwe-079",
+                "external/cwe/cwe-116",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.15.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v3.5.0_release",
+            "analysis_key": ".github/workflows/codeql1.yml:analyze",
+            "environment": "{\"language\":\"javascript-typescript\"}",
+            "category": "/language:javascript-typescript",
+            "state": "open",
+            "commit_sha": "0a18556129158185b80df4d0067802109d119db9",
+            "message": {
+                "text": "DOM text is reinterpreted as HTML without escaping meta-characters."
+            },
+            "location": {
+                "path": "sql/core/src/main/resources/org/apache/spark/sql/execution/ui/static/spark-sql-viz.js",
+                "start_line": 233,
+                "end_line": 233,
+                "start_column": 24,
+                "end_column": 35
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/spark/code-scanning/alerts/164/instances"
+    },
+    {
+        "number": 163,
+        "created_at": "2023-11-01T14:45:44Z",
+        "updated_at": "2023-11-01T14:45:45Z",
+        "url": "https://api.github.com/repos/Be-Secure/spark/code-scanning/alerts/163",
+        "html_url": "https://github.com/Be-Secure/spark/security/code-scanning/163",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "js/functionality-from-untrusted-source",
+            "severity": "warning",
+            "description": "Inclusion of functionality from an untrusted source",
+            "name": "js/functionality-from-untrusted-source",
+            "tags": [
+                "external/cwe/cwe-830",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.15.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v3.5.0_release",
+            "analysis_key": ".github/workflows/codeql1.yml:analyze",
+            "environment": "{\"language\":\"javascript-typescript\"}",
+            "category": "/language:javascript-typescript",
+            "state": "open",
+            "commit_sha": "0a18556129158185b80df4d0067802109d119db9",
+            "message": {
+                "text": "Script loaded from content delivery network with no integrity check."
+            },
+            "location": {
+                "path": "docs/_layouts/global.html",
+                "start_line": 205,
+                "end_line": 205,
+                "start_column": 9,
+                "end_column": 66
+            },
+            "classifications": [
+                "documentation"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/spark/code-scanning/alerts/163/instances"
+    }
+]
