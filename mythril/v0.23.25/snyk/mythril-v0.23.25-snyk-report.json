@@ -1,0 +1,3595 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "python/InsecureHash",
+              "name": "InsecureHash",
+              "shortDescription": {
+                "text": "Use of Password Hash With Insufficient Computational Effort"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nSensitive information should never be stored in plain text, since this makes it very easy for unauthorized users, whether malicious insiders or outside attackers, to access. Hashing methods are used to make stored passwords and other sensitive data unreadable to users. For example, when a password is defined for the first time, it is hashed and then stored. The next time that user attempts to log on, the password they enter is hashed following the same procedure and compared with the stored value. In this way, the original password never needs to be stored in the system.\n\nHashing is a one-way scheme, meaning a hashed password cannot be reverse engineered. However, if an outdated or custom programmed hashing scheme is used, it becomes simple for an attacker with powerful modern computing power to gain access to the hashes used. This opens up access to all stored password information, leading to breached security. Therefore, it is essential for developers to understand modern, secure password hashing techniques.\n\n## Best practices for prevention\n* Use strong standard algorithms for hashing rather than simpler but outdated methods or DIY hashing schemes, which may have inherent weaknesses.\n* Use modular design for all code dealing with hashing so it can be swapped out as security standards change over time.\n* Use salting in combination with hashing (While this places more demands on resources, it is an essential step for tighter security.).\n* Implement zero-trust architecture to ensure that access to password data is granted only for legitimate business purposes.\n* Increase developer awareness of current standards in data security and cryptography.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "InsecureHash",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-916"
+                ]
+              }
+            },
+            {
+              "id": "python/PT",
+              "name": "PT",
+              "shortDescription": {
+                "text": "Path Traversal"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nA Directory Traversal attack (also known as path traversal) aims to access files and directories that are stored outside the intended folder. By manipulating files with \"dot-dot-slash (../)\" sequences and its variations, or by using absolute file paths, it may be possible to access arbitrary files and directories stored on file system, including application source code, configuration, and other critical system files.\n\nBeing able to access and manipulate an arbitrary path leads to vulnerabilities when a program is being run with privileges that the user providing the path should not have. A website with a path traversal vulnerability would allow users access to sensitive files on the server hosting it. CLI programs may also be vulnerable to path traversal if they are being ran with elevated privileges (such as with the setuid or setgid flags in Unix systems).\n\nDirectory Traversal vulnerabilities can be generally divided into two types:\n\n- **Information Disclosure**: Allows the attacker to gain information about the folder structure or read the contents of sensitive files on the system.\n\n`st` is a module for serving static files on web pages, and contains a [vulnerability of this type](https://snyk.io/vuln/npm:st:20140206). In our example, we will serve files from the `public` route.\n\nIf an attacker requests the following URL from our server, it will in turn leak the sensitive private key of the root user.\n\n```\ncurl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa\n```\n**Note** `%2e` is the URL encoded version of `.` (dot).\n\n- **Writing arbitrary files**: Allows the attacker to create or replace existing files. This type of vulnerability is also known as `Zip-Slip`.\n\nOne way to achieve this is by using a malicious `zip` archive that holds path traversal filenames. When each filename in the zip archive gets concatenated to the target extraction folder, without validation, the final path ends up outside of the target folder. If an executable or a configuration file is overwritten with a file containing malicious code, the problem can turn into an arbitrary code execution issue quite easily.\n\nThe following is an example of a `zip` archive with one benign file and one malicious file. Extracting the malicious file will result in traversing out of the target folder, ending up in `/root/.ssh/` overwriting the `authorized_keys` file:\n\n```\n2018-04-15 22:04:29 .....           19           19  good.txt\n2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys\n```",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "PT",
+                  "Security",
+                  "SourceLocalEnv",
+                  "SourceEnvironmentVariable",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/pynickle/amazing-python/commit/80d2cc8c3e2c8330416b91f17a09b51830915b86?diff=split#diff-f626b00ab4d99fdbd4cb2bd61ae29469L118",
+                    "lines": [
+                      {
+                        "line": "if request.method == \"POST\":",
+                        "lineNumber": 161,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    try:",
+                        "lineNumber": 162,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        f = request.files['file']",
+                        "lineNumber": 163,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        filename = f.filename",
+                        "lineNumber": 118,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        filename = secure_filename(f.filename)",
+                        "lineNumber": 164,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        f.save(filename)",
+                        "lineNumber": 165,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        with open(filename, \"r\", encoding=\"utf-8\") as f:",
+                        "lineNumber": 166,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            success, errors = words_validate(f.read())",
+                        "lineNumber": 167,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/WhaleShark-Team/cobra/commit/1ac467a2c1cf8427a5bf60031677817140fe181c?diff=split#diff-dc0ad7c98d7072655327746f1bc95b3aL72",
+                    "lines": [
+                      {
+                        "line": "task_type = 1",
+                        "lineNumber": 70,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "# check if there is a file or gitlab url",
+                        "lineNumber": 71,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "if len(request.files) == 0:",
+                        "lineNumber": 72,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    # no files, should check username and password",
+                        "lineNumber": 73,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    task_type = 1",
+                        "lineNumber": 74,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "# there is a file, check file format and uncompress it.",
+                        "lineNumber": 88,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "task_type = 2",
+                        "lineNumber": 89,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "upload_src = request.files['file']",
+                        "lineNumber": 90,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "filename = str(int(time.time())) + '_' + upload_src.filename",
+                        "lineNumber": 90,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "filename = str(int(time.time())) + '_' + secure_filename(upload_src.filename)",
+                        "lineNumber": 91,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "filepath = 'uploads/' + filename",
+                        "lineNumber": 92,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "upload_src.save(filepath)",
+                        "lineNumber": 93,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "# if you upload a rar file, upload_src.mimetype will returns \"application/octet-stream\"",
+                        "lineNumber": 95,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/Wordseer/wordseer/commit/ea92ade27f7a7a12d057a2b71daf9ffa1cf4385e?diff=split#diff-e86334029c6a0118169cce848ff474ddR13",
+                    "lines": [
+                      {
+                        "line": " PROJECT_ROUTE = \"/projects/\"",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " ",
+                        "lineNumber": 11,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "def allowed_file(filename):",
+                        "lineNumber": 12,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    return os.path.splitext(filename)[1] in app.config[\"ALLOWED_EXTENSIONS\"]",
+                        "lineNumber": 13,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": " @app.route(PROJECT_ROUTE, methods=[\"GET\", \"POST\"])",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " def projects():",
+                        "lineNumber": 16,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "if request.method == \"POST\":",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    uploaded_file = request.files[\"uploaded_file\"]",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    if uploaded_file and allowed_file(uploaded_file.filename):",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        filename = secure_filename(uploaded_file.filename)",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        dest_path = os.path.join(app.config[\"UPLOAD_DIR\"],",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            filename)",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        uploaded_file.save(dest_path)",
+                        "lineNumber": 48,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        #TODO: send the user somewhere useful?",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 553,
+                "cwe": [
+                  "CWE-23"
+                ]
+              }
+            },
+            {
+              "id": "python/CommandInjection",
+              "name": "CommandInjection",
+              "shortDescription": {
+                "text": "Command Injection"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nWith an OS command injection attack a web application user can pass commands directly to the system shell, attached to a legitimate request. These commands can then be executed on the application server, potentially leading to harmful consequences, including data exposure or deletion. Like code injection attacks, command injection attacks are essentially a failure of data validation. Unlike code injection attacks, which introduce new code, command injection attacks use existing system functions, often taking advantage of the application's unnecessarily high privilege level, increasing the risk of serious harm and reputational damage.\n\n## Best practices for prevention\n- Never trust user input. Assume any input may transmit harmful values.\n- Adopt the principle of least privilege: No application should have a greater access level than needed to run its required tasks.\n- Control user access policies on a task-by-task basis.\n- Don't pass user input directly to the system; use libraries or APIs that lack system access.\n- Where shell commands must be passed, escape values using functions like shlex for Python, or escapeshellarg() for PHP.\n- Sanitize user input with regular expressions to define permitted characters along with maximum string length.\n- Convert special characters such as `& |  ; $ > < \\ !` before passing to the server.\n- Whitelist permitted commands and validate user responses against these expectations.\n- Remember that code injection can take place on multiple fronts: GET and POST requests, but also cookies and HTTP headers.\n- Ensure up-to-date patching across all systems to remediate known vulnerabilities.\n- Educate all team members on safer data handling procedures to prevent attacks.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "CommandInjection",
+                  "Security",
+                  "SourceLocalEnv",
+                  "SourceCLI",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/DustinBorn/avain/commit/4776439387645bced0e86e3766817de2562bf2eb?diff=split#diff-40f53a8850b6eb3209bd2d436d3ec5acL41",
+                    "lines": [
+                      {
+                        "line": "# first download the data feed overview to retrieve URLs to all data feeds",
+                        "lineNumber": 53,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "try:",
+                        "lineNumber": 54,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    nvd_response = requests.get(\"https://nvd.nist.gov/vuln/data-feeds\", timeout=20)",
+                        "lineNumber": 55,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "except:",
+                        "lineNumber": 56,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "communicate_warning(\"An error occured when trying to download webpage: https://nvd.nist.gov/vuln/data-feeds\")",
+                        "lineNumber": 58,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "# match the data feed URLs",
+                        "lineNumber": 69,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "nvd_nist_datafeed_html = nvd_response.text",
+                        "lineNumber": 70,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "jfeed_expr = re.compile(r\"https://nvd\\.nist\\.gov/feeds/json/cve/1\\.1/nvdcve-1\\.1-\\d\\d\\d\\d.json\\.zip\")",
+                        "lineNumber": 71,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "nvd_feed_urls = re.findall(jfeed_expr, nvd_nist_datafeed_html)",
+                        "lineNumber": 72,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "if not nvd_feed_urls:",
+                        "lineNumber": 74,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "with open(WGET_OUTFILE, \"w\") as file:",
+                        "lineNumber": 82,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    zipfiles = []",
+                        "lineNumber": 83,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    for nvd_feed_url in nvd_feed_urls:",
+                        "lineNumber": 84,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        outname = os.path.join(NVD_DATAFEED_DIR, nvd_feed_url.split(\"/\")[-1])",
+                        "lineNumber": 85,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        return_code = subprocess.call(\"wget %s -O %s\" % (nvd_feed_url, outname), stdout=file, stderr=subprocess.STDOUT, shell=True)",
+                        "lineNumber": 65,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        return_code = subprocess.call(\"wget %s -O %s\" % (shlex.quote(nvd_feed_url), shlex.quote(outname)),",
+                        "lineNumber": 86,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                                      stdout=file, stderr=subprocess.STDOUT, shell=True)",
+                        "lineNumber": 87,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        if return_code != 0:",
+                        "lineNumber": 88,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            NVD_UPDATE_SUCCESS = False",
+                        "lineNumber": 89,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            communicate_warning(\"Getting NVD data feed %s failed\" %  nvd_feed_url)",
+                        "lineNumber": 90,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/phase/o/commit/0f4bf9160b046e42f4cfad49585cc727b5213dc0?diff=split#diff-d689391370727e13cf640b0a56f5c1f0L32",
+                    "lines": [
+                      {
+                        "line": "    compileO()",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "#Run code",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "code = request.form['code']",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "input = request.form['input'].replace('\\r\\n', '\\n')",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "print('Got code:', code, 'input:', input)",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "print('Running O code...')",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "p = Popen('./oide -e ' + code, stdout=PIPE, stderr=PIPE, stdin=PIPE, universal_newlines=True, shell=True)",
+                        "lineNumber": 35,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "p = Popen(['./oide', '-e', code], stdout=PIPE, stderr=PIPE, stdin=PIPE, universal_newlines=True)",
+                        "lineNumber": 35,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "output, error = p.communicate(input)",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "#Output to IDE",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/fossasia/susi_linux/commit/cb0d01d811fcb53863847ce57f57e8cb6c83df6c?diff=split#diff-d1b551c102df7ccabbf2e58275781476L15",
+                    "lines": [
+                      {
+                        "line": "    return 'starting the installation script'",
+                        "lineNumber": 12,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "@app.route('/config/<stt>/<tts>/<hotword>/<wake>')",
+                        "lineNumber": 14,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "def config(stt, tts, hotword, wake):",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    os.system('sudo bash /home/pi/SUSI.AI/susi_linux/access_point/server/config.sh {} {} {} {}'.format(stt,tts,hotword,wake))  #nosec #pylint-disable type: ignore",
+                        "lineNumber": 16,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    subprocess.call(['sudo', 'bash' , 'server/config.sh', stt, tts, hotword, wake])  #nosec #pylint-disable type: ignore",
+                        "lineNumber": 16,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    return 'Done' # pylint-enable",
+                        "lineNumber": 17,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 128,
+                "cwe": [
+                  "CWE-78"
+                ]
+              }
+            },
+            {
+              "id": "python/Jinja2AutoEscapeFalse",
+              "name": "Jinja2AutoEscapeFalse",
+              "shortDescription": {
+                "text": "Jinja auto-escape is set to false."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nJinja2 is a python templating library that can be configured to escape values and avoid XSS vulnerabilities. However, the library by default sets the autoescaping to false.\n\nA cross-site scripting attack occurs when the attacker tricks a legitimate web-based application or site to accept a request as originating from a trusted source.\n\nThis is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML)  in order to perform actions that are otherwise typically blocked by the browser's Same Origin Policy.\n\nInjecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability.\n\nEscaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as  `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they've been correctly escaped in the application code and in this way the attempted attack is diverted.\n\nThe most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware.\n\n### Types of attacks\nThere are a few methods by which XSS can be manipulated:\n\n|Type|Origin|Description|\n|--|--|--|\n|**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.|\n|**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user's browser.|\n|**DOM-based**|Client|The attacker forces the user's browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.|\n|**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.|\n\n### Affected environments\nThe following environments are susceptible to an XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n## Best practices for prevention\nThis section describes the top best practices designed to specifically protect your code:\n\n* Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches.\n* Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents.\n* Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n* Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions.\n* Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack.\n* Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "Jinja2AutoEscapeFalse",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/pallets/jinja/commit/d767d27f12710ddb332731aa6eacdfffdb5801d6?diff=split#diff-b096534cf5e66f487efd00c464cf19b3L475",
+                    "lines": [
+                      {
+                        "line": "def test_autoescape_macros(self):",
+                        "lineNumber": 473,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    env = Environment(autoescape=False, extensions=['jinja2.ext.autoescape'])",
+                        "lineNumber": 474,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    env = Environment(autoescape=False, extensions=['jinja.ext.autoescape'])",
+                        "lineNumber": 465,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    template = (",
+                        "lineNumber": 475,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        '{% macro m() %}<html>{% endmacro %}'",
+                        "lineNumber": 476,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/alanmcruickshank/sqlfluff/commit/7ebd003db8018d603c6750209bdae6f9d5932772?diff=split#diff-194c35328c635537a15ed65c37e578baL212",
+                    "lines": [
+                      {
+                        "line": "from jinja2 import Environment, StrictUndefined  # noqa",
+                        "lineNumber": 209,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "from jinja2.sandbox import SandboxedEnvironment  # noqa ",
+                        "lineNumber": 210,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "# We explicitly want to preserve newlines.",
+                        "lineNumber": 211,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "env = Environment(",
+                        "lineNumber": 211,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "env = SandboxedEnvironment(",
+                        "lineNumber": 212,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    keep_trailing_newline=True, undefined=StrictUndefined,",
+                        "lineNumber": 213,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    # The do extension allows the \"do\" directive",
+                        "lineNumber": 214,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    autoescape=False, extensions=['jinja2.ext.do']",
+                        "lineNumber": 215,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": ")",
+                        "lineNumber": 216,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/taoufik07/responder/commit/671499bb43a2ab3fdf780cc5d392c7025bbcfc9f?diff=split#diff-554e129ce3806dd33d00eac71a9a086eL225",
+                    "lines": [
+                      {
+                        "line": "    )",
+                        "lineNumber": 236,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "else:",
+                        "lineNumber": 237,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    env = jinja2.Environment(loader=jinja2.BaseLoader, autoescape=False)",
+                        "lineNumber": 224,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    env = jinja2.Environment(",
+                        "lineNumber": 238,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        loader=jinja2.BaseLoader, autoescape=jinja2.select_autoescape([])",
+                        "lineNumber": 239,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    )",
+                        "lineNumber": 240,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "template = env.from_string(s)",
+                        "lineNumber": 242,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 4,
+                "cwe": [
+                  "CWE-79"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "python/InsecureHash",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "hashlib.md5 is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[hashlib.md5](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "mythril/analysis/report.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 285,
+                  "endLine": 285,
+                  "startColumn": 21,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "be8cb42bef63bb1e26d4ee05984072b50ebb52b14b34ebebff194eacfdcf61ed",
+            "1": "b2dd68c0.577bab1d.79e62dc9.139c59a8.5c544d16.b99de5c3.8658ac02.0990edd8.8644d6a8.577bab1d.f04405c4.139c59a8.5c544d16.c3f6620e.8658ac02.0990edd8"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/analysis/report.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 278,
+                            "endLine": 278,
+                            "startColumn": 13,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 203,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an environment variable flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "markdown": "Unsanitized input from an environment variable {0} into {1}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "arguments": [
+              "[flows](0),(1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19),(20)",
+              "[open](21)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "mythril/mythril/mythril_disassembler.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 270,
+                  "endLine": 270,
+                  "startColumn": 37,
+                  "endColumn": 60
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "46e0e2142cdf2e96f2907d57ddbca385005bc88c1cec8c74dab78673a6d3a283",
+            "1": "7bf5c746.277c621c.485e70f9.d834b6d0.5ef953d3.addfbd48.081ac3f4.8356f9c3.6d843c37.277c621c.f124aa95.d834b6d0.77a5adb9.36f91e79.7e8da20f.b5e5dc6b"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_disassembler.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 91,
+                            "endLine": 91,
+                            "startColumn": 27,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_disassembler.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 91,
+                            "endLine": 91,
+                            "startColumn": 27,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_disassembler.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 91,
+                            "endLine": 91,
+                            "startColumn": 27,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_disassembler.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 91,
+                            "endLine": 91,
+                            "startColumn": 13,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_disassembler.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 101,
+                            "endLine": 101,
+                            "startColumn": 16,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_disassembler.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 60,
+                            "endLine": 60,
+                            "startColumn": 9,
+                            "endColumn": 64
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_disassembler.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 252,
+                            "endLine": 252,
+                            "startColumn": 27,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_disassembler.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 252,
+                            "endLine": 252,
+                            "startColumn": 27,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_disassembler.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 252,
+                            "endLine": 252,
+                            "startColumn": 13,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_disassembler.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 257,
+                            "endLine": 257,
+                            "startColumn": 33,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_disassembler.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 273,
+                            "endLine": 273,
+                            "startColumn": 37,
+                            "endColumn": 48
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_disassembler.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 273,
+                            "endLine": 273,
+                            "startColumn": 25,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/solidity/soliditycontract.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 109,
+                            "endLine": 109,
+                            "startColumn": 66,
+                            "endColumn": 77
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/solidity/soliditycontract.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 117,
+                            "endLine": 117,
+                            "startColumn": 72,
+                            "endColumn": 83
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/solidity/soliditycontract.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 135,
+                            "endLine": 135,
+                            "startColumn": 29,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/solidity/soliditycontract.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 176,
+                            "endLine": 176,
+                            "startColumn": 9,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/solidity/soliditycontract.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 184,
+                            "endLine": 184,
+                            "startColumn": 29,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 17,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/solidity/soliditycontract.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 184,
+                            "endLine": 184,
+                            "startColumn": 17,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 18,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/ethereum/util.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 43,
+                            "endLine": 43,
+                            "startColumn": 45,
+                            "endColumn": 63
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 19,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/ethereum/util.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 57,
+                            "endLine": 57,
+                            "startColumn": 8,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 20,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/ethereum/util.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 58,
+                            "endLine": 58,
+                            "startColumn": 19,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 21,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/ethereum/util.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 58,
+                            "endLine": 58,
+                            "startColumn": 14,
+                            "endColumn": 18
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 514,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.",
+            "arguments": [
+              "[a command line argument](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19),(20),(21),(22),(23),(24),(25),(26),(27),(28),(29),(30),(31),(32),(33),(34),(35),(36),(37),(38),(39)",
+              "[open](40)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "mythril/interfaces/cli.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 838,
+                  "endLine": 838,
+                  "startColumn": 22,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "86a0f5a333793faecd7624f968e4e53b0683645dca1883e67535417b26222129",
+            "1": "2e8ddaeb.e3d9b656.187bf175.77c2e7cb.f3eda546.ba14daf2.081ac3f4.a4830b9a.3103791f.3ecb8227.12be08a9.315e3c69.65ee718a.5a66ec75.3179f64f.2ed05b47"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 354,
+                            "endLine": 354,
+                            "startColumn": 12,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 354,
+                            "endLine": 354,
+                            "startColumn": 12,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 354,
+                            "endLine": 354,
+                            "startColumn": 5,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 355,
+                            "endLine": 355,
+                            "startColumn": 48,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 899,
+                            "endLine": 899,
+                            "startColumn": 52,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 906,
+                            "endLine": 906,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 912,
+                            "endLine": 912,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 912,
+                            "endLine": 912,
+                            "startColumn": 44,
+                            "endColumn": 48
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 916,
+                            "endLine": 916,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 923,
+                            "endLine": 923,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 934,
+                            "endLine": 934,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 938,
+                            "endLine": 938,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 949,
+                            "endLine": 949,
+                            "startColumn": 19,
+                            "endColumn": 23
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 615,
+                            "endLine": 615,
+                            "startColumn": 19,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 951,
+                            "endLine": 951,
+                            "startColumn": 12,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 952,
+                            "endLine": 952,
+                            "startColumn": 38,
+                            "endColumn": 42
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 889,
+                            "endLine": 889,
+                            "startColumn": 30,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 17,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 953,
+                            "endLine": 953,
+                            "startColumn": 29,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 18,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 669,
+                            "endLine": 669,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 19,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 954,
+                            "endLine": 954,
+                            "startColumn": 35,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 20,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 955,
+                            "endLine": 955,
+                            "startColumn": 29,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 21,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 956,
+                            "endLine": 956,
+                            "startColumn": 24,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 22,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 957,
+                            "endLine": 957,
+                            "startColumn": 29,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 23,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 966,
+                            "endLine": 966,
+                            "startColumn": 43,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 24,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 690,
+                            "endLine": 690,
+                            "startColumn": 50,
+                            "endColumn": 65
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 25,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 968,
+                            "endLine": 968,
+                            "startColumn": 77,
+                            "endColumn": 81
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 26,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 758,
+                            "endLine": 758,
+                            "startColumn": 5,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 27,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 768,
+                            "endLine": 768,
+                            "startColumn": 16,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 28,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 771,
+                            "endLine": 771,
+                            "startColumn": 28,
+                            "endColumn": 32
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 29,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 773,
+                            "endLine": 773,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 30,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 780,
+                            "endLine": 780,
+                            "startColumn": 10,
+                            "endColumn": 14
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 31,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 786,
+                            "endLine": 786,
+                            "startColumn": 10,
+                            "endColumn": 14
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 32,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 807,
+                            "endLine": 807,
+                            "startColumn": 10,
+                            "endColumn": 14
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 33,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 809,
+                            "endLine": 809,
+                            "startColumn": 85,
+                            "endColumn": 89
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 34,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 814,
+                            "endLine": 814,
+                            "startColumn": 17,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 35,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 817,
+                            "endLine": 817,
+                            "startColumn": 12,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 36,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 823,
+                            "endLine": 823,
+                            "startColumn": 12,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 37,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 829,
+                            "endLine": 829,
+                            "startColumn": 12,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 38,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 829,
+                            "endLine": 829,
+                            "startColumn": 12,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 39,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 838,
+                            "endLine": 838,
+                            "startColumn": 27,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 40,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 838,
+                            "endLine": 838,
+                            "startColumn": 22,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 564,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a command line argument flows into json.dump, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.",
+            "arguments": [
+              "[a command line argument](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19),(20),(21),(22),(23),(24),(25),(26),(27),(28),(29),(30),(31),(32),(33),(34),(35),(36),(37),(38),(39),(40),(41),(42),(43)",
+              "[json.dump](44)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "mythril/interfaces/cli.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 854,
+                  "endLine": 854,
+                  "startColumn": 21,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e7456d6a6662830dfc017697330fd4480ad8a504444c5e2a88d9191602fccd45",
+            "1": "2e8ddaeb.a215d38b.187bf175.139c59a8.175c247b.111d979a.081ac3f4.545e9171.3103791f.3ecb8227.12be08a9.315e3c69.65ee718a.038dc568.3179f64f.2ed05b47"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 354,
+                            "endLine": 354,
+                            "startColumn": 12,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 354,
+                            "endLine": 354,
+                            "startColumn": 12,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 354,
+                            "endLine": 354,
+                            "startColumn": 5,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 355,
+                            "endLine": 355,
+                            "startColumn": 48,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 899,
+                            "endLine": 899,
+                            "startColumn": 52,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 906,
+                            "endLine": 906,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 912,
+                            "endLine": 912,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 912,
+                            "endLine": 912,
+                            "startColumn": 44,
+                            "endColumn": 48
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 916,
+                            "endLine": 916,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 923,
+                            "endLine": 923,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 934,
+                            "endLine": 934,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 938,
+                            "endLine": 938,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 949,
+                            "endLine": 949,
+                            "startColumn": 19,
+                            "endColumn": 23
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 615,
+                            "endLine": 615,
+                            "startColumn": 19,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 951,
+                            "endLine": 951,
+                            "startColumn": 12,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 952,
+                            "endLine": 952,
+                            "startColumn": 38,
+                            "endColumn": 42
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 889,
+                            "endLine": 889,
+                            "startColumn": 30,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 17,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 953,
+                            "endLine": 953,
+                            "startColumn": 29,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 18,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 669,
+                            "endLine": 669,
+                            "startColumn": 16,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 19,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 954,
+                            "endLine": 954,
+                            "startColumn": 35,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 20,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 955,
+                            "endLine": 955,
+                            "startColumn": 29,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 21,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 956,
+                            "endLine": 956,
+                            "startColumn": 24,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 22,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 957,
+                            "endLine": 957,
+                            "startColumn": 29,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 23,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 966,
+                            "endLine": 966,
+                            "startColumn": 43,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 24,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 690,
+                            "endLine": 690,
+                            "startColumn": 50,
+                            "endColumn": 65
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 25,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 968,
+                            "endLine": 968,
+                            "startColumn": 77,
+                            "endColumn": 81
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 26,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 758,
+                            "endLine": 758,
+                            "startColumn": 5,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 27,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 768,
+                            "endLine": 768,
+                            "startColumn": 16,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 28,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 771,
+                            "endLine": 771,
+                            "startColumn": 28,
+                            "endColumn": 32
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 29,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 773,
+                            "endLine": 773,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 30,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 780,
+                            "endLine": 780,
+                            "startColumn": 10,
+                            "endColumn": 14
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 31,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 786,
+                            "endLine": 786,
+                            "startColumn": 10,
+                            "endColumn": 14
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 32,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 807,
+                            "endLine": 807,
+                            "startColumn": 10,
+                            "endColumn": 14
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 33,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 809,
+                            "endLine": 809,
+                            "startColumn": 85,
+                            "endColumn": 89
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 34,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 814,
+                            "endLine": 814,
+                            "startColumn": 17,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 35,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 817,
+                            "endLine": 817,
+                            "startColumn": 12,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 36,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 823,
+                            "endLine": 823,
+                            "startColumn": 12,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 37,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 829,
+                            "endLine": 829,
+                            "startColumn": 12,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 38,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 843,
+                            "endLine": 843,
+                            "startColumn": 14,
+                            "endColumn": 18
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 39,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 843,
+                            "endLine": 843,
+                            "startColumn": 14,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 40,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 853,
+                            "endLine": 853,
+                            "startColumn": 27,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 41,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 853,
+                            "endLine": 853,
+                            "startColumn": 22,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 42,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 853,
+                            "endLine": 853,
+                            "startColumn": 57,
+                            "endColumn": 58
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 43,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 854,
+                            "endLine": 854,
+                            "startColumn": 43,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 44,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 854,
+                            "endLine": 854,
+                            "startColumn": 21,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 564,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "arguments": [
+              "[a command line argument](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13)",
+              "[open](14)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "mythril/interfaces/cli.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 940,
+                  "endLine": 940,
+                  "startColumn": 14,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "cf3bb2551f159debdd41460a0a6a599e6b315caec19618e71bed09e780c459f0",
+            "1": "2e8ddaeb.e3d9b656.187bf175.139c59a8.f3eda546.ba14daf2.081ac3f4.a4830b9a.3103791f.3ecb8227.0d80db8a.315e3c69.1d009250.8238d77a.f6dc7859.a4830b9a"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 354,
+                            "endLine": 354,
+                            "startColumn": 12,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 354,
+                            "endLine": 354,
+                            "startColumn": 12,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 354,
+                            "endLine": 354,
+                            "startColumn": 5,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 355,
+                            "endLine": 355,
+                            "startColumn": 48,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 899,
+                            "endLine": 899,
+                            "startColumn": 52,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 906,
+                            "endLine": 906,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 912,
+                            "endLine": 912,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 912,
+                            "endLine": 912,
+                            "startColumn": 44,
+                            "endColumn": 48
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 916,
+                            "endLine": 916,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 923,
+                            "endLine": 923,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 934,
+                            "endLine": 934,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 938,
+                            "endLine": 938,
+                            "startColumn": 8,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 940,
+                            "endLine": 940,
+                            "startColumn": 19,
+                            "endColumn": 23
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 940,
+                            "endLine": 940,
+                            "startColumn": 19,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 940,
+                            "endLine": 940,
+                            "startColumn": 14,
+                            "endColumn": 18
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 564,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from an environment variable flows into shutil.copyfile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.",
+            "markdown": "Unsanitized input from an environment variable {0} into {1}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.",
+            "arguments": [
+              "[flows](0),(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)",
+              "[shutil.copyfile](11)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "mythril/mythril/mythril_config.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 56,
+                  "endLine": 56,
+                  "startColumn": 13,
+                  "endColumn": 21
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "8a224b707b53e75a5bdd7a9a51c5d67b9545322892561fde0bf686a9fd6629ee",
+            "1": "129db901.3b5d1a06.ec35cf50.139c59a8.1a0abf6d.ba14daf2.081ac3f4.d14165fe.129db901.577bab1d.1e2261be.eb39286a.1a0abf6d.f76aa0c6.96b9fa58.f46ed94e"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_config.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "endLine": 42,
+                            "startColumn": 27,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_config.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "endLine": 42,
+                            "startColumn": 27,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_config.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "endLine": 42,
+                            "startColumn": 13,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_config.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 31,
+                            "endColumn": 42
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_config.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 51,
+                            "endLine": 51,
+                            "startColumn": 28,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_config.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 51,
+                            "endLine": 51,
+                            "startColumn": 23,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_config.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 51,
+                            "endLine": 51,
+                            "startColumn": 23,
+                            "endColumn": 58
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_config.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 51,
+                            "endLine": 51,
+                            "startColumn": 19,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_config.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 51,
+                            "endLine": 51,
+                            "startColumn": 9,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_config.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 52,
+                            "endLine": 52,
+                            "startColumn": 31,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_config.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 56,
+                            "endLine": 56,
+                            "startColumn": 56,
+                            "endColumn": 63
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/mythril/mythril_config.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 56,
+                            "endLine": 56,
+                            "startColumn": 13,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 564,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/CommandInjection",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a command line argument flows into os.system, where it is used as a shell command. This may result in a Command Injection vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a shell command. This may result in a Command Injection vulnerability.",
+            "arguments": [
+              "[a command line argument](0)",
+              "[flows](1),(2),(3),(4),(5)",
+              "[os.system](6)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "mythril/interfaces/cli.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 909,
+                  "endLine": 909,
+                  "startColumn": 9,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "0f9106c0ea92d69f9b86e86212617ed07ed7649b769a3f7e34d45ed3202c723f",
+            "1": "3d071b71.5b46cdac.0f86b7df.139c59a8.056de048.ba14daf2.081ac3f4.19439a93.bedab7cf.67df6de4.0f86b7df.139c59a8.c8b7d5cc.ba14daf2.1449530d.19439a93"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 909,
+                            "endLine": 909,
+                            "startColumn": 28,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 909,
+                            "endLine": 909,
+                            "startColumn": 28,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 909,
+                            "endLine": 909,
+                            "startColumn": 19,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 909,
+                            "endLine": 909,
+                            "startColumn": 19,
+                            "endColumn": 53
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 909,
+                            "endLine": 909,
+                            "startColumn": 19,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 909,
+                            "endLine": 909,
+                            "startColumn": 19,
+                            "endColumn": 73
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/interfaces/cli.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 909,
+                            "endLine": 909,
+                            "startColumn": 9,
+                            "endColumn": 18
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 553,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/Jinja2AutoEscapeFalse",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "jinja2.Environment is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.",
+            "markdown": "{0} is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.",
+            "arguments": [
+              "[jinja2.Environment](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "mythril/analysis/report.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 242,
+                  "endLine": 242,
+                  "startColumn": 19,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "3b750798cfc53a59c0b9b0fa95ddcb32885079c520c3cf59e16f7b2c3bf8a077",
+            "1": "b37185f4.1380ee28.79e62dc9.4c71cda2.8e08d857.ba14daf2.081ac3f4.742d9b21.b37185f4.1380ee28.79e62dc9.4c71cda2.8e08d857.ba14daf2.081ac3f4.742d9b21"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "mythril/analysis/report.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 242,
+                            "endLine": 242,
+                            "startColumn": 19,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 553,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "Python",
+            "files": 197,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "HTML",
+            "files": 17,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}
