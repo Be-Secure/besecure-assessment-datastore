@@ -1,0 +1,2655 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "ruby/HardcodedPassword/test",
+              "name": "HardcodedPassword/test",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "ruby",
+                  "HardcodedPassword",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/rapid7/nexpose-client/commit/0a4804c8e653a9845f3073397381c56e2a313ccd?diff=split#diff-f56c651e72bba0da67bd3580e414e60bL11",
+                    "lines": [
+                      {
+                        "line": " host = '127.0.0.1'",
+                        "lineNumber": 7,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "port = 3780",
+                        "lineNumber": 8,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "user = \"v4test\"",
+                        "lineNumber": 9,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "pass = \"buynexpose\"",
+                        "lineNumber": 10,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "user = \"user\"",
+                        "lineNumber": 9,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "pass = \"password\"",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "@nsc = Nexpose::Connection.new(host, user, pass, port)",
+                        "lineNumber": 12,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "@nsc.login",
+                        "lineNumber": 14,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/sferik/rails_admin/commit/a1a3c39a0e07b747a55cf11294a883f1e7bb8bf3?diff=split#diff-b7b642f74c8ca85b3825475cb26e7d33L10",
+                    "lines": [
+                      {
+                        "line": "#   Mayor.create(:name => 'Daley', :city => cities.first)",
+                        "lineNumber": 7,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "require \"mlb\"",
+                        "lineNumber": 1,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "User.create(:email => 'test@test.com', :password => 'test1234', :password_confirmation => 'test1234')",
+                        "lineNumber": 9,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "User.create(:email => 'username@example.com', :password => 'password', :password_confirmation => 'password')",
+                        "lineNumber": 3,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "al = League.create!(:name => 'American')",
+                        "lineNumber": 11,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "MLB::Team.all.each do |mlb_team|",
+                        "lineNumber": 5,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/shimoju/metabase-ruby/commit/56abc6cc07b51da1541d82b0355f6ea33131d072?diff=split#diff-5384f76e93d5f0bf4065af5e7de836ddL30",
+                    "lines": [
+                      {
+                        "line": "context 'specify username and password' do",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  it 'uses the username and password' do",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    params = { username: 'mb@example.com', password: 'p@ssw0rd' }",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    expect(incorrect_password.login(params)).to match(/[a-z0-9-]{36}/)",
+                        "lineNumber": 30,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    expect(incorrect_password.login(**params)).to match(/[a-z0-9-]{36}/)",
+                        "lineNumber": 30,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  end",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "end",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 123,
+                "cwe": [
+                  "CWE-798",
+                  "CWE-259"
+                ]
+              }
+            },
+            {
+              "id": "ruby/HardcodedCredential/test",
+              "name": "HardcodedCredential/test",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "ruby",
+                  "HardcodedCredential",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/railsgirls-cn/railsgirlschina/commit/990f8a5bb4bbdcd14d67283fd49ed0660adfd0fc?diff=split#diff-6dc906be0643182e5bae6aa1506221e6L34",
+                    "lines": [
+                      {
+                        "line": "on roles(:all) do |host|",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "execute('apt-get install -y postgresql libpq-dev')",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "as user: 'postgres' do",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  execute(*%W(createuser -d -R -S deploy))",
+                        "lineNumber": 34,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "  execute(*%w(createdb campo_production -O deploy))",
+                        "lineNumber": 35,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "  test(*%W(createuser -d -R -S deploy))",
+                        "lineNumber": 40,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  test(*%w(createdb campo_production -O deploy))",
+                        "lineNumber": 41,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/badboy/jabbot/commit/fa5e4fec52033ff781b33ef94b5720777ef7c623?diff=split#diff-c34fbdcf685ba239addbee92bd998aa4L35",
+                    "lines": [
+                      {
+                        "line": "should \"provide configuration settings as methods\" do",
+                        "lineNumber": 33,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "test \"provide configuration settings as methods\" do",
+                        "lineNumber": 33,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  bot = Jabbot::Bot.new Jabbot::Config.new(:login => \"jabbot\")",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  assert_equal \"jabbot\", bot.login",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "end",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/yegor256/codexia/commit/afd8b6df20826f0ce973d9aa0a28b116d5fc79fd?diff=split#diff-9e61fa8d93fd9a69ee4b4f9c96787349L32",
+                    "lines": [
+                      {
+                        "line": "  def test_updates_author",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    authors = Xia::Authors.new(t_pgsql)",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    login = 'test'",
+                        "lineNumber": 31,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    login = '-test-'",
+                        "lineNumber": 31,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    author = authors.named(login)",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    assert(!author.id.nil?)",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    assert_equal(author.id, authors.named(login).id)",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  end",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "end",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 344,
+                "cwe": [
+                  "CWE-798",
+                  "CWE-259"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "ruby/HardcodedPassword/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode passwords in code. Found hardcoded password used in double.",
+            "markdown": "Do not hardcode passwords in code. Found {0} password used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[double](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/plugins/commands/winrm_config/command_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 31,
+                  "endLine": 31,
+                  "startColumn": 58,
+                  "endColumn": 77
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "aa1992e2dcc9eb74d06646a1617863914b058ad2277f1e363ae8375ae7e84db1",
+            "1": "8b006f46.5ef9e29e.690c8394.5513e3c0.52d362e3.bc1d84e6.6d9804d2.215dce8f.8b006f46.5ef9e29e.690c8394.5513e3c0.52d362e3.bc1d84e6.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/commands/winrm_config/command_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 68,
+                            "endColumn": 77
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/commands/winrm_config/command_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 14,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 409,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedPassword/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode passwords in code. Found hardcoded password used in None.let.",
+            "markdown": "Do not hardcode passwords in code. Found {0} password used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/plugins/commands/winrm_config/command_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 110,
+                  "endLine": 110,
+                  "startColumn": 67,
+                  "endColumn": 87
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "687f66c3b5ec69d2859ad00b8ae0893efdecf1267ae4a5ccc5e52edc5b57e2e9",
+            "1": "8b006f46.b706861d.690c8394.5513e3c0.0732efef.bc1d84e6.6d9804d2.66a8326c.8b006f46.3628cd74.690c8394.5513e3c0.0732efef.bc1d84e6.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/commands/winrm_config/command_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 110,
+                            "endLine": 110,
+                            "startColumn": 77,
+                            "endColumn": 87
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/commands/winrm_config/command_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 109,
+                            "endLine": 109,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 409,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in double.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[double](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/plugins/commands/winrm_config/command_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 31,
+                  "endLine": 31,
+                  "startColumn": 37,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "832ce4883e1539e3ea6933c6453ba19bdc49e444a134346c963072baa7e629a0",
+            "1": "8b006f46.5ef9e29e.690c8394.bab24181.52d362e3.bc1d84e6.6d9804d2.215dce8f.8b006f46.5ef9e29e.690c8394.5513e3c0.52d362e3.bc1d84e6.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/commands/winrm_config/command_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 47,
+                            "endColumn": 56
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/commands/winrm_config/command_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 14,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in double.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[double](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/plugins/pushes/ftp/push_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 16,
+                  "endLine": 16,
+                  "startColumn": 7,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "42422e659745cf6f5297c4afa2b3b7a9f6c935b0f9f889b8b429d7a1dc32bb5c",
+            "1": "c7d0596a.5e7afac8.690c8394.9fdb5e9a.52d362e3.bc1d84e6.6d9804d2.215dce8f.c7d0596a.3628cd74.690c8394.ca6c9a5b.efcb5ba4.201b4944.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/pushes/ftp/push_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 16,
+                            "endLine": 16,
+                            "startColumn": 20,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/pushes/ftp/push_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 14,
+                            "endLine": 14,
+                            "startColumn": 5,
+                            "endColumn": 11
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 442,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in double.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[double](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/plugins/providers/docker/action/login_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 19,
+                  "endLine": 19,
+                  "startColumn": 53,
+                  "endColumn": 71
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "03f02868898117aac279d43e8d7e345d98e9f5117ad13ca73a247ba67fa7bdd3",
+            "1": "8b006f46.aa6556a6.690c8394.5f552db0.52d362e3.bc1d84e6.6d9804d2.215dce8f.1501b15c.9c16b3d1.690c8394.5513e3c0.52d362e3.eaa2c6c4.4a55db39.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/providers/docker/action/login_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 19,
+                            "endLine": 19,
+                            "startColumn": 63,
+                            "endColumn": 71
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/providers/docker/action/login_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 19,
+                            "endLine": 19,
+                            "startColumn": 27,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 442,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/plugins/commands/winrm_config/command_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 110,
+                  "endLine": 110,
+                  "startColumn": 45,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "ec8d9a88f457528f80ba588804f24b05a7974a3e809e5753c5a0f4255fbf7b8f",
+            "1": "8b006f46.1ef39087.690c8394.3b05eb3b.0732efef.bc1d84e6.6d9804d2.66a8326c.8b006f46.3628cd74.690c8394.5513e3c0.0732efef.bc1d84e6.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/commands/winrm_config/command_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 110,
+                            "endLine": 110,
+                            "startColumn": 55,
+                            "endColumn": 65
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/commands/winrm_config/command_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 109,
+                            "endLine": 109,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/plugins/commands/ssh_config/command_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 27,
+                  "endLine": 27,
+                  "startColumn": 5,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "1cc33a912411235d2db07af1caccf76dc43a58a9ea719c7107e5f54ed76486a2",
+            "1": "8b006f46.1ef39087.690c8394.5f552db0.370a268d.bc1d84e6.6d9804d2.66a8326c.8b006f46.f358fb57.0c7849ea.26cac922.f47b8874.1689bee9.d38e6f69.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/commands/ssh_config/command_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 27,
+                            "endLine": 27,
+                            "startColumn": 23,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/commands/ssh_config/command_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 24,
+                            "endLine": 24,
+                            "startColumn": 3,
+                            "endColumn": 6
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 442,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/plugins/provisioners/ansible/provisioner_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 47,
+                  "endLine": 47,
+                  "startColumn": 5,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e76b8527538964367178b80038cc43729ab7ad0eea38aab05b26f8f06f87d9fc",
+            "1": "8b006f46.5e7afac8.690c8394.26cac922.2d6ca801.bc1d84e6.6d9804d2.66a8326c.8b006f46.f358fb57.0c7849ea.26cac922.a6550b5d.1689bee9.d38e6f69.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/provisioners/ansible/provisioner_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 47,
+                            "startColumn": 15,
+                            "endColumn": 25
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/provisioners/ansible/provisioner_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 44,
+                            "startColumn": 3,
+                            "endColumn": 6
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/plugins/provisioners/ansible/provisioner_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1186,
+                  "endLine": 1186,
+                  "startColumn": 9,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "6357e7b2958dadc355d398bf02a90623fdd8aad94b164c37db412298464af385",
+            "1": "8b006f46.092b8f89.690c8394.26cac922.2d6ca801.bc1d84e6.6d9804d2.66a8326c.8b006f46.3858061b.dc52b70d.26cac922.1fa1a14a.32a95b16.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/provisioners/ansible/provisioner_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1186,
+                            "endLine": 1186,
+                            "startColumn": 19,
+                            "endColumn": 32
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/provisioners/ansible/provisioner_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1184,
+                            "endLine": 1184,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/plugins/guests/linux/cap/persist_mount_shared_folder_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 20,
+                  "endLine": 20,
+                  "startColumn": 5,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "a59be4fb4716b9ebe0be7767c1dad0bd45c404587dbdaa2c3cd4385dfa6123aa",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.8b006f46.5ef9e29e.690c8394.6483b32f.52d362e3.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/guests/linux/cap/persist_mount_shared_folder_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 20,
+                            "endLine": 20,
+                            "startColumn": 18,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/guests/linux/cap/persist_mount_shared_folder_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 19,
+                            "endLine": 19,
+                            "startColumn": 3,
+                            "endColumn": 6
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 442,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 39,
+                  "endLine": 39,
+                  "startColumn": 7,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "4b10ec07aded70b60055378afc775b0fac6521d51018708e546a91e851d3af8f",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.8b006f46.5ef9e29e.690c8394.879926bf.52d362e3.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 39,
+                            "endLine": 39,
+                            "startColumn": 17,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "endLine": 36,
+                            "startColumn": 5,
+                            "endColumn": 8
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 109,
+                  "endLine": 109,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "fedb8b247a2cc9151f24de082e613e3cdce22fdf289b633e81e11b408f51f386",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.8b006f46.5ef9e29e.690c8394.5ae199b6.52d362e3.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 109,
+                            "endLine": 109,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 106,
+                            "endLine": 106,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 128,
+                  "endLine": 128,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "76c123ff5427db59ac3a00746570a82ef101e0f7df65a10ebd7c6ea968a0b10b",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.8b006f46.5ef9e29e.690c8394.6483b32f.52d362e3.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 128,
+                            "endLine": 128,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 125,
+                            "endLine": 125,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 149,
+                  "endLine": 149,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "ec1774f4cc731e7907674c5521daa4ddea06a42d2ebab08aab0b77677bc5e6be",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.8b006f46.5ef9e29e.690c8394.879926bf.52d362e3.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 149,
+                            "endLine": 149,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 146,
+                            "endLine": 146,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 177,
+                  "endLine": 177,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "136eaaea731c35faab4c38b967cd44c7a0b84a879e4a8a37be35d115e65ca616",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.8b006f46.5ef9e29e.690c8394.879926bf.52d362e3.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 177,
+                            "endLine": 177,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 174,
+                            "endLine": 174,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 203,
+                  "endLine": 203,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "0293e6eaaaf56026b94ae4f9606dcadfb0f66a6346eab02a14275a2b97e960c1",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.8b006f46.5ef9e29e.690c8394.26cac922.52d362e3.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 203,
+                            "endLine": 203,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 200,
+                            "endLine": 200,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 226,
+                  "endLine": 226,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "32e17476958e218eac0f42419f70d1d752d26242275efb289d0d0b3cc1f0a375",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.8b006f46.5ef9e29e.690c8394.26cac922.52d362e3.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 226,
+                            "endLine": 226,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 223,
+                            "endLine": 223,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 251,
+                  "endLine": 251,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "4b58c9246050a45ad74c10e2433ff15a033746671ffbed714640418cc6e1abf8",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.8b006f46.5ef9e29e.690c8394.26cac922.f47b8874.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 251,
+                            "endLine": 251,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 248,
+                            "endLine": 248,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 278,
+                  "endLine": 278,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "4a293d6f7d25a5062ef2bd7afe033b53ddd5fe16898bd4042d17a4b5037011ce",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.8b006f46.5ef9e29e.690c8394.26cac922.52d362e3.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 278,
+                            "endLine": 278,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 275,
+                            "endLine": 275,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 304,
+                  "endLine": 304,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "b7ad8345a4a6c0f37a826517e0e02facf12678f4c8b060b4c93d739b0f272b90",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.51fcc2c5.5ef9e29e.690c8394.26cac922.d91e5260.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 304,
+                            "endLine": 304,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 301,
+                            "endLine": 301,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 330,
+                  "endLine": 330,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "9eadd0529dcd30c81699e158d2fa93267ec9da073e3107a6a5ebd259cb976764",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.51fcc2c5.5ef9e29e.690c8394.26cac922.d91e5260.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 330,
+                            "endLine": 330,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 327,
+                            "endLine": 327,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 356,
+                  "endLine": 356,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "b4adb84514e2c0fb134b1597e331b9dcf629b08caf15514429705dc642614f9b",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.1071f8a9.5ef9e29e.690c8394.6483b32f.9fe950a3.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 356,
+                            "endLine": 356,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 353,
+                            "endLine": 353,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in None.let.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[None.let](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/vagrant/util/ssh_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 376,
+                  "endLine": 376,
+                  "startColumn": 9,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e74e582a87023315c9b1b0e85cd6319608df3a11845d83f95597c7bc62b9e814",
+            "1": "8b006f46.5ef9e29e.690c8394.5f552db0.b01342d6.bc1d84e6.6d9804d2.66a8326c.8b006f46.5ef9e29e.690c8394.26cac922.52d362e3.1689bee9.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 376,
+                            "endLine": 376,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/vagrant/util/ssh_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 373,
+                            "endLine": 373,
+                            "startColumn": 7,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "ruby/HardcodedCredential/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in and_return.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[and_return](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "test/unit/plugins/synced_folders/smb/synced_folder_test.rb",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 28,
+                  "endLine": 28,
+                  "startColumn": 53,
+                  "endColumn": 72
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "8d3712e69846387121f70856b37c54156e75e1319deaff8fa367ccb9958ff557",
+            "1": "8b006f46.44dc4ee4.f497218b.ae3a5109.370a268d.c1ef4c09.6d9804d2.66a8326c.633c8eb5.44dc4ee4.f497218b.ae3a5109.52d362e3.c1ef4c09.6d9804d2.215dce8f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/synced_folders/smb/synced_folder_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 28,
+                            "endLine": 28,
+                            "startColumn": 63,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "test/unit/plugins/synced_folders/smb/synced_folder_test.rb",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 28,
+                            "endLine": 28,
+                            "startColumn": 23,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 442,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "Go",
+            "files": 234,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Ruby",
+            "files": 1581,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "C",
+            "files": 1,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "HTML+ERB",
+            "files": 57,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "C++",
+            "files": 1,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "JavaScript",
+            "files": 8,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": false,
+            "lang": "Ruby",
+            "files": 5,
+            "type": "FAILED_PARSING"
+          }
+        ]
+      }
+    }
+  ]
+}
