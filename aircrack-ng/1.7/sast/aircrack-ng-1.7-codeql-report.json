@@ -1,0 +1,1382 @@
+[
+  {
+    "number": 289,
+    "created_at": "2023-07-13T06:09:13Z",
+    "updated_at": "2023-07-13T06:27:13Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/289",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/289",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/weak-cryptographic-algorithm",
+      "severity": "error",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "cpp/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.5"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"cpp\"}",
+      "category": "/language:cpp",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "This file makes use of a broken or weak cryptographic algorithm (specified by call to RC4_set_key).\nThis file makes use of a broken or weak cryptographic algorithm (specified by call to RC4)."
+      },
+      "location": {
+        "path": "lib/crypto/crypto.c",
+        "start_line": 87,
+        "end_line": 87,
+        "start_column": 2,
+        "end_column": 13
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/289/instances"
+  },
+  {
+    "number": 288,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/288",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/288",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: containerImage not pinned by hash\nRemediation tip: pin your Docker image by updating mcr.microsoft.com/vscode/devcontainers/cpp to mcr.microsoft.com/vscode/devcontainers/cpp@sha256:5692af0717a607b119357c32e7e12c293e9934aa1f5ccfc33643e696e97f2900\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".devcontainer/Dockerfile",
+        "start_line": 5,
+        "end_line": 5,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/288/instances"
+  },
+  {
+    "number": 287,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/287",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/287",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 483,
+        "end_line": 483,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/287/instances"
+  },
+  {
+    "number": 286,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/286",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/286",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 436,
+        "end_line": 436,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/286/instances"
+  },
+  {
+    "number": 285,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/285",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/285",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: third-party GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 416,
+        "end_line": 416,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/285/instances"
+  },
+  {
+    "number": 284,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/284",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/284",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 413,
+        "end_line": 413,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/284/instances"
+  },
+  {
+    "number": 283,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/283",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/283",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 397,
+        "end_line": 397,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/283/instances"
+  },
+  {
+    "number": 282,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/282",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/282",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 376,
+        "end_line": 376,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/282/instances"
+  },
+  {
+    "number": 281,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/281",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/281",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 357,
+        "end_line": 357,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/281/instances"
+  },
+  {
+    "number": 280,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/280",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/280",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: third-party GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 217,
+        "end_line": 217,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/280/instances"
+  },
+  {
+    "number": 279,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/279",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/279",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 207,
+        "end_line": 207,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/279/instances"
+  },
+  {
+    "number": 278,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/278",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/278",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 204,
+        "end_line": 204,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/278/instances"
+  },
+  {
+    "number": 277,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/277",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/277",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 186,
+        "end_line": 186,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/277/instances"
+  },
+  {
+    "number": 276,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/276",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/276",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: third-party GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 46,
+        "end_line": 46,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/276/instances"
+  },
+  {
+    "number": 275,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/275",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/275",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 36,
+        "end_line": 36,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/275/instances"
+  },
+  {
+    "number": 274,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/274",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/274",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/windows.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/windows.yml",
+        "start_line": 33,
+        "end_line": 33,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/274/instances"
+  },
+  {
+    "number": 273,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/273",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/273",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/style.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/style.yml",
+        "start_line": 32,
+        "end_line": 32,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/273/instances"
+  },
+  {
+    "number": 272,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/272",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/272",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/pvs-studio.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/pvs-studio.yml",
+        "start_line": 155,
+        "end_line": 155,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/272/instances"
+  },
+  {
+    "number": 271,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/271",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/271",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/pvs-studio.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/pvs-studio.yml",
+        "start_line": 32,
+        "end_line": 32,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/271/instances"
+  },
+  {
+    "number": 270,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/270",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/270",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/macos.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/macos.yml",
+        "start_line": 128,
+        "end_line": 128,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/270/instances"
+  },
+  {
+    "number": 269,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/269",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/269",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/macos.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/macos.yml",
+        "start_line": 57,
+        "end_line": 57,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/269/instances"
+  },
+  {
+    "number": 268,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/268",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/268",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/macos.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/macos.yml",
+        "start_line": 52,
+        "end_line": 52,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/268/instances"
+  },
+  {
+    "number": 267,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/267",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/267",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/linux.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/linux.yml",
+        "start_line": 109,
+        "end_line": 109,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/267/instances"
+  },
+  {
+    "number": 266,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/266",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/266",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/linux.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/linux.yml",
+        "start_line": 59,
+        "end_line": 59,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/266/instances"
+  },
+  {
+    "number": 265,
+    "created_at": "2023-07-13T06:00:04Z",
+    "updated_at": "2023-07-13T06:23:43Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/265",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/265",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "PinnedDependenciesID",
+      "severity": "error",
+      "description": "Pinned-Dependencies",
+      "name": "Pinned-Dependencies",
+      "tags": ["dependencies","security","supply-chain"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/local",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 5: GitHub-owned GitHubAction not pinned by hash\nRemediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/Be-Secure/aircrack-ng/linux.yml/1.7_release?enable=pin)\nClick Remediation section below for further remediation help"
+      },
+      "location": {
+        "path": ".github/workflows/linux.yml",
+        "start_line": 54,
+        "end_line": 54,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/265/instances"
+  },
+  {
+    "number": 193,
+    "created_at": "2023-04-05T11:20:26Z",
+    "updated_at": "2023-07-13T06:26:18Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/193",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/193",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/command-line-injection",
+      "severity": "error",
+      "description": "Uncontrolled command line",
+      "name": "py/command-line-injection",
+      "tags": ["correctness","external/cwe/cwe-078","external/cwe/cwe-088","security"],
+      "security_severity_level": "critical"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.5"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "This command line depends on a user-provided value."
+      },
+      "location": {
+        "path": "scripts/dcrack.py",
+        "start_line": 294,
+        "end_line": 294,
+        "start_column": 24,
+        "end_column": 27
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/193/instances"
+  },
+  {
+    "number": 192,
+    "created_at": "2023-04-05T11:20:26Z",
+    "updated_at": "2023-07-13T06:26:18Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/192",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/192",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/path-injection",
+      "severity": "error",
+      "description": "Uncontrolled data used in path expression",
+      "name": "py/path-injection",
+      "tags": ["correctness","external/cwe/cwe-022","external/cwe/cwe-023","external/cwe/cwe-036","external/cwe/cwe-073","external/cwe/cwe-099","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.5"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "This path depends on a user-provided value."
+      },
+      "location": {
+        "path": "scripts/dcrack.py",
+        "start_line": 569,
+        "end_line": 569,
+        "start_column": 14,
+        "end_column": 38
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/192/instances"
+  },
+  {
+    "number": 191,
+    "created_at": "2023-04-05T11:20:26Z",
+    "updated_at": "2023-07-13T06:26:18Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/191",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/191",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/path-injection",
+      "severity": "error",
+      "description": "Uncontrolled data used in path expression",
+      "name": "py/path-injection",
+      "tags": ["correctness","external/cwe/cwe-022","external/cwe/cwe-023","external/cwe/cwe-036","external/cwe/cwe-073","external/cwe/cwe-099","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.13.5"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "This path depends on a user-provided value."
+      },
+      "location": {
+        "path": "scripts/dcrack.py",
+        "start_line": 399,
+        "end_line": 399,
+        "start_column": 13,
+        "end_column": 15
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/191/instances"
+  },
+  {
+    "number": 190,
+    "created_at": "2023-04-05T11:18:19Z",
+    "updated_at": "2023-07-13T06:23:42Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/190",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/190",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "SASTID",
+      "severity": "error",
+      "description": "SAST",
+      "name": "SAST",
+      "tags": ["security","supply-chain","testing"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/online-scm",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 0: no SAST tool detected:\nWarn: no pull requests merged into dev branch\nWarn: CodeQL tool not detected\nClick Remediation section below to solve this issue"
+      },
+      "location": {
+        "path": "no file associated with this alert",
+        "start_line": 1,
+        "end_line": 1,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/190/instances"
+  },
+  {
+    "number": 189,
+    "created_at": "2023-04-05T11:18:19Z",
+    "updated_at": "2023-07-13T06:23:42Z",
+    "url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/189",
+    "html_url": "https://github.com/Be-Secure/aircrack-ng/security/code-scanning/189",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "FuzzingID",
+      "severity": "error",
+      "description": "Fuzzing",
+      "name": "Fuzzing",
+      "tags": ["security","supply-chain","testing"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "Scorecard",
+      "guid": null,
+      "version": "v4.10.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.7_release",
+      "analysis_key": ".github/workflows/scorecard.yml:analysis",
+      "environment": "{}",
+      "category": "supply-chain/online-scm",
+      "state": "open",
+      "commit_sha": "031b9cd605aadcaeeca3bbcd61c98e645fc4c486",
+      "message": {
+        "text": "score is 0: project is not fuzzed\nClick Remediation section below to solve this issue"
+      },
+      "location": {
+        "path": "no file associated with this alert",
+        "start_line": 1,
+        "end_line": 1,
+        "start_column": 1,
+        "end_column": 0
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/aircrack-ng/code-scanning/alerts/189/instances"
+  }
+]

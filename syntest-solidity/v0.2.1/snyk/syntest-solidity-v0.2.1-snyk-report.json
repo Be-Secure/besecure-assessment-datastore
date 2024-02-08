@@ -1,0 +1,209 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "javascript/InsecureHash",
+              "name": "InsecureHash",
+              "shortDescription": {
+                "text": "Use of Password Hash With Insufficient Computational Effort"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nSensitive information should never be stored in plain text, since this makes it very easy for unauthorized users, whether malicious insiders or outside attackers, to access. Hashing methods are used to make stored passwords and other sensitive data unreadable to users. For example, when a password is defined for the first time, it is hashed and then stored. The next time that user attempts to log on, the password they enter is hashed following the same procedure and compared with the stored value. In this way, the original password never needs to be stored in the system.\n\nHashing is a one-way scheme, meaning a hashed password cannot be reverse engineered. However, if an outdated or custom programmed hashing scheme is used, it becomes simple for an attacker with powerful modern computing power to gain access to the hashes used. This opens up access to all stored password information, leading to breached security. Therefore, it is essential for developers to understand modern, secure password hashing techniques.\n\n## Best practices for prevention\n* Use strong standard algorithms for hashing rather than simpler but outdated methods or DIY hashing schemes, which may have inherent weaknesses.\n* Use modular design for all code dealing with hashing so it can be swapped out as security standards change over time.\n* Use salting in combination with hashing (While this places more demands on resources, it is an essential step for tighter security.).\n* Implement zero-trust architecture to ensure that access to password data is granted only for legitimate business purposes.\n* Increase developer awareness of current standards in data security and cryptography.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "javascript",
+                  "InsecureHash",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/emgram769/livechan-js/commit/99ecea722f7fc204ce3293ff2b0e315d0e61ccad?diff=split#diff-fdbfe737b6f8eaccddd46f57a79b5532942e1667c38ca880c32d89723af39857L-1",
+                    "lines": [
+                      {
+                        "line": "var hash_pass = crypto.createHash('sha1').update(password).digest('base64');\n",
+                        "lineNumber": 88,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "var hash_pass = crypto.createHash('sha512').update(config.admin_pw_salt, 'base64').update(password, 'utf8').digest('base64');\n",
+                        "lineNumber": 88,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/Synzvato/decentraleyes/commit/8855358381cff8156fe7a801d9201371034373a2?diff=split#diff-8e3adc8af301344e44c7efc3f4a24d375d02d285c617793db6d2eabe367b9d92L-1",
+                    "lines": [
+                      {
+                        "line": "hash = crypto.createHash('md5');\n",
+                        "lineNumber": 139,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "hash = crypto.createHash('sha512');\n",
+                        "lineNumber": 139,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/openmrs/openmrs-contrib-id/commit/877c9a874b349a330b806414bfad82d03de39eb1?diff=split#diff-629444d01512e7f8fd688f67bf412d620053325ed416c34f940ffd52bb4420e2L-1",
+                    "lines": [
+                      {
+                        "line": "hash = crypto.createHash('md5');\n",
+                        "lineNumber": 109,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "hash = crypto.createHash('sha512');\n",
+                        "lineNumber": 109,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 52,
+                "cwe": [
+                  "CWE-916"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "javascript/InsecureHash",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "md5 hash (used in crypto.createHash) is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} hash (used in {1}) is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[md5](0)",
+              "[crypto.createHash](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/instrumentation/injector.js",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 173,
+                  "endLine": 174,
+                  "startColumn": 21,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "af417231134f858eac77de2ff62bb96621e300773649c9b3f1db73182bf9f1d4",
+            "1": "37bc1bfe.4773f344.191eaf2b.d9da6552.ef9f7d82.8020cfdf.7a8c7288.71520ffe.619a746b.4773f344.fa49bce6.d9da6552.f7b6c27c.5fce695c.04f551bd.71520ffe"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/instrumentation/injector.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 174,
+                            "endLine": 174,
+                            "startColumn": 19,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/instrumentation/injector.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 173,
+                            "endLine": 174,
+                            "startColumn": 21,
+                            "endColumn": 18
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 450,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "TypeScript",
+            "files": 54,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "JavaScript",
+            "files": 7,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": false,
+            "lang": "TypeScript",
+            "files": 5,
+            "type": "FAILED_PARSING"
+          }
+        ]
+      }
+    }
+  ]
+}
