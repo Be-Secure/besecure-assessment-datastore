@@ -1,0 +1,569 @@
+[
+    {
+        "number": 11,
+        "created_at": "2022-10-12T16:43:26Z",
+        "updated_at": "2024-01-22T14:51:41Z",
+        "url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/11",
+        "html_url": "https://github.com/Be-Secure/prometheus/security/code-scanning/11",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/incorrect-integer-conversion",
+            "severity": "warning",
+            "description": "Incorrect conversion between integer types",
+            "name": "go/incorrect-integer-conversion",
+            "tags": [
+                "external/cwe/cwe-190",
+                "external/cwe/cwe-681",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.16.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.40.2_release",
+            "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": ".github/workflows/codeql-analysis.yml:analyze/language:go",
+            "state": "open",
+            "commit_sha": "9eecf05b302ca0d3537fa0c37868e9912017cdb0",
+            "message": {
+                "text": "Incorrect conversion of an unsigned 64-bit integer from strconv.ParseUint to a lower bit size type int without an upper bound check."
+            },
+            "location": {
+                "path": "tsdb/chunks/head_chunks.go",
+                "start_line": 354,
+                "end_line": 354,
+                "start_column": 7,
+                "end_column": 15
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/11/instances"
+    },
+    {
+        "number": 10,
+        "created_at": "2022-10-12T16:43:26Z",
+        "updated_at": "2024-01-22T14:51:41Z",
+        "url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/10",
+        "html_url": "https://github.com/Be-Secure/prometheus/security/code-scanning/10",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "go/bad-redirect-check",
+            "severity": "error",
+            "description": "Bad redirect check",
+            "name": "go/bad-redirect-check",
+            "tags": [
+                "external/cwe/cwe-601",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.16.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.40.2_release",
+            "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+            "environment": "{\"language\":\"go\"}",
+            "category": ".github/workflows/codeql-analysis.yml:analyze/language:go",
+            "state": "open",
+            "commit_sha": "9eecf05b302ca0d3537fa0c37868e9912017cdb0",
+            "message": {
+                "text": "This is a check that this value, which flows into a redirect, has a leading slash, but not that it does not have '/' or '\\' in its second position.\nThis is a check that this value, which flows into a redirect, has a leading slash, but not that it does not have '/' or '\\' in its second position."
+            },
+            "location": {
+                "path": "cmd/prometheus/main.go",
+                "start_line": 1277,
+                "end_line": 1277,
+                "start_column": 21,
+                "end_column": 50
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/10/instances"
+    },
+    {
+        "number": 9,
+        "created_at": "2022-10-12T16:33:35Z",
+        "updated_at": "2024-01-22T14:36:01Z",
+        "url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/9",
+        "html_url": "https://github.com/Be-Secure/prometheus/security/code-scanning/9",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "js/xss-through-dom",
+            "severity": "warning",
+            "description": "DOM text reinterpreted as HTML",
+            "name": "js/xss-through-dom",
+            "tags": [
+                "external/cwe/cwe-079",
+                "external/cwe/cwe-116",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.16.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.40.2_release",
+            "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+            "environment": "{\"language\":\"javascript\"}",
+            "category": ".github/workflows/codeql-analysis.yml:analyze/language:javascript",
+            "state": "open",
+            "commit_sha": "9eecf05b302ca0d3537fa0c37868e9912017cdb0",
+            "message": {
+                "text": "DOM text is reinterpreted as HTML without escaping meta-characters."
+            },
+            "location": {
+                "path": "web/ui/static/vendor/bootstrap-4.5.2/js/bootstrap.bundle.js",
+                "start_line": 1098,
+                "end_line": 1098,
+                "start_column": 22,
+                "end_column": 30
+            },
+            "classifications": [
+                "library"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/9/instances"
+    },
+    {
+        "number": 8,
+        "created_at": "2022-10-12T16:33:35Z",
+        "updated_at": "2024-01-22T14:36:01Z",
+        "url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/8",
+        "html_url": "https://github.com/Be-Secure/prometheus/security/code-scanning/8",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "js/xss-through-dom",
+            "severity": "warning",
+            "description": "DOM text reinterpreted as HTML",
+            "name": "js/xss-through-dom",
+            "tags": [
+                "external/cwe/cwe-079",
+                "external/cwe/cwe-116",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.16.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.40.2_release",
+            "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+            "environment": "{\"language\":\"javascript\"}",
+            "category": ".github/workflows/codeql-analysis.yml:analyze/language:javascript",
+            "state": "open",
+            "commit_sha": "9eecf05b302ca0d3537fa0c37868e9912017cdb0",
+            "message": {
+                "text": "DOM text is reinterpreted as HTML without escaping meta-characters."
+            },
+            "location": {
+                "path": "web/ui/static/vendor/bootstrap-4.5.2/js/bootstrap.js",
+                "start_line": 1099,
+                "end_line": 1099,
+                "start_column": 22,
+                "end_column": 30
+            },
+            "classifications": [
+                "library"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/8/instances"
+    },
+    {
+        "number": 7,
+        "created_at": "2022-10-12T16:33:35Z",
+        "updated_at": "2024-01-22T14:36:01Z",
+        "url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/7",
+        "html_url": "https://github.com/Be-Secure/prometheus/security/code-scanning/7",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "js/unsafe-jquery-plugin",
+            "severity": "warning",
+            "description": "Unsafe jQuery plugin",
+            "name": "js/unsafe-jquery-plugin",
+            "tags": [
+                "external/cwe/cwe-079",
+                "external/cwe/cwe-116",
+                "frameworks/jquery",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.16.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.40.2_release",
+            "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+            "environment": "{\"language\":\"javascript\"}",
+            "category": ".github/workflows/codeql-analysis.yml:analyze/language:javascript",
+            "state": "open",
+            "commit_sha": "9eecf05b302ca0d3537fa0c37868e9912017cdb0",
+            "message": {
+                "text": "Potential XSS vulnerability in the '$.fn.plot' plugin."
+            },
+            "location": {
+                "path": "web/ui/react-app/src/vendor/flot/jquery.flot.js",
+                "start_line": 2925,
+                "end_line": 2925,
+                "start_column": 11,
+                "end_column": 35
+            },
+            "classifications": [
+                "library"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/7/instances"
+    },
+    {
+        "number": 6,
+        "created_at": "2022-10-12T16:33:35Z",
+        "updated_at": "2024-01-22T14:36:01Z",
+        "url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/6",
+        "html_url": "https://github.com/Be-Secure/prometheus/security/code-scanning/6",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "js/html-constructed-from-input",
+            "severity": "error",
+            "description": "Unsafe HTML constructed from library input",
+            "name": "js/html-constructed-from-input",
+            "tags": [
+                "external/cwe/cwe-079",
+                "external/cwe/cwe-116",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.16.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.40.2_release",
+            "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+            "environment": "{\"language\":\"javascript\"}",
+            "category": ".github/workflows/codeql-analysis.yml:analyze/language:javascript",
+            "state": "open",
+            "commit_sha": "9eecf05b302ca0d3537fa0c37868e9912017cdb0",
+            "message": {
+                "text": "This HTML construction which depends on library input might later allow cross-site scripting."
+            },
+            "location": {
+                "path": "web/ui/react-app/src/vendor/flot/jquery.flot.js",
+                "start_line": 3034,
+                "end_line": 3034,
+                "start_column": 15,
+                "end_column": 16
+            },
+            "classifications": [
+                "library"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/6/instances"
+    },
+    {
+        "number": 5,
+        "created_at": "2022-10-12T16:33:35Z",
+        "updated_at": "2024-01-22T14:36:01Z",
+        "url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/5",
+        "html_url": "https://github.com/Be-Secure/prometheus/security/code-scanning/5",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "js/html-constructed-from-input",
+            "severity": "error",
+            "description": "Unsafe HTML constructed from library input",
+            "name": "js/html-constructed-from-input",
+            "tags": [
+                "external/cwe/cwe-079",
+                "external/cwe/cwe-116",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.16.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.40.2_release",
+            "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+            "environment": "{\"language\":\"javascript\"}",
+            "category": ".github/workflows/codeql-analysis.yml:analyze/language:javascript",
+            "state": "open",
+            "commit_sha": "9eecf05b302ca0d3537fa0c37868e9912017cdb0",
+            "message": {
+                "text": "This HTML construction which depends on library input might later allow cross-site scripting."
+            },
+            "location": {
+                "path": "web/ui/react-app/src/vendor/flot/jquery.flot.js",
+                "start_line": 3032,
+                "end_line": 3032,
+                "start_column": 15,
+                "end_column": 18
+            },
+            "classifications": [
+                "library"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/5/instances"
+    },
+    {
+        "number": 4,
+        "created_at": "2022-10-12T16:33:35Z",
+        "updated_at": "2024-01-22T14:36:01Z",
+        "url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/4",
+        "html_url": "https://github.com/Be-Secure/prometheus/security/code-scanning/4",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "js/html-constructed-from-input",
+            "severity": "error",
+            "description": "Unsafe HTML constructed from library input",
+            "name": "js/html-constructed-from-input",
+            "tags": [
+                "external/cwe/cwe-079",
+                "external/cwe/cwe-116",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.16.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.40.2_release",
+            "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+            "environment": "{\"language\":\"javascript\"}",
+            "category": ".github/workflows/codeql-analysis.yml:analyze/language:javascript",
+            "state": "open",
+            "commit_sha": "9eecf05b302ca0d3537fa0c37868e9912017cdb0",
+            "message": {
+                "text": "This HTML construction which depends on library input might later allow cross-site scripting.\nThis HTML construction which depends on library input might later allow cross-site scripting."
+            },
+            "location": {
+                "path": "web/ui/react-app/src/vendor/flot/jquery.flot.js",
+                "start_line": 3011,
+                "end_line": 3011,
+                "start_column": 36,
+                "end_column": 101
+            },
+            "classifications": [
+                "library"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/4/instances"
+    },
+    {
+        "number": 3,
+        "created_at": "2022-10-12T16:33:35Z",
+        "updated_at": "2024-01-22T14:36:01Z",
+        "url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/3",
+        "html_url": "https://github.com/Be-Secure/prometheus/security/code-scanning/3",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "js/html-constructed-from-input",
+            "severity": "error",
+            "description": "Unsafe HTML constructed from library input",
+            "name": "js/html-constructed-from-input",
+            "tags": [
+                "external/cwe/cwe-079",
+                "external/cwe/cwe-116",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.16.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.40.2_release",
+            "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+            "environment": "{\"language\":\"javascript\"}",
+            "category": ".github/workflows/codeql-analysis.yml:analyze/language:javascript",
+            "state": "open",
+            "commit_sha": "9eecf05b302ca0d3537fa0c37868e9912017cdb0",
+            "message": {
+                "text": "This HTML construction which depends on library input might later allow cross-site scripting."
+            },
+            "location": {
+                "path": "web/ui/react-app/src/vendor/flot/jquery.flot.js",
+                "start_line": 2999,
+                "end_line": 2999,
+                "start_column": 62,
+                "end_column": 80
+            },
+            "classifications": [
+                "library"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/3/instances"
+    },
+    {
+        "number": 2,
+        "created_at": "2022-10-12T16:33:35Z",
+        "updated_at": "2024-01-22T14:36:01Z",
+        "url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/2",
+        "html_url": "https://github.com/Be-Secure/prometheus/security/code-scanning/2",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "js/html-constructed-from-input",
+            "severity": "error",
+            "description": "Unsafe HTML constructed from library input",
+            "name": "js/html-constructed-from-input",
+            "tags": [
+                "external/cwe/cwe-079",
+                "external/cwe/cwe-116",
+                "security"
+            ],
+            "security_severity_level": "medium"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.16.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.40.2_release",
+            "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+            "environment": "{\"language\":\"javascript\"}",
+            "category": ".github/workflows/codeql-analysis.yml:analyze/language:javascript",
+            "state": "open",
+            "commit_sha": "9eecf05b302ca0d3537fa0c37868e9912017cdb0",
+            "message": {
+                "text": "This HTML construction which depends on library input might later allow cross-site scripting.\nThis HTML construction which depends on library input might later allow cross-site scripting."
+            },
+            "location": {
+                "path": "web/ui/react-app/src/vendor/flot/jquery.flot.js",
+                "start_line": 2934,
+                "end_line": 2934,
+                "start_column": 23,
+                "end_column": 25
+            },
+            "classifications": [
+                "library"
+            ]
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/2/instances"
+    },
+    {
+        "number": 1,
+        "created_at": "2022-10-12T16:33:35Z",
+        "updated_at": "2024-01-22T14:36:01Z",
+        "url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/1",
+        "html_url": "https://github.com/Be-Secure/prometheus/security/code-scanning/1",
+        "state": "open",
+        "fixed_at": null,
+        "dismissed_by": null,
+        "dismissed_at": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "rule": {
+            "id": "js/redos",
+            "severity": "error",
+            "description": "Inefficient regular expression",
+            "name": "js/redos",
+            "tags": [
+                "external/cwe/cwe-1333",
+                "external/cwe/cwe-400",
+                "external/cwe/cwe-730",
+                "security"
+            ],
+            "security_severity_level": "high"
+        },
+        "tool": {
+            "name": "CodeQL",
+            "guid": null,
+            "version": "2.16.1"
+        },
+        "most_recent_instance": {
+            "ref": "refs/heads/v2.40.2_release",
+            "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+            "environment": "{\"language\":\"javascript\"}",
+            "category": ".github/workflows/codeql-analysis.yml:analyze/language:javascript",
+            "state": "open",
+            "commit_sha": "9eecf05b302ca0d3537fa0c37868e9912017cdb0",
+            "message": {
+                "text": "This part of the regular expression may cause exponential backtracking on strings starting with '\\[\\[' and containing many repetitions of 'a'."
+            },
+            "location": {
+                "path": "web/ui/static/js/prom_console.js",
+                "start_line": 626,
+                "end_line": 626,
+                "start_column": 26,
+                "end_column": 29
+            },
+            "classifications": []
+        },
+        "instances_url": "https://api.github.com/repos/Be-Secure/prometheus/code-scanning/alerts/1/instances"
+    }
+]
