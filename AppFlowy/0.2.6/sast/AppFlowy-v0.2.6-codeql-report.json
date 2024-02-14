@@ -1,0 +1,94 @@
+[
+{
+    "number": 106,
+    "created_at": "2023-07-13T10:06:09Z",
+    "updated_at": "2024-02-05T06:59:11Z",
+    "url": "https://api.github.com/repos/Be-Secure/AppFlowy/code-scanning/alerts/106",
+    "html_url": "https://github.com/Be-Secure/AppFlowy/security/code-scanning/106",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/redos",
+      "severity": "error",
+      "description": "Inefficient regular expression",
+      "name": "js/redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.16.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/0.2.6_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "c36e383a15689e465c692ba0594d6d4a37b690b7",
+      "message": {
+        "text": "This part of the regular expression may cause exponential backtracking on strings containing many repetitions of ' '."
+      },
+      "location": {
+        "path": "frontend/appflowy_tauri/src/appflowy_app/stores/reducers/document/async-actions/link.ts",
+        "start_line": 29,
+        "end_line": 29,
+        "start_column": 72,
+        "end_column": 81
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/AppFlowy/code-scanning/alerts/106/instances"
+  },
+  {
+    "number": 105,
+    "created_at": "2023-07-13T10:06:09Z",
+    "updated_at": "2024-02-05T06:59:11Z",
+    "url": "https://api.github.com/repos/Be-Secure/AppFlowy/code-scanning/alerts/105",
+    "html_url": "https://github.com/Be-Secure/AppFlowy/security/code-scanning/105",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/unsafe-external-link",
+      "severity": "warning",
+      "description": "Potentially unsafe external link",
+      "name": "js/unsafe-external-link",
+      "tags": ["external/cwe/cwe-1022","external/cwe/cwe-200","maintainability","security"],
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.16.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/0.2.6_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "c36e383a15689e465c692ba0594d6d4a37b690b7",
+      "message": {
+        "text": "External links without noopener/noreferrer are a potential security risk."
+      },
+      "location": {
+        "path": "frontend/appflowy_tauri/src/appflowy_app/components/board/BoardUrlCell.tsx",
+        "start_line": 20,
+        "end_line": 20,
+        "start_column": 7,
+        "end_column": 117
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/AppFlowy/code-scanning/alerts/105/instances"
+  }
+]
