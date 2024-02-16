@@ -1,0 +1,2478 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "java/InsecureCipherNoIntegrity/test",
+              "name": "InsecureCipherNoIntegrity/test",
+              "shortDescription": {
+                "text": "Use of a Broken or Risky Cryptographic Algorithm"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nWhen sensitive information is transmitted with weak encryption, attackers are potentially able to intercept the information and decrypt it, with a wide range of negative consequences. This includes accessing code or content they are not authorized to view and changing or taking down a site or app, often with a demand for ransom. Every developer is aware of the risks of transmitting sensitive information in plain text. Yet many still use outdated or inferior cryptographic methods to protect information under their control. As cryptographic methods grow stronger with time, code must be updated to incorporate more modern and secure cryptography.\n\n## Best practices for prevention\n* Avoid using DES, and use AES (in a secure mode, such as Galois/Counter Mode) or another strong encryption algorithm instead.\n* Be aware of outdated hashes, such as MD5 and SHA1 (along with many others); recognize and implement current cryptographic standards instead.\n* Never use custom or DIY security and cryptographic methods; instead, use methods that are part of an accepted library or framework.\n* Ensure that code dealing with cryptographic methods is highly modular and can be easily replaced as security standards change.\n* Increase developer awareness of proper encryption key management and protection to ensure best practices throughout the application.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "InsecureCipherNoIntegrity",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/egovernments/egov-services/commit/438110bfc0c743ed1412e1bb18ba501f544d3562?diff=split#diff-1a3429cb59b5a59624cabe5733d449f3c8622cb36cc37d775273e952271e8ac3L-1",
+                    "lines": [
+                      {
+                        "line": "Cipher cipher = Cipher.getInstance(\"AES/CBC/PKCS7Padding\");\n",
+                        "lineNumber": 21,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "Cipher cipher = Cipher.getInstance(\"AES/GCM/NoPadding\");\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/egovernments/egov-services/commit/438110bfc0c743ed1412e1bb18ba501f544d3562?diff=split#diff-1a3429cb59b5a59624cabe5733d449f3c8622cb36cc37d775273e952271e8ac3L-1",
+                    "lines": [
+                      {
+                        "line": "Cipher cipher = Cipher.getInstance(\"AES/CBC/PKCS7Padding\");\n",
+                        "lineNumber": 27,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "Cipher cipher = Cipher.getInstance(\"AES/GCM/NoPadding\");\n",
+                        "lineNumber": 27,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/guardianproject/PixelKnot/commit/e882966ad78dc9566e2eb5783af9f5805c9b95e1?diff=split#diff-3a19bc606e5509879c4583fd6f36a0b59c20117c83135237fd4840e7b07efcdfL-1",
+                    "lines": [
+                      {
+                        "line": "Cipher cipher = Cipher.getInstance(\"AES/CBC/PKCS5Padding\");\n",
+                        "lineNumber": 39,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "Cipher cipher = Cipher.getInstance(\"AES/GCM/NoPadding\");\n",
+                        "lineNumber": 39,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 2,
+                "cwe": [
+                  "CWE-327"
+                ]
+              }
+            },
+            {
+              "id": "java/InsecureAesWithBadPaddingCipher/test",
+              "name": "InsecureAesWithBadPaddingCipher/test",
+              "shortDescription": {
+                "text": "Inadequate Padding for AES encryption"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nImplementing encryption for the transmission and storage of sensitive information is essential. But encryption standards are constantly changing since attackers have more and more powerful resources at their disposal-along with more sophisticated attack algorithms. This means that encryption is only useful if it meets current standards appropriate for the type of data being transmitted or stored.\nWhen organizations use weakly encoded passwords or weak hashes (especially when they also utilize single-factor authentication, which places too much emphasis on passwords), attackers can potentially gain unauthorized access through a brute-force attack.\n\n## Best practices for prevention\n* Understand best practices of contemporary encryption algorithms and techniques.\n* Avoid encryption algorithms and techniques that are widely known to be outdated (for example, DES).\n* Implement multi-factor authentication to minimize reliance on a single factor, such as a password, that is too susceptible to brute-force attacks.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "InsecureAesWithBadPaddingCipher",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/guardianproject/PixelKnot/commit/e882966ad78dc9566e2eb5783af9f5805c9b95e1?diff=split#diff-3a19bc606e5509879c4583fd6f36a0b59c20117c83135237fd4840e7b07efcdfL-1",
+                    "lines": [
+                      {
+                        "line": "Cipher cipher = Cipher.getInstance(\"AES/CBC/PKCS5Padding\");\n",
+                        "lineNumber": 39,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "Cipher cipher = Cipher.getInstance(\"AES/GCM/NoPadding\");\n",
+                        "lineNumber": 39,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/oracle/helidon/commit/bd7b527d900fc3c7c5204459f9bf6dabb5de9f3f?diff=split#diff-749dada3aa323423c2ae748fa79be5a272ba51e4aff15acae311e6ceed35b936L-1",
+                    "lines": [
+                      {
+                        "line": "import javax.crypto.spec.IvParameterSpec;\n",
+                        "lineNumber": 22,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "import javax.crypto.spec.GCMParameterSpec;\n",
+                        "lineNumber": 22,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "import javax.crypto.spec.PBEKeySpec;\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import javax.crypto.spec.SecretKeySpec;\n",
+                        "lineNumber": 24,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "/**\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " * Utilities needed by Digest authentication.\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " */\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "final class HttpAuthUtil {\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    private static final int SIZEOF_LONG = Long.SIZE / Byte.SIZE;\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    private HttpAuthUtil() {\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    static long toLong(byte[] bytes, int offset, final int length) {\n",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        if (length != SIZEOF_LONG || offset + length > bytes.length) {\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            throw explainWrongLengthOrOffset(bytes, offset, length, SIZEOF_LONG);\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        }\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        long l = 0;\n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        for (int i = offset; i < offset + length; i++) {\n",
+                        "lineNumber": 40,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            l <<= 8;\n",
+                        "lineNumber": 41,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            l ^= bytes[i] & 0xFF;\n",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        }\n",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        return l;\n",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    static byte[] toBytes(long val) {\n",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        byte[] b = new byte[8];\n",
+                        "lineNumber": 48,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        for (int i = 7; i > 0; i--) {\n",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            b[i] = (byte) val;\n",
+                        "lineNumber": 50,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            val >>>= 8;\n",
+                        "lineNumber": 51,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        }\n",
+                        "lineNumber": 52,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        b[0] = (byte) val;\n",
+                        "lineNumber": 53,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        return b;\n",
+                        "lineNumber": 54,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 55,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 56,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    static Cipher cipher(char[] masterPassword, byte[] salt, int cipherMode) throws HttpAuthException {\n",
+                        "lineNumber": 57,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    static Cipher cipher(char[] masterPassword, byte[] salt, byte[] nonce, int cipherMode) throws HttpAuthException {\n",
+                        "lineNumber": 57,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        try {\n",
+                        "lineNumber": 58,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(\"PBKDF2WithHmacSHA1\");\n",
+                        "lineNumber": 59,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            KeySpec keySpec = new PBEKeySpec(masterPassword, salt, 10000, 128);\n",
+                        "lineNumber": 60,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(\"PBKDF2WithHmacSHA256\");\n",
+                        "lineNumber": 59,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            KeySpec keySpec = new PBEKeySpec(masterPassword, salt, 10000, 256);\n",
+                        "lineNumber": 60,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            SecretKeySpec spec = new SecretKeySpec(secretKeyFactory.generateSecret(keySpec).getEncoded(), \"AES\");\n",
+                        "lineNumber": 61,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            Cipher cipher = Cipher.getInstance(\"AES/CBC/PKCS5Padding\");\n",
+                        "lineNumber": 62,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            cipher.init(cipherMode, spec, new IvParameterSpec(salt));\n",
+                        "lineNumber": 63,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            Cipher cipher = Cipher.getInstance(\"AES/GCM/NoPadding\");\n",
+                        "lineNumber": 62,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            cipher.init(cipherMode, spec, new GCMParameterSpec(128, nonce));\n",
+                        "lineNumber": 63,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/guardianproject/PixelKnot/commit/e882966ad78dc9566e2eb5783af9f5805c9b95e1?diff=split#diff-3a19bc606e5509879c4583fd6f36a0b59c20117c83135237fd4840e7b07efcdfL-1",
+                    "lines": [
+                      {
+                        "line": "Cipher cipher = Cipher.getInstance(\"AES/CBC/PKCS5Padding\");\n",
+                        "lineNumber": 80,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "Cipher cipher = Cipher.getInstance(\"AES/GCM/NoPadding\");\n",
+                        "lineNumber": 80,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 2,
+                "cwe": [
+                  "CWE-326"
+                ]
+              }
+            },
+            {
+              "id": "java/HardcodedSecret/test",
+              "name": "HardcodedSecret/test",
+              "shortDescription": {
+                "text": "Hardcoded Secret"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "## Details\n\nWhen constants are hardcoded into applications, this information could easily be reverse-engineered and become known to attackers. For example, if a breached authentication token is hardcoded in multiple places in the application, it may lead to components of the application remaining vulnerable if not all instances are changed.\nAnother negative effect of hard-coding constants is potential unpredictability in the application's performance if the development team fails to update every single instance of the hardcoded constant throughout the code. For these reasons, hard-coding security-relevant constants is considered bad coding practice and should be remedied if present and avoided in future.\n\n## Best practices for prevention\n- Never hard code security-related constants; use symbolic names or configuration lookup files.\n- As hard coding is often done by coders working alone on a small scale, examine all legacy code components and test carefully when scaling.\n- Adopt a \"future-proof code\" mindset: While use of constants may save a little time now and make development simpler in the short term, it could cost time and money adapting to scale or other unforeseen circumstances (such as new hardware) in the future.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "HardcodedSecret",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/aberic/fabric-net-server/commit/963bb9fe026b454672fb83fd739f3d754b6844e1?diff=split#diff-9d304ac28cc0feb031d1bde8598ac8de9156b18f56406259c258d9620615fe8dL-1",
+                    "lines": [
+                      {
+                        "line": "app.setPublicKey(\"pub1\");\n",
+                        "lineNumber": 64,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "app.setPrivateKey(\"pri1\");\n",
+                        "lineNumber": 65,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "Key key = Utils.obtain().createECCDSAKeyPair(keyPath);\n",
+                        "lineNumber": 77,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "if (null == key) {\n",
+                        "lineNumber": 78,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    return 0;\n",
+                        "lineNumber": 79,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "}\n",
+                        "lineNumber": 80,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "app.setPublicKey(key.getPublicKey());\n",
+                        "lineNumber": 81,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "app.setPrivateKey(key.getPrivateKey());\n",
+                        "lineNumber": 82,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/Talend/tcommon-studio-se/commit/d95d058e7560d27ad58d43cf7d0be4731582230c?diff=split#diff-49b91a9d900560ad716dc4cb80065066261a7c13294cf8be280afc4c5125f69eL-1",
+                    "lines": [
+                      {
+                        "line": "\n",
+                        "lineNumber": 40,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            byte rawKeyData[] = RAWKEY.getBytes();\n",
+                        "lineNumber": 41,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            byte rawKeyData[] = StudioEncryption.getKeySource(StudioEncryption.EncryptionKeyName.MIGRATION.name(), false)\n",
+                        "lineNumber": 38,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                    .getKey();\n",
+                        "lineNumber": 39,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            DESKeySpec dks = new DESKeySpec(rawKeyData);\n",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/bulktrade/SMSC/commit/a28a9bf2a975e27ad7ccecce47588fe1a57659f3?diff=split#diff-d61a5e31effad4932c402c2638bba72d6d72eda975f375bf21ce055846a911d9L-1",
+                    "lines": [
+                      {
+                        "line": "Key key = new SecretKeySpec(KEY, \"AES\");\n",
+                        "lineNumber": 16,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "Key key = new SecretKeySpec(secretKey.getBytes(), \"AES\");\n",
+                        "lineNumber": 25,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 26,
+                "cwe": [
+                  "CWE-547"
+                ]
+              }
+            },
+            {
+              "id": "java/InsecureHash",
+              "name": "InsecureHash",
+              "shortDescription": {
+                "text": "Use of Password Hash With Insufficient Computational Effort"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nSensitive information should never be stored in plain text, since this makes it very easy for unauthorized users, whether malicious insiders or outside attackers, to access. Hashing methods are used to make stored passwords and other sensitive data unreadable to users. For example, when a password is defined for the first time, it is hashed and then stored. The next time that user attempts to log on, the password they enter is hashed following the same procedure and compared with the stored value. In this way, the original password never needs to be stored in the system.\n\nHashing is a one-way scheme, meaning a hashed password cannot be reverse engineered. However, if an outdated or custom programmed hashing scheme is used, it becomes simple for an attacker with powerful modern computing power to gain access to the hashes used. This opens up access to all stored password information, leading to breached security. Therefore, it is essential for developers to understand modern, secure password hashing techniques.\n\n## Best practices for prevention\n* Use strong standard algorithms for hashing rather than simpler but outdated methods or DIY hashing schemes, which may have inherent weaknesses.\n* Use modular design for all code dealing with hashing so it can be swapped out as security standards change over time.\n* Use salting in combination with hashing (While this places more demands on resources, it is an essential step for tighter security.).\n* Implement zero-trust architecture to ensure that access to password data is granted only for legitimate business purposes.\n* Increase developer awareness of current standards in data security and cryptography.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "InsecureHash",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/javabeanz/owasp-security-logging/commit/477ecf68f3102f309f3ec9af01ab852294cbd826?diff=split#diff-c14e8b3d208e6acad1c0ca88a8a8227e4140088dfe2206349680aec0558df5cbL-1",
+                    "lines": [
+                      {
+                        "line": "MessageDigest md = MessageDigest.getInstance(\"SHA-1\");\n",
+                        "lineNumber": 18,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "MessageDigest md = MessageDigest.getInstance(\"SHA-256\");\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/AmadeusITGroup/HttpSessionReplacer/commit/2446e990415bc285fed740539c4f131708c56a3c?diff=split#diff-c03b1a2951c34501ec780ec5f5e146284be8a5f93d21ace8abcb1a54d43dd5d2L-1",
+                    "lines": [
+                      {
+                        "line": "MessageDigest sha = MessageDigest.getInstance(\"SHA-1\");\n",
+                        "lineNumber": 53,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "MessageDigest sha = MessageDigest.getInstance(\"SHA-256\");\n",
+                        "lineNumber": 53,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/codeka/wwmmo/commit/31c54b90cae6bc6dafa4aa2b2e8206fc2324dfbe?diff=split#diff-bf17bd3165b8e75a0bfb95f42138140d5befba995b54eff50f4389f0e47a0feeL-1",
+                    "lines": [
+                      {
+                        "line": "Hashing.sha1().hashString(etag, Charset.defaultCharset()).asBytes());\n",
+                        "lineNumber": 143,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "Hashing.sha256().hashString(etag, Charset.defaultCharset()).asBytes());\n",
+                        "lineNumber": 143,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 3,
+                "cwe": [
+                  "CWE-916"
+                ]
+              }
+            },
+            {
+              "id": "java/HardcodedPassword/test",
+              "name": "HardcodedPassword/test",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "HardcodedPassword",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/Gepardec/Hogarama/commit/7b532d9240eb2e7a059539e419ea218c22a5b0f5?diff=split#diff-db19dfe0e7a0c625c6e48b0d94c04add219239f2f63cf6f2674dd962e92e8ff2L-1",
+                    "lines": [
+                      {
+                        "line": "\tprivate static final char[] PASSWORD = \"hogajama@mongodb\".toCharArray();\n",
+                        "lineNumber": 22,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tprivate static final char[] PASSWORD = System.getProperty(\"MONGODB_PW\").toCharArray();\n",
+                        "lineNumber": 22,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tprivate static final int PORT = 27017;\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tprivate static final String COLLECTION = \"habarama\";\n",
+                        "lineNumber": 24,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tprivate static final String HOST = System.getProperty(\"mongo.host\", \"mongodb\");\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t@Produces \n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tpublic Datastore datastore() {\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tMongoClient mongoClient = getClient();\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\n",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tMorphia morphia = new Morphia();\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tmorphia.mapPackage(\"com.gepardec.hogarama.domain\");\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tDatastore datastore = morphia.createDatastore(mongoClient, MongoDbProducer.HOGAJAMA_DB);\n",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tdatastore.ensureIndexes();\n",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn datastore;\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t@Produces \n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tpublic DBCollection collection() {\n",
+                        "lineNumber": 40,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tMongoClient mongoClient = getClient();\n",
+                        "lineNumber": 41,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tDB db = mongoClient.getDB(HOGAJAMA_DB);\n",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn db.getCollection(COLLECTION);\n",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\n",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\n",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tprivate MongoClient getClient() {\n",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tMongoCredential credential = MongoCredential.createCredential(USER, HOGAJAMA_DB, PASSWORD);\n",
+                        "lineNumber": 48,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/xfifix/SEO_REPO/commit/4807500fee6a392ed64f66bc4dfe38d103bdb64e?diff=split#diff-9873c5adc0806eb5d51fdefea3f0460c6fc28b67d21ce7380f6c9cd52770b250L-1",
+                    "lines": [
+                      {
+                        "line": "\t\t//\t\tString url = props.getProperty(\"db.url\");\n",
+                        "lineNumber": 41,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t//\t\tString user = props.getProperty(\"db.user\");\n",
+                        "lineNumber": 42,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t//\t\tString passwd = props.getProperty(\"db.passwd\");\n",
+                        "lineNumber": 43,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t//\t\t\n",
+                        "lineNumber": 44,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tString url=\"jdbc:postgresql://localhost/KEYWORDSDB\";\n",
+                        "lineNumber": 45,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tString user=\"postgres\";\n",
+                        "lineNumber": 46,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tString passwd=\"mogette\";\n",
+                        "lineNumber": 47,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 48,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tString url = props.getProperty(\"db.url\");\n",
+                        "lineNumber": 44,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\tString user = props.getProperty(\"db.user\");\n",
+                        "lineNumber": 45,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\tString passwd = props.getProperty(\"db.passwd\");\n",
+                        "lineNumber": 46,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\t\n",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t// Instantiating the database\n",
+                        "lineNumber": 50,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tConnection con = null;\n",
+                        "lineNumber": 51,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tPreparedStatement pst = null;\n",
+                        "lineNumber": 52,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t// the csv file variables\n",
+                        "lineNumber": 53,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tResultSet rs = null;\n",
+                        "lineNumber": 54,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\ttry {\n",
+                        "lineNumber": 55,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tcon = DriverManager.getConnection(url, user, passwd);\n",
+                        "lineNumber": 56,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/xfifix/SEO_REPO/commit/4807500fee6a392ed64f66bc4dfe38d103bdb64e?diff=split#diff-a3dca6ec48a4147bea68835a9da60df6ca08a8bff0c47e1eff8ce86c6a1c601fL-1",
+                    "lines": [
+                      {
+                        "line": "//\t\tString url = props.getProperty(\"db.url\");\n",
+                        "lineNumber": 41,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "//\t\tString user = props.getProperty(\"db.user\");\n",
+                        "lineNumber": 42,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "//\t\tString passwd = props.getProperty(\"db.passwd\");\n",
+                        "lineNumber": 43,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "//\t\t\n",
+                        "lineNumber": 44,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tString url=\"jdbc:postgresql://localhost/KEYWORDSDB\";\n",
+                        "lineNumber": 45,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tString user=\"postgres\";\n",
+                        "lineNumber": 46,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tString passwd=\"mogette\";\n",
+                        "lineNumber": 47,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t\n",
+                        "lineNumber": 48,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tString url = props.getProperty(\"db.url\");\n",
+                        "lineNumber": 43,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\tString user = props.getProperty(\"db.user\");\n",
+                        "lineNumber": 44,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\tString passwd = props.getProperty(\"db.passwd\");\n",
+                        "lineNumber": 45,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\n",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t// Instantiating the database\n",
+                        "lineNumber": 50,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tConnection con = null;\n",
+                        "lineNumber": 51,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tPreparedStatement pst = null;\n",
+                        "lineNumber": 52,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t// the csv file variables\n",
+                        "lineNumber": 53,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tResultSet rs = null;\n",
+                        "lineNumber": 54,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\ttry {\n",
+                        "lineNumber": 55,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tcon = DriverManager.getConnection(url, user, passwd);\n",
+                        "lineNumber": 56,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 65,
+                "cwe": [
+                  "CWE-798",
+                  "CWE-259"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "java/InsecureCipherNoIntegrity/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "The CBC mode used in javax.crypto.Cipher.getInstance does not provide integrity. Consided using Galois/Counter Mode.",
+            "markdown": "The {0} mode used in {1} does not provide integrity. Consided using Galois/Counter Mode.",
+            "arguments": [
+              "[CBC](0)",
+              "[javax.crypto.Cipher.getInstance](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 55,
+                  "endLine": 55,
+                  "startColumn": 29,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "2c8393d5034c9660d465dc0eb66fc3ebacc03225ab31bd2b39dd6e3e48447b59",
+            "1": "f76884db.1cbd3ff4.fdf08d99.00928f07.74c2d841.dee4b315.24961e92.54d46e25.f76884db.dd05ec30.fdf08d99.de031890.8b2d3351.ce109560.24961e92.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "endLine": 49,
+                            "startColumn": 38,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 55,
+                            "endLine": 55,
+                            "startColumn": 29,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/InsecureCipherNoIntegrity/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "The CBC mode used in javax.crypto.Cipher.getInstance does not provide integrity. Consided using Galois/Counter Mode.",
+            "markdown": "The {0} mode used in {1} does not provide integrity. Consided using Galois/Counter Mode.",
+            "arguments": [
+              "[CBC](0)",
+              "[javax.crypto.Cipher.getInstance](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 68,
+                  "startColumn": 25,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "8c9709302043af427665e7e19c99b4c7424e02773c832769f29290087f9cf3e9",
+            "1": "f76884db.1cbd3ff4.fdf08d99.00928f07.74c2d841.dee4b315.24961e92.54d46e25.f76884db.dd05ec30.fdf08d99.de031890.8b2d3351.ce109560.24961e92.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "endLine": 49,
+                            "startColumn": 38,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 68,
+                            "endLine": 68,
+                            "startColumn": 25,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/InsecureCipherNoIntegrity/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "The CBC mode used in javax.crypto.Cipher.getInstance does not provide integrity. Consided using Galois/Counter Mode.",
+            "markdown": "The {0} mode used in {1} does not provide integrity. Consided using Galois/Counter Mode.",
+            "arguments": [
+              "[CBC](0)",
+              "[javax.crypto.Cipher.getInstance](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 54,
+                  "endLine": 54,
+                  "startColumn": 25,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "f58c0ec3c312dcc8b833ccdac1372ef6cac690863447d93540108189790c8678",
+            "1": "f76884db.1cbd3ff4.fdf08d99.00928f07.74c2d841.dee4b315.24961e92.54d46e25.f76884db.dd05ec30.fdf08d99.de031890.8b2d3351.ce109560.24961e92.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 50,
+                            "endLine": 50,
+                            "startColumn": 38,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 54,
+                            "endLine": 54,
+                            "startColumn": 25,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/InsecureCipherNoIntegrity/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "The CBC mode used in javax.crypto.Cipher.getInstance does not provide integrity. Consided using Galois/Counter Mode.",
+            "markdown": "The {0} mode used in {1} does not provide integrity. Consided using Galois/Counter Mode.",
+            "arguments": [
+              "[CBC](0)",
+              "[javax.crypto.Cipher.getInstance](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 61,
+                  "endLine": 61,
+                  "startColumn": 25,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "6d37db04afcee95b5fd99806b6844e4946185be03c117c66ee56f1e407f6f2a1",
+            "1": "f76884db.1cbd3ff4.fdf08d99.00928f07.74c2d841.dee4b315.24961e92.54d46e25.f76884db.dd05ec30.fdf08d99.de031890.8b2d3351.ce109560.24961e92.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 50,
+                            "endLine": 50,
+                            "startColumn": 38,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 61,
+                            "endLine": 61,
+                            "startColumn": 25,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/InsecureAesWithBadPaddingCipher/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "AES with CBC mode and PKCS5Padding (AES/CBC/PKCS5Padding) used in javax.crypto.Cipher.getInstance is vulnerable to padding oracle attacks. Consider using Galois/Counter Mode (algorithm AES/GCM/NoPadding).",
+            "markdown": "AES with CBC mode and PKCS5Padding ({0}) used in {1} is vulnerable to padding oracle attacks. Consider using Galois/Counter Mode (algorithm AES/GCM/NoPadding).",
+            "arguments": [
+              "[AES/CBC/PKCS5Padding](0)",
+              "[javax.crypto.Cipher.getInstance](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 55,
+                  "endLine": 55,
+                  "startColumn": 29,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "a2ec29c35334678575f3627d20fe05b36c3136636ff4e23069684ca845051ee8",
+            "1": "f76884db.1cbd3ff4.fdf08d99.00928f07.74c2d841.dee4b315.24961e92.54d46e25.f76884db.dd05ec30.fdf08d99.de031890.8b2d3351.ce109560.24961e92.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "endLine": 49,
+                            "startColumn": 38,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 55,
+                            "endLine": 55,
+                            "startColumn": 29,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/InsecureAesWithBadPaddingCipher/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "AES with CBC mode and PKCS5Padding (AES/CBC/PKCS5Padding) used in javax.crypto.Cipher.getInstance is vulnerable to padding oracle attacks. Consider using Galois/Counter Mode (algorithm AES/GCM/NoPadding).",
+            "markdown": "AES with CBC mode and PKCS5Padding ({0}) used in {1} is vulnerable to padding oracle attacks. Consider using Galois/Counter Mode (algorithm AES/GCM/NoPadding).",
+            "arguments": [
+              "[AES/CBC/PKCS5Padding](0)",
+              "[javax.crypto.Cipher.getInstance](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 68,
+                  "startColumn": 25,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "b0d3e1f9f9bf80c1af95fd62f5e259a80764dfa9be3f2a97b3ec0d6442c10a22",
+            "1": "f76884db.1cbd3ff4.fdf08d99.00928f07.74c2d841.dee4b315.24961e92.54d46e25.f76884db.dd05ec30.fdf08d99.de031890.8b2d3351.ce109560.24961e92.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "endLine": 49,
+                            "startColumn": 38,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 68,
+                            "endLine": 68,
+                            "startColumn": 25,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/InsecureAesWithBadPaddingCipher/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "AES with CBC mode and PKCS5Padding (AES/CBC/PKCS5Padding) used in javax.crypto.Cipher.getInstance is vulnerable to padding oracle attacks. Consider using Galois/Counter Mode (algorithm AES/GCM/NoPadding).",
+            "markdown": "AES with CBC mode and PKCS5Padding ({0}) used in {1} is vulnerable to padding oracle attacks. Consider using Galois/Counter Mode (algorithm AES/GCM/NoPadding).",
+            "arguments": [
+              "[AES/CBC/PKCS5Padding](0)",
+              "[javax.crypto.Cipher.getInstance](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 54,
+                  "endLine": 54,
+                  "startColumn": 25,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "7baf7f3bad875a0c7f889f9ede0fe5f87e670f198d0fd53b50e9c9522f866106",
+            "1": "f76884db.1cbd3ff4.fdf08d99.00928f07.74c2d841.dee4b315.24961e92.54d46e25.f76884db.dd05ec30.fdf08d99.de031890.8b2d3351.ce109560.24961e92.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 50,
+                            "endLine": 50,
+                            "startColumn": 38,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 54,
+                            "endLine": 54,
+                            "startColumn": 25,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/InsecureAesWithBadPaddingCipher/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "AES with CBC mode and PKCS5Padding (AES/CBC/PKCS5Padding) used in javax.crypto.Cipher.getInstance is vulnerable to padding oracle attacks. Consider using Galois/Counter Mode (algorithm AES/GCM/NoPadding).",
+            "markdown": "AES with CBC mode and PKCS5Padding ({0}) used in {1} is vulnerable to padding oracle attacks. Consider using Galois/Counter Mode (algorithm AES/GCM/NoPadding).",
+            "arguments": [
+              "[AES/CBC/PKCS5Padding](0)",
+              "[javax.crypto.Cipher.getInstance](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 61,
+                  "endLine": 61,
+                  "startColumn": 25,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "ccb21de2687cc7935acca65a7b18ae1b89b1b0d18bfbb9a90394ead75f3167cd",
+            "1": "f76884db.1cbd3ff4.fdf08d99.00928f07.74c2d841.dee4b315.24961e92.54d46e25.f76884db.dd05ec30.fdf08d99.de031890.8b2d3351.ce109560.24961e92.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 50,
+                            "endLine": 50,
+                            "startColumn": 38,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 61,
+                            "endLine": 61,
+                            "startColumn": 25,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/HardcodedSecret/test",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Hardcoded value string is used as a cipher key. Generate the value with a cryptographically strong random number generator such as java.security.SecureRandom instead.",
+            "markdown": "Hardcoded value {0} is used as a {1}. Generate the value with a cryptographically strong random number generator such as java.security.SecureRandom instead.",
+            "arguments": [
+              "[string](0)",
+              "[cipher key](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 47,
+                  "endLine": 47,
+                  "startColumn": 43,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "9e3af6247b3b5828f98fec20a8b85964c6e1bd7d937580d63b9bf4b01d70f7a4",
+            "1": "0e3eb9bb.dd05ec30.ba832df5.de031890.3e9eb16c.ce109560.57fc8460.41ec51de.0e3eb9bb.dd05ec30.ba832df5.de031890.3e9eb16c.ce109560.57fc8460.41ec51de"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 47,
+                            "startColumn": 57,
+                            "endColumn": 75
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 47,
+                            "startColumn": 43,
+                            "endColumn": 56
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/HardcodedSecret/test",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Hardcoded value string is used as a cipher key. Generate the value with a cryptographically strong random number generator such as java.security.SecureRandom instead.",
+            "markdown": "Hardcoded value {0} is used as a {1}. Generate the value with a cryptographically strong random number generator such as java.security.SecureRandom instead.",
+            "arguments": [
+              "[string](0)",
+              "[cipher key](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 47,
+                  "endLine": 47,
+                  "startColumn": 49,
+                  "endColumn": 62
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "bf0d91366df1d77e97789f442cbf94a3e1eeebb821c1f7859da7f0b30c4ec385",
+            "1": "4392f873.dd05ec30.ea5e50ef.de031890.3e9eb16c.ce109560.080dc7ca.41ec51de.4392f873.dd05ec30.ea5e50ef.de031890.3e9eb16c.ce109560.080dc7ca.41ec51de"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 47,
+                            "startColumn": 63,
+                            "endColumn": 81
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 47,
+                            "startColumn": 49,
+                            "endColumn": 62
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/HardcodedSecret/test",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Hardcoded value string is used as a cipher initialization value. Generate the value with a cryptographically strong random number generator such as java.security.SecureRandom instead.",
+            "markdown": "Hardcoded value {0} is used as a {1}. Generate the value with a cryptographically strong random number generator such as java.security.SecureRandom instead.",
+            "arguments": [
+              "[string](0)",
+              "[cipher initialization value](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 48,
+                  "endLine": 48,
+                  "startColumn": 44,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "7e05bf89e03d9a28801f5c455d2027352355ee978498fba11ecaa37973251747",
+            "1": "e62f3af1.dd05ec30.fa1beb9c.de031890.5c137ff6.ce109560.0d475b83.41ec51de.e62f3af1.dd05ec30.fa1beb9c.de031890.5c137ff6.ce109560.0d475b83.41ec51de"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 48,
+                            "endLine": 48,
+                            "startColumn": 60,
+                            "endColumn": 78
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/codec/CipherCodecUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 48,
+                            "endLine": 48,
+                            "startColumn": 44,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/HardcodedSecret/test",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Hardcoded value string is used as a cipher initialization value. Generate the value with a cryptographically strong random number generator such as java.security.SecureRandom instead.",
+            "markdown": "Hardcoded value {0} is used as a {1}. Generate the value with a cryptographically strong random number generator such as java.security.SecureRandom instead.",
+            "arguments": [
+              "[string](0)",
+              "[cipher initialization value](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 48,
+                  "endLine": 48,
+                  "startColumn": 44,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "3d2344ad3b6de6a83e260ac590821dbe57eb90b5024d7bd45318893546bbd030",
+            "1": "e62f3af1.dd05ec30.fa1beb9c.de031890.5c137ff6.ce109560.0d475b83.41ec51de.e62f3af1.dd05ec30.fa1beb9c.de031890.5c137ff6.ce109560.0d475b83.41ec51de"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 48,
+                            "endLine": 48,
+                            "startColumn": 60,
+                            "endColumn": 78
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/CustomCodecIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 48,
+                            "endLine": 48,
+                            "startColumn": 44,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/InsecureHash",
+          "ruleIndex": 3,
+          "level": "note",
+          "message": {
+            "text": "The SHA1 hash (used in java.security.MessageDigest.getInstance) is insecure. Consider changing it to a secure hash algorithm",
+            "markdown": "The {0} hash (used in {1}) is insecure. Consider changing it to a secure hash algorithm",
+            "arguments": [
+              "[SHA1](0)",
+              "[java.security.MessageDigest.getInstance](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/io/lettuce/core/codec/Base16.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 89,
+                  "endLine": 89,
+                  "startColumn": 32,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "ef661049fd2766da34593d6852e6c6cff0bdc206dd6164b1473f22c9c2b004e4",
+            "1": "9038722f.38559511.e99130b3.21a88f68.98fa8f9f.f53a5558.0a026dee.54d46e25.9038722f.38559511.e99130b3.21a88f68.98fa8f9f.f53a5558.0a026dee.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/io/lettuce/core/codec/Base16.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 89,
+                            "endLine": 89,
+                            "startColumn": 58,
+                            "endColumn": 64
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/io/lettuce/core/codec/Base16.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 89,
+                            "endLine": 89,
+                            "startColumn": 32,
+                            "endColumn": 57
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 357,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/HardcodedPassword/test",
+          "ruleIndex": 4,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode passwords in code. Found hardcoded password used in here.",
+            "markdown": "Do not hardcode passwords in code. Found hardcoded password used in {0}.",
+            "arguments": [
+              "[here](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/RedisURIUnitTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 200,
+                  "endLine": 200,
+                  "startColumn": 27,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "847194b95aaceeb57ef635a6d9425b7dd74e0645e907d882846830541662efd5",
+            "1": "19689298.83dbfe52.71a71d19.bd0e4e78.bc6ac6aa.dd62fee0.5cd65e98.54d46e25.19689298.b5241115.71a71d19.d6ab05b5.f1d9f854.dd62fee0.b5bd182d.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/RedisURIUnitTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 200,
+                            "endLine": 200,
+                            "startColumn": 27,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 369,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/HardcodedPassword/test",
+          "ruleIndex": 4,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode passwords in code. Found hardcoded password used in here.",
+            "markdown": "Do not hardcode passwords in code. Found hardcoded password used in {0}.",
+            "arguments": [
+              "[here](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/commands/AclCommandIntegrationTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 84,
+                  "endLine": 84,
+                  "startColumn": 30,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "5314212c08ac0d4a355c7e04fc66842e1eafd4c37a0021a1593544833547b84b",
+            "1": "1ccbbb3b.687d64e0.b9f58cce.544d9b21.f44a4009.3aec218f.ed0bd7ca.731c9782.19689298.687d64e0.34ffb8e2.544d9b21.a45a834c.3aec218f.ed0bd7ca.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/commands/AclCommandIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 84,
+                            "endLine": 84,
+                            "startColumn": 30,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 419,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/HardcodedPassword/test",
+          "ruleIndex": 4,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode passwords in code. Found hardcoded password used in here.",
+            "markdown": "Do not hardcode passwords in code. Found hardcoded password used in {0}.",
+            "arguments": [
+              "[here](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/test/java/io/lettuce/core/commands/AclCommandIntegrationTests.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 142,
+                  "endLine": 142,
+                  "startColumn": 30,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "773fcf95729a143727431c128a6d3f2970d3d523e6ae91c42abda4d947d9fea8",
+            "1": "1ccbbb3b.687d64e0.b9f58cce.544d9b21.f44a4009.3aec218f.ed0bd7ca.731c9782.19689298.687d64e0.34ffb8e2.544d9b21.a45a834c.3aec218f.ed0bd7ca.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/test/java/io/lettuce/core/commands/AclCommandIntegrationTests.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 142,
+                            "endLine": 142,
+                            "startColumn": 30,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 419,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "Kotlin",
+            "files": 46,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "XML",
+            "files": 8,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Java",
+            "files": 1141,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "HTML",
+            "files": 2,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}

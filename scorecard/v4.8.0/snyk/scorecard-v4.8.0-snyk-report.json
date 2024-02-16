@@ -1,0 +1,3573 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "go/NoHardcodedCredentials",
+              "name": "NoHardcodedCredentials",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "go",
+                  "NoHardcodedCredentials",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/goharbor/harbor/commit/583ce589f16e5d34c60e090b39405a24021c3f44?diff=split#diff-f56bf727da9a9623dd562299c2b7c401b03f333040982de8a993b94cd54b8168L-1",
+                    "lines": [
+                      {
+                        "line": "host:     \"postgres\",\n",
+                        "lineNumber": 48,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "port:     5432,\n",
+                        "lineNumber": 49,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "usr:      \"postgres\",\n",
+                        "lineNumber": 50,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "pwd:      password,\n",
+                        "lineNumber": 51,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "database: \"postgres\",\n",
+                        "lineNumber": 52,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "host:     clairDB.Host,\n",
+                        "lineNumber": 48,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "port:     clairDB.Port,\n",
+                        "lineNumber": 49,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "usr:      clairDB.Username,\n",
+                        "lineNumber": 50,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "pwd:      clairDB.Password,\n",
+                        "lineNumber": 51,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "database: clairDB.Database,\n",
+                        "lineNumber": 52,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/yunionio/cloudpods/commit/45667bffeab11ddfe1563f44586e834f78bbd5cb?diff=split#diff-b225933c55fe61edaa3a34f840d623b690c76191b7ebd53528942625af812ac3L-1",
+                    "lines": [
+                      {
+                        "line": "func (self *SQcloudGuestDriver) GetLinuxDefaultAccount(desc cloudprovider.SManagedVMCreateConfig) string {\n",
+                        "lineNumber": 282,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tuserName := \"root\"\n",
+                        "lineNumber": 283,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "func (self *SQcloudGuestDriver) GetDefaultAccount(desc cloudprovider.SManagedVMCreateConfig) string {\n",
+                        "lineNumber": 284,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tuserName := api.VM_DEFAULT_LINUX_LOGIN_USER\n",
+                        "lineNumber": 285,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tif desc.ImageType == \"system\" {\n",
+                        "lineNumber": 286,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tif desc.OsDistribution == \"Ubuntu\" {\n",
+                        "lineNumber": 287,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tuserName = \"ubuntu\"\n",
+                        "lineNumber": 288,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 289,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 290,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif desc.OsType == \"Windows\" {\n",
+                        "lineNumber": 289,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tuserName = \"Administrator\"\n",
+                        "lineNumber": 290,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tif strings.ToLower(desc.OsType) == strings.ToLower(osprofile.OS_TYPE_WINDOWS) {\n",
+                        "lineNumber": 291,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\tuserName = api.VM_DEFAULT_WINDOWS_LOGIN_USER\n",
+                        "lineNumber": 292,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 293,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "return userName\n",
+                        "lineNumber": 295,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/yunionio/cloudpods/commit/45667bffeab11ddfe1563f44586e834f78bbd5cb?diff=split#diff-b225933c55fe61edaa3a34f840d623b690c76191b7ebd53528942625af812ac3L-1",
+                    "lines": [
+                      {
+                        "line": "func (self *SQcloudGuestDriver) GetLinuxDefaultAccount(desc cloudprovider.SManagedVMCreateConfig) string {\n",
+                        "lineNumber": 282,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tuserName := \"root\"\n",
+                        "lineNumber": 283,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "func (self *SQcloudGuestDriver) GetDefaultAccount(desc cloudprovider.SManagedVMCreateConfig) string {\n",
+                        "lineNumber": 284,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tuserName := api.VM_DEFAULT_LINUX_LOGIN_USER\n",
+                        "lineNumber": 285,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tif desc.ImageType == \"system\" {\n",
+                        "lineNumber": 286,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tif desc.OsDistribution == \"Ubuntu\" {\n",
+                        "lineNumber": 287,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tuserName = \"ubuntu\"\n",
+                        "lineNumber": 288,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 289,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 290,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif desc.OsType == \"Windows\" {\n",
+                        "lineNumber": 289,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tuserName = \"Administrator\"\n",
+                        "lineNumber": 290,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tif strings.ToLower(desc.OsType) == strings.ToLower(osprofile.OS_TYPE_WINDOWS) {\n",
+                        "lineNumber": 291,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\tuserName = api.VM_DEFAULT_WINDOWS_LOGIN_USER\n",
+                        "lineNumber": 292,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 71,
+                "cwe": [
+                  "CWE-798"
+                ]
+              }
+            },
+            {
+              "id": "go/PT",
+              "name": "PT",
+              "shortDescription": {
+                "text": "Path Traversal"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nA Directory Traversal attack (also known as path traversal) aims to access files and directories that are stored outside the intended folder. By manipulating files with \"dot-dot-slash (../)\" sequences and its variations, or by using absolute file paths, it may be possible to access arbitrary files and directories stored on file system, including application source code, configuration, and other critical system files.\n\nBeing able to access and manipulate an arbitrary path leads to vulnerabilities when a program is being run with privileges that the user providing the path should not have. A website with a path traversal vulnerability would allow users access to sensitive files on the server hosting it. CLI programs may also be vulnerable to path traversal if they are being ran with elevated privileges (such as with the setuid or setgid flags in Unix systems).\n\nDirectory Traversal vulnerabilities can be generally divided into two types:\n\n- **Information Disclosure**: Allows the attacker to gain information about the folder structure or read the contents of sensitive files on the system.\n\n`st` is a module for serving static files on web pages, and contains a [vulnerability of this type](https://snyk.io/vuln/npm:st:20140206). In our example, we will serve files from the `public` route.\n\nIf an attacker requests the following URL from our server, it will in turn leak the sensitive private key of the root user.\n\n```\ncurl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa\n```\n**Note** `%2e` is the URL encoded version of `.` (dot).\n\n- **Writing arbitrary files**: Allows the attacker to create or replace existing files. This type of vulnerability is also known as `Zip-Slip`.\n\nOne way to achieve this is by using a malicious `zip` archive that holds path traversal filenames. When each filename in the zip archive gets concatenated to the target extraction folder, without validation, the final path ends up outside of the target folder. If an executable or a configuration file is overwritten with a file containing malicious code, the problem can turn into an arbitrary code execution issue quite easily.\n\nThe following is an example of a `zip` archive with one benign file and one malicious file. Extracting the malicious file will result in traversing out of the target folder, ending up in `/root/.ssh/` overwriting the `authorized_keys` file:\n\n```\n2018-04-15 22:04:29 .....           19           19  good.txt\n2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys\n```",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "go",
+                  "PT",
+                  "Security",
+                  "SourceLocalEnv",
+                  "SourceCLI",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/sigstore/cosign/commit/a7806bf769c9ce69bcaee3e2fa1427a350fa954d?diff=split#diff-afc19adc437d3a6ba861083d4de4e705cb865c953e8f4c8c13c3bcaea1aec469L-1",
+                    "lines": [
+                      {
+                        "line": "\t\"path/filepath\"\n",
+                        "lineNumber": 25,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\"github.com/google/go-containerregistry/pkg/authn\"\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\"github.com/google/go-containerregistry/pkg/name\"\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\"github.com/google/go-containerregistry/pkg/v1/remote\"\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\"github.com/peterbourgon/ff/v3/ffcli\"\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\"github.com/sigstore/cosign/pkg/cosign\"\n",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": ")\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "func Upload() *ffcli.Command {\n",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tvar (\n",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tflagset   = flag.NewFlagSet(\"cosign upload\", flag.ExitOnError)\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tsignature = flagset.String(\"signature\", \"\", \"the signature, path to the signature, or {-} for stdin\")\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tpayload   = flagset.String(\"payload\", \"\", \"path to the payload covered by the signature (if using another format)\")\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t)\n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\treturn &ffcli.Command{\n",
+                        "lineNumber": 40,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tName:       \"upload\",\n",
+                        "lineNumber": 41,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tShortUsage: \"cosign upload <image uri>\",\n",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tShortHelp:  \"upload signatures to the supplied container image\",\n",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tFlagSet:    flagset,\n",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tExec: func(ctx context.Context, args []string) error {\n",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tif len(args) != 1 {\n",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\treturn flag.ErrHelp\n",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t}\n",
+                        "lineNumber": 48,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\treturn UploadCmd(ctx, *signature, *payload, args[0])\n",
+                        "lineNumber": 50,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t},\n",
+                        "lineNumber": 51,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 52,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "}\n",
+                        "lineNumber": 53,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 54,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "func UploadCmd(ctx context.Context, sigRef, payloadRef, imageRef string) error {\n",
+                        "lineNumber": 55,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tvar b64SigBytes []byte\n",
+                        "lineNumber": 56,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 57,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tb64SigBytes, err := signatureBytes(sigRef)\n",
+                        "lineNumber": 58,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif err != nil {\n",
+                        "lineNumber": 59,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn err\n",
+                        "lineNumber": 60,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t} else if len(b64SigBytes) == 0 {\n",
+                        "lineNumber": 61,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn errors.New(\"empty signature\")\n",
+                        "lineNumber": 62,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 63,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 64,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tref, err := name.ParseReference(imageRef)\n",
+                        "lineNumber": 65,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif err != nil {\n",
+                        "lineNumber": 66,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn err\n",
+                        "lineNumber": 67,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 68,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 69,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tget, err := remote.Get(ref, remote.WithAuthFromKeychain(authn.DefaultKeychain))\n",
+                        "lineNumber": 70,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif err != nil {\n",
+                        "lineNumber": 71,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn err\n",
+                        "lineNumber": 72,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 73,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 74,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tdstTag := ref.Context().Tag(cosign.Munge(get.Descriptor))\n",
+                        "lineNumber": 75,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 76,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tvar payload []byte\n",
+                        "lineNumber": 77,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif payloadRef == \"\" {\n",
+                        "lineNumber": 78,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tpayload, err = cosign.Payload(get.Descriptor, nil)\n",
+                        "lineNumber": 79,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t} else {\n",
+                        "lineNumber": 80,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tpayload, err = ioutil.ReadFile(payloadRef)\n",
+                        "lineNumber": 80,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 82,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif err != nil {\n",
+                        "lineNumber": 83,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn err\n",
+                        "lineNumber": 84,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 85,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 86,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// This expects it to not be base64 encoded, so decode first\n",
+                        "lineNumber": 87,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tsigBytes, err := base64.StdEncoding.DecodeString(string(b64SigBytes))\n",
+                        "lineNumber": 88,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif err != nil {\n",
+                        "lineNumber": 89,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn err\n",
+                        "lineNumber": 90,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 91,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\treturn cosign.Upload(sigBytes, payload, dstTag)\n",
+                        "lineNumber": 92,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "}\n",
+                        "lineNumber": 93,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 94,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "type SignatureArgType uint8\n",
+                        "lineNumber": 95,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 96,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "const (\n",
+                        "lineNumber": 97,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tStdinSignature SignatureArgType = iota\n",
+                        "lineNumber": 98,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tRawSignature   SignatureArgType = iota\n",
+                        "lineNumber": 99,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tFileSignature  SignatureArgType = iota\n",
+                        "lineNumber": 100,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": ")\n",
+                        "lineNumber": 101,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 102,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "func signatureBytes(sigRef string) ([]byte, error) {\n",
+                        "lineNumber": 103,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// sigRef can be \"-\", a string or a file.\n",
+                        "lineNumber": 104,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tswitch signatureType(sigRef) {\n",
+                        "lineNumber": 105,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tcase StdinSignature:\n",
+                        "lineNumber": 106,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn ioutil.ReadAll(os.Stdin)\n",
+                        "lineNumber": 107,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tcase RawSignature:\n",
+                        "lineNumber": 108,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn []byte(sigRef), nil\n",
+                        "lineNumber": 109,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tcase FileSignature:\n",
+                        "lineNumber": 110,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn ioutil.ReadFile(sigRef)\n",
+                        "lineNumber": 110,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\treturn ioutil.ReadFile(filepath.Clean(sigRef))\n",
+                        "lineNumber": 111,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/kvdi/kvdi/commit/1297e7e5fcae097229e05cf31d95f06a736414bf?diff=split#diff-37d9857eda65693ff81ac1d04e138819aa6f7eff8f098ba05d736374b22e29ebL-1",
+                    "lines": [
+                      {
+                        "line": "\tdstFile := filepath.Join(uploadDir, handler.Filename)\n",
+                        "lineNumber": 326,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tdstFile := filepath.Join(uploadDir, filepath.Clean(handler.Filename))\n",
+                        "lineNumber": 326,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 327,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tf, err := os.OpenFile(dstFile, os.O_WRONLY|os.O_CREATE, 0666)\n",
+                        "lineNumber": 328,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/bazelbuild/bazel-gazelle/commit/ff4d67f395b3f4d1dc9810eeceb61585fea252cb?diff=split#diff-32b3dd34b70937b5c3d53114046fa35fc0f5afd2cd13f8fa40c7e17a506b5c24L-1",
+                    "lines": [
+                      {
+                        "line": "\tuc.c.RepoRoot, err = filepath.EvalSymlinks(uc.c.RepoRoot)\n",
+                        "lineNumber": 240,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tif err != nil {\n",
+                        "lineNumber": 241,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\treturn nil, fmt.Errorf(\"failed to evaluate symlinks for repo root: %v\", err)\n",
+                        "lineNumber": 242,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 243,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 244,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tfor _, dir := range uc.c.Dirs {\n",
+                        "lineNumber": 245,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tif !isDescendingDir(dir, uc.c.RepoRoot) {\n",
+                        "lineNumber": 246,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\treturn nil, fmt.Errorf(\"dir %q is not a subdirectory of repo root %q\", dir, uc.c.RepoRoot)\n",
+                        "lineNumber": 247,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 248,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 249,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 250,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tuc.c.ValidBuildFileNames = strings.Split(*buildFileName, \",\")\n",
+                        "lineNumber": 251,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif len(uc.c.ValidBuildFileNames) == 0 {\n",
+                        "lineNumber": 252,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn nil, fmt.Errorf(\"no valid build file names specified\")\n",
+                        "lineNumber": 253,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 254,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 255,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tuc.c.SetBuildTags(*buildTags)\n",
+                        "lineNumber": 256,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tuc.c.PreprocessTags()\n",
+                        "lineNumber": 257,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 258,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif goPrefix.set {\n",
+                        "lineNumber": 259,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tuc.c.GoPrefix = goPrefix.value\n",
+                        "lineNumber": 260,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t} else {\n",
+                        "lineNumber": 261,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tuc.c.GoPrefix, err = loadGoPrefix(uc.c)\n",
+                        "lineNumber": 262,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tif err != nil {\n",
+                        "lineNumber": 263,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\treturn nil, err\n",
+                        "lineNumber": 264,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 265,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 266,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif err := config.CheckPrefix(uc.c.GoPrefix); err != nil {\n",
+                        "lineNumber": 267,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn nil, err\n",
+                        "lineNumber": 268,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 269,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 270,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tuc.c.ShouldFix = cmd == fixCmd\n",
+                        "lineNumber": 271,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 272,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tuc.c.DepMode, err = config.DependencyModeFromString(*external)\n",
+                        "lineNumber": 273,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif err != nil {\n",
+                        "lineNumber": 274,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn nil, err\n",
+                        "lineNumber": 275,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 276,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 277,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif proto.set {\n",
+                        "lineNumber": 278,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tuc.c.ProtoMode, err = config.ProtoModeFromString(proto.value)\n",
+                        "lineNumber": 279,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tif err != nil {\n",
+                        "lineNumber": 280,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\treturn nil, err\n",
+                        "lineNumber": 281,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 282,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tuc.c.ProtoModeExplicit = true\n",
+                        "lineNumber": 283,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 284,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 285,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\temit, ok := modeFromName[*mode]\n",
+                        "lineNumber": 286,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif !ok {\n",
+                        "lineNumber": 287,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn nil, fmt.Errorf(\"unrecognized emit mode: %q\", *mode)\n",
+                        "lineNumber": 288,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 289,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tuc.emit = emit\n",
+                        "lineNumber": 290,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 291,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tuc.outDir = *outDir\n",
+                        "lineNumber": 292,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tuc.outSuffix = *outSuffix\n",
+                        "lineNumber": 293,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 294,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tworkspacePath := filepath.Join(uc.c.RepoRoot, \"WORKSPACE\")\n",
+                        "lineNumber": 295,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tworkspaceContent, err := ioutil.ReadFile(workspacePath)\n",
+                        "lineNumber": 296,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 12,
+                "cwe": [
+                  "CWE-23"
+                ]
+              }
+            },
+            {
+              "id": "go/NoHardcodedCredentials/test",
+              "name": "NoHardcodedCredentials/test",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "go",
+                  "NoHardcodedCredentials",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/goharbor/harbor/commit/583ce589f16e5d34c60e090b39405a24021c3f44?diff=split#diff-f56bf727da9a9623dd562299c2b7c401b03f333040982de8a993b94cd54b8168L-1",
+                    "lines": [
+                      {
+                        "line": "host:     \"postgres\",\n",
+                        "lineNumber": 48,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "port:     5432,\n",
+                        "lineNumber": 49,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "usr:      \"postgres\",\n",
+                        "lineNumber": 50,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "pwd:      password,\n",
+                        "lineNumber": 51,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "database: \"postgres\",\n",
+                        "lineNumber": 52,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "host:     clairDB.Host,\n",
+                        "lineNumber": 48,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "port:     clairDB.Port,\n",
+                        "lineNumber": 49,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "usr:      clairDB.Username,\n",
+                        "lineNumber": 50,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "pwd:      clairDB.Password,\n",
+                        "lineNumber": 51,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "database: clairDB.Database,\n",
+                        "lineNumber": 52,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/yunionio/cloudpods/commit/45667bffeab11ddfe1563f44586e834f78bbd5cb?diff=split#diff-b225933c55fe61edaa3a34f840d623b690c76191b7ebd53528942625af812ac3L-1",
+                    "lines": [
+                      {
+                        "line": "func (self *SQcloudGuestDriver) GetLinuxDefaultAccount(desc cloudprovider.SManagedVMCreateConfig) string {\n",
+                        "lineNumber": 282,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tuserName := \"root\"\n",
+                        "lineNumber": 283,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "func (self *SQcloudGuestDriver) GetDefaultAccount(desc cloudprovider.SManagedVMCreateConfig) string {\n",
+                        "lineNumber": 284,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tuserName := api.VM_DEFAULT_LINUX_LOGIN_USER\n",
+                        "lineNumber": 285,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tif desc.ImageType == \"system\" {\n",
+                        "lineNumber": 286,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tif desc.OsDistribution == \"Ubuntu\" {\n",
+                        "lineNumber": 287,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tuserName = \"ubuntu\"\n",
+                        "lineNumber": 288,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 289,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 290,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif desc.OsType == \"Windows\" {\n",
+                        "lineNumber": 289,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tuserName = \"Administrator\"\n",
+                        "lineNumber": 290,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tif strings.ToLower(desc.OsType) == strings.ToLower(osprofile.OS_TYPE_WINDOWS) {\n",
+                        "lineNumber": 291,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\tuserName = api.VM_DEFAULT_WINDOWS_LOGIN_USER\n",
+                        "lineNumber": 292,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 293,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "return userName\n",
+                        "lineNumber": 295,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/yunionio/cloudpods/commit/45667bffeab11ddfe1563f44586e834f78bbd5cb?diff=split#diff-b225933c55fe61edaa3a34f840d623b690c76191b7ebd53528942625af812ac3L-1",
+                    "lines": [
+                      {
+                        "line": "func (self *SQcloudGuestDriver) GetLinuxDefaultAccount(desc cloudprovider.SManagedVMCreateConfig) string {\n",
+                        "lineNumber": 282,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tuserName := \"root\"\n",
+                        "lineNumber": 283,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "func (self *SQcloudGuestDriver) GetDefaultAccount(desc cloudprovider.SManagedVMCreateConfig) string {\n",
+                        "lineNumber": 284,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tuserName := api.VM_DEFAULT_LINUX_LOGIN_USER\n",
+                        "lineNumber": 285,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tif desc.ImageType == \"system\" {\n",
+                        "lineNumber": 286,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tif desc.OsDistribution == \"Ubuntu\" {\n",
+                        "lineNumber": 287,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tuserName = \"ubuntu\"\n",
+                        "lineNumber": 288,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 289,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 290,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif desc.OsType == \"Windows\" {\n",
+                        "lineNumber": 289,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tuserName = \"Administrator\"\n",
+                        "lineNumber": 290,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tif strings.ToLower(desc.OsType) == strings.ToLower(osprofile.OS_TYPE_WINDOWS) {\n",
+                        "lineNumber": 291,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\tuserName = api.VM_DEFAULT_WINDOWS_LOGIN_USER\n",
+                        "lineNumber": 292,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 71,
+                "cwe": [
+                  "CWE-798"
+                ]
+              }
+            },
+            {
+              "id": "go/HardcodedPassword",
+              "name": "HardcodedPassword",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "go",
+                  "HardcodedPassword",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/Azure/azure-event-hubs-for-kafka/commit/799660b4b8fd1e8a0c6d362212c7a7429d0efeec?diff=split#diff-d34b81a08e29004cd68e348d8510fb405d2cdaa1c1aab6e5947ef55d1d72af9eL-1",
+                    "lines": [
+                      {
+                        "line": "applicationID := \"fd756bd0-6853-41fd-8f5a-cc7e8bd89214\"\n",
+                        "lineNumber": 20,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "applicationSecret := \"l.vUN-4SRE45Ph9@D-]_s[zUaOBchc-i\"\n",
+                        "lineNumber": 21,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "tenantID := \"72f988bf-86f1-41af-91ab-2d7cd011db47\"\n",
+                        "lineNumber": 22,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "applicationID := os.Getenv(\"AAD_APPLICATION_ID\")\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "applicationSecret := os.Getenv(\"AAD_APPLICATION_SECRET\")\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "tenantID := os.Getenv(\"AAD_TENANT_ID\")\n",
+                        "lineNumber": 20,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/Aristat/golang-example-app/commit/45a4fdb067ce46ea368c980b91de51c6e95cf821?diff=split#diff-b9640f0eb39529cf3fe30664f7a043945161da506fcd4b8c65e15b345b33dfd8L-1",
+                    "lines": [
+                      {
+                        "line": "func ClientStore() (*store.ClientStore, func(), error) {\n",
+                        "lineNumber": 54,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tclientsConfig := map[string]oauth2.ClientInfo{\n",
+                        "lineNumber": 55,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t\"123456\": &models.Client{\n",
+                        "lineNumber": 56,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t\tID:     \"123456\",\n",
+                        "lineNumber": 57,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t\tSecret: \"12345678\",\n",
+                        "lineNumber": 58,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t\tDomain: \"http://localhost:9094\",\n",
+                        "lineNumber": 59,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t},\n",
+                        "lineNumber": 60,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "func ClientStore(cfg Config) (*store.ClientStore, func(), error) {\n",
+                        "lineNumber": 54,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tclientsConfig := map[string]oauth2.ClientInfo{}\n",
+                        "lineNumber": 55,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 56,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tfor k, v := range cfg.ClientStoreInfo {\n",
+                        "lineNumber": 57,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\tclientsConfig[k] = &models.Client{\n",
+                        "lineNumber": 58,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\t\tID:     v.ID,\n",
+                        "lineNumber": 59,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\t\tSecret: v.Secret,\n",
+                        "lineNumber": 60,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\t\tDomain: v.Domain,\n",
+                        "lineNumber": 61,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 62,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/jointwt/twtxt/commit/14e86ea4b5ef71df46297a8ffccc8f259a677fb5?diff=split#diff-0c6fb9f312dbfbfed47d840e0d73f6ba10291681cf8b70ad10979fa20b6aa350L-1",
+                    "lines": [
+                      {
+                        "line": "\t// InvalidConfigValue is the constant value for invalid config values\n",
+                        "lineNumber": 9,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t// which must be changed for production configurations before successful\n",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t// startup\n",
+                        "lineNumber": 11,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tInvalidConfigValue = \"INVALID CONFIG VALUE - PLEASE CHANGE THIS VALUE\"\n",
+                        "lineNumber": 12,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 13,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t// DebugMode is the default debug mode\n",
+                        "lineNumber": 14,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultDebug = false\n",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 16,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// DefaultData is the default data directory for storage\n",
+                        "lineNumber": 17,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultData = \"./data\"\n",
+                        "lineNumber": 18,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 19,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// DefaultStore is the default data store used for accounts, sessions, etc\n",
+                        "lineNumber": 20,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultStore = \"bitcask://twtxt.db\"\n",
+                        "lineNumber": 21,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 22,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// DefaultBaseURL is the default Base URL for the app used to construct feed URLs\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultBaseURL = \"http://0.0.0.0:8000\"\n",
+                        "lineNumber": 24,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// DefaultAdminXXX is the default admin user / pod operator\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultAdminUser  = \"admin\"\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultAdminName  = \"Administrator\"\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultAdminEmail = \"support@twt.social\"\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// DefaultName is the default instance name\n",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultName = \"twtxt.net\"\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// DefaultMetaxxx are the default set of <meta> tags used on non-specific views\n",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultMetaTitle       = \"\"\n",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultMetaAuthor      = \"twtxt.net / twt.social\"\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultMetaKeywords    = \"twtxt, twt, blog, micro-blogging, social, media, decentralised, pod\"\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultMetaDescription = \"📕 twtxt is a Self-Hosted, Twitter™-like Decentralised microBlogging platform. No ads, no tracking, your content, your data!\"\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// DefaultTheme is the default theme to use ('light' or 'dark')\n",
+                        "lineNumber": 40,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultTheme = \"dark\"\n",
+                        "lineNumber": 41,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// DefaultOpenRegistrations is the default for open user registrations\n",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultOpenRegistrations = false\n",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// DefaultRegisterMessage is the default message displayed when  registrations are disabled\n",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultRegisterMessage = \"\"\n",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 48,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// DefaultCookieSecret is the server's default cookie secret\n",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tDefaultCookieSecret = \"PLEASE_CHANGE_ME!!!\"\n",
+                        "lineNumber": 45,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tDefaultCookieSecret = InvalidConfigValue\n",
+                        "lineNumber": 50,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 43,
+                "cwe": [
+                  "CWE-798",
+                  "CWE-259"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "go/NoHardcodedCredentials",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in _.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[_](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "clients/githubrepo/graphql.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 380,
+                  "endLine": 380,
+                  "startColumn": 5,
+                  "endColumn": 21
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "d0dcc1c7d8a13b2e5a15fec5f42a20783211420efc69d4402485b6f55c9861eb",
+            "1": "424eddda.73eb5804.3d13e656.e22980a8.e535398a.6c8feca2.8ee950b3.1f55c1aa.424eddda.73eb5804.3d13e656.e22980a8.e535398a.6c8feca2.8ee950b3.1bff12d3"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "clients/githubrepo/graphql.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 339,
+                            "endLine": 339,
+                            "startColumn": 16,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "clients/githubrepo/graphql.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 380,
+                            "endLine": 380,
+                            "startColumn": 5,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 356,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a CLI argument flows into os.ReadFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "arguments": [
+              "[a CLI argument](0)",
+              "[flows](1),(2),(3),(4),(5),(6)",
+              "[os.ReadFile](7)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/config/config.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 214,
+                  "endLine": 214,
+                  "startColumn": 20,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e8f8757f905de9666a03dc257e8914f867128239aac52418fcbc9b70d476706d",
+            "1": "8470814d.8642ae5d.a7f03ff4.3686f2d6.4f18613a.67ab4541.be8ec6d7.fb9664c4.8379f5e8.73eb5804.a7f03ff4.e22980a8.f1d9f854.67ab4541.be8ec6d7.ce19b64e"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/config/config.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 68,
+                            "endLine": 68,
+                            "startColumn": 19,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/config/config.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 68,
+                            "endLine": 68,
+                            "startColumn": 19,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/config/config.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 68,
+                            "endLine": 68,
+                            "startColumn": 2,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/config/config.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 211,
+                            "endLine": 211,
+                            "startColumn": 5,
+                            "endColumn": 19
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/config/config.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 211,
+                            "endLine": 211,
+                            "startColumn": 31,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/config/config.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 211,
+                            "endLine": 211,
+                            "startColumn": 30,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/config/config.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 214,
+                            "endLine": 214,
+                            "startColumn": 32,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/config/config.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 214,
+                            "endLine": 214,
+                            "startColumn": 20,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 553,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a CLI argument flows into os.Open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "arguments": [
+              "[a CLI argument](0)",
+              "[flows](1),(2),(3)",
+              "[os.Open](4)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/controller/main.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 90,
+                  "endLine": 90,
+                  "startColumn": 13,
+                  "endColumn": 20
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "7765f426dd15f236b2a5faf92a82243d59da5584717d2bebcbb0ce872a9dd78c",
+            "1": "424eddda.1c5d5c80.45df3e14.47a9547c.c32477a4.2f4e1548.924ee9f3.b2014c83.424eddda.e3a22afc.45df3e14.e22980a8.c43b942e.67ab4541.26f8869a.b2014c83"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/controller/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 178,
+                            "endLine": 178,
+                            "startColumn": 23,
+                            "endColumn": 32
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/controller/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 178,
+                            "endLine": 178,
+                            "startColumn": 23,
+                            "endColumn": 32
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/controller/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 89,
+                            "endLine": 89,
+                            "startColumn": 9,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/controller/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 90,
+                            "endLine": 90,
+                            "startColumn": 21,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/controller/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 90,
+                            "endLine": 90,
+                            "startColumn": 13,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 553,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a CLI argument flows into os.OpenFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "arguments": [
+              "[a CLI argument](0)",
+              "[flows](1)",
+              "[os.OpenFile](2)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/data/update/main.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 34,
+                  "endLine": 34,
+                  "startColumn": 17,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "cf43bd37f672055d73dd70e021dfbc5e7e0292fa48c8c78cda11145fbd73bacc",
+            "1": "f93f09c7.348ddf12.45df3e14.e142b8a4.b30b958b.67ab4541.0873598c.fbc19cb8.f93f09c7.348ddf12.9fa62a61.9692a5c1.56ffa9d2.67ab4541.0873598c.fbc19cb8"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/update/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 29,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/update/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 29,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/update/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 17,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 603,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a CLI argument flows into os.OpenFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "arguments": [
+              "[a CLI argument](0)",
+              "[flows](1)",
+              "[os.OpenFile](2)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/data/update/main.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 49,
+                  "endLine": 49,
+                  "startColumn": 19,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "119c6b75d84c037a0f62018a064a223ff6f701adad63eeef1bd387500ff1ba3a",
+            "1": "f93f09c7.348ddf12.45df3e14.b1e0a0f9.1240d8b6.e4d7b7ac.aa359f29.fbc19cb8.f93f09c7.348ddf12.9fa62a61.9692a5c1.56ffa9d2.e4d7b7ac.aa359f29.fbc19cb8"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/update/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "endLine": 49,
+                            "startColumn": 31,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/update/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "endLine": 49,
+                            "startColumn": 31,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/update/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "endLine": 49,
+                            "startColumn": 19,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 603,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a CLI argument flows into os.OpenFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "arguments": [
+              "[a CLI argument](0)",
+              "[flows](1)",
+              "[os.OpenFile](2)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/data/validate/main.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 33,
+                  "endLine": 33,
+                  "startColumn": 17,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "2db271165df5883af512c6902dcd80468156c89a7ff4b71e0daa7d09020d9745",
+            "1": "f93f09c7.348ddf12.45df3e14.e142b8a4.b30b958b.67ab4541.0873598c.fbc19cb8.f93f09c7.348ddf12.9fa62a61.9692a5c1.56ffa9d2.67ab4541.0873598c.fbc19cb8"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/validate/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 33,
+                            "startColumn": 29,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/validate/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 33,
+                            "startColumn": 29,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/validate/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 33,
+                            "startColumn": 17,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 553,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a CLI argument flows into os.OpenFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "arguments": [
+              "[a CLI argument](0)",
+              "[flows](1)",
+              "[os.OpenFile](2)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/data/add/main.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 41,
+                  "endLine": 41,
+                  "startColumn": 17,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "44ee6b299245b9310a3195314fb9261ab1e2a2c5e8cd0a6fde8bc6098adb0eea",
+            "1": "f93f09c7.348ddf12.45df3e14.e142b8a4.b30b958b.67ab4541.0873598c.fbc19cb8.f93f09c7.348ddf12.9fa62a61.9692a5c1.56ffa9d2.67ab4541.0873598c.fbc19cb8"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/add/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 41,
+                            "endLine": 41,
+                            "startColumn": 29,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/add/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 41,
+                            "endLine": 41,
+                            "startColumn": 29,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/add/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 41,
+                            "endLine": 41,
+                            "startColumn": 17,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 603,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a CLI argument flows into os.OpenFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "arguments": [
+              "[a CLI argument](0)",
+              "[flows](1)",
+              "[os.OpenFile](2)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/data/add/main.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 60,
+                  "endLine": 60,
+                  "startColumn": 19,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "73cae6fc9d5a61a40a541e190773c259cf005a8b568e7e7585c901fbaaf1e17f",
+            "1": "f93f09c7.348ddf12.45df3e14.b1e0a0f9.1240d8b6.e4d7b7ac.aa359f29.fbc19cb8.f93f09c7.348ddf12.9fa62a61.9692a5c1.56ffa9d2.e4d7b7ac.aa359f29.fbc19cb8"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/add/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 60,
+                            "endLine": 60,
+                            "startColumn": 31,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/add/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 60,
+                            "endLine": 60,
+                            "startColumn": 31,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/data/add/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 60,
+                            "endLine": 60,
+                            "startColumn": 19,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 603,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a CLI argument flows into os.OpenFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "arguments": [
+              "[a CLI argument](0)",
+              "[flows](1)",
+              "[os.OpenFile](2)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/shuffle/main.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 37,
+                  "endLine": 37,
+                  "startColumn": 17,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "6bf18eed76cbe39e99261bc99700cdfa14c09e6ebcca2774b671e57504fa8739",
+            "1": "f93f09c7.348ddf12.45df3e14.ef8f25dc.b30b958b.67ab4541.0873598c.fbc19cb8.f93f09c7.348ddf12.9fa62a61.9692a5c1.56ffa9d2.67ab4541.0873598c.fbc19cb8"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/shuffle/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 37,
+                            "endLine": 37,
+                            "startColumn": 29,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/shuffle/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 37,
+                            "endLine": 37,
+                            "startColumn": 29,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/shuffle/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 37,
+                            "endLine": 37,
+                            "startColumn": 17,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 603,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/PT",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a CLI argument flows into os.OpenFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to open arbitrary files.",
+            "arguments": [
+              "[a CLI argument](0)",
+              "[flows](1)",
+              "[os.OpenFile](2)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/shuffle/main.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 46,
+                  "endLine": 46,
+                  "startColumn": 18,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "4944b6d5047615afa9e67be6c7b6e91027bbb9402884dd9f14b89e46ebb6de93",
+            "1": "f93f09c7.348ddf12.45df3e14.b0725b99.92e1f7d8.e4d7b7ac.aa359f29.fbc19cb8.f93f09c7.348ddf12.9fa62a61.9692a5c1.56ffa9d2.e4d7b7ac.aa359f29.fbc19cb8"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/shuffle/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 30,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/shuffle/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 30,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/shuffle/main.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 18,
+                            "endColumn": 29
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 603,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/NoHardcodedCredentials/test",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in Login.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[Login](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "checks/maintained_test.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 43,
+                  "endLine": 43,
+                  "startColumn": 3,
+                  "endColumn": 8
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "ccffab4bdd1f7f293017300175c3c01e0bbd1586088a10655f7eeb22e0a33393",
+            "1": "424eddda.98f0ff0f.3d13e656.bfac11f0.e535398a.67752288.8ee950b3.ff3d0695.424eddda.98f0ff0f.3d13e656.bfac11f0.e535398a.2f4e1548.8ee950b3.1bff12d3"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "checks/maintained_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 43,
+                            "endLine": 43,
+                            "startColumn": 10,
+                            "endColumn": 19
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "checks/maintained_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 43,
+                            "endLine": 43,
+                            "startColumn": 3,
+                            "endColumn": 8
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 436,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/NoHardcodedCredentials/test",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in Login.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[Login](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "checks/maintained_test.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 46,
+                  "endLine": 46,
+                  "startColumn": 3,
+                  "endColumn": 8
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "67e24f4a3ba0544af5ae6b4061bb487591ae93bb02013168020c6b5eb873f568",
+            "1": "424eddda.98f0ff0f.3d13e656.923be83b.e535398a.67752288.8ee950b3.ff3d0695.424eddda.98f0ff0f.d43e1193.923be83b.e535398a.2925f19e.8ee950b3.1bff12d3"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "checks/maintained_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 10,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "checks/maintained_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 3,
+                            "endColumn": 8
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 436,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/NoHardcodedCredentials/test",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in Login.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[Login](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/format/json_raw_results_test.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 36,
+                  "endLine": 36,
+                  "startColumn": 8,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "4a91a55815fe6948f369324625f36ab8dee325373d649a18a18c34486d63bf62",
+            "1": "424eddda.98f0ff0f.3d13e656.bfac11f0.e535398a.67752288.8ee950b3.ff3d0695.25f4d443.98f0ff0f.3d13e656.bfac11f0.86c50f21.2f4e1548.8ee950b3.1bff12d3"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/format/json_raw_results_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "endLine": 36,
+                            "startColumn": 15,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/format/json_raw_results_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "endLine": 36,
+                            "startColumn": 8,
+                            "endColumn": 13
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 436,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/NoHardcodedCredentials/test",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in Login.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[Login](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/format/json_raw_results_test.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 43,
+                  "endLine": 43,
+                  "startColumn": 8,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "22b34b4d389d29cbff616dd4b8da6ec45f4f7185802dad169099f99627aea6e1",
+            "1": "424eddda.98f0ff0f.3d13e656.bfac11f0.e535398a.67752288.8ee950b3.30d0b53f.424eddda.da0c6b18.3d13e656.bfac11f0.c82b11d9.2f4e1548.8ee950b3.1bff12d3"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/format/json_raw_results_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 43,
+                            "endLine": 43,
+                            "startColumn": 15,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/format/json_raw_results_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 43,
+                            "endLine": 43,
+                            "startColumn": 8,
+                            "endColumn": 13
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 436,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/NoHardcodedCredentials/test",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in Login.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[Login](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/format/json_raw_results_test.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 61,
+                  "endLine": 61,
+                  "startColumn": 7,
+                  "endColumn": 12
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "344378181f30b53ba1647bbe6698be47f921e68ab0d940d76f7fed43ff12bc25",
+            "1": "424eddda.98f0ff0f.3d13e656.bfac11f0.e535398a.67752288.8ee950b3.ff3d0695.25f4d443.98f0ff0f.3d13e656.bfac11f0.86c50f21.2f4e1548.8ee950b3.1bff12d3"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/format/json_raw_results_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 61,
+                            "endLine": 61,
+                            "startColumn": 14,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/format/json_raw_results_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 61,
+                            "endLine": 61,
+                            "startColumn": 7,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 436,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/NoHardcodedCredentials/test",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in Login.",
+            "markdown": "Do not hardcode credentials in code. Found {0} credential used in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[Login](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "cron/internal/format/json_raw_results_test.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 68,
+                  "startColumn": 7,
+                  "endColumn": 12
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "bfa3f69865186adf42a6e80aba60511aeec36034251a503f605dcbefc7b6dda7",
+            "1": "424eddda.98f0ff0f.3d13e656.bfac11f0.e535398a.67752288.8ee950b3.30d0b53f.424eddda.da0c6b18.3d13e656.bfac11f0.c82b11d9.2f4e1548.8ee950b3.1bff12d3"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/format/json_raw_results_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 68,
+                            "endLine": 68,
+                            "startColumn": 14,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "cron/internal/format/json_raw_results_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 68,
+                            "endLine": 68,
+                            "startColumn": 7,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 436,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/HardcodedPassword",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "Do not hardcode passwords in code. Found hardcoded saved in passingResp.",
+            "markdown": "Do not hardcode passwords in code. Found {0} saved in {1}.",
+            "arguments": [
+              "[hardcoded](0)",
+              "[passingResp](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "clients/cii_response.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 26,
+                  "endLine": 26,
+                  "startColumn": 2,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "6bf3da0e70c5a114e00cb79c01e266a37d3f3388779c0aea6982b15eb8d1c8e0",
+            "1": "8379f5e8.2e2f5aee.45df3e14.79502f34.6752d7b8.0511a7fe.fb9e89bc.1bff12d3.0131876f.2e2f5aee.45df3e14.9eee6765.fee444b7.0511a7fe.fb9e89bc.1bff12d3"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "clients/cii_response.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 26,
+                            "endLine": 26,
+                            "startColumn": 19,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "clients/cii_response.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 26,
+                            "endLine": 26,
+                            "startColumn": 2,
+                            "endColumn": 13
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 506,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "Go",
+            "files": 292,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "JavaScript",
+            "files": 1,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": false,
+            "lang": "XML",
+            "files": 2,
+            "type": "FAILED_PARSING"
+          }
+        ]
+      }
+    }
+  ]
+}

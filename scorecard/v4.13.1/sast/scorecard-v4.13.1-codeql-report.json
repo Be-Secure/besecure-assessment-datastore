@@ -1,0 +1,48 @@
+[
+  {
+    "number": 7,
+    "created_at": "2024-02-15T10:36:03Z",
+    "updated_at": "2024-02-16T06:51:27Z",
+    "url": "https://api.github.com/repos/Be-Secure/scorecard/code-scanning/alerts/7",
+    "html_url": "https://github.com/Be-Secure/scorecard/security/code-scanning/7",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/actions/command-injection",
+      "severity": "warning",
+      "description": "Expression injection in Actions",
+      "name": "js/actions/command-injection",
+      "tags": ["actions","external/cwe/cwe-094","security"],
+      "security_severity_level": "critical"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.16.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v4.13.1_release",
+      "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": ".github/workflows/codeql-analysis.yml:analyze/language:javascript",
+      "state": "open",
+      "commit_sha": "9fefee1e24768747c4cc22e0d30147c0d4e24a08",
+      "message": {
+        "text": "Potential injection from the ${{{{ github.event.head_commit.committer.name }}}}, which may be controlled by an external user.\nPotential injection from the ${{{{ github.event.head_commit.committer.email }}}}, which may be controlled by an external user."
+      },
+      "location": {
+        "path": "checks/testdata/.github/workflows/github-workflow-permissions-contents-writes-release-mvn-release.yaml",
+        "start_line": 28,
+        "end_line": 31,
+        "start_column": 14,
+        "end_column": 452
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/scorecard/code-scanning/alerts/7/instances"
+  }
+]
