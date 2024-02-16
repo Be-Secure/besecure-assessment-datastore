@@ -1,0 +1,360 @@
+{
+  "date": "2024-02-08",
+  "repo": {
+    "name": "github.com/Be-Secure/radius",
+    "commit": "979fec619d4549e34c574a2d3eb8110ab34e2438"
+  },
+  "scorecard": {
+    "version": "v4.10.2",
+    "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
+  },
+  "score": 2.1,
+  "checks": [
+    {
+      "name": "Binary-Artifacts",
+      "score": 10,
+      "reason": "no binaries found in the repo",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#binary-artifacts"
+      }
+    },
+    {
+      "name": "Branch-Protection",
+      "score": 0,
+      "reason": "branch protection not enabled on development/release branches",
+      "details": [
+        "Warn: branch protection not enabled for branch 'v0.27.1_release'"
+      ],
+      "documentation": {
+        "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#branch-protection"
+      }
+    },
+    {
+      "name": "CI-Tests",
+      "score": -1,
+      "reason": "no pull request found",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project runs tests before pull requests are merged.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#ci-tests"
+      }
+    },
+    {
+      "name": "CII-Best-Practices",
+      "score": 0,
+      "reason": "no badge detected",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has an OpenSSF (formerly CII) Best Practices Badge.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#cii-best-practices"
+      }
+    },
+    {
+      "name": "Code-Review",
+      "score": 0,
+      "reason": "0 out of last 30 changesets reviewed before merge -- score normalized to 0",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#code-review"
+      }
+    },
+    {
+      "name": "Contributors",
+      "score": 10,
+      "reason": "8 different organizations found -- score normalized to 10",
+      "details": [
+        "Info: contributors work for aspnet,azure office of the cto,chainguard inc,dapr,dotnet,microsoft,microsoft @azure,microsoft corporation"
+      ],
+      "documentation": {
+        "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#contributors"
+      }
+    },
+    {
+      "name": "Dangerous-Workflow",
+      "score": 0,
+      "reason": "dangerous workflow patterns detected",
+      "details": [
+        "Warn: untrusted code checkout '${{ github.event.pull_request.head.sha }}': .github/workflows/publish-bicep.yaml:35"
+      ],
+      "documentation": {
+        "short": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#dangerous-workflow"
+      }
+    },
+    {
+      "name": "Dependency-Update-Tool",
+      "score": 0,
+      "reason": "no update tool detected",
+      "details": [
+        "Warn: Config file not detected in source location for dependabot, renovatebot, Sonatype Lift, or\n\t\t\tPyUp (Python). We recommend setting this configuration in code so it can be easily verified by others."
+      ],
+      "documentation": {
+        "short": "Determines if the project uses a dependency update tool.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#dependency-update-tool"
+      }
+    },
+    {
+      "name": "Fuzzing",
+      "score": 0,
+      "reason": "project is not fuzzed",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project uses fuzzing.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#fuzzing"
+      }
+    },
+    {
+      "name": "License",
+      "score": 10,
+      "reason": "license file detected",
+      "details": [
+        "Info: License file found in expected location: LICENSE:1",
+        "Info: FSF or OSI recognized license: LICENSE:1"
+      ],
+      "documentation": {
+        "short": "Determines if the project has defined a license.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#license"
+      }
+    },
+    {
+      "name": "Maintained",
+      "score": 0,
+      "reason": "repo was created 77 days ago, not enough maintenance history",
+      "details": [
+        "Warn: repo was created in the last 90 days (Created at: 2023-11-22T10:11:58Z), please review its contents carefully"
+      ],
+      "documentation": {
+        "short": "Determines if the project is \"actively maintained\".",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#maintained"
+      }
+    },
+    {
+      "name": "Packaging",
+      "score": -1,
+      "reason": "no published package detected",
+      "details": [
+        "Warn: no GitHub publishing workflow detected"
+      ],
+      "documentation": {
+        "short": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#packaging"
+      }
+    },
+    {
+      "name": "Pinned-Dependencies",
+      "score": 0,
+      "reason": "dependency not pinned by hash detected -- score normalized to 0",
+      "details": [
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/assets.yaml:31: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/assets.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/assets.yaml:36: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/assets.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/assets.yaml:44: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/assets.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/assets.yaml:52: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/assets.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/assets.yaml:72: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/assets.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/assets.yaml:89: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/assets.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build.yaml:292: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build.yaml:294: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build.yaml:333: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build.yaml:337: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build.yaml:368: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build.yaml:84: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build.yaml:86: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build.yaml:91: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build.yaml:126: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build.yaml:131: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build.yaml:175: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build.yaml:185: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build.yaml:202: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build.yaml:208: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build.yaml:213: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build.yaml:232: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build.yaml:236: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build.yaml:240: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build.yaml:246: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build.yaml:248: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/devops-boards.yaml:16: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/devops-boards.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:569: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:99: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:115: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:131: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:136: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:156: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:195: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:200: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:216: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:221: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:230: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:239: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:261: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:270: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:305: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:310: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:318: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:326: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:335: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:340: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:343: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:362: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:419: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:434: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:473: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:517: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:532: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:536: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/functional-test.yaml:545: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/lint.yaml:41: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/lint.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/lint.yaml:43: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/lint.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/lint.yaml:47: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/lint.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/lint.yaml:64: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/lint.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/lint.yaml:71: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/lint.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/long-running-azure.yaml:100: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/long-running-azure.yaml:154: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/long-running-azure.yaml:160: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/long-running-azure.yaml:197: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/long-running-azure.yaml:201: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/long-running-azure.yaml:215: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/long-running-azure.yaml:248: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/long-running-azure.yaml:290: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/long-running-azure.yaml:295: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/long-running-azure.yaml:300: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/long-running-azure.yaml:306: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/long-running-azure.yaml:317: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/publish-bicep.yaml:36: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/publish-bicep.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/publish-bicep.yaml:47: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/publish-bicep.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/publish-bicep.yaml:60: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/publish-bicep.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/publish-docs.yaml:18: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/publish-docs.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/publish-docs.yaml:32: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/publish-docs.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/publish-docs.yaml:39: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/publish-docs.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/publish-docs.yaml:49: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/publish-docs.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/publish-docs.yaml:54: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/publish-docs.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/purge-artifacts.yaml:15: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/purge-artifacts.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/purge-aws-test-resources.yaml:34: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/purge-aws-test-resources.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/purge-test-resources.yaml:47: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/purge-test-resources.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/purge-test-resources.yaml:33: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/purge-test-resources.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/radius-bot.yaml:13: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/radius-bot.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/radius-bot.yaml:19: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/radius-bot.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-verification.yaml:32: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release-verification.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release.yaml:43: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/release.yaml:46: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release.yaml:55: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release.yaml:67: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/release.yaml:81: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/release.yaml:102: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release.yaml:125: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release.yaml:132: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release.yaml:139: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release.yaml:146: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/release.yaml:158: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/triage-bot.yaml:31: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/triage-bot.yaml/v0.27.1_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/triage-bot.yaml:36: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/triage-bot.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/validate-bicep.yaml:35: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/validate-bicep.yaml/v0.27.1_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/validate-installers.yaml:33: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/validate-installers.yaml/v0.27.1_release?enable=pin",
+        "Warn: containerImage not pinned by hash: .devcontainer/tutorials-codespace/Dockerfile:2: pin your Docker image by updating mcr.microsoft.com/vscode/devcontainers/dotnet to mcr.microsoft.com/vscode/devcontainers/dotnet@sha256:4049d7f480995a131254c6c0535e792f2786ccedec40ef5a71f6a3ae0dd94311",
+        "Warn: containerImage not pinned by hash: deploy/images/applications-rp/Dockerfile:3: pin your Docker image by updating alpine to alpine@sha256:c5b1261d6d3e43071626931fc004f70149baeba2c8ec672bd4f27761f8e1ad6b",
+        "Warn: containerImage not pinned by hash: deploy/images/applications-rp/Dockerfile.mariner:1",
+        "Warn: containerImage not pinned by hash: deploy/images/controller/Dockerfile:2: pin your Docker image by updating gcr.io/distroless/static to gcr.io/distroless/static@sha256:9be3fcc6abeaf985b5ecce59451acbcbb15e7be39472320c538d0d55a0834edc",
+        "Warn: containerImage not pinned by hash: deploy/images/ucpd/Dockerfile:2: pin your Docker image by updating gcr.io/distroless/static to gcr.io/distroless/static@sha256:9be3fcc6abeaf985b5ecce59451acbcbb15e7be39472320c538d0d55a0834edc",
+        "Warn: containerImage not pinned by hash: test/magpiego/Dockerfile:3: pin your Docker image by updating amd64/golang to amd64/golang@sha256:4ead352755fbdbd4fc7c217094081cb53884ef8fa8aed9e7259d081734e54c32",
+        "Warn: containerImage not pinned by hash: test/magpiego/Dockerfile:15: pin your Docker image by updating amd64/alpine to amd64/alpine@sha256:6457d53fb065d6f250e1504b9bc42d5b6c65941d57532c072d929dd0628977d0",
+        "Warn: containerImage not pinned by hash: test/testrp/Dockerfile:3: pin your Docker image by updating amd64/golang to amd64/golang@sha256:4ead352755fbdbd4fc7c217094081cb53884ef8fa8aed9e7259d081734e54c32",
+        "Warn: containerImage not pinned by hash: test/testrp/Dockerfile:13: pin your Docker image by updating amd64/alpine to amd64/alpine@sha256:6457d53fb065d6f250e1504b9bc42d5b6c65941d57532c072d929dd0628977d0",
+        "Warn: downloadThenRun not pinned by hash: .devcontainer/tutorials-codespace/library-scripts/kubectl-helm-debian.sh:46",
+        "Warn: downloadThenRun not pinned by hash: .github/workflows/build.yaml:309",
+        "Warn: npmCommand not pinned by hash: .github/workflows/lint.yaml:57",
+        "Warn: npmCommand not pinned by hash: .github/workflows/lint.yaml:59",
+        "Warn: downloadThenRun not pinned by hash: .github/workflows/long-running-azure.yaml:195",
+        "Warn: downloadThenRun not pinned by hash: .github/workflows/purge-test-resources.yaml:46"
+      ],
+      "documentation": {
+        "short": "Determines if the project has declared and pinned the dependencies of its build process.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#pinned-dependencies"
+      }
+    },
+    {
+      "name": "SAST",
+      "score": 0,
+      "reason": "no SAST tool detected",
+      "details": [
+        "Warn: no pull requests merged into dev branch",
+        "Warn: CodeQL tool not detected"
+      ],
+      "documentation": {
+        "short": "Determines if the project uses static code analysis.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#sast"
+      }
+    },
+    {
+      "name": "Security-Policy",
+      "score": 10,
+      "reason": "security policy file detected",
+      "details": [
+        "Info: Found linked content in security policy: SECURITY.md",
+        "Info: Found text in security policy: SECURITY.md",
+        "Info: Found disclosure, vulnerability, and/or timelines in security policy: SECURITY.md",
+        "Info: security policy detected in current repo: SECURITY.md"
+      ],
+      "documentation": {
+        "short": "Determines if the project has published a security policy.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#security-policy"
+      }
+    },
+    {
+      "name": "Signed-Releases",
+      "score": -1,
+      "reason": "no releases found",
+      "details": [
+        "Warn: no GitHub releases found"
+      ],
+      "documentation": {
+        "short": "Determines if the project cryptographically signs release artifacts.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#signed-releases"
+      }
+    },
+    {
+      "name": "Token-Permissions",
+      "score": 0,
+      "reason": "non read-only tokens detected in GitHub workflows",
+      "details": [
+        "Warn: no topLevel permission defined: .github/workflows/assets.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/assets.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/build.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/build.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/devops-boards.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/devops-boards.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/functional-test.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/functional-test.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/issues.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/issues.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/lint.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/lint.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/long-running-azure.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/long-running-azure.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/publish-bicep.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/publish-bicep.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/publish-docs.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/publish-docs.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/purge-artifacts.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/purge-artifacts.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/purge-aws-test-resources.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/purge-aws-test-resources.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/purge-test-resources.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/purge-test-resources.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/radius-bot.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/radius-bot.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/release-verification.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release-verification.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/release.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/release.yaml/v0.27.1_release?enable=permissions",
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yaml:30",
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:16",
+        "Warn: no topLevel permission defined: .github/workflows/test.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/test.yaml/v0.27.1_release?enable=permissions",
+        "Info: topLevel 'contents' permission set to 'read': .github/workflows/triage-bot.yaml:22",
+        "Warn: no topLevel permission defined: .github/workflows/validate-bicep.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/validate-bicep.yaml/v0.27.1_release?enable=permissions",
+        "Warn: no topLevel permission defined: .github/workflows/validate-installers.yaml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/radius/validate-installers.yaml/v0.27.1_release?enable=permissions"
+      ],
+      "documentation": {
+        "short": "Determines if the project's workflows follow the principle of least privilege.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#token-permissions"
+      }
+    },
+    {
+      "name": "Vulnerabilities",
+      "score": -1,
+      "reason": "internal error: vulnerabilitiesClient.ListUnfixedVulnerabilities: osvscanner.DoScan: vulnerabilities found",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has open, known unfixed vulnerabilities.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#vulnerabilities"
+      }
+    }
+  ]
+}
