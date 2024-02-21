@@ -1,0 +1,303 @@
+{
+  "date": "2024-02-15",
+  "repo": {
+    "name": "github.com/Be-Secure/istio",
+    "commit": "3b2c3402f0a0e6f55a63635f79bc359b0d4bdb9e"
+  },
+  "scorecard": {
+    "version": "v4.10.2",
+    "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
+  },
+  "score": 6,
+  "checks": [
+    {
+      "name": "Binary-Artifacts",
+      "score": 9,
+      "reason": "binaries present in source code",
+      "details": [
+        "Warn: binary detected: cni/pkg/ebpf/server/ambient_redirect_bpf.o:1"
+      ],
+      "documentation": {
+        "short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#binary-artifacts"
+      }
+    },
+    {
+      "name": "Branch-Protection",
+      "score": 0,
+      "reason": "branch protection not enabled on development/release branches",
+      "details": [
+        "Warn: branch protection not enabled for branch '1.20.3_release'"
+      ],
+      "documentation": {
+        "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#branch-protection"
+      }
+    },
+    {
+      "name": "CI-Tests",
+      "score": -1,
+      "reason": "no pull request found",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project runs tests before pull requests are merged.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#ci-tests"
+      }
+    },
+    {
+      "name": "CII-Best-Practices",
+      "score": 0,
+      "reason": "no badge detected",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has an OpenSSF (formerly CII) Best Practices Badge.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#cii-best-practices"
+      }
+    },
+    {
+      "name": "Code-Review",
+      "score": 0,
+      "reason": "0 out of last 30 changesets reviewed before merge -- score normalized to 0",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#code-review"
+      }
+    },
+    {
+      "name": "Contributors",
+      "score": 10,
+      "reason": "31 different organizations found -- score normalized to 10",
+      "details": [
+        "Info: contributors work for ClickHouse,GoogleCloudPlatform,IBM,ResilienceTesting,amalgam8,aviatrix,clickhouse,dotnet,envoyproxy,ex-google,fortio,google,google inc,grpc,iDigBio,ibm,ibm @ibm-research and red hat partner engineer,istio,karmada-io,kmesh-net,kubernetes,kubernetes-sigs,kurator-dev,merbridge,microsoft,netty,roku ex @google @facebook,solo-io,solo.io,steamship,tetrateio"
+      ],
+      "documentation": {
+        "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#contributors"
+      }
+    },
+    {
+      "name": "Dangerous-Workflow",
+      "score": 10,
+      "reason": "no dangerous workflow patterns detected",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#dangerous-workflow"
+      }
+    },
+    {
+      "name": "Dependency-Update-Tool",
+      "score": 10,
+      "reason": "update tool detected",
+      "details": [
+        "Info: Dependabot detected: .github/dependabot.yml:1"
+      ],
+      "documentation": {
+        "short": "Determines if the project uses a dependency update tool.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#dependency-update-tool"
+      }
+    },
+    {
+      "name": "Fuzzing",
+      "score": 10,
+      "reason": "project is fuzzed with [GoBuiltInFuzzer]",
+      "details": [
+        "Info: func FuzzConvertResources(f *testing.F): pilot/pkg/config/kube/gateway/fuzz_test.go:23",
+        "Info: func FuzzDeepCopyService(f *testing.F): pilot/pkg/model/fuzz_test.go:25",
+        "Info: func FuzzDeepCopyServiceInstance(f *testing.F): pilot/pkg/model/fuzz_test.go:29",
+        "Info: func FuzzDeepCopyWorkloadInstance(f *testing.F): pilot/pkg/model/fuzz_test.go:33",
+        "Info: func FuzzDeepCopyIstioEndpoint(f *testing.F): pilot/pkg/model/fuzz_test.go:37",
+        "Info: func FuzzApplyClusterMerge(f *testing.F): pilot/pkg/networking/core/v1alpha3/envoyfilter/fuzz_test.go:30",
+        "Info: func FuzzBuildGatewayListeners(f *testing.F): pilot/pkg/networking/core/v1alpha3/fuzz_test.go:26",
+        "Info: func FuzzBuildSidecarOutboundHTTPRouteConfig(f *testing.F): pilot/pkg/networking/core/v1alpha3/fuzz_test.go:40",
+        "Info: func FuzzBuildSidecarOutboundListeners(f *testing.F): pilot/pkg/networking/core/v1alpha3/fuzz_test.go:54",
+        "Info: func FuzzApplyLocalityLBSetting(f *testing.F): pilot/pkg/networking/core/v1alpha3/loadbalancer/fuzz_test.go:27",
+        "Info: func FuzzBuildHTTP(f *testing.F): pilot/pkg/security/authz/builder/fuzz_test.go:25",
+        "Info: func FuzzBuildTCP(f *testing.F): pilot/pkg/security/authz/builder/fuzz_test.go:45",
+        "Info: func FuzzKubeController(f *testing.F): pilot/pkg/serviceregistry/kube/controller/fuzz_test.go:28",
+        "Info: func FuzzWriteTo(f *testing.F): pkg/bootstrap/fuzz_test.go:26",
+        "Info: func FuzzValidateMeshConfig(f *testing.F): pkg/config/mesh/fuzz_test.go:19",
+        "Info: func FuzzValidateHeaderValue(f *testing.F): pkg/config/validation/fuzz_test.go:23",
+        "Info: func FuzzRunTemplate(f *testing.F): pkg/kube/inject/fuzz_test.go:23",
+        "Info: func FuzzReadCACert(f *testing.F): security/pkg/k8s/chiron/fuzz_test.go:22",
+        "Info: func FuzzIstioCASign(f *testing.F): security/pkg/pki/ca/fuzz_test.go:24",
+        "Info: func FuzzValidateCSR(f *testing.F): security/pkg/pki/ra/fuzz_test.go:23",
+        "Info: func FuzzBuildSecurityCaller(f *testing.F): security/pkg/server/ca/authenticate/fuzz_test.go:21",
+        "Info: func FuzzCreateCertificate(f *testing.F): security/pkg/server/ca/fuzz_test.go:29"
+      ],
+      "documentation": {
+        "short": "Determines if the project uses fuzzing.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#fuzzing"
+      }
+    },
+    {
+      "name": "License",
+      "score": 10,
+      "reason": "license file detected",
+      "details": [
+        "Info: License file found in expected location: LICENSE:1",
+        "Info: FSF or OSI recognized license: LICENSE:1"
+      ],
+      "documentation": {
+        "short": "Determines if the project has defined a license.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#license"
+      }
+    },
+    {
+      "name": "Maintained",
+      "score": 0,
+      "reason": "repo was created 0 days ago, not enough maintenance history",
+      "details": [
+        "Warn: repo was created in the last 90 days (Created at: 2024-02-15T10:15:06Z), please review its contents carefully"
+      ],
+      "documentation": {
+        "short": "Determines if the project is \"actively maintained\".",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#maintained"
+      }
+    },
+    {
+      "name": "Packaging",
+      "score": -1,
+      "reason": "no published package detected",
+      "details": [
+        "Warn: no GitHub publishing workflow detected"
+      ],
+      "documentation": {
+        "short": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#packaging"
+      }
+    },
+    {
+      "name": "Pinned-Dependencies",
+      "score": 7,
+      "reason": "dependency not pinned by hash detected -- score normalized to 7",
+      "details": [
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:50: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/istio/codeql.yml/1.20.3_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:54: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/istio/codeql.yml/1.20.3_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:68: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/istio/codeql.yml/1.20.3_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:81: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/istio/codeql.yml/1.20.3_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/microsoft-sbom.yml:18: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/istio/microsoft-sbom.yml/1.20.3_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/microsoft-sbom.yml:31: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/istio/microsoft-sbom.yml/1.20.3_release?enable=pin",
+        "Warn: containerImage not pinned by hash: cni/deployments/kubernetes/Dockerfile.install-cni:9",
+        "Warn: containerImage not pinned by hash: cni/deployments/kubernetes/Dockerfile.install-cni:12",
+        "Warn: containerImage not pinned by hash: cni/deployments/kubernetes/Dockerfile.install-cni:16",
+        "Warn: containerImage not pinned by hash: docker/Dockerfile.base:1: pin your Docker image by updating ubuntu to ubuntu@sha256:e9569c25505f33ff72e88b2990887c9dcf230f23259da296eb814fc2b41af999",
+        "Warn: containerImage not pinned by hash: docker/Dockerfile.distroless:5: pin your Docker image by updating ubuntu:focal to ubuntu:focal@sha256:bb1c41682308d7040f74d103022816d41c50d7b0c89e9d706a74b4e548636e54",
+        "Warn: containerImage not pinned by hash: istioctl/docker/Dockerfile.istioctl:5",
+        "Warn: containerImage not pinned by hash: operator/docker/Dockerfile.operator:9",
+        "Warn: containerImage not pinned by hash: operator/docker/Dockerfile.operator:12",
+        "Warn: containerImage not pinned by hash: operator/docker/Dockerfile.operator:16",
+        "Warn: containerImage not pinned by hash: pilot/docker/Dockerfile.pilot:9",
+        "Warn: containerImage not pinned by hash: pilot/docker/Dockerfile.pilot:12",
+        "Warn: containerImage not pinned by hash: pilot/docker/Dockerfile.pilot:16",
+        "Warn: containerImage not pinned by hash: pilot/docker/Dockerfile.proxyv2:9",
+        "Warn: containerImage not pinned by hash: pilot/docker/Dockerfile.proxyv2:20",
+        "Warn: containerImage not pinned by hash: pilot/docker/Dockerfile.ztunnel:9",
+        "Warn: containerImage not pinned by hash: pilot/docker/Dockerfile.ztunnel:20",
+        "Warn: containerImage not pinned by hash: pkg/test/echo/docker/Dockerfile.app:4",
+        "Warn: containerImage not pinned by hash: pkg/test/echo/docker/Dockerfile.app_sidecar:6",
+        "Warn: containerImage not pinned by hash: pkg/test/echo/docker/Dockerfile.app_sidecar_base:3",
+        "Warn: containerImage not pinned by hash: pkg/test/echo/docker/Dockerfile.app_sidecar_base_centos:3",
+        "Warn: containerImage not pinned by hash: pkg/test/echo/docker/Dockerfile.app_sidecar_centos_8:6",
+        "Warn: containerImage not pinned by hash: samples/bookinfo/src/details/Dockerfile:15: pin your Docker image by updating ruby to ruby@sha256:2eaa8cbedeb86e7e214653a6b189e4d5ce181112179441d83498eedee080a9f7",
+        "Warn: containerImage not pinned by hash: samples/bookinfo/src/mongodb/Dockerfile:15: pin your Docker image by updating mongo to mongo@sha256:175ee5c400f24d2766cea492b4986851b4e7ec75fc08e354673149b86488019c",
+        "Warn: containerImage not pinned by hash: samples/bookinfo/src/mysql/Dockerfile:15: pin your Docker image by updating mysql to mysql@sha256:ff5ab9cdce0b4c59704b4e2a09deed5ab8467be795e0ea20228b8528f53fcf82",
+        "Warn: containerImage not pinned by hash: samples/bookinfo/src/productpage/Dockerfile:15: pin your Docker image by updating python to python@sha256:eddb404b523afd920cb1bc31ff7309f6375898baf506ab2bb1e31357da693426",
+        "Warn: containerImage not pinned by hash: samples/bookinfo/src/ratings/Dockerfile:15: pin your Docker image by updating node to node@sha256:5951e42dd697b63a6bd9a4dfd610da952097f9db829ea659257104e7fd4fdfa6",
+        "Warn: containerImage not pinned by hash: samples/bookinfo/src/reviews/Dockerfile:15: pin your Docker image by updating gradle:4.8.1 to gradle:4.8.1@sha256:536aaad9eede9e03566ab9a4ba3ad22cf3bc90ca16238996e33046b748c2bf19",
+        "Warn: containerImage not pinned by hash: samples/bookinfo/src/reviews/Dockerfile:26",
+        "Warn: containerImage not pinned by hash: samples/extauthz/docker/Dockerfile:4",
+        "Warn: containerImage not pinned by hash: samples/helloworld/src/Dockerfile:15: pin your Docker image by updating python to python@sha256:eddb404b523afd920cb1bc31ff7309f6375898baf506ab2bb1e31357da693426",
+        "Warn: containerImage not pinned by hash: samples/jwt-server/src/Dockerfile:16: pin your Docker image by updating golang:1.19 to golang:1.19@sha256:3025bf670b8363ec9f1b4c4f27348e6d9b7fec607c47e401e40df816853e743a",
+        "Warn: containerImage not pinned by hash: samples/tcp-echo/src/Dockerfile:19: pin your Docker image by updating golang:1.19 to golang:1.19@sha256:3025bf670b8363ec9f1b4c4f27348e6d9b7fec607c47e401e40df816853e743a",
+        "Warn: containerImage not pinned by hash: samples/tcp-echo/src/Dockerfile:34",
+        "Warn: containerImage not pinned by hash: tests/fuzz/Dockerfile.fuzz:14: pin your Docker image by updating golang to golang@sha256:7b297d9abee021bab9046e492506b3c2da8a3722cbf301653186545ecc1e00bb",
+        "Warn: containerImage not pinned by hash: tests/integration/security/fuzz/backends/tomcat/Dockerfile:1: pin your Docker image by updating tomcat to tomcat@sha256:5e95c2e2b75387025bfc0da1e421079ac2b84378efeb70d0b2d54e4fae5832b4",
+        "Warn: containerImage not pinned by hash: tests/integration/security/fuzz/fuzzers/dotdotpwn/Dockerfile:1: pin your Docker image by updating perl to perl@sha256:16a2818a5150d9b8330a0211ae7d03a33a4c46e4bdae4508833a7e35f88a7776",
+        "Warn: containerImage not pinned by hash: tests/integration/security/fuzz/fuzzers/jwt_tool/Dockerfile:1: pin your Docker image by updating python to python@sha256:eddb404b523afd920cb1bc31ff7309f6375898baf506ab2bb1e31357da693426",
+        "Warn: pipCommand not pinned by hash: samples/bookinfo/src/productpage/Dockerfile:20",
+        "Warn: pipCommand not pinned by hash: samples/bookinfo/src/productpage/Dockerfile:23",
+        "Warn: npmCommand not pinned by hash: samples/bookinfo/src/ratings/Dockerfile:28",
+        "Warn: pipCommand not pinned by hash: samples/helloworld/src/Dockerfile:22",
+        "Warn: goCommand not pinned by hash: tests/fuzz/Dockerfile.fuzz:26-28",
+        "Warn: pipCommand not pinned by hash: tests/integration/security/fuzz/fuzzers/jwt_tool/Dockerfile:11",
+        "Info: Third-party GitHubActions are pinned",
+        "Info: no insecure (not pinned by hash) dependency downloads found in Dockerfiles",
+        "Info: no insecure (not pinned by hash) dependency downloads found in shell scripts"
+      ],
+      "documentation": {
+        "short": "Determines if the project has declared and pinned the dependencies of its build process.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#pinned-dependencies"
+      }
+    },
+    {
+      "name": "SAST",
+      "score": 0,
+      "reason": "no SAST tool detected",
+      "details": [
+        "Warn: no pull requests merged into dev branch",
+        "Warn: CodeQL tool not detected"
+      ],
+      "documentation": {
+        "short": "Determines if the project uses static code analysis.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#sast"
+      }
+    },
+    {
+      "name": "Security-Policy",
+      "score": 10,
+      "reason": "security policy file detected",
+      "details": [
+        "Info: Found linked content in security policy: .github/SECURITY.md",
+        "Info: Found text in security policy: .github/SECURITY.md",
+        "Info: Found disclosure, vulnerability, and/or timelines in security policy: .github/SECURITY.md",
+        "Info: security policy detected in current repo: .github/SECURITY.md"
+      ],
+      "documentation": {
+        "short": "Determines if the project has published a security policy.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#security-policy"
+      }
+    },
+    {
+      "name": "Signed-Releases",
+      "score": -1,
+      "reason": "no releases found",
+      "details": [
+        "Warn: no GitHub releases found"
+      ],
+      "documentation": {
+        "short": "Determines if the project cryptographically signs release artifacts.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#signed-releases"
+      }
+    },
+    {
+      "name": "Token-Permissions",
+      "score": 9,
+      "reason": "non read-only tokens detected in GitHub workflows",
+      "details": [
+        "Warn: no topLevel permission defined: .github/workflows/codeql.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/istio/codeql.yml/1.20.3_release?enable=permissions",
+        "Info: jobLevel 'actions' permission set to 'read': .github/workflows/codeql.yml:36",
+        "Info: jobLevel 'contents' permission set to 'read': .github/workflows/codeql.yml:37",
+        "Warn: no topLevel permission defined: .github/workflows/microsoft-sbom.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/istio/microsoft-sbom.yml/1.20.3_release?enable=permissions",
+        "Info: jobLevel 'actions' permission set to 'read': .github/workflows/microsoft-sbom.yml:13",
+        "Info: jobLevel 'contents' permission set to 'read': .github/workflows/microsoft-sbom.yml:14",
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:17"
+      ],
+      "documentation": {
+        "short": "Determines if the project's workflows follow the principle of least privilege.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#token-permissions"
+      }
+    },
+    {
+      "name": "Vulnerabilities",
+      "score": -1,
+      "reason": "internal error: vulnerabilitiesClient.ListUnfixedVulnerabilities: osvscanner.DoScan: vulnerabilities found",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has open, known unfixed vulnerabilities.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#vulnerabilities"
+      }
+    }
+  ]
+}
