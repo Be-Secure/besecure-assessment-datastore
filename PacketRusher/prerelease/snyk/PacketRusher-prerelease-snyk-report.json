@@ -1,0 +1,417 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "cpp/ImproperNullTermination",
+              "name": "ImproperNullTermination",
+              "shortDescription": {
+                "text": "Improper Null Termination"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\nImproper null termination occurs when a character string's ending null character is omitted or outside the allocated memory for the string. This typically leads to information leaks or buffer overflows and occurs when:\n* There is an off-by-one error which leads to the null character being out of bounds\n* Raw data is passed to functions expecting strings. This can lead to out of bounds reading or writing (e.g., strlen / strcpy using raw data)\n\n## Best practices for prevention\n* Use functions that ensure proper null termination. Pay attention to the way the string functions affect the ending null character (e.g., strncpy doesn't necessarily ensure null termination)\n* Avoid passing raw data to functions expecting strings. If this can't be avoided ensure there is proper null termination (e.g., write a null character at the end of the buffer)",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "cpp",
+                  "ImproperNullTermination",
+                  "Security",
+                  "SourceImproperNullTermination",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-170"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "cpp/ImproperNullTermination",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "Potential improperly null terminated input from a pointer to an input buffer flows into strcat, where it is used as a string. This may result in an information disclosure or buffer overflow vulnerability.",
+            "markdown": "Potential improperly null terminated input from {0} {1} into {2}, where it is used as a string. This may result in an information disclosure or buffer overflow vulnerability.",
+            "arguments": [
+              "[a pointer to an input buffer](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15)",
+              "[strcat](16)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lib/gtp5g/src/genl/genl_pdr.c",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 335,
+                  "endLine": 335,
+                  "startColumn": 15,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "25466bddce27b1879fa43271eb68f4119ce7e18a1c32f25fccb83037b2ad7eac",
+            "1": "3b4b9534.277c621c.58dbc00a.cc899355.a507517b.c7110954.9957b03c.d26540ab.2d06e3d6.277c621c.66e58c8d.27f9dbc8.9378fae8.d549db32.9957b03c.7368615f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/genl/genl_pdr.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 355,
+                            "endLine": 355,
+                            "startColumn": 16,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/genl/genl_pdr.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 355,
+                            "endLine": 355,
+                            "startColumn": 16,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/genl/genl_pdr.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 359,
+                            "endLine": 359,
+                            "startColumn": 5,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/genl/genl_pdr.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 360,
+                            "endLine": 360,
+                            "startColumn": 20,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/genl/genl_pdr.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 360,
+                            "endLine": 360,
+                            "startColumn": 5,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/genl/genl_pdr.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 323,
+                            "endLine": 323,
+                            "startColumn": 13,
+                            "endColumn": 25
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/genl/genl_pdr.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 335,
+                            "endLine": 335,
+                            "startColumn": 46,
+                            "endColumn": 58
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/genl/genl_pdr.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 335,
+                            "endLine": 335,
+                            "startColumn": 46,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/pfcp/qer.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 50,
+                            "endLine": 50,
+                            "startColumn": 61,
+                            "endColumn": 71
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/pfcp/qer.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 56,
+                            "endLine": 56,
+                            "startColumn": 34,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/pfcp/qer.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 10,
+                            "endLine": 10,
+                            "startColumn": 50,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/pfcp/qer.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "endLine": 12,
+                            "startColumn": 41,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/pfcp/seid.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 9,
+                            "endLine": 9,
+                            "startColumn": 46,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/pfcp/seid.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 15,
+                            "endLine": 15,
+                            "startColumn": 51,
+                            "endColumn": 53
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/pfcp/seid.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 15,
+                            "endLine": 15,
+                            "startColumn": 5,
+                            "endColumn": 13
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/pfcp/seid.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 17,
+                            "endLine": 17,
+                            "startColumn": 31,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "lib/gtp5g/src/pfcp/seid.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 17,
+                            "endLine": 17,
+                            "startColumn": 5,
+                            "endColumn": 11
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 250,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "C++",
+            "files": 27,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "C",
+            "files": 25,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Go",
+            "files": 138,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}

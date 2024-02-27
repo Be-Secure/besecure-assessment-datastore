@@ -1,0 +1,48 @@
+[
+  {
+    "number": 40,
+    "created_at": "2024-02-22T12:44:20Z",
+    "updated_at": "2024-02-22T12:44:21Z",
+    "url": "https://api.github.com/repos/Be-Secure/cmf/code-scanning/alerts/40",
+    "html_url": "https://github.com/Be-Secure/cmf/security/code-scanning/40",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/paramiko-missing-host-key-validation",
+      "severity": "error",
+      "description": "Accepting unknown SSH host keys when using Paramiko",
+      "name": "py/paramiko-missing-host-key-validation",
+      "tags": ["external/cwe/cwe-295","security"],
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.16.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.0.7_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "8274a13517d9d4479f8d539aff9867b52ba10141",
+      "message": {
+        "text": "Setting missing host key policy to AutoAddPolicy may be unsafe."
+      },
+      "location": {
+        "path": "cmflib/storage_backends/sshremote_artifacts.py",
+        "start_line": 36,
+        "end_line": 38,
+        "start_column": 13,
+        "end_column": 14
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/cmf/code-scanning/alerts/40/instances"
+  }
+]
