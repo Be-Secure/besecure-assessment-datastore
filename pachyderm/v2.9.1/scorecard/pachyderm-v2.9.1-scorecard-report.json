@@ -1,0 +1,314 @@
+{
+  "date": "2024-03-04",
+  "repo": {
+    "name": "github.com/Be-Secure/pachyderm",
+    "commit": "58f4f7d31e851d90f6a7614369f6436da4d6a399"
+  },
+  "scorecard": {
+    "version": "v4.10.2",
+    "commit": "376f465c111c39c6a5ad7408e8896cd790cb5219"
+  },
+  "score": 3.3,
+  "checks": [
+    {
+      "name": "Binary-Artifacts",
+      "score": 10,
+      "reason": "no binaries found in the repo",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#binary-artifacts"
+      }
+    },
+    {
+      "name": "Branch-Protection",
+      "score": 0,
+      "reason": "branch protection not enabled on development/release branches",
+      "details": [
+        "Warn: branch protection not enabled for branch 'v2.9.1_release'"
+      ],
+      "documentation": {
+        "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#branch-protection"
+      }
+    },
+    {
+      "name": "CI-Tests",
+      "score": -1,
+      "reason": "no pull request found",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project runs tests before pull requests are merged.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#ci-tests"
+      }
+    },
+    {
+      "name": "CII-Best-Practices",
+      "score": 0,
+      "reason": "no badge detected",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has an OpenSSF (formerly CII) Best Practices Badge.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#cii-best-practices"
+      }
+    },
+    {
+      "name": "Code-Review",
+      "score": 0,
+      "reason": "0 out of last 30 changesets reviewed before merge -- score normalized to 0",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#code-review"
+      }
+    },
+    {
+      "name": "Contributors",
+      "score": 10,
+      "reason": "21 different organizations found -- score normalized to 10",
+      "details": [
+        "Info: contributors work for OpenSourceCornell,bufbuild,connectrpc,google,heroku,hewlett packard enterprise,hpe,indradb,integrity,meta,mlops consulting,mozilla-ai,pachyderm,pachyderm & @determined-ai,pardot,rethinkdb,salesforce,sinatra,snorkel,zelosgg,zerodevapp"
+      ],
+      "documentation": {
+        "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#contributors"
+      }
+    },
+    {
+      "name": "Dangerous-Workflow",
+      "score": 10,
+      "reason": "no dangerous workflow patterns detected",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#dangerous-workflow"
+      }
+    },
+    {
+      "name": "Dependency-Update-Tool",
+      "score": 0,
+      "reason": "no update tool detected",
+      "details": [
+        "Warn: Config file not detected in source location for dependabot, renovatebot, Sonatype Lift, or\n\t\t\tPyUp (Python). We recommend setting this configuration in code so it can be easily verified by others."
+      ],
+      "documentation": {
+        "short": "Determines if the project uses a dependency update tool.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#dependency-update-tool"
+      }
+    },
+    {
+      "name": "Fuzzing",
+      "score": 10,
+      "reason": "project is fuzzed with [GoBuiltInFuzzer]",
+      "details": [
+        "Info: func FuzzHTTP(f *testing.F): src/internal/archiveserver/archiveserver_test.go:230",
+        "Info: func FuzzDecode(f *testing.F): src/internal/archiveserver/encode_test.go:108",
+        "Info: func FuzzDecodeV1Path(f *testing.F): src/internal/archiveserver/encode_test.go:202",
+        "Info: func FuzzArchiveRequest(f *testing.F): src/internal/archiveserver/request_test.go:113",
+        "Info: func FuzzRPCs(f *testing.F): src/server/rpc_fuzz_test.go:99"
+      ],
+      "documentation": {
+        "short": "Determines if the project uses fuzzing.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#fuzzing"
+      }
+    },
+    {
+      "name": "License",
+      "score": 10,
+      "reason": "license file detected",
+      "details": [
+        "Info: License file found in expected location: LICENSE:1",
+        "Info: FSF or OSI recognized license: LICENSE:1"
+      ],
+      "documentation": {
+        "short": "Determines if the project has defined a license.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#license"
+      }
+    },
+    {
+      "name": "Maintained",
+      "score": 0,
+      "reason": "repo was created 0 days ago, not enough maintenance history",
+      "details": [
+        "Warn: repo was created in the last 90 days (Created at: 2024-03-04T04:26:59Z), please review its contents carefully"
+      ],
+      "documentation": {
+        "short": "Determines if the project is \"actively maintained\".",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#maintained"
+      }
+    },
+    {
+      "name": "Packaging",
+      "score": -1,
+      "reason": "no published package detected",
+      "details": [
+        "Warn: no GitHub publishing workflow detected"
+      ],
+      "documentation": {
+        "short": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#packaging"
+      }
+    },
+    {
+      "name": "Pinned-Dependencies",
+      "score": 0,
+      "reason": "dependency not pinned by hash detected -- score normalized to 0",
+      "details": [
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/azureboards.yml:12: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/pachyderm/azureboards.yml/v2.9.1_release?enable=pin",
+        "Warn: containerImage not pinned by hash: Dockerfile.etcd:6",
+        "Warn: containerImage not pinned by hash: Dockerfile.mount-server:1: pin your Docker image by updating debian to debian@sha256:4482958b4461ff7d9fabc24b3a9ab1e9a2c85ece07b2db1840c7cbc01d053e90",
+        "Warn: containerImage not pinned by hash: Dockerfile.pachctl:1: pin your Docker image by updating debian to debian@sha256:4482958b4461ff7d9fabc24b3a9ab1e9a2c85ece07b2db1840c7cbc01d053e90",
+        "Warn: containerImage not pinned by hash: Dockerfile.pachd:1: pin your Docker image by updating alpine:3.10 to alpine:3.10@sha256:451eee8bedcb2f029756dc3e9d73bab0e7943c1ac55cff3a4861c52a0fdd3e98",
+        "Warn: containerImage not pinned by hash: Dockerfile.pachdoc:1: pin your Docker image by updating python:3.7 to python:3.7@sha256:eedf63967cdb57d8214db38ce21f105003ed4e4d0358f02bedc057341bcf92a0",
+        "Warn: containerImage not pinned by hash: Dockerfile.pachdoc:14",
+        "Warn: containerImage not pinned by hash: Dockerfile.pgbouncer:1: pin your Docker image by updating debian to debian@sha256:4482958b4461ff7d9fabc24b3a9ab1e9a2c85ece07b2db1840c7cbc01d053e90",
+        "Warn: containerImage not pinned by hash: etc/deploy/gpu/Dockerfile:1: pin your Docker image by updating ubuntu to ubuntu@sha256:f9d633ff6640178c2d0525017174a688e2c1aef28f0a0130b26bd5554491f0da",
+        "Warn: containerImage not pinned by hash: etc/netcat/Dockerfile:1: pin your Docker image by updating ubuntu to ubuntu@sha256:f9d633ff6640178c2d0525017174a688e2c1aef28f0a0130b26bd5554491f0da",
+        "Warn: containerImage not pinned by hash: etc/test-images/Dockerfile.netcat:1: pin your Docker image by updating ubuntu to ubuntu@sha256:f9d633ff6640178c2d0525017174a688e2c1aef28f0a0130b26bd5554491f0da",
+        "Warn: containerImage not pinned by hash: etc/testing/circle/workloads/metric-collector/Dockerfile:1: pin your Docker image by updating python to python@sha256:e83d1f4d0c735c7a54fc9dae3cca8c58473e3b3de08fcb7ba3d342ee75cfc09d",
+        "Warn: containerImage not pinned by hash: etc/testing/images/ubuntu_with_s3_clients/Dockerfile:1: pin your Docker image by updating ubuntu to ubuntu@sha256:f9d633ff6640178c2d0525017174a688e2c1aef28f0a0130b26bd5554491f0da",
+        "Warn: containerImage not pinned by hash: etc/testing/kafka/Dockerfile:2",
+        "Warn: containerImage not pinned by hash: etc/testing/spout/Dockerfile:2",
+        "Warn: containerImage not pinned by hash: examples/churn/Dockerfile:1: pin your Docker image by updating python to python@sha256:e83d1f4d0c735c7a54fc9dae3cca8c58473e3b3de08fcb7ba3d342ee75cfc09d",
+        "Warn: containerImage not pinned by hash: examples/group/Dockerfile:1: pin your Docker image by updating python to python@sha256:e83d1f4d0c735c7a54fc9dae3cca8c58473e3b3de08fcb7ba3d342ee75cfc09d",
+        "Warn: containerImage not pinned by hash: examples/joins/Dockerfile:1: pin your Docker image by updating python to python@sha256:e83d1f4d0c735c7a54fc9dae3cca8c58473e3b3de08fcb7ba3d342ee75cfc09d",
+        "Warn: containerImage not pinned by hash: examples/kubeflow/mnist/Dockerfile:1: pin your Docker image by updating python to python@sha256:e83d1f4d0c735c7a54fc9dae3cca8c58473e3b3de08fcb7ba3d342ee75cfc09d",
+        "Warn: containerImage not pinned by hash: examples/ml/gpt-2/Dockerfile:1: pin your Docker image by updating tensorflow/tensorflow to tensorflow/tensorflow@sha256:2609730891a3c10cde42ead38d2c6ee7080309811957ad96eab239a49722349d",
+        "Warn: containerImage not pinned by hash: examples/ml/housing-prices/Dockerfile:1: pin your Docker image by updating civisanalytics/datascience-python to civisanalytics/datascience-python@sha256:065af6d67314e78286adf431246fe3a79f7f8f8f965df232a8a07fb38e8d1cad",
+        "Warn: containerImage not pinned by hash: examples/ml/hyperparameter/train/Dockerfile:1: pin your Docker image by updating smizy/python to smizy/python@sha256:f2ce9b4ce30a0056ea544b0fb0da9164e7bee74f1f2aca3e97a7a1c3c23b00d7",
+        "Warn: containerImage not pinned by hash: examples/ml/iris/julia/iris-infer-julia/Dockerfile:1: pin your Docker image by updating julia to julia@sha256:2d992bcdfd817a11bfa70918879674b62dcd0a497e079116605c33dc9979589e",
+        "Warn: containerImage not pinned by hash: examples/ml/iris/julia/iris-train-julia-forest/Dockerfile:1: pin your Docker image by updating julia to julia@sha256:2d992bcdfd817a11bfa70918879674b62dcd0a497e079116605c33dc9979589e",
+        "Warn: containerImage not pinned by hash: examples/ml/iris/julia/iris-train-julia-tree/Dockerfile:1: pin your Docker image by updating julia to julia@sha256:2d992bcdfd817a11bfa70918879674b62dcd0a497e079116605c33dc9979589e",
+        "Warn: containerImage not pinned by hash: examples/ml/iris/python/iris-infer-python/Dockerfile:1: pin your Docker image by updating smizy/python to smizy/python@sha256:f2ce9b4ce30a0056ea544b0fb0da9164e7bee74f1f2aca3e97a7a1c3c23b00d7",
+        "Warn: containerImage not pinned by hash: examples/ml/iris/python/iris-train-python-lda/Dockerfile:1: pin your Docker image by updating smizy/python to smizy/python@sha256:f2ce9b4ce30a0056ea544b0fb0da9164e7bee74f1f2aca3e97a7a1c3c23b00d7",
+        "Warn: containerImage not pinned by hash: examples/ml/iris/python/iris-train-python-svm/Dockerfile:1: pin your Docker image by updating smizy/python to smizy/python@sha256:f2ce9b4ce30a0056ea544b0fb0da9164e7bee74f1f2aca3e97a7a1c3c23b00d7",
+        "Warn: containerImage not pinned by hash: examples/ml/iris/rstats/iris-infer-r/Dockerfile:1: pin your Docker image by updating r-base to r-base@sha256:abf76421547ac8eddd1b320197c98bfb74c30fde6de085f450f301cbf833f495",
+        "Warn: containerImage not pinned by hash: examples/ml/iris/rstats/iris-train-r-lda/Dockerfile:1: pin your Docker image by updating r-base to r-base@sha256:abf76421547ac8eddd1b320197c98bfb74c30fde6de085f450f301cbf833f495",
+        "Warn: containerImage not pinned by hash: examples/ml/iris/rstats/iris-train-r-svm/Dockerfile:1: pin your Docker image by updating r-base to r-base@sha256:abf76421547ac8eddd1b320197c98bfb74c30fde6de085f450f301cbf833f495",
+        "Warn: containerImage not pinned by hash: examples/ml/neon/inference/Dockerfile:1: pin your Docker image by updating kaixhin/neon to kaixhin/neon@sha256:41a02314cc31d34796f4ec4338e5084949019d9bd4d7b3ca427ce35e11899366",
+        "Warn: containerImage not pinned by hash: examples/ml/tensorflow/Dockerfile:1: pin your Docker image by updating affinelayer/pix2pix-tensorflow to affinelayer/pix2pix-tensorflow@sha256:8972d15964f8e4260ff0d86f9ae3b4fb0d2b2bfe6c4c6121b629f749b197d6db",
+        "Warn: containerImage not pinned by hash: examples/opencv/Dockerfile:1: pin your Docker image by updating ubuntu to ubuntu@sha256:f9d633ff6640178c2d0525017174a688e2c1aef28f0a0130b26bd5554491f0da",
+        "Warn: containerImage not pinned by hash: examples/redshift/Dockerfile:1: pin your Docker image by updating postgres to postgres@sha256:f58300ac8d393b2e3b09d36ea12d7d24ee9440440e421472a300e929ddb63460",
+        "Warn: containerImage not pinned by hash: examples/run/Dockerfile:2: pin your Docker image by updating python to python@sha256:e83d1f4d0c735c7a54fc9dae3cca8c58473e3b3de08fcb7ba3d342ee75cfc09d",
+        "Warn: containerImage not pinned by hash: examples/spark/pi/Dockerfile:1: pin your Docker image by updating k8s.gcr.io/spark to k8s.gcr.io/spark@sha256:6c0fe07c42c6270c48fb3b5a49795332f6813a5cf18021de2d95595eda6cdf15",
+        "Warn: containerImage not pinned by hash: examples/spouts/go-rabbitmq-spout/Dockerfile:1: pin your Docker image by updating golang:1.17-alpine to golang:1.17-alpine@sha256:99ddec1bbfd6d6bca3f9804c02363daee8c8524dae50df7942e8e60788fd17c9",
+        "Warn: containerImage not pinned by hash: examples/spouts/go-rabbitmq-spout/Dockerfile:14: pin your Docker image by updating alpine:3.12 to alpine:3.12@sha256:c75ac27b49326926b803b9ed43bf088bc220d22556de1bc5f72d742c91398f69",
+        "Warn: containerImage not pinned by hash: examples/spouts/spout101/Dockerfile:1: pin your Docker image by updating python to python@sha256:e83d1f4d0c735c7a54fc9dae3cca8c58473e3b3de08fcb7ba3d342ee75cfc09d",
+        "Warn: containerImage not pinned by hash: examples/word_count/Dockerfile:1: pin your Docker image by updating golang to golang@sha256:7b297d9abee021bab9046e492506b3c2da8a3722cbf301653186545ecc1e00bb",
+        "Warn: containerImage not pinned by hash: jupyter-extension/Dockerfile:1: pin your Docker image by updating jupyter/scipy-notebook to jupyter/scipy-notebook@sha256:fca4bcc9cbd49d9a15e0e4df6c666adf17776c950da9fa94a4f0a045d5c4ad33",
+        "Warn: containerImage not pinned by hash: python-sdk/Dockerfile.datum-batching-test:1: pin your Docker image by updating python to python@sha256:e83d1f4d0c735c7a54fc9dae3cca8c58473e3b3de08fcb7ba3d342ee75cfc09d",
+        "Warn: containerImage not pinned by hash: python-sdk/Dockerfile.docs-generation:1: pin your Docker image by updating python to python@sha256:e83d1f4d0c735c7a54fc9dae3cca8c58473e3b3de08fcb7ba3d342ee75cfc09d",
+        "Warn: containerImage not pinned by hash: python-sdk/proto/Dockerfile:1: pin your Docker image by updating python to python@sha256:e83d1f4d0c735c7a54fc9dae3cca8c58473e3b3de08fcb7ba3d342ee75cfc09d",
+        "Warn: containerImage not pinned by hash: src/testing/cmds/go-test-results/Dockerfile:1: pin your Docker image by updating golang to golang@sha256:7b297d9abee021bab9046e492506b3c2da8a3722cbf301653186545ecc1e00bb",
+        "Warn: pipCommand not pinned by hash: Dockerfile.pachdoc:7",
+        "Warn: npmCommand not pinned by hash: Dockerfile.pachdoc:17",
+        "Warn: pipCommand not pinned by hash: etc/testing/circle/workloads/metric-collector/Dockerfile:9",
+        "Warn: pipCommand not pinned by hash: etc/testing/images/ubuntu_with_s3_clients/Dockerfile:17",
+        "Warn: pipCommand not pinned by hash: etc/testing/images/ubuntu_with_s3_clients/Dockerfile:18",
+        "Warn: pipCommand not pinned by hash: examples/churn/Dockerfile:2",
+        "Warn: pipCommand not pinned by hash: examples/kubeflow/mnist/Dockerfile:2",
+        "Warn: pipCommand not pinned by hash: examples/ml/gpt-2/Dockerfile:7",
+        "Warn: pipCommand not pinned by hash: examples/ml/housing-prices/Dockerfile:2",
+        "Warn: pipCommand not pinned by hash: examples/ml/hyperparameter/train/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/hyperparameter/train/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/hyperparameter/train/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/hyperparameter/train/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/hyperparameter/train/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-infer-python/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-infer-python/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-infer-python/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-infer-python/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-infer-python/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-train-python-lda/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-train-python-lda/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-train-python-lda/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-train-python-lda/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-train-python-lda/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-train-python-svm/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-train-python-svm/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-train-python-svm/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-train-python-svm/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/ml/iris/python/iris-train-python-svm/Dockerfile:3-36",
+        "Warn: pipCommand not pinned by hash: examples/opencv/Dockerfile:31",
+        "Warn: pipCommand not pinned by hash: examples/spouts/spout101/Dockerfile:5",
+        "Warn: pipCommand not pinned by hash: jupyter-extension/Dockerfile:14",
+        "Warn: pipCommand not pinned by hash: jupyter-extension/Dockerfile:27",
+        "Warn: pipCommand not pinned by hash: jupyter-extension/Dockerfile:28",
+        "Warn: pipCommand not pinned by hash: python-sdk/Dockerfile.datum-batching-test:4",
+        "Warn: pipCommand not pinned by hash: python-sdk/Dockerfile.docs-generation:7-10",
+        "Warn: pipCommand not pinned by hash: python-sdk/Dockerfile.docs-generation:7-10",
+        "Warn: pipCommand not pinned by hash: python-sdk/proto/Dockerfile:3",
+        "Warn: pipCommand not pinned by hash: python-sdk/proto/Dockerfile:4",
+        "Warn: goCommand not pinned by hash: src/testing/cmds/go-test-results/Dockerfile:3",
+        "Warn: pipCommand not pinned by hash: etc/testing/circle/run_api_performance_tests.sh:51",
+        "Warn: pipCommand not pinned by hash: etc/testing/circle/run_api_performance_tests.sh:65",
+        "Warn: goCommand not pinned by hash: etc/testing/circle/upload_stats.sh:7",
+        "Warn: downloadThenRun not pinned by hash: etc/testing/lint.sh:21",
+        "Warn: goCommand not pinned by hash: etc/testing/lint.sh:29",
+        "Info: GitHub-owned GitHubActions are pinned"
+      ],
+      "documentation": {
+        "short": "Determines if the project has declared and pinned the dependencies of its build process.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#pinned-dependencies"
+      }
+    },
+    {
+      "name": "SAST",
+      "score": 0,
+      "reason": "no SAST tool detected",
+      "details": [
+        "Warn: no pull requests merged into dev branch",
+        "Warn: CodeQL tool not detected"
+      ],
+      "documentation": {
+        "short": "Determines if the project uses static code analysis.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#sast"
+      }
+    },
+    {
+      "name": "Security-Policy",
+      "score": 0,
+      "reason": "security policy file not detected",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has published a security policy.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#security-policy"
+      }
+    },
+    {
+      "name": "Signed-Releases",
+      "score": -1,
+      "reason": "no releases found",
+      "details": [
+        "Warn: no GitHub releases found"
+      ],
+      "documentation": {
+        "short": "Determines if the project cryptographically signs release artifacts.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#signed-releases"
+      }
+    },
+    {
+      "name": "Token-Permissions",
+      "score": 0,
+      "reason": "non read-only tokens detected in GitHub workflows",
+      "details": [
+        "Warn: no topLevel permission defined: .github/workflows/azureboards.yml:1: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/pachyderm/azureboards.yml/v2.9.1_release?enable=permissions",
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:16"
+      ],
+      "documentation": {
+        "short": "Determines if the project's workflows follow the principle of least privilege.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#token-permissions"
+      }
+    },
+    {
+      "name": "Vulnerabilities",
+      "score": -1,
+      "reason": "internal error: vulnerabilitiesClient.ListUnfixedVulnerabilities: osvscanner.DoScan: vulnerabilities found",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has open, known unfixed vulnerabilities.",
+        "url": "https://github.com/ossf/scorecard/blob/376f465c111c39c6a5ad7408e8896cd790cb5219/docs/checks.md#vulnerabilities"
+      }
+    }
+  ]
+}
