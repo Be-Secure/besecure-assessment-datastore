@@ -1,0 +1,131 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "python/InsecureTmpFile/test",
+              "name": "InsecureTmpFile/test",
+              "shortDescription": {
+                "text": "Insecure Temporary File"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nCreating temporary files can allow an attacker to guess the filename, and potentially create a file with the same filename with less restrictive access rights and gain access to the contents written by the application.\n\n## Best practices for prevention\n* Use more robust solutions to create file names like UUIDs or strong random values\n\n\n## References\n* [Insecure Temporary File](https://owasp.org/www-community/vulnerabilities/Insecure_Temporary_File)",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "InsecureTmpFile",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-377"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "python/InsecureTmpFile/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "Use of tempfile.mktemp is deprecated and poses a security risk",
+            "markdown": "Use of {0} is deprecated and poses a security risk",
+            "arguments": [
+              "[tempfile.mktemp](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "databricks/koalas/testing/utils.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 289,
+                  "endLine": 289,
+                  "startColumn": 19,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "aedb86f811a5cb7391d928e279ad2d3073a3362fff245329551c5ada1d6cf8ab",
+            "1": "2b6416cf.0b116892.2683ade8.139c59a8.ac563c4e.d54d3681.b98ff73c.d45164bf.2b6416cf.0b116892.2683ade8.139c59a8.ac563c4e.d54d3681.b98ff73c.d45164bf"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "databricks/koalas/testing/utils.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 289,
+                            "endLine": 289,
+                            "startColumn": 19,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 250,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "Python",
+            "files": 102,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}
