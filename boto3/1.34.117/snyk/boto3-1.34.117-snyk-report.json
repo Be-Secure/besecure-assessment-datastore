@@ -1,0 +1,1448 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "python/InsecureHash/test",
+              "name": "InsecureHash/test",
+              "shortDescription": {
+                "text": "Use of Password Hash With Insufficient Computational Effort"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nSensitive information should never be stored in plain text, since this makes it very easy for unauthorized users, whether malicious insiders or outside attackers, to access. Hashing methods are used to make stored passwords and other sensitive data unreadable to users. For example, when a password is defined for the first time, it is hashed and then stored. The next time that user attempts to log on, the password they enter is hashed following the same procedure and compared with the stored value. In this way, the original password never needs to be stored in the system.\n\nHashing is a one-way scheme, meaning a hashed password cannot be reverse engineered. However, if an outdated or custom programmed hashing scheme is used, it becomes simple for an attacker with powerful modern computing power to gain access to the hashes used. This opens up access to all stored password information, leading to breached security. Therefore, it is essential for developers to understand modern, secure password hashing techniques.\n\n## Best practices for prevention\n* Use strong standard algorithms for hashing rather than simpler but outdated methods or DIY hashing schemes, which may have inherent weaknesses.\n* Use modular design for all code dealing with hashing so it can be swapped out as security standards change over time.\n* Use salting in combination with hashing (While this places more demands on resources, it is an essential step for tighter security.).\n* Implement zero-trust architecture to ensure that access to password data is granted only for legitimate business purposes.\n* Increase developer awareness of current standards in data security and cryptography.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "InsecureHash",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/kiwitcms/Kiwi/commit/e17c071623e055c24a0fdf203991819d446c8f09?diff=split#diff-aa51d9851848643981397fb834fa01bae8fba8ff6f1af7bcd7c711b007a0433aL-1",
+                    "lines": [
+                      {
+                        "line": "md5 = hashlib.md5()\n",
+                        "lineNumber": 7,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "md5.update(value.encode(\"UTF-8\"))\n",
+                        "lineNumber": 8,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "return md5.hexdigest()\n",
+                        "lineNumber": 9,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "_checksum = hashlib.sha256()\n",
+                        "lineNumber": 7,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "_checksum.update(value.encode(\"UTF-8\"))\n",
+                        "lineNumber": 8,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "return _checksum.hexdigest()\n",
+                        "lineNumber": 9,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/mozilla/amo-validator/commit/1557fa06a96966a6fbacd1733383ae83ad3b0614?diff=split#diff-98ef2e4adee9bbea1bbbd8f184af864ebe80f96ee44e6729e6c74b3ff9aa3147L-1",
+                    "lines": [
+                      {
+                        "line": "hash = hashlib.sha1(open(path).read()).hexdigest()\n",
+                        "lineNumber": 10,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "hash = hashlib.sha256(open(path).read()).hexdigest()\n",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/ssfdust/full-stack-flask-smorest/commit/1b364164630cade9a86fc295850c7781fd4a7241?diff=split#diff-c14286914504e87a0adbd9123450ec1bb5484583d1db033876f3df4159371531L-1",
+                    "lines": [
+                      {
+                        "line": "from hashlib import md5\n",
+                        "lineNumber": 5,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "from app.utils.secure import encrypt_str\n",
+                        "lineNumber": 5,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 6,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 7,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "class TestAuth():\n",
+                        "lineNumber": 8,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 9,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    def test_auth(self, flask_app, flask_app_client, regular_user):\n",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        user_hash = md5(regular_user.email.encode('utf-8')).hexdigest()\n",
+                        "lineNumber": 11,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        user_hash = encrypt_str(regular_user.email)\n",
+                        "lineNumber": 11,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 144,
+                "cwe": [
+                  "CWE-916"
+                ]
+              }
+            },
+            {
+              "id": "python/HardcodedNonCryptoSecret/test",
+              "name": "HardcodedNonCryptoSecret/test",
+              "shortDescription": {
+                "text": "Hardcoded Secret"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "## Details\n\nWhen constants are hardcoded into applications, this information could easily be reverse-engineered and become known to attackers. For example, if a breached authentication token is hardcoded in multiple places in the application, it may lead to components of the application remaining vulnerable if not all instances are changed.\nAnother negative effect of hard-coding constants is potential unpredictability in the application's performance if the development team fails to update every single instance of the hardcoded constant throughout the code. For these reasons, hard-coding security-relevant constants is considered bad coding practice and should be remedied if present and avoided in future.\n\n## Best practices for prevention\n- Never hard code security-related constants; use symbolic names or configuration lookup files.\n- As hard coding is often done by coders working alone on a small scale, examine all legacy code components and test carefully when scaling.\n- Adopt a \"future-proof code\" mindset: While use of constants may save a little time now and make development simpler in the short term, it could cost time and money adapting to scale or other unforeseen circumstances (such as new hardware) in the future.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "HardcodedNonCryptoSecret",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/odubno/instagram-analyzer/commit/f4648cd1316ea3f3c305278c4700fabf9eab1f21?diff=split#diff-32daf2e60da907c036013eec3aa1414fe1f1c9f1483987f421e71b47fc533fdcL-1",
+                    "lines": [
+                      {
+                        "line": "client_id = '768fcf1f36c94eb08506bae0a9caffa3'\n",
+                        "lineNumber": 0,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "secret = '54efcbaed7f64673bc93b4e28ca9e8b2'\n",
+                        "lineNumber": 1,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "access_token = '14521798.768fcf1.f05c803b0a9c4c6dbac20060e0c2bc8d'\n",
+                        "lineNumber": 2,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "import os\n",
+                        "lineNumber": 0,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "basedir = os.path.abspath(os.path.dirname(__file__))\n",
+                        "lineNumber": 1,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 2,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "CLIENT_ID = os.environ['client_id']\n",
+                        "lineNumber": 3,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "SECRET = os.environ['secret']\n",
+                        "lineNumber": 4,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "ACCESS_TOKEN = os.environ['access_token']\n",
+                        "lineNumber": 5,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/mikelambert/dancedeets-monorepo/commit/f8e7b78c5e4de1096afe63969b44ca39ea9ed7ab?diff=split#diff-36050a5a8bb8a188ecf53d7559d7ccaac74eef18c1f8c3e1d5ff5531f68db9ddL-1",
+                    "lines": [
+                      {
+                        "line": "app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'\n",
+                        "lineNumber": 19,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "app.secret_key = keys.get('flask_session_key')\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/Song-Li/cross_browser/commit/6444442fb5827063c461eccf2c1c8457d26f5786?diff=split#diff-767468ba2e7b08a674604477127158453cc60fd651bac591f73a6245144660a3L-1",
+                    "lines": [
+                      {
+                        "line": "import ConfigParser\n",
+                        "lineNumber": 2,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 3,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "ACCESS_ID = 'U2FsdGVkX1/qMoSUWBeff4jFDihBczJbZNFHc6Kn/tlpEDKiCCp9DGmdSte2CVmB'\n",
+                        "lineNumber": 3,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "SECRET_KEY = 'U2FsdGVkX19KzfE5gaEi5Y5RFyZWOTHz8+IssrQ2Xi1LfK+MFAQFZYzlGxRsyWlCdgL1sB0ZVDHlI4gBqROpZw=='\n",
+                        "lineNumber": 4,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "#encrypited\n",
+                        "lineNumber": 5,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "config = ConfigParser.ConfigParser()\n",
+                        "lineNumber": 4,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "config.read(\"./keys.conf\")\n",
+                        "lineNumber": 5,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "ACCESS_ID = config.get('keys', 'ACCESS_ID')\n",
+                        "lineNumber": 6,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "SECRET_KEY = config.get('keys', 'SECRET_KEY')\n",
+                        "lineNumber": 7,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 250,
+                "cwe": [
+                  "CWE-547"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "python/InsecureHash/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "hashlib.md5 is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[hashlib.md5](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/integration/test_s3.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 52,
+                  "endLine": 52,
+                  "startColumn": 12,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "a8cbbad2dcf62ce43b0021f241b974d38e3ff1609949c5f1f8a973e309684217",
+            "1": "8e9fbe31.c2045042.187bf175.35c4d05d.145e7f2f.ba14daf2.c3d48e88.bba0e7c7.8e9fbe31.c2045042.f04405c4.35c4d05d.145e7f2f.ba14daf2.c3d48e88.bba0e7c7"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/integration/test_s3.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 48,
+                            "endLine": 48,
+                            "startColumn": 16,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 359,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/HardcodedNonCryptoSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/unit/test_boto3.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 36,
+                  "endLine": 36,
+                  "startColumn": 38,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "b69c9ef40aa67654b639fc887c9251485fa0f58846e05bc82757b683c17a0061",
+            "1": "4ab939ce.3bff74c1.2683ade8.139c59a8.0d17fcdd.ba14daf2.081ac3f4.443ed4ce.4ab939ce.3bff74c1.2683ade8.139c59a8.0d17fcdd.ba14daf2.081ac3f4.443ed4ce"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/unit/test_boto3.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "endLine": 36,
+                            "startColumn": 38,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/unit/test_boto3.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "endLine": 36,
+                            "startColumn": 38,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/HardcodedNonCryptoSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/unit/test_boto3.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 40,
+                  "endLine": 40,
+                  "startColumn": 38,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "aebf74df6946abb76daf3b841dfc9ea04c4a59407777ae918513ba9ad693568f",
+            "1": "949855b4.a64674fd.2683ade8.139c59a8.fac4e61d.ba14daf2.8b7b3576.443ed4ce.949855b4.a64674fd.2683ade8.139c59a8.fac4e61d.ba14daf2.8b7b3576.443ed4ce"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/unit/test_boto3.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 40,
+                            "endLine": 40,
+                            "startColumn": 38,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/unit/test_boto3.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 40,
+                            "endLine": 40,
+                            "startColumn": 38,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/HardcodedNonCryptoSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/functional/test_smoke.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 25,
+                  "endLine": 25,
+                  "startColumn": 13,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "2676b53f558408d442b64402ae691b04d8c4da59f468587ad26492088bc627fd",
+            "1": "00ddd4c5.a64674fd.79e62dc9.59153694.031a52f3.ba14daf2.d5cdef5b.443ed4ce.00ddd4c5.a64674fd.79e62dc9.59153694.031a52f3.ba14daf2.d5cdef5b.443ed4ce"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/functional/test_smoke.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 25,
+                            "endLine": 25,
+                            "startColumn": 13,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/functional/test_smoke.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 25,
+                            "endLine": 25,
+                            "startColumn": 13,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/HardcodedNonCryptoSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/functional/test_smoke.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 26,
+                  "endLine": 26,
+                  "startColumn": 13,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "ee3354bdbf758f20ad6970ef23dd22cb15ca7c962b052be8edf262b39ab80b31",
+            "1": "00ddd4c5.a64674fd.79e62dc9.59153694.031a52f3.ba14daf2.d5cdef5b.443ed4ce.00ddd4c5.a64674fd.79e62dc9.59153694.031a52f3.ba14daf2.d5cdef5b.443ed4ce"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/functional/test_smoke.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 26,
+                            "endLine": 26,
+                            "startColumn": 13,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/functional/test_smoke.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 26,
+                            "endLine": 26,
+                            "startColumn": 13,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/HardcodedNonCryptoSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/functional/test_dynamodb.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 35,
+                  "endLine": 35,
+                  "startColumn": 13,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "94e01b349be68c60a10683939e1921d9956e0e9a8f32f66dca952a0d939255f3",
+            "1": "00ddd4c5.577bab1d.3f17cba5.59153694.031a52f3.ba14daf2.081ac3f4.443ed4ce.00ddd4c5.577bab1d.3f17cba5.59153694.031a52f3.ba14daf2.081ac3f4.443ed4ce"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/functional/test_dynamodb.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 35,
+                            "endLine": 35,
+                            "startColumn": 13,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/functional/test_dynamodb.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 35,
+                            "endLine": 35,
+                            "startColumn": 13,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/HardcodedNonCryptoSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/functional/test_dynamodb.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 36,
+                  "endLine": 36,
+                  "startColumn": 13,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "6ee3da6655a961ec3a148f23dc96f18c675d60841a0e897627cda6eacd6b13e5",
+            "1": "00ddd4c5.577bab1d.3f17cba5.59153694.031a52f3.ba14daf2.081ac3f4.443ed4ce.00ddd4c5.577bab1d.3f17cba5.59153694.031a52f3.ba14daf2.081ac3f4.443ed4ce"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/functional/test_dynamodb.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "endLine": 36,
+                            "startColumn": 13,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/functional/test_dynamodb.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "endLine": 36,
+                            "startColumn": 13,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/HardcodedNonCryptoSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/unit/test_crt.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 66,
+                  "endLine": 66,
+                  "startColumn": 9,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "2f2a4d8e89ff2d998795df303fba2957f85d7f101926c3b8014245ea415fbb7f",
+            "1": "0e838121.804660e4.f656fa35.1d7790b1.37e2ff20.ba14daf2.57538d3a.443ed4ce.0e838121.804660e4.f656fa35.1d7790b1.37e2ff20.ba14daf2.57538d3a.443ed4ce"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/unit/test_crt.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 66,
+                            "endLine": 66,
+                            "startColumn": 9,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/unit/test_crt.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 66,
+                            "endLine": 66,
+                            "startColumn": 9,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/HardcodedNonCryptoSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/unit/test_crt.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 67,
+                  "endLine": 67,
+                  "startColumn": 9,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "47b839872ebe26cefa192cf9de30f38a12c2e551002f6964b42b0cdbab5cf670",
+            "1": "0e838121.804660e4.f656fa35.1d7790b1.37e2ff20.ba14daf2.57538d3a.7d61d8ce.0e838121.804660e4.f656fa35.1d7790b1.37e2ff20.ba14daf2.57538d3a.7d61d8ce"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/unit/test_crt.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 67,
+                            "endLine": 67,
+                            "startColumn": 9,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/unit/test_crt.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 67,
+                            "endLine": 67,
+                            "startColumn": 9,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/HardcodedNonCryptoSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/unit/test_session.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 67,
+                  "endLine": 67,
+                  "startColumn": 13,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "037511ac0b4cf04b49163ee0446404727bc3842dbb4f0035379ef21ab2557483",
+            "1": "949855b4.a64674fd.2683ade8.59153694.0d17fcdd.ba14daf2.081ac3f4.443ed4ce.949855b4.a64674fd.2683ade8.59153694.0d17fcdd.ba14daf2.081ac3f4.443ed4ce"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/unit/test_session.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 67,
+                            "endLine": 67,
+                            "startColumn": 13,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/unit/test_session.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 67,
+                            "endLine": 67,
+                            "startColumn": 13,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 442,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/HardcodedNonCryptoSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/functional/test_collection.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 21,
+                  "endLine": 21,
+                  "startColumn": 13,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "6b85cc2993b7843b131ad9627aabccd918933bc9e8208ac2fb1cfb6bfe289dde",
+            "1": "00ddd4c5.577bab1d.3f17cba5.139c59a8.031a52f3.ba14daf2.081ac3f4.443ed4ce.00ddd4c5.577bab1d.3f17cba5.139c59a8.031a52f3.ba14daf2.081ac3f4.443ed4ce"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/functional/test_collection.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "endLine": 21,
+                            "startColumn": 13,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/functional/test_collection.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "endLine": 21,
+                            "startColumn": 13,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/HardcodedNonCryptoSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/functional/test_collection.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 22,
+                  "endLine": 22,
+                  "startColumn": 13,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "c2697ca8bc7c43bd37d6a21316e61b2fe778cb25c1ae17949216fa250aa15f9e",
+            "1": "00ddd4c5.577bab1d.3f17cba5.139c59a8.031a52f3.ba14daf2.081ac3f4.443ed4ce.00ddd4c5.577bab1d.3f17cba5.139c59a8.031a52f3.ba14daf2.081ac3f4.443ed4ce"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/functional/test_collection.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "endLine": 22,
+                            "startColumn": 13,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/functional/test_collection.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "endLine": 22,
+                            "startColumn": 13,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 492,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "HTML",
+            "files": 4,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Python",
+            "files": 99,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "JavaScript",
+            "files": 2,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": false,
+            "lang": "HTML",
+            "files": 1,
+            "type": "FAILED_PARSING"
+          }
+        ]
+      }
+    }
+  ]
+}
