@@ -1,0 +1,474 @@
+{
+    "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+    "version": "2.1.0",
+    "runs": [
+        {
+            "tool": {
+                "driver": {
+                    "name": "SnykCode",
+                    "semanticVersion": "1.0.0",
+                    "version": "1.0.0",
+                    "rules": [
+                        {
+                            "id": "python/CommandInjection",
+                            "name": "CommandInjection",
+                            "shortDescription": {
+                                "text": "Command Injection"
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning"
+                            },
+                            "help": {
+                                "markdown": "## Details\n\nWith an OS command injection attack a web application user can pass commands directly to the system shell, attached to a legitimate request. These commands can then be executed on the application server, potentially leading to harmful consequences, including data exposure or deletion. Like code injection attacks, command injection attacks are essentially a failure of data validation. Unlike code injection attacks, which introduce new code, command injection attacks use existing system functions, often taking advantage of the application's unnecessarily high privilege level, increasing the risk of serious harm and reputational damage.\n\n## Best practices for prevention\n- Never trust user input. Assume any input may transmit harmful values.\n- Adopt the principle of least privilege: No application should have a greater access level than needed to run its required tasks.\n- Control user access policies on a task-by-task basis.\n- Don't pass user input directly to the system; use libraries or APIs that lack system access.\n- Where shell commands must be passed, escape values using functions like shlex for Python, or escapeshellarg() for PHP.\n- Sanitize user input with regular expressions to define permitted characters along with maximum string length.\n- Convert special characters such as `& |  ; $ > < \\ !` before passing to the server.\n- Whitelist permitted commands and validate user responses against these expectations.\n- Remember that code injection can take place on multiple fronts: GET and POST requests, but also cookies and HTTP headers.\n- Ensure up-to-date patching across all systems to remediate known vulnerabilities.\n- Educate all team members on safer data handling procedures to prevent attacks.",
+                                "text": ""
+                            },
+                            "properties": {
+                                "tags": [
+                                    "python",
+                                    "CommandInjection",
+                                    "Security",
+                                    "SourceNonServer",
+                                    "SourceLocalEnv",
+                                    "SourceEnvironmentVariable",
+                                    "Taint"
+                                ],
+                                "categories": [
+                                    "Security"
+                                ],
+                                "exampleCommitFixes": [
+                                    {
+                                        "commitURL": "https://github.com/ucbvislab/speecheditor/commit/70f2fb2290a28a1db5e65755c3a8307ef538ea99?diff=split#diff-568470d013cd12e4f388206520da39ab9a4e4c3c6b95846cbc281abc1ba3c959L-1",
+                                        "lines": [
+                                            {
+                                                "line": "subprocess.call('cp \"%s\" \"%s\"' % (orig_name, full_name), shell=True)\n",
+                                                "lineNumber": 285,
+                                                "lineChange": "removed"
+                                            },
+                                            {
+                                                "line": "shutil.copyfile(orig_name, full_name)\n",
+                                                "lineNumber": 303,
+                                                "lineChange": "added"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "commitURL": "https://github.com/esozh/eso_zh_ui/commit/7ef4d63f4c7c2e0275daf08862f615dcc6cf69f5?diff=split#diff-483aa1e8daa36090ed6724943f7abfef3f885823db8620ee30cc5ead97b91053L-1",
+                                        "lines": [
+                                            {
+                                                "line": "os.system('mv %s %s' % (filename, new_name))\n",
+                                                "lineNumber": 29,
+                                                "lineChange": "removed"
+                                            },
+                                            {
+                                                "line": "shutil.move(filename, new_name)\n",
+                                                "lineNumber": 29,
+                                                "lineChange": "added"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "commitURL": "https://github.com/jjgod/opf-cc/commit/d03202eab8278189bc3d9ebd6ff353772a72189d?diff=split#diff-fd2c598923afdaa788e7469b2866ea4d019adcb333e33494e563810508d06700L-1",
+                                        "lines": [
+                                            {
+                                                "line": "cmd = \"rm -rf '%s'\" % input_path\n",
+                                                "lineNumber": 143,
+                                                "lineChange": "removed"
+                                            },
+                                            {
+                                                "line": "os.system(cmd)\n",
+                                                "lineNumber": 144,
+                                                "lineChange": "removed"
+                                            },
+                                            {
+                                                "line": "shutil.rmtree(input_path)\n",
+                                                "lineNumber": 143,
+                                                "lineChange": "added"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "exampleCommitDescriptions": [],
+                                "precision": "very-high",
+                                "repoDatasetSize": 81,
+                                "cwe": [
+                                    "CWE-78"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "results": [
+                {
+                    "ruleId": "python/CommandInjection",
+                    "ruleIndex": 0,
+                    "level": "warning",
+                    "message": {
+                        "text": "Unsanitized input from an environment variable flows into subprocess.run, where it is used as a shell command. This may result in a Command Injection vulnerability.",
+                        "markdown": "Unsanitized input from an environment variable {0} into {1}, where it is used as a shell command. This may result in a Command Injection vulnerability.",
+                        "arguments": [
+                            "[flows](0),(1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14)",
+                            "[subprocess.run](15)"
+                        ]
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "setup.py",
+                                    "uriBaseId": "%SRCROOT%"
+                                },
+                                "region": {
+                                    "startLine": 95,
+                                    "endLine": 95,
+                                    "startColumn": 5,
+                                    "endColumn": 19
+                                }
+                            }
+                        }
+                    ],
+                    "fingerprints": {
+                        "0": "1f0fa06c0e374e7c5f3a3f5db5883891d04b3ba1c13f220e5ef09a3090cf431c",
+                        "1": "e06468b8.b88e75ef.4d42e114.f6463326.fcfffc93.73cfdf26.1e858449.0990edd8.ff5207cc.04ad2656.b588a99c.f6463326.56ec23f5.73cfdf26.18614a65.6aac30d8"
+                    },
+                    "codeFlows": [
+                        {
+                            "threadFlows": [
+                                {
+                                    "locations": [
+                                        {
+                                            "location": {
+                                                "id": 0,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 43,
+                                                        "endLine": 43,
+                                                        "startColumn": 21,
+                                                        "endColumn": 31
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 1,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 43,
+                                                        "endLine": 43,
+                                                        "startColumn": 21,
+                                                        "endColumn": 43
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 2,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 43,
+                                                        "endLine": 43,
+                                                        "startColumn": 9,
+                                                        "endColumn": 43
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 3,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 56,
+                                                        "endLine": 56,
+                                                        "startColumn": 40,
+                                                        "endColumn": 49
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 4,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 60,
+                                                        "endLine": 60,
+                                                        "startColumn": 25,
+                                                        "endColumn": 34
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 5,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 60,
+                                                        "endLine": 60,
+                                                        "startColumn": 12,
+                                                        "endColumn": 24
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 6,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 60,
+                                                        "endLine": 60,
+                                                        "startColumn": 5,
+                                                        "endColumn": 52
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 7,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 61,
+                                                        "endLine": 61,
+                                                        "startColumn": 27,
+                                                        "endColumn": 31
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 8,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 66,
+                                                        "endLine": 66,
+                                                        "startColumn": 23,
+                                                        "endColumn": 27
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 9,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 75,
+                                                        "endLine": 75,
+                                                        "startColumn": 8,
+                                                        "endColumn": 12
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 10,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 77,
+                                                        "endLine": 77,
+                                                        "startColumn": 24,
+                                                        "endColumn": 28
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 11,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 94,
+                                                        "endLine": 94,
+                                                        "startColumn": 12,
+                                                        "endColumn": 16
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 12,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 95,
+                                                        "endLine": 95,
+                                                        "startColumn": 21,
+                                                        "endColumn": 25
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 13,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 95,
+                                                        "endLine": 95,
+                                                        "startColumn": 20,
+                                                        "endColumn": 26
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 14,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 95,
+                                                        "endLine": 95,
+                                                        "startColumn": 20,
+                                                        "endColumn": 52
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "location": {
+                                                "id": 15,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "setup.py",
+                                                        "uriBaseId": "%SRCROOT%"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 95,
+                                                        "endLine": 95,
+                                                        "startColumn": 5,
+                                                        "endColumn": 19
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "properties": {
+                        "priorityScore": 600,
+                        "priorityScoreFactors": [
+                            {
+                                "label": true,
+                                "type": "hotFileCodeFlow"
+                            },
+                            {
+                                "label": true,
+                                "type": "fixExamples"
+                            }
+                        ],
+                        "isAutofixable": false
+                    }
+                }
+            ],
+            "properties": {
+                "coverage": [
+                    {
+                        "isSupported": true,
+                        "lang": "C++",
+                        "files": 3,
+                        "type": "SUPPORTED"
+                    },
+                    {
+                        "isSupported": true,
+                        "lang": "HTML",
+                        "files": 18,
+                        "type": "SUPPORTED"
+                    },
+                    {
+                        "isSupported": true,
+                        "lang": "Python",
+                        "files": 145,
+                        "type": "SUPPORTED"
+                    },
+                    {
+                        "isSupported": true,
+                        "lang": "JavaScript",
+                        "files": 27,
+                        "type": "SUPPORTED"
+                    },
+                    {
+                        "isSupported": false,
+                        "lang": "HTML",
+                        "files": 1,
+                        "type": "FAILED_PARSING"
+                    },
+                    {
+                        "isSupported": false,
+                        "lang": "C++",
+                        "files": 1,
+                        "type": "FAILED_PARSING"
+                    }
+                ]
+            }
+        }
+    ]
+}
