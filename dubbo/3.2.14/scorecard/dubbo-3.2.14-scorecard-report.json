@@ -1,0 +1,503 @@
+{
+  "date": "2024-06-20T06:07:27Z",
+  "repo": {
+    "name": "github.com/Be-Secure/dubbo",
+    "commit": "1f0e0ec1d9da40d6712ae2817266438ae0522dbd"
+  },
+  "scorecard": {
+    "version": "v4.13.1",
+    "commit": "49c0eed3a423f00c872b5c3c9f1bbca9e8aae799"
+  },
+  "score": 6,
+  "checks": [
+    {
+      "name": "Binary-Artifacts",
+      "score": 10,
+      "reason": "no binaries found in the repo",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has generated executable (binary) artifacts in the source repository.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#binary-artifacts"
+      }
+    },
+    {
+      "name": "Branch-Protection",
+      "score": 0,
+      "reason": "branch protection not enabled on development/release branches",
+      "details": [
+        "Warn: branch protection not enabled for branch '3.2.14_release'"
+      ],
+      "documentation": {
+        "short": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#branch-protection"
+      }
+    },
+    {
+      "name": "CI-Tests",
+      "score": -1,
+      "reason": "no pull request found",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project runs tests before pull requests are merged.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#ci-tests"
+      }
+    },
+    {
+      "name": "CII-Best-Practices",
+      "score": 0,
+      "reason": "no effort to earn an OpenSSF best practices badge detected",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project has an OpenSSF (formerly CII) Best Practices Badge.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#cii-best-practices"
+      }
+    },
+    {
+      "name": "Code-Review",
+      "score": 0,
+      "reason": "found 30 unreviewed changesets out of 30 -- score normalized to 0",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project requires human code review before pull requests (aka merge requests) are merged.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#code-review"
+      }
+    },
+    {
+      "name": "Contributors",
+      "score": 10,
+      "reason": "21 different organizations found -- score normalized to 10",
+      "details": [
+        "Info: contributors work for AlibabaTech,CSUG,acug,alibaba,aliexpress @ alibaba.com,ant group,apache,dapr,dubbo,foldright,httl,metaframe,opensource,pdd @taobao @aliyun @alibaba,personal,reactivegroup,risingwavelabs,seata,servicemesher,varFamily,youzan"
+      ],
+      "documentation": {
+        "short": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#contributors"
+      }
+    },
+    {
+      "name": "Dangerous-Workflow",
+      "score": 10,
+      "reason": "no dangerous workflow patterns detected",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#dangerous-workflow"
+      }
+    },
+    {
+      "name": "Dependency-Update-Tool",
+      "score": 10,
+      "reason": "update tool detected",
+      "details": [
+        "Info: tool 'Dependabot' is used: .github/dependabot.yaml:1"
+      ],
+      "documentation": {
+        "short": "Determines if the project uses a dependency update tool.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#dependency-update-tool"
+      }
+    },
+    {
+      "name": "Fuzzing",
+      "score": 0,
+      "reason": "project is not fuzzed",
+      "details": [
+        "Warn: no OSSFuzz integration found: Follow the steps in https://github.com/google/oss-fuzz to integrate fuzzing for your project.\nOver time, try to add fuzzing for more functionalities of your project. (High effort)",
+        "Warn: no OneFuzz integration found: Follow the steps in https://github.com/microsoft/onefuzz to start fuzzing for your project.\nOver time, try to add fuzzing for more functionalities of your project. (High effort)",
+        "Warn: no GoBuiltInFuzzer integration found: Follow the steps in https://go.dev/doc/fuzz/ to enable fuzzing on your project.\nOver time, try to add fuzzing for more functionalities of your project. (Medium effort)",
+        "Warn: no PythonAtherisFuzzer integration found: Follow the steps in https://github.com/google/atheris to enable fuzzing on your project.\nOver time, try to add fuzzing for more functionalities of your project. (Medium effort)",
+        "Warn: no CLibFuzzer integration found: Follow the steps in https://llvm.org/docs/LibFuzzer.html to enable fuzzing on your project.\nOver time, try to add fuzzing for more functionalities of your project. (Medium effort)",
+        "Warn: no CppLibFuzzer integration found: Follow the steps in https://llvm.org/docs/LibFuzzer.html to enable fuzzing on your project.\nOver time, try to add fuzzing for more functionalities of your project. (Medium effort)",
+        "Warn: no SwiftLibFuzzer integration found: Follow the steps in https://google.github.io/oss-fuzz/getting-started/new-project-guide/swift-lang/ to enable fuzzing on your project.\nOver time, try to add fuzzing for more functionalities of your project. (Medium effort)",
+        "Warn: no RustCargoFuzzer integration found: Follow the steps in https://rust-fuzz.github.io/book/cargo-fuzz.html to enable fuzzing on your project.\nOver time, try to add fuzzing for more functionalities of your project. (Medium effort)",
+        "Warn: no JavaJazzerFuzzer integration found: Follow the steps in https://github.com/CodeIntelligenceTesting/jazzer to enable fuzzing on your project.\nOver time, try to add fuzzing for more functionalities of your project. (Medium effort)",
+        "Warn: no ClusterFuzzLite integration found: Follow the steps in https://github.com/google/clusterfuzzlite to integrate fuzzing as part of CI.\nOver time, try to add fuzzing for more functionalities of your project. (High effort)",
+        "Warn: no HaskellPropertyBasedTesting integration found: Use one of the following frameworks to fuzz your project:\nQuickCheck: https://hackage.haskell.org/package/QuickCheck\nhedgehog: https://hedgehog.qa/\nvalidity: https://github.com/NorfairKing/validity\nsmallcheck: https://hackage.haskell.org/package/smallcheck\nhspec: https://hspec.github.io/\ntasty: https://hackage.haskell.org/package/tasty (High effort)",
+        "Warn: no TypeScriptPropertyBasedTesting integration found: Use fast-check: https://github.com/dubzzz/fast-check (High effort)",
+        "Warn: no JavaScriptPropertyBasedTesting integration found: Use fast-check: https://github.com/dubzzz/fast-check (High effort)"
+      ],
+      "documentation": {
+        "short": "Determines if the project uses fuzzing.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#fuzzing"
+      }
+    },
+    {
+      "name": "License",
+      "score": 10,
+      "reason": "license file detected",
+      "details": [
+        "Info: License file found in expected location: LICENSE:1",
+        "Info: FSF or OSI recognized license: LICENSE:1"
+      ],
+      "documentation": {
+        "short": "Determines if the project has defined a license.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#license"
+      }
+    },
+    {
+      "name": "Maintained",
+      "score": 10,
+      "reason": "30 commit(s) out of 30 and 0 issue activity out of 0 found in the last 90 days -- score normalized to 10",
+      "details": null,
+      "documentation": {
+        "short": "Determines if the project is \"actively maintained\".",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#maintained"
+      }
+    },
+    {
+      "name": "Packaging",
+      "score": -1,
+      "reason": "no published package detected",
+      "details": [
+        "Warn: no GitHub/GitLab publishing workflow detected"
+      ],
+      "documentation": {
+        "short": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#packaging"
+      }
+    },
+    {
+      "name": "Pinned-Dependencies",
+      "score": 0,
+      "reason": "dependency not pinned by hash detected -- score normalized to 0",
+      "details": [
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:369: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:377: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:455: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:460: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:152: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:162: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:176: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:265: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:273: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:290: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:295: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:303: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:311: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:316: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:334: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:340: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:351: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:356: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:471: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:474: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:478: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:483: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:488: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:497: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:502: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:515: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:520: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:26: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:28: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:37: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:55: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:94: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:97: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:101: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:110: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:123: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:132: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:528: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:532: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:539: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:558: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:567: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:572: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:66: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:72: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:204: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:208: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:212: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:220: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:228: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:254: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:394: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:399: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:407: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:415: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:420: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:438: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-pr.yml:444: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-pr.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:312: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:317: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:27: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:31: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:141: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:145: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:148: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:156: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:329: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:337: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:355: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:360: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:368: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:376: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:381: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:396: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:39: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:43: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:47: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:56: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:69: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:187: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:189: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:193: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:201: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:425: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:430: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:437: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:456: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:231: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:239: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:410: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:415: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:464: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:470: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:90: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:100: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:257: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:262: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:270: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:278: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:283: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.1.yml:298: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.1.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:329: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:337: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:355: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:360: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:368: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:376: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:381: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:396: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:410: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:415: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:425: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:430: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:437: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:456: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:39: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:43: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:47: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:56: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:69: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:90: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:100: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:231: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:239: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:257: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:262: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:270: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:278: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:283: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:298: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:312: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:317: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:187: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:189: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:193: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:201: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:27: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:31: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:141: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:145: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:148: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:156: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:464: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.2.yml:470: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.2.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:27: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:31: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:39: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:43: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:47: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:56: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:69: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:187: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:189: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:193: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:201: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:329: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:337: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:464: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:470: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:90: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:100: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:231: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:239: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:257: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:262: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:270: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:278: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:283: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:298: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:141: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:145: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:148: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:156: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:312: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:317: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:355: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:360: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:368: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:376: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:381: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:396: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:410: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:415: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:425: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:430: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:437: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/build-and-test-scheduled-3.3.yml:456: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/build-and-test-scheduled-3.3.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:60: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/codeql.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:64: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/codeql.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/codeql.yml:92: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/codeql.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:228: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:236: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:407: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:412: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:88: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/release-test.yml:98: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:326: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:334: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:352: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:357: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:365: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:373: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:378: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:393: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:422: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:426: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:433: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:452: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:460: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/release-test.yml:465: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:28: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: third-party GitHubAction not pinned by hash: .github/workflows/release-test.yml:30: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:139: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:141: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:145: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:153: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:309: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:314: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:38: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:41: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:45: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:54: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:67: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:184: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:186: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:190: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:198: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:254: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:259: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:267: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:275: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:280: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: GitHub-owned GitHubAction not pinned by hash: .github/workflows/release-test.yml:295: update your workflow using https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/release-test.yml/3.2.14_release?enable=pin",
+        "Warn: containerImage not pinned by hash: dubbo-native/src/main/resources/Dockerfile:18: pin your Docker image by updating maven:3-jdk-11-slim to maven:3-jdk-11-slim@sha256:2cb7c73ba2fd0f7ae64cfabd99180030ec85841a1197b4ae821d21836cb0aa3b",
+        "Info:   3 out of 221 GitHub-owned GitHubAction dependencies pinned",
+        "Info:   3 out of  18 third-party GitHubAction dependencies pinned",
+        "Info:   0 out of   1 containerImage dependencies pinned"
+      ],
+      "documentation": {
+        "short": "Determines if the project has declared and pinned the dependencies of its build process.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#pinned-dependencies"
+      }
+    },
+    {
+      "name": "SAST",
+      "score": 10,
+      "reason": "SAST tool detected",
+      "details": [
+        "Warn: no pull requests merged into dev branch",
+        "Info: SAST tool detected: CodeQL"
+      ],
+      "documentation": {
+        "short": "Determines if the project uses static code analysis.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#sast"
+      }
+    },
+    {
+      "name": "Security-Policy",
+      "score": 10,
+      "reason": "security policy file detected",
+      "details": [
+        "Info: security policy file detected: SECURITY.md:1",
+        "Info: Found linked content: SECURITY.md:1",
+        "Info: Found disclosure, vulnerability, and/or timelines in security policy: SECURITY.md:1",
+        "Info: Found text in security policy: SECURITY.md:1"
+      ],
+      "documentation": {
+        "short": "Determines if the project has published a security policy.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#security-policy"
+      }
+    },
+    {
+      "name": "Signed-Releases",
+      "score": -1,
+      "reason": "no releases found",
+      "details": [
+        "Warn: no GitHub releases found"
+      ],
+      "documentation": {
+        "short": "Determines if the project cryptographically signs release artifacts.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#signed-releases"
+      }
+    },
+    {
+      "name": "Token-Permissions",
+      "score": 9,
+      "reason": "detected GitHub workflow tokens with excessive permissions",
+      "details": [
+        "Info: topLevel 'contents' permission set to 'read': .github/workflows/build-and-test-pr.yml:6",
+        "Info: topLevel 'contents' permission set to 'read': .github/workflows/build-and-test-scheduled-3.1.yml:9",
+        "Info: topLevel 'contents' permission set to 'read': .github/workflows/build-and-test-scheduled-3.2.yml:9",
+        "Info: topLevel 'contents' permission set to 'read': .github/workflows/build-and-test-scheduled-3.3.yml:9",
+        "Warn: no topLevel permission defined: .github/workflows/codeql.yml:1: Visit https://app.stepsecurity.io/secureworkflow/Be-Secure/dubbo/codeql.yml/3.2.14_release?enable=permissions\nTick the 'Restrict permissions for GITHUB_TOKEN'\nUntick other options\nNOTE: If you want to resolve multiple issues at once, you can visit https://app.stepsecurity.io/securerepo instead. (Low effort)",
+        "Info: jobLevel 'packages' permission set to 'read': .github/workflows/codeql.yml:36",
+        "Info: jobLevel 'actions' permission set to 'read': .github/workflows/codeql.yml:39",
+        "Info: jobLevel 'contents' permission set to 'read': .github/workflows/codeql.yml:40",
+        "Info: topLevel 'contents' permission set to 'read': .github/workflows/release-test.yml:10",
+        "Info: topLevel permissions set to 'read-all': .github/workflows/scorecard.yml:17",
+        "Info: no jobLevel write permissions found"
+      ],
+      "documentation": {
+        "short": "Determines if the project's workflows follow the principle of least privilege.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#token-permissions"
+      }
+    },
+    {
+      "name": "Vulnerabilities",
+      "score": 0,
+      "reason": "23 existing vulnerabilities detected",
+      "details": [
+        "Warn: Project is vulnerable to: GHSA-2qrg-x229-3v8q",
+        "Warn: Project is vulnerable to: GHSA-65fg-84f6-3jq3",
+        "Warn: Project is vulnerable to: GHSA-f7vh-qwp3-x37m",
+        "Warn: Project is vulnerable to: GHSA-fp5r-v3w9-4333",
+        "Warn: Project is vulnerable to: GHSA-w9p3-5cr8-m3jj",
+        "Warn: Project is vulnerable to: GHSA-7286-pgfv-vxvh",
+        "Warn: Project is vulnerable to: GHSA-r978-9m6m-6gm6",
+        "Warn: Project is vulnerable to: GHSA-hr8g-6v94-x4m9",
+        "Warn: Project is vulnerable to: GHSA-wjxj-5m7g-mg7q",
+        "Warn: Project is vulnerable to: GHSA-8xfc-gm6g-vgpv",
+        "Warn: Project is vulnerable to: GHSA-m44j-cfrm-g8qc",
+        "Warn: Project is vulnerable to: GHSA-v435-xc8x-wvr9",
+        "Warn: Project is vulnerable to: GHSA-c27h-mcmw-48hv",
+        "Warn: Project is vulnerable to: GHSA-r6j9-8759-g62w",
+        "Warn: Project is vulnerable to: GHSA-5mcr-gq6c-3hq2",
+        "Warn: Project is vulnerable to: GHSA-9vjp-v76f-g363",
+        "Warn: Project is vulnerable to: GHSA-cqqj-4p63-rrmm",
+        "Warn: Project is vulnerable to: GHSA-f256-j965-7f32 / GHSA-wm47-8v5p-wjpj",
+        "Warn: Project is vulnerable to: GHSA-grg4-wf29-r9vv",
+        "Warn: Project is vulnerable to: GHSA-p2v9-g2qv-p635",
+        "Warn: Project is vulnerable to: GHSA-p979-4mfw-53vg",
+        "Warn: Project is vulnerable to: GHSA-wx5j-54mm-rqqq",
+        "Warn: Project is vulnerable to: GHSA-xfv3-rrfm-f2rv"
+      ],
+      "documentation": {
+        "short": "Determines if the project has open, known unfixed vulnerabilities.",
+        "url": "https://github.com/ossf/scorecard/blob/49c0eed3a423f00c872b5c3c9f1bbca9e8aae799/docs/checks.md#vulnerabilities"
+      }
+    }
+  ]
+}
