@@ -1,0 +1,1899 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "python/Jinja2AutoEscapeFalse/test",
+              "name": "Jinja2AutoEscapeFalse/test",
+              "shortDescription": {
+                "text": "Jinja auto-escape is set to false."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "## Details\n\nJinja2 is a python templating library that can be configured to escape values and avoid XSS vulnerabilities. However, the library by default sets the autoescaping to false.\n\nA cross-site scripting attack occurs when the attacker tricks a legitimate web-based application or site to accept a request as originating from a trusted source.\n\nThis is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML)  in order to perform actions that are otherwise typically blocked by the browser's Same Origin Policy.\n\nInjecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability.\n\nEscaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as  `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they've been correctly escaped in the application code and in this way the attempted attack is diverted.\n\nThe most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware.\n\n### Types of attacks\nThere are a few methods by which XSS can be manipulated:\n\n|Type|Origin|Description|\n|--|--|--|\n|**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.|\n|**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user's browser.|\n|**DOM-based**|Client|The attacker forces the user's browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.|\n|**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.|\n\n### Affected environments\nThe following environments are susceptible to an XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n## Best practices for prevention\nThis section describes the top best practices designed to specifically protect your code:\n\n* Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches.\n* Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents.\n* Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n* Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions.\n* Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack.\n* Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "Jinja2AutoEscapeFalse",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/remcoder/Pxxl.js/commit/707b0de4c23a0b62b3367dd7515e9df08c0a85c1?diff=split#diff-68f63e8cccbcb05c3a3fe3cb8f8a020e0b62330133bce1aacdca14328932410aL-1",
+                    "lines": [
+                      {
+                        "line": "env = Environment(loader=FileSystemLoader('templates'))\n",
+                        "lineNumber": 1,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "env = Environment(loader=FileSystemLoader('templates'), \n",
+                        "lineNumber": 1,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  extensions=['jinja2.ext.autoescape'],\n",
+                        "lineNumber": 2,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  autoescape=True)\n",
+                        "lineNumber": 3,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/GoogleCloudPlatform/titan/commit/0bf5c35ddc04b1020a14ed910af41e9ae37b1c1b?diff=split#diff-c11ef690b2d17d9c12d561977691c7d5b8f04c24db5a1f2f7266954296169432L-1",
+                    "lines": [
+                      {
+                        "line": "jinja_environment = jinja2.Environment(\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))\n",
+                        "lineNumber": 24,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)), autoescape=True)\n",
+                        "lineNumber": 24,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/rsrdesarrollo/sarna/commit/8d4e57c9e3b472e2db8c63d9da194f048e43ee6a?diff=split#diff-c06d497ff6c790308e10bf3e7755c9ef6d603a65b5ead96bdbb3a6d6a7d81605L-1",
+                    "lines": [
+                      {
+                        "line": "jinja2_env = jinja2.Environment()\n",
+                        "lineNumber": 104,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "jinja2_env = jinja2.Environment(\n",
+                        "lineNumber": 105,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    autoescape=True\n",
+                        "lineNumber": 106,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": ")\n",
+                        "lineNumber": 107,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 44,
+                "cwe": [
+                  "CWE-79"
+                ]
+              }
+            },
+            {
+              "id": "python/InsecureXmlParser/test",
+              "name": "InsecureXmlParser/test",
+              "shortDescription": {
+                "text": "Insecure Xml Parser"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nFor convenience, XML documents can use system identifiers to enable access to stored content, whether local or remote. The XML processor then uses the system identifier to access the resource rather than using the URI. When this weakness exists, the application permits user-supplied data, which could include the address of an XML external identity, to be passed directly to the XML parser. The application will then attempt to retrieve documents from outside of secure, controlled areas.\n\nAttackers can exploit this weakness to expose sensitive data, execute port scanning on the server side, or launch a denial-of-service attack (DoS) such as Billion Laughs.\n\n## Best practices for prevention\n* Avoid using vulnerable APIs\n* When possible, disable loading of data from external entities. The method of doing this will vary based on the language and XML parser being used.\n* Use a local, static document type definitions (DTDs) and ensure that external DTDs are disallowed entirely.\n* If user input cannot be avoided, perform validation against an allowlist of possible data sources. However, as long as external DTDs are allowed, XML code remains inherently vulnerable to attacks exploiting this weakness.\n\n\n## References\n* [XML vulnerabilities](https://docs.python.org/3/library/xml.html#xml-vulnerabilities)",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "InsecureXmlParser",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/DefectDojo/django-DefectDojo/commit/3bb6173ce1db621ebd99a1cb361e7da7cbaf1925?diff=split#diff-ef1e087c75390ecb8efe1b3990802470d172cb27c62e76392ba87bdae855ca2cL-1",
+                    "lines": [
+                      {
+                        "line": "from xml.dom import NamespaceErr\n",
+                        "lineNumber": 2,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "from xml.etree import ElementTree\n",
+                        "lineNumber": 3,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "from defusedxml.dom import NamespaceErr\n",
+                        "lineNumber": 2,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "from defusedxml.etree import ElementTree\n",
+                        "lineNumber": 3,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "from datetime import datetime\n",
+                        "lineNumber": 4,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 5,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "from dojo.models import Finding\n",
+                        "lineNumber": 6,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 7,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 8,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "class CheckmarxXMLParser(object):\n",
+                        "lineNumber": 9,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    def __init__(self, filename, test):\n",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        cxscan = ElementTree.parse(filename)\n",
+                        "lineNumber": 11,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/oVirt/vdsm/commit/bebc0dff76115e11a0d8d3be2971d17dd2898711?diff=split#diff-c8191175dae739bf1111cc700f07f7d2ec4e6254ab286559bda259ea3abec251L-1",
+                    "lines": [
+                      {
+                        "line": "actual = ET.fromstring(xml)\n",
+                        "lineNumber": 308,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "actual = xmlutils.fromstring(xml)\n",
+                        "lineNumber": 308,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/GovReady/compliancelib-python/commit/ba892b563bb4c329387a983109caa84382eea0e8?diff=split#diff-50428a83950457170bb17ab641987e84903af63e6263dbf3940fb12d17ea0359L-1",
+                    "lines": [
+                      {
+                        "line": "import xml.etree.ElementTree as ET\n",
+                        "lineNumber": 24,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "import defusedxml.ElementTree as ET\n",
+                        "lineNumber": 24,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "class NIST800_53(object):\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    \"represent 800-53 security controls\"\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    def __init__(self, id):\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        self.xmlfile = os.path.join(os.path.dirname(__file__), 'data/800-53-controls.xml')\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        self.id = id\n",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        if \"(\" in self.id:\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            self._load_control_enhancement_from_xml()\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        else:\n",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            self._load_control_from_xml()\n",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        # split description\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        self.set_description_sections()\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        self._get_control_json_dict()\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    def _load_control_from_xml(self):\n",
+                        "lineNumber": 40,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        \"load control detail from 800-53 xml using a pure python process\"\n",
+                        "lineNumber": 41,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        tree = ET.parse(self.xmlfile)\n",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 23,
+                "cwe": [
+                  "CWE-611"
+                ]
+              }
+            },
+            {
+              "id": "python/InsecureXmlParser",
+              "name": "InsecureXmlParser",
+              "shortDescription": {
+                "text": "Insecure Xml Parser"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nFor convenience, XML documents can use system identifiers to enable access to stored content, whether local or remote. The XML processor then uses the system identifier to access the resource rather than using the URI. When this weakness exists, the application permits user-supplied data, which could include the address of an XML external identity, to be passed directly to the XML parser. The application will then attempt to retrieve documents from outside of secure, controlled areas.\n\nAttackers can exploit this weakness to expose sensitive data, execute port scanning on the server side, or launch a denial-of-service attack (DoS) such as Billion Laughs.\n\n## Best practices for prevention\n* Avoid using vulnerable APIs\n* When possible, disable loading of data from external entities. The method of doing this will vary based on the language and XML parser being used.\n* Use a local, static document type definitions (DTDs) and ensure that external DTDs are disallowed entirely.\n* If user input cannot be avoided, perform validation against an allowlist of possible data sources. However, as long as external DTDs are allowed, XML code remains inherently vulnerable to attacks exploiting this weakness.\n\n\n## References\n* [XML vulnerabilities](https://docs.python.org/3/library/xml.html#xml-vulnerabilities)",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "InsecureXmlParser",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/DefectDojo/django-DefectDojo/commit/3bb6173ce1db621ebd99a1cb361e7da7cbaf1925?diff=split#diff-ef1e087c75390ecb8efe1b3990802470d172cb27c62e76392ba87bdae855ca2cL-1",
+                    "lines": [
+                      {
+                        "line": "from xml.dom import NamespaceErr\n",
+                        "lineNumber": 2,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "from xml.etree import ElementTree\n",
+                        "lineNumber": 3,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "from defusedxml.dom import NamespaceErr\n",
+                        "lineNumber": 2,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "from defusedxml.etree import ElementTree\n",
+                        "lineNumber": 3,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "from datetime import datetime\n",
+                        "lineNumber": 4,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 5,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "from dojo.models import Finding\n",
+                        "lineNumber": 6,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 7,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 8,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "class CheckmarxXMLParser(object):\n",
+                        "lineNumber": 9,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    def __init__(self, filename, test):\n",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        cxscan = ElementTree.parse(filename)\n",
+                        "lineNumber": 11,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/oVirt/vdsm/commit/bebc0dff76115e11a0d8d3be2971d17dd2898711?diff=split#diff-c8191175dae739bf1111cc700f07f7d2ec4e6254ab286559bda259ea3abec251L-1",
+                    "lines": [
+                      {
+                        "line": "actual = ET.fromstring(xml)\n",
+                        "lineNumber": 308,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "actual = xmlutils.fromstring(xml)\n",
+                        "lineNumber": 308,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/GovReady/compliancelib-python/commit/ba892b563bb4c329387a983109caa84382eea0e8?diff=split#diff-50428a83950457170bb17ab641987e84903af63e6263dbf3940fb12d17ea0359L-1",
+                    "lines": [
+                      {
+                        "line": "import xml.etree.ElementTree as ET\n",
+                        "lineNumber": 24,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "import defusedxml.ElementTree as ET\n",
+                        "lineNumber": 24,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "class NIST800_53(object):\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    \"represent 800-53 security controls\"\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    def __init__(self, id):\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        self.xmlfile = os.path.join(os.path.dirname(__file__), 'data/800-53-controls.xml')\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        self.id = id\n",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        if \"(\" in self.id:\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            self._load_control_enhancement_from_xml()\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        else:\n",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            self._load_control_from_xml()\n",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        # split description\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        self.set_description_sections()\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        self._get_control_json_dict()\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    def _load_control_from_xml(self):\n",
+                        "lineNumber": 40,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        \"load control detail from 800-53 xml using a pure python process\"\n",
+                        "lineNumber": 41,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        tree = ET.parse(self.xmlfile)\n",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 23,
+                "cwe": [
+                  "CWE-611"
+                ]
+              }
+            },
+            {
+              "id": "python/Jinja2AutoEscapeFalse",
+              "name": "Jinja2AutoEscapeFalse",
+              "shortDescription": {
+                "text": "Jinja auto-escape is set to false."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nJinja2 is a python templating library that can be configured to escape values and avoid XSS vulnerabilities. However, the library by default sets the autoescaping to false.\n\nA cross-site scripting attack occurs when the attacker tricks a legitimate web-based application or site to accept a request as originating from a trusted source.\n\nThis is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML)  in order to perform actions that are otherwise typically blocked by the browser's Same Origin Policy.\n\nInjecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability.\n\nEscaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as  `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they've been correctly escaped in the application code and in this way the attempted attack is diverted.\n\nThe most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware.\n\n### Types of attacks\nThere are a few methods by which XSS can be manipulated:\n\n|Type|Origin|Description|\n|--|--|--|\n|**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.|\n|**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user's browser.|\n|**DOM-based**|Client|The attacker forces the user's browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.|\n|**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.|\n\n### Affected environments\nThe following environments are susceptible to an XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n## Best practices for prevention\nThis section describes the top best practices designed to specifically protect your code:\n\n* Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches.\n* Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents.\n* Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n* Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions.\n* Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack.\n* Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "Jinja2AutoEscapeFalse",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/remcoder/Pxxl.js/commit/707b0de4c23a0b62b3367dd7515e9df08c0a85c1?diff=split#diff-68f63e8cccbcb05c3a3fe3cb8f8a020e0b62330133bce1aacdca14328932410aL-1",
+                    "lines": [
+                      {
+                        "line": "env = Environment(loader=FileSystemLoader('templates'))\n",
+                        "lineNumber": 1,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "env = Environment(loader=FileSystemLoader('templates'), \n",
+                        "lineNumber": 1,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  extensions=['jinja2.ext.autoescape'],\n",
+                        "lineNumber": 2,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  autoescape=True)\n",
+                        "lineNumber": 3,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/GoogleCloudPlatform/titan/commit/0bf5c35ddc04b1020a14ed910af41e9ae37b1c1b?diff=split#diff-c11ef690b2d17d9c12d561977691c7d5b8f04c24db5a1f2f7266954296169432L-1",
+                    "lines": [
+                      {
+                        "line": "jinja_environment = jinja2.Environment(\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))\n",
+                        "lineNumber": 24,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)), autoescape=True)\n",
+                        "lineNumber": 24,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/rsrdesarrollo/sarna/commit/8d4e57c9e3b472e2db8c63d9da194f048e43ee6a?diff=split#diff-c06d497ff6c790308e10bf3e7755c9ef6d603a65b5ead96bdbb3a6d6a7d81605L-1",
+                    "lines": [
+                      {
+                        "line": "jinja2_env = jinja2.Environment()\n",
+                        "lineNumber": 104,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "jinja2_env = jinja2.Environment(\n",
+                        "lineNumber": 105,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    autoescape=True\n",
+                        "lineNumber": 106,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": ")\n",
+                        "lineNumber": 107,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 44,
+                "cwe": [
+                  "CWE-79"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "python/Jinja2AutoEscapeFalse/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "jinja2.Environment is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.",
+            "markdown": "{0} is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.",
+            "arguments": [
+              "[jinja2.Environment](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_compu_methods.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 38,
+                  "endLine": 38,
+                  "startColumn": 25,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "302f9302b431dad4e577517f59538c065a6f02fef158ec95894ab158ec961adc",
+            "1": "1ba848e8.91acfc9b.79e62dc9.139c59a8.e788d716.aec66849.d0ec5399.22ab4be6.1ba848e8.91acfc9b.79e62dc9.139c59a8.e788d716.aec66849.d0ec5399.22ab4be6"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/test_compu_methods.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 25,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 419,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/Jinja2AutoEscapeFalse/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "jinja2.Environment is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.",
+            "markdown": "{0} is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.",
+            "arguments": [
+              "[jinja2.Environment](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_compu_methods.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 412,
+                  "endLine": 412,
+                  "startColumn": 25,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e752dce31fabcf5b5fa35efb73552af69e053767e2beb1b4efc295654380f4a1",
+            "1": "1ba848e8.91acfc9b.79e62dc9.139c59a8.e788d716.aec66849.d0ec5399.22ab4be6.1ba848e8.91acfc9b.79e62dc9.139c59a8.e788d716.aec66849.d0ec5399.22ab4be6"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/test_compu_methods.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 412,
+                            "endLine": 412,
+                            "startColumn": 25,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 419,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/Jinja2AutoEscapeFalse/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "jinja2.Environment is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.",
+            "markdown": "{0} is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.",
+            "arguments": [
+              "[jinja2.Environment](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_singleecujob.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 363,
+                  "endLine": 363,
+                  "startColumn": 21,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "d4297d829d487c508dda45e43f9c17349b7db45889889f073c46c4e76d4231b9",
+            "1": "1ba848e8.91acfc9b.79e62dc9.139c59a8.e788d716.aec66849.d0ec5399.ebed174f.1ba848e8.91acfc9b.79e62dc9.139c59a8.e788d716.aec66849.d0ec5399.ebed174f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/test_singleecujob.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 363,
+                            "endLine": 363,
+                            "startColumn": 21,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 419,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureXmlParser/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "xml.etree.ElementTree.fromstring is considered insecure. Use an analog from the defusedxml package.",
+            "markdown": "{0} is considered insecure. Use an analog from the defusedxml package.",
+            "arguments": [
+              "[xml.etree.ElementTree.fromstring](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_compu_methods.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 100,
+                  "endLine": 100,
+                  "startColumn": 22,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "3cc4c17a1e43e34fdee424380a99a2c9f7a99e6ec29339d1d4fd2a956eb740a4",
+            "1": "5920ce17.577bab1d.03129265.139c59a8.424999a1.ba14daf2.081ac3f4.9f86d4f3.5920ce17.577bab1d.03129265.139c59a8.424999a1.ba14daf2.081ac3f4.9f86d4f3"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/test_compu_methods.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 100,
+                            "endLine": 100,
+                            "startColumn": 22,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 457,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureXmlParser/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "xml.etree.ElementTree.fromstring is considered insecure. Use an analog from the defusedxml package.",
+            "markdown": "{0} is considered insecure. Use an analog from the defusedxml package.",
+            "arguments": [
+              "[xml.etree.ElementTree.fromstring](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_compu_methods.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 523,
+                  "endLine": 523,
+                  "startColumn": 22,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "f7611d87bb38487ab84a1d53401988913c257090fb94335e694de1d2a086c6cc",
+            "1": "b2dd68c0.577bab1d.79e62dc9.139c59a8.424999a1.ba14daf2.081ac3f4.ebed174f.b2dd68c0.577bab1d.79e62dc9.139c59a8.424999a1.ba14daf2.081ac3f4.ebed174f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/test_compu_methods.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 523,
+                            "endLine": 523,
+                            "startColumn": 22,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 457,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureXmlParser/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "xml.etree.ElementTree.fromstring is considered insecure. Use an analog from the defusedxml package.",
+            "markdown": "{0} is considered insecure. Use an analog from the defusedxml package.",
+            "arguments": [
+              "[xml.etree.ElementTree.fromstring](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_singleecujob.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 350,
+                  "endLine": 350,
+                  "startColumn": 22,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "706b74da804ee4d737e039ac105bffa1e07575d360dae04f6f84087db9cafdfd",
+            "1": "da555c38.fd897bbe.a74cee5c.139c59a8.424999a1.ba14daf2.081ac3f4.ebed174f.da555c38.fd897bbe.a74cee5c.139c59a8.424999a1.ba14daf2.081ac3f4.ebed174f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/test_singleecujob.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 350,
+                            "endLine": 350,
+                            "startColumn": 22,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 457,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureXmlParser/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "xml.etree.ElementTree.fromstring is considered insecure. Use an analog from the defusedxml package.",
+            "markdown": "{0} is considered insecure. Use an analog from the defusedxml package.",
+            "arguments": [
+              "[xml.etree.ElementTree.fromstring](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_singleecujob.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 387,
+                  "endLine": 387,
+                  "startColumn": 36,
+                  "endColumn": 58
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "33ed8992bc9758d6ef63d4c936dbd239b3fc2b06aba9122c7c5eb90ed85315bd",
+            "1": "b2e7ad66.00b9d527.79e62dc9.4c6f6d1c.424999a1.217c687b.bdaafc2a.5b9f34e0.b2e7ad66.00b9d527.79e62dc9.4c6f6d1c.424999a1.217c687b.bdaafc2a.5b9f34e0"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/test_singleecujob.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 387,
+                            "endLine": 387,
+                            "startColumn": 36,
+                            "endColumn": 58
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 457,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureXmlParser/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "xml.etree.ElementTree.fromstring is considered insecure. Use an analog from the defusedxml package.",
+            "markdown": "{0} is considered insecure. Use an analog from the defusedxml package.",
+            "arguments": [
+              "[xml.etree.ElementTree.fromstring](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_ecu_variant_patterns.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 42,
+                  "endLine": 42,
+                  "startColumn": 12,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "74ecfd691cd8f50aa3a717a3e8296fbd6664a4877ef4387706ff8a53c6d03a66",
+            "1": "8a30cfc6.46b5df2a.79e62dc9.139c59a8.424999a1.57d888ee.fd2705af.ebed174f.8a30cfc6.46b5df2a.79e62dc9.139c59a8.424999a1.57d888ee.fd2705af.ebed174f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/test_ecu_variant_patterns.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "endLine": 42,
+                            "startColumn": 12,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 457,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureXmlParser/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "xml.etree.ElementTree.fromstring is considered insecure. Use an analog from the defusedxml package.",
+            "markdown": "{0} is considered insecure. Use an analog from the defusedxml package.",
+            "arguments": [
+              "[xml.etree.ElementTree.fromstring](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_ecu_variant_patterns.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 55,
+                  "endLine": 55,
+                  "startColumn": 12,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "7f49b691d88e9e62381bf5c19e43b0bcd118df7b04491daa30d9fbf17e15a7ea",
+            "1": "8a30cfc6.a31c1796.79e62dc9.139c59a8.424999a1.57d888ee.fd2705af.ebed174f.8a30cfc6.a31c1796.79e62dc9.139c59a8.424999a1.57d888ee.fd2705af.ebed174f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/test_ecu_variant_patterns.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 55,
+                            "endLine": 55,
+                            "startColumn": 12,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 457,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureXmlParser/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "xml.etree.ElementTree.fromstring is considered insecure. Use an analog from the defusedxml package.",
+            "markdown": "{0} is considered insecure. Use an analog from the defusedxml package.",
+            "arguments": [
+              "[xml.etree.ElementTree.fromstring](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_unit_spec.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 85,
+                  "endLine": 85,
+                  "startColumn": 22,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "a362ddde03c080d19bdcc9ad0a30334825c0436c305bc49e98d4afa7fb685ec5",
+            "1": "da555c38.fd897bbe.79e62dc9.8cf5928d.424999a1.619615b8.75d4ed92.f72ce814.da555c38.fd897bbe.79e62dc9.8cf5928d.424999a1.619615b8.75d4ed92.f72ce814"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/test_unit_spec.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 85,
+                            "endLine": 85,
+                            "startColumn": 22,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 407,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureXmlParser/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "xml.etree.ElementTree.fromstring is considered insecure. Use an analog from the defusedxml package.",
+            "markdown": "{0} is considered insecure. Use an analog from the defusedxml package.",
+            "arguments": [
+              "[xml.etree.ElementTree.fromstring](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_diag_coded_types.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1007,
+                  "endLine": 1007,
+                  "startColumn": 23,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "c1492ce63c0fc759fae9cd4b5eaa4bbd7ad63e48e2f441f60b46f72cb3cb884a",
+            "1": "b35c908b.372d3653.79e62dc9.139c59a8.424999a1.57d888ee.75d4ed92.d9e7b6a7.b35c908b.372d3653.79e62dc9.139c59a8.424999a1.57d888ee.75d4ed92.d9e7b6a7"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/test_diag_coded_types.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1007,
+                            "endLine": 1007,
+                            "startColumn": 23,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 407,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureXmlParser/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "xml.etree.ElementTree.fromstring is considered insecure. Use an analog from the defusedxml package.",
+            "markdown": "{0} is considered insecure. Use an analog from the defusedxml package.",
+            "arguments": [
+              "[xml.etree.ElementTree.fromstring](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_readparameters.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 30,
+                  "endLine": 30,
+                  "startColumn": 16,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "5247159f5a7e23dfc683ae32c2ef94f7cba7fc891e3d6d0cec66d12d77302c4a",
+            "1": "59544917.c025ef15.79e62dc9.139c59a8.424999a1.e7d81136.081ac3f4.2999f838.59544917.c025ef15.79e62dc9.139c59a8.424999a1.e7d81136.081ac3f4.2999f838"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "tests/test_readparameters.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "endLine": 30,
+                            "startColumn": 16,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 407,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureXmlParser",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "xml.etree.ElementTree.parse is considered insecure. Use an analog from the defusedxml package.",
+            "markdown": "{0} is considered insecure. Use an analog from the defusedxml package.",
+            "arguments": [
+              "[xml.etree.ElementTree.parse](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "odxtools/database.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 47,
+                  "endLine": 47,
+                  "startColumn": 24,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "cb63bceff9ab39c0aca487423a0a2856f478775b1745a20571c88fce718e61e8",
+            "1": "ee62fb1f.cb8d04e3.79e62dc9.139c59a8.3f5ff851.625cb8b5.081ac3f4.8356f9c3.ee62fb1f.cb8d04e3.79e62dc9.139c59a8.3f5ff851.625cb8b5.081ac3f4.8356f9c3"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "odxtools/database.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 47,
+                            "startColumn": 24,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 569,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureXmlParser",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "xml.etree.ElementTree.parse is considered insecure. Use an analog from the defusedxml package.",
+            "markdown": "{0} is considered insecure. Use an analog from the defusedxml package.",
+            "arguments": [
+              "[xml.etree.ElementTree.parse](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "odxtools/database.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 53,
+                  "endLine": 53,
+                  "startColumn": 32,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "0f021a354480defae51c5f4c00bfb1573c51d0914b391e5912a4467b58b0167d",
+            "1": "7b0793b4.06b8b31e.a13da7cf.139c59a8.c6259e5d.ba14daf2.c0957f0d.836922f7.7b0793b4.06b8b31e.a13da7cf.139c59a8.c6259e5d.ba14daf2.c0957f0d.836922f7"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "odxtools/database.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 53,
+                            "endLine": 53,
+                            "startColumn": 32,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 569,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureXmlParser",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "xml.etree.ElementTree.parse is considered insecure. Use an analog from the defusedxml package.",
+            "markdown": "{0} is considered insecure. Use an analog from the defusedxml package.",
+            "arguments": [
+              "[xml.etree.ElementTree.parse](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/somersaultecu.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 2462,
+                  "endLine": 2462,
+                  "startColumn": 19,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "a726974478a90f5c40920493a916ed989b0dd5395bbf59815a4e487fef26c1d6",
+            "1": "faf6e9e6.cc3e0a39.5518e6d2.139c59a8.0af02f5c.ba14daf2.ac6c754d.d14165fe.faf6e9e6.cc3e0a39.5518e6d2.139c59a8.0af02f5c.ba14daf2.ac6c754d.d14165fe"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "examples/somersaultecu.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 2462,
+                            "endLine": 2462,
+                            "startColumn": 19,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 519,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/Jinja2AutoEscapeFalse",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "jinja2.Environment is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.",
+            "markdown": "{0} is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.",
+            "arguments": [
+              "[jinja2.Environment](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "odxtools/writepdxfile.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 142,
+                  "endLine": 142,
+                  "startColumn": 21,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "7b9c8d595d7c7864d2db4963b32d0f137ce66c0b42c3274a4a84785263769501",
+            "1": "1ba848e8.91acfc9b.187bf175.139c59a8.e788d716.aec66849.d0ec5399.ebed174f.1ba848e8.91acfc9b.187bf175.139c59a8.e788d716.aec66849.d0ec5399.ebed174f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "odxtools/writepdxfile.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 142,
+                            "endLine": 142,
+                            "startColumn": 21,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 507,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "Python",
+            "files": 169,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}
