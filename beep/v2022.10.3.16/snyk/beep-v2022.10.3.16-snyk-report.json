@@ -1,0 +1,650 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "python/InsecureHash",
+              "name": "InsecureHash",
+              "shortDescription": {
+                "text": "Use of Password Hash With Insufficient Computational Effort"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nSensitive information should never be stored in plain text, since this makes it very easy for unauthorized users, whether malicious insiders or outside attackers, to access. Hashing methods are used to make stored passwords and other sensitive data unreadable to users. For example, when a password is defined for the first time, it is hashed and then stored. The next time that user attempts to log on, the password they enter is hashed following the same procedure and compared with the stored value. In this way, the original password never needs to be stored in the system.\n\nHashing is a one-way scheme, meaning a hashed password cannot be reverse engineered. However, if an outdated or custom programmed hashing scheme is used, it becomes simple for an attacker with powerful modern computing power to gain access to the hashes used. This opens up access to all stored password information, leading to breached security. Therefore, it is essential for developers to understand modern, secure password hashing techniques.\n\n## Best practices for prevention\n* Use strong standard algorithms for hashing rather than simpler but outdated methods or DIY hashing schemes, which may have inherent weaknesses.\n* Use modular design for all code dealing with hashing so it can be swapped out as security standards change over time.\n* Use salting in combination with hashing (While this places more demands on resources, it is an essential step for tighter security.).\n* Implement zero-trust architecture to ensure that access to password data is granted only for legitimate business purposes.\n* Increase developer awareness of current standards in data security and cryptography.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "InsecureHash",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/kiwitcms/Kiwi/commit/e17c071623e055c24a0fdf203991819d446c8f09?diff=split#diff-aa51d9851848643981397fb834fa01bae8fba8ff6f1af7bcd7c711b007a0433aL-1",
+                    "lines": [
+                      {
+                        "line": "md5 = hashlib.md5()\n",
+                        "lineNumber": 7,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "md5.update(value.encode(\"UTF-8\"))\n",
+                        "lineNumber": 8,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "return md5.hexdigest()\n",
+                        "lineNumber": 9,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "_checksum = hashlib.sha256()\n",
+                        "lineNumber": 7,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "_checksum.update(value.encode(\"UTF-8\"))\n",
+                        "lineNumber": 8,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "return _checksum.hexdigest()\n",
+                        "lineNumber": 9,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/mozilla/amo-validator/commit/1557fa06a96966a6fbacd1733383ae83ad3b0614?diff=split#diff-98ef2e4adee9bbea1bbbd8f184af864ebe80f96ee44e6729e6c74b3ff9aa3147L-1",
+                    "lines": [
+                      {
+                        "line": "hash = hashlib.sha1(open(path).read()).hexdigest()\n",
+                        "lineNumber": 10,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "hash = hashlib.sha256(open(path).read()).hexdigest()\n",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/ssfdust/full-stack-flask-smorest/commit/1b364164630cade9a86fc295850c7781fd4a7241?diff=split#diff-c14286914504e87a0adbd9123450ec1bb5484583d1db033876f3df4159371531L-1",
+                    "lines": [
+                      {
+                        "line": "from hashlib import md5\n",
+                        "lineNumber": 5,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "from app.utils.secure import encrypt_str\n",
+                        "lineNumber": 5,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 6,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 7,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "class TestAuth():\n",
+                        "lineNumber": 8,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 9,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    def test_auth(self, flask_app, flask_app_client, regular_user):\n",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        user_hash = md5(regular_user.email.encode('utf-8')).hexdigest()\n",
+                        "lineNumber": 11,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        user_hash = encrypt_str(regular_user.email)\n",
+                        "lineNumber": 11,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 144,
+                "cwe": [
+                  "CWE-916"
+                ]
+              }
+            },
+            {
+              "id": "python/HardcodedNonCryptoSecret/test",
+              "name": "HardcodedNonCryptoSecret/test",
+              "shortDescription": {
+                "text": "Hardcoded Secret"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "## Details\n\nWhen constants are hardcoded into applications, this information could easily be reverse-engineered and become known to attackers. For example, if a breached authentication token is hardcoded in multiple places in the application, it may lead to components of the application remaining vulnerable if not all instances are changed.\nAnother negative effect of hard-coding constants is potential unpredictability in the application's performance if the development team fails to update every single instance of the hardcoded constant throughout the code. For these reasons, hard-coding security-relevant constants is considered bad coding practice and should be remedied if present and avoided in future.\n\n## Best practices for prevention\n- Never hard code security-related constants; use symbolic names or configuration lookup files.\n- As hard coding is often done by coders working alone on a small scale, examine all legacy code components and test carefully when scaling.\n- Adopt a \"future-proof code\" mindset: While use of constants may save a little time now and make development simpler in the short term, it could cost time and money adapting to scale or other unforeseen circumstances (such as new hardware) in the future.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "python",
+                  "HardcodedNonCryptoSecret",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/odubno/instagram-analyzer/commit/f4648cd1316ea3f3c305278c4700fabf9eab1f21?diff=split#diff-32daf2e60da907c036013eec3aa1414fe1f1c9f1483987f421e71b47fc533fdcL-1",
+                    "lines": [
+                      {
+                        "line": "client_id = '768fcf1f36c94eb08506bae0a9caffa3'\n",
+                        "lineNumber": 0,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "secret = '54efcbaed7f64673bc93b4e28ca9e8b2'\n",
+                        "lineNumber": 1,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "access_token = '14521798.768fcf1.f05c803b0a9c4c6dbac20060e0c2bc8d'\n",
+                        "lineNumber": 2,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "import os\n",
+                        "lineNumber": 0,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "basedir = os.path.abspath(os.path.dirname(__file__))\n",
+                        "lineNumber": 1,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 2,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "CLIENT_ID = os.environ['client_id']\n",
+                        "lineNumber": 3,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "SECRET = os.environ['secret']\n",
+                        "lineNumber": 4,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "ACCESS_TOKEN = os.environ['access_token']\n",
+                        "lineNumber": 5,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/mikelambert/dancedeets-monorepo/commit/f8e7b78c5e4de1096afe63969b44ca39ea9ed7ab?diff=split#diff-36050a5a8bb8a188ecf53d7559d7ccaac74eef18c1f8c3e1d5ff5531f68db9ddL-1",
+                    "lines": [
+                      {
+                        "line": "app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'\n",
+                        "lineNumber": 19,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "app.secret_key = keys.get('flask_session_key')\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/Song-Li/cross_browser/commit/6444442fb5827063c461eccf2c1c8457d26f5786?diff=split#diff-767468ba2e7b08a674604477127158453cc60fd651bac591f73a6245144660a3L-1",
+                    "lines": [
+                      {
+                        "line": "import ConfigParser\n",
+                        "lineNumber": 2,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 3,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "ACCESS_ID = 'U2FsdGVkX1/qMoSUWBeff4jFDihBczJbZNFHc6Kn/tlpEDKiCCp9DGmdSte2CVmB'\n",
+                        "lineNumber": 3,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "SECRET_KEY = 'U2FsdGVkX19KzfE5gaEi5Y5RFyZWOTHz8+IssrQ2Xi1LfK+MFAQFZYzlGxRsyWlCdgL1sB0ZVDHlI4gBqROpZw=='\n",
+                        "lineNumber": 4,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "#encrypited\n",
+                        "lineNumber": 5,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "config = ConfigParser.ConfigParser()\n",
+                        "lineNumber": 4,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "config.read(\"./keys.conf\")\n",
+                        "lineNumber": 5,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "ACCESS_ID = config.get('keys', 'ACCESS_ID')\n",
+                        "lineNumber": 6,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "SECRET_KEY = config.get('keys', 'SECRET_KEY')\n",
+                        "lineNumber": 7,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 250,
+                "cwe": [
+                  "CWE-547"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "python/InsecureHash",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "hashlib.md5 is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[hashlib.md5](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "beep/utils/__init__.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 50,
+                  "endLine": 50,
+                  "startColumn": 12,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e46ffc749a057918b3b23bd57d76847fa512afa964cad3cf26117bcfb6fd0753",
+            "1": "8a30cfc6.97d63ae4.187bf175.139c59a8.05fcde4c.ba14daf2.8658ac02.ebed174f.fd431823.97d63ae4.f04405c4.139c59a8.e26e24d8.ba14daf2.8658ac02.ebed174f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "beep/utils/__init__.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 50,
+                            "endLine": 50,
+                            "startColumn": 12,
+                            "endColumn": 23
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureHash",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "hashlib.md5 is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[hashlib.md5](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "beep/structure/biologic.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 202,
+                  "endLine": 202,
+                  "startColumn": 36,
+                  "endColumn": 78
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "a9d0dd99b1bf58fdc3102175474f09bf0485840c5505cd13801b0e55cb976760",
+            "1": "16691f08.16855128.79e62dc9.46f03b3b.1d07cee4.ba14daf2.8658ac02.040f0b1c.97da360b.16855128.f04405c4.46f03b3b.1d07cee4.ba14daf2.8658ac02.040f0b1c"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "beep/structure/biologic.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 202,
+                            "endLine": 202,
+                            "startColumn": 36,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/InsecureHash",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "hashlib.md5 is insecure. Consider changing it to a secure hashing algorithm.",
+            "markdown": "{0} is insecure. Consider changing it to a secure hashing algorithm.",
+            "arguments": [
+              "[hashlib.md5](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "beep/cmd.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 160,
+                  "endLine": 160,
+                  "startColumn": 13,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "da8be55dfe3441cd444f8d67a2446f2bb23939122c394fe590661182fef65847",
+            "1": "8a30cfc6.315950da.187bf175.139c59a8.bab9de6f.ba14daf2.b0f70477.0990edd8.8a30cfc6.606f1d01.f04405c4.e3d297f4.e26e24d8.ba14daf2.65068a99.0990edd8"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "beep/cmd.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 160,
+                            "endLine": 160,
+                            "startColumn": 13,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 425,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "python/HardcodedNonCryptoSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "beep/tests/test_cmd.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 269,
+                  "endLine": 269,
+                  "startColumn": 9,
+                  "endColumn": 15
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "467c19d1ebb3693f446e7e96ad1dccd8516c9df42647f04e7d22903cd9389af5",
+            "1": "e3901977.dcb2d27c.79e62dc9.a9f6b0e6.ddb095de.6c8ed5d6.15777b1c.0990edd8.e3901977.dcb2d27c.79e62dc9.a9f6b0e6.ddb095de.6c8ed5d6.15777b1c.0990edd8"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "beep/tests/test_cmd.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 269,
+                            "endLine": 269,
+                            "startColumn": 18,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "beep/tests/test_cmd.py",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 269,
+                            "endLine": 269,
+                            "startColumn": 9,
+                            "endColumn": 15
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 375,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "XML",
+            "files": 1,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Python",
+            "files": 64,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "HTML",
+            "files": 16,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "JavaScript",
+            "files": 28,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}

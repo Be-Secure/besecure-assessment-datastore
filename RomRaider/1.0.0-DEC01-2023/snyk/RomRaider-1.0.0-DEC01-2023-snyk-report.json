@@ -1,0 +1,1892 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "java/InsecureHash",
+              "name": "InsecureHash",
+              "shortDescription": {
+                "text": "Use of Password Hash With Insufficient Computational Effort"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nSensitive information should never be stored in plain text, since this makes it very easy for unauthorized users, whether malicious insiders or outside attackers, to access. Hashing methods are used to make stored passwords and other sensitive data unreadable to users. For example, when a password is defined for the first time, it is hashed and then stored. The next time that user attempts to log on, the password they enter is hashed following the same procedure and compared with the stored value. In this way, the original password never needs to be stored in the system.\n\nHashing is a one-way scheme, meaning a hashed password cannot be reverse engineered. However, if an outdated or custom programmed hashing scheme is used, it becomes simple for an attacker with powerful modern computing power to gain access to the hashes used. This opens up access to all stored password information, leading to breached security. Therefore, it is essential for developers to understand modern, secure password hashing techniques.\n\n## Best practices for prevention\n* Use strong standard algorithms for hashing rather than simpler but outdated methods or DIY hashing schemes, which may have inherent weaknesses.\n* Use modular design for all code dealing with hashing so it can be swapped out as security standards change over time.\n* Use salting in combination with hashing (While this places more demands on resources, it is an essential step for tighter security.).\n* Implement zero-trust architecture to ensure that access to password data is granted only for legitimate business purposes.\n* Increase developer awareness of current standards in data security and cryptography.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "InsecureHash",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/javabeanz/owasp-security-logging/commit/477ecf68f3102f309f3ec9af01ab852294cbd826?diff=split#diff-c14e8b3d208e6acad1c0ca88a8a8227e4140088dfe2206349680aec0558df5cbL-1",
+                    "lines": [
+                      {
+                        "line": "MessageDigest md = MessageDigest.getInstance(\"SHA-1\");\n",
+                        "lineNumber": 18,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "MessageDigest md = MessageDigest.getInstance(\"SHA-256\");\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/serenity-bdd/serenity-core/commit/0f81a03ae3f907922a05167688dadc8c3e3fbfb8?diff=split#diff-801c01409e6adce75757fddee032ee993bc0d54328d0632f7d728689a4b8effdL-1",
+                    "lines": [
+                      {
+                        "line": "return DigestUtils.md5Hex(screenshotData) + \".png\";\n",
+                        "lineNumber": 7,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "return DigestUtils.sha256Hex(screenshotData) + \".png\";\n",
+                        "lineNumber": 7,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/freenet/fred/commit/90a727b4116eafd4b6892fa49295966de4e355ae?diff=split#diff-385b90a2c9a20669f73977a4d82d2dcebad9b0728cfe0479f26285a8cec90bbeL-1",
+                    "lines": [
+                      {
+                        "line": "md = MessageDigest.getInstance(\"SHA-1\");\n",
+                        "lineNumber": 75,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "md = MessageDigest.getInstance(\"SHA-256\");\n",
+                        "lineNumber": 75,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 64,
+                "cwe": [
+                  "CWE-916"
+                ]
+              }
+            },
+            {
+              "id": "java/XXE",
+              "name": "XXE",
+              "shortDescription": {
+                "text": "XML External Entity (XXE) Injection"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nFor convenience, XML documents can use system identifiers to enable access to stored content, whether local or remote. The XML processor then uses the system identifier to access the resource rather than using the URI. When this weakness exists, the application permits user-supplied data, which could include the address of an XML external identity, to be passed directly to the XML parser. The application will then attempt to retrieve documents from outside of secure, controlled areas.\n\nAttackers can exploit this weakness to expose sensitive data, execute port scanning on the server side, or launch a denial-of-service attack (DoS) such as Billion Laughs.\n\n## Best practices for prevention\n* When possible, disable loading of data from external entities. The method of doing this will vary based on the language and XML parser being used.\n* Use a local, static document type definitions (DTDs) and ensure that external DTDs are disallowed entirely.\n* If user input cannot be avoided, perform validation against an allowlist of possible data sources. However, as long as external DTDs are allowed, XML code remains inherently vulnerable to attacks exploiting this weakness.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "XXE",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/wso2/carbon-device-mgt/commit/ee5b077e6a1fd074473adfe76905844d7bb3c6e1?diff=split#diff-dacd782d0ff47d46f712a406b833ebc0b402f99f819fd4953469687234066474L-1",
+                    "lines": [
+                      {
+                        "line": "import javax.xml.XMLConstants;\n",
+                        "lineNumber": 23,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "import javax.xml.parsers.DocumentBuilder;\n",
+                        "lineNumber": 24,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import javax.xml.parsers.DocumentBuilderFactory;\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import java.io.File;\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "public class DataPublisherUtil {\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    public static Document convertToDocument(File file) throws DataPublisherConfigurationException {\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();\n",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        factory.setNamespaceAware(true);\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        try {\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            DocumentBuilder docBuilder = factory.newDocumentBuilder();\n",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);\n",
+                        "lineNumber": 35,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            return docBuilder.parse(file);\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/vespa-engine/vespa/commit/610f41d9904de453ed3e4bfbbfb50700463fd670?diff=split#diff-d7960aa3dee113734822a81c452cf2c7579d243ab7760f7259ef060bb94179a7L-1",
+                    "lines": [
+                      {
+                        "line": "        DocumentBuilder docBuilder = null;\n",
+                        "lineNumber": 41,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        try { // XXE prevention\n",
+                        "lineNumber": 39,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            dbf.setFeature(\"http://apache.org/xml/features/disallow-doctype-decl\", true);\n",
+                        "lineNumber": 40,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        }\n",
+                        "lineNumber": 41,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        catch (ParserConfigurationException e) {\n",
+                        "lineNumber": 42,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            throw new IllegalStateException(\"Could not disallow-doctype-decl\", e);\n",
+                        "lineNumber": 43,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        }\n",
+                        "lineNumber": 44,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        DocumentBuilder docBuilder;\n",
+                        "lineNumber": 45,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        try {\n",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            docBuilder = dbf.newDocumentBuilder();\n",
+                        "lineNumber": 48,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            Document doc = docBuilder.parse(file);\n",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/liferay/liferay-ide/commit/61cfc7acd9640a5a10428160774944550bfd9494?diff=split#diff-245b3ec622e991c784c4849fb98ec761e668f4b3aab338c8a306eb5848189741L-1",
+                    "lines": [
+                      {
+                        "line": "        builder.setValidation( false );\n",
+                        "lineNumber": 79,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            Document doc = builder.build( new FileInputStream( srcFile ) );\n",
+                        "lineNumber": 80,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        builder.setFeature( \"http://xml.org/sax/features/validation\", false );\n",
+                        "lineNumber": 78,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        builder.setFeature( \"http://apache.org/xml/features/nonvalidating/load-dtd-grammar\", false );\n",
+                        "lineNumber": 79,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        builder.setFeature( \"http://apache.org/xml/features/nonvalidating/load-external-dtd\", false ); \n",
+                        "lineNumber": 80,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 81,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        try( FileInputStream ivyInput = new FileInputStream( srcFile ) )\n",
+                        "lineNumber": 82,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        {\n",
+                        "lineNumber": 83,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            Document doc = builder.build( ivyInput );\n",
+                        "lineNumber": 84,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 58,
+                "cwe": [
+                  "CWE-611"
+                ]
+              }
+            },
+            {
+              "id": "java/UsageOfUnencryptedSocket",
+              "name": "UsageOfUnencryptedSocket",
+              "shortDescription": {
+                "text": "Cleartext Transmission of Sensitive Information"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\nThis weakness occurs when software transmits sensitive information, such as passwords or credit card numbers, in unencrypted form. This information may then be intercepted by threat actors using sniffer tools or interception techniques such as man-in-the-middle (MITM) attacks (often involving social engineering). Attackers can then use information gleaned to perform a variety of actions, depending on the information type. Possible actions include gaining unauthorized access, impersonating a user, moving laterally within the organization's network, or retrieving and potentially modifying files. This weakness is almost completely avoidable through intelligent architecture and design.\n\n## Best practices for prevention\n* Build web applications around a security mindset and the awareness that sniffers may be present at any time.\n* Ensure that all sensitive data transmission uses reliable encryption.\n* Implement security measures so that sensitive results are never returned in plain text.\n* Implement multiple-factor authentication methods to validate remote instances.\n* Use SSL not only at logon but throughout communications.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "UsageOfUnencryptedSocket",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/ashish-gehani/SPADE/commit/39a610fa6c3adc55843e2cb12a3f17dfcbb061e6?diff=split#diff-5e2d52f229fa5b082d9e1991dbf956eb475e1d044d336a710f48037a4d03d621L-1",
+                    "lines": [
+                      {
+                        "line": "\n",
+                        "lineNumber": 27,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "import spade.core.AuthSSLSocketFactory;\n",
+                        "lineNumber": 27,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "/**\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " *\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " * @author dawood\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " */\n",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "public class AndroidShutdown {\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    public static void main(String args[]) {\n",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        try {\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            SocketAddress sockaddr = new InetSocketAddress(\"localhost\", Kernel.LOCAL_CONTROL_PORT);\n",
+                        "lineNumber": 37,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            InetSocketAddress sockaddr = new InetSocketAddress(\"localhost\", Kernel.LOCAL_CONTROL_PORT);\n",
+                        "lineNumber": 37,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            Socket remoteSocket = new Socket();\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            remoteSocket.connect(sockaddr, Kernel.CONNECTION_TIMEOUT);\n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            remoteSocket = AuthSSLSocketFactory.getSocket(remoteSocket, sockaddr, \"DAWOOD_READ_FROM_CONFIG\");\n",
+                        "lineNumber": 40,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            OutputStream outStream = remoteSocket.getOutputStream();\n",
+                        "lineNumber": 41,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/oblac/jodd/commit/51a3827acd2d88a6b3cca81714e4f2e5b73632ec?diff=split#diff-55838df7e6e0c7cb07e519e8de8335feef4cb28bbf19fe1d706e8926e4b92a8fL-1",
+                    "lines": [
+                      {
+                        "line": "\t\t\tSocketFactory ssocketFactory = SSLSocketFactory.getDefault();\n",
+                        "lineNumber": 27,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t\tSSLSocket sslSocket = (SSLSocket) ssocketFactory.createSocket(httpRequest.host(), 443);\n",
+                        "lineNumber": 28,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t\tSSLSocket sslSocket = (SSLSocket) createSocket(\n",
+                        "lineNumber": 25,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\t\t\t\tSSLSocketFactory.getDefault(), httpRequest.host(), 443);\n",
+                        "lineNumber": 26,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\t\tsslSocket.startHandshake();\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tthis.socket = sslSocket;\n",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\telse {\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tthis.socket = new Socket(httpRequest.host(), httpRequest.port());\n",
+                        "lineNumber": 34,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t\tthis.socket = createSocket(\n",
+                        "lineNumber": 32,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\t\t\t\tSocketFactory.getDefault(), httpRequest.host(), httpRequest.port());\n",
+                        "lineNumber": 33,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn socket;\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t/**\n",
+                        "lineNumber": 40,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t * Creates a socket with provided socket factory.\n",
+                        "lineNumber": 40,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t */\n",
+                        "lineNumber": 41,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tprotected Socket createSocket(SocketFactory socketFactory, String host, int port) throws IOException {\n",
+                        "lineNumber": 42,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\treturn socketFactory.createSocket(host, port);\n",
+                        "lineNumber": 43,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 44,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 45,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t/**\n",
+                        "lineNumber": 46,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t * Opens sockets output stream and sends request data to it.\n",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t * Returns parsed response.\n",
+                        "lineNumber": 48,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t */\n",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tpublic HttpResponse send() throws IOException {\n",
+                        "lineNumber": 44,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 45,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tpublic HttpResponse send(HttpRequest httpRequest) throws IOException {\n",
+                        "lineNumber": 50,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\tOutputStream outputStream = socket.getOutputStream();\n",
+                        "lineNumber": 51,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/SmartBear/soapui/commit/98ce7aeaac98963795d4ebf22f673b64032fe572?diff=split#diff-c6679790ed47144c981b0f64cf5abe08d625880b9a6eb64cf9f6373a2ab84c83L-1",
+                    "lines": [
+                      {
+                        "line": "import javax.net.ssl.SSLSocket;\n",
+                        "lineNumber": 9,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "import javax.net.ssl.SSLSocketFactory;\n",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "import javax.servlet.ServletException;\n",
+                        "lineNumber": 11,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 12,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import org.mortbay.jetty.Request;\n",
+                        "lineNumber": 13,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import org.mortbay.jetty.Response;\n",
+                        "lineNumber": 14,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import org.mortbay.util.IO;\n",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 16,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "public class Server extends org.mortbay.jetty.Server\n",
+                        "lineNumber": 17,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "{\n",
+                        "lineNumber": 18,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 19,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t@Override\n",
+                        "lineNumber": 20,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tpublic void handle(final org.mortbay.jetty.HttpConnection connection) throws IOException, ServletException\n",
+                        "lineNumber": 21,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t{\n",
+                        "lineNumber": 22,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tfinal Request request = connection.getRequest();\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 24,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tif (!request.getMethod().equals(\"CONNECT\"))\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t{\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tsuper.handle(connection);\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\treturn;\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tfinal String uri = request.getUri().toString();\n",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tfinal int c = uri.indexOf(':');\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tfinal String port = uri.substring(c + 1);\n",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tfinal String host = uri.substring(0, c);\n",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tfinal InetSocketAddress inetAddress = new InetSocketAddress(host, Integer.parseInt(port));\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tfinal Socket clientSocket = connection.getEndPoint().getTransport() instanceof Socket ? (Socket) connection\n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\t.getEndPoint().getTransport() : ((SocketChannel) connection.getEndPoint().getTransport()).socket();\n",
+                        "lineNumber": 40,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tfinal InputStream in = clientSocket.getInputStream();\n",
+                        "lineNumber": 41,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tfinal OutputStream out = clientSocket.getOutputStream();\n",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tfinal Socket socket = new Socket(inetAddress.getAddress(), inetAddress.getPort());\n",
+                        "lineNumber": 42,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tfinal SSLSocket socket = (SSLSocket) SSLSocketFactory.getDefault().createSocket(inetAddress.getAddress(), inetAddress.getPort());\n",
+                        "lineNumber": 44,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tfinal Response response = connection.getResponse();\n",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tresponse.setStatus(200);\n",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "//\t\tresponse.setHeader(\"Connection\", \"close\");\n",
+                        "lineNumber": 48,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tresponse.flushBuffer();\n",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 50,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tIO.copyThread(socket.getInputStream(), out);\n",
+                        "lineNumber": 51,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 22,
+                "cwe": [
+                  "CWE-319"
+                ]
+              }
+            },
+            {
+              "id": "java/PT",
+              "name": "PT",
+              "shortDescription": {
+                "text": "Path Traversal"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nA Directory Traversal attack (also known as path traversal) aims to access files and directories that are stored outside the intended folder. By manipulating files with \"dot-dot-slash (../)\" sequences and its variations, or by using absolute file paths, it may be possible to access arbitrary files and directories stored on file system, including application source code, configuration, and other critical system files.\n\nBeing able to access and manipulate an arbitrary path leads to vulnerabilities when a program is being run with privileges that the user providing the path should not have. A website with a path traversal vulnerability would allow users access to sensitive files on the server hosting it. CLI programs may also be vulnerable to path traversal if they are being ran with elevated privileges (such as with the setuid or setgid flags in Unix systems).\n\nDirectory Traversal vulnerabilities can be generally divided into two types:\n\n- **Information Disclosure**: Allows the attacker to gain information about the folder structure or read the contents of sensitive files on the system.\n\n`st` is a module for serving static files on web pages, and contains a [vulnerability of this type](https://snyk.io/vuln/npm:st:20140206). In our example, we will serve files from the `public` route.\n\nIf an attacker requests the following URL from our server, it will in turn leak the sensitive private key of the root user.\n\n```\ncurl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa\n```\n**Note** `%2e` is the URL encoded version of `.` (dot).\n\n- **Writing arbitrary files**: Allows the attacker to create or replace existing files. This type of vulnerability is also known as `Zip-Slip`.\n\nOne way to achieve this is by using a malicious `zip` archive that holds path traversal filenames. When each filename in the zip archive gets concatenated to the target extraction folder, without validation, the final path ends up outside of the target folder. If an executable or a configuration file is overwritten with a file containing malicious code, the problem can turn into an arbitrary code execution issue quite easily.\n\nThe following is an example of a `zip` archive with one benign file and one malicious file. Extracting the malicious file will result in traversing out of the target folder, ending up in `/root/.ssh/` overwriting the `authorized_keys` file:\n\n```\n2018-04-15 22:04:29 .....           19           19  good.txt\n2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys\n```",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "PT",
+                  "Security",
+                  "SourceNonServer",
+                  "SourceLocalEnv",
+                  "SourceCLI",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/blackducksoftware/synopsys-detect/commit/36555b9322986e9560f241d05f2262c29a17663b?diff=split#diff-0762b4660a948292965002710b58e8fdfe28da3fe4aacdf01a6bac7406a33934L-1",
+                    "lines": [
+                      {
+                        "line": "import java.nio.file.Path;\r\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import java.util.Enumeration;\r\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import java.util.zip.ZipEntry;\r\n",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import java.util.zip.ZipFile;\r\n",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\r\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import org.apache.commons.compress.utils.IOUtils;\r\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\r\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "public class DetectZipUtil {\r\n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\r\n",
+                        "lineNumber": 40,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    public static void unzip(File zip, File dest, Charset charset) throws IOException {\r\n",
+                        "lineNumber": 41,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        Path destPath = dest.toPath();\r\n",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        try (ZipFile zipFile = new ZipFile(zip, ZipFile.OPEN_READ, charset)) {\r\n",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            Enumeration<? extends ZipEntry> entries = zipFile.entries();\r\n",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            while (entries.hasMoreElements()) {\r\n",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                ZipEntry entry = entries.nextElement();\r\n",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                Path entryPath = destPath.resolve(entry.getName());\r\n",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                if (!entryPath.normalize().startsWith(dest.toPath()))\r\n",
+                        "lineNumber": 48,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                    throw new IOException(\"Zip entry contained path traversal\");\r\n",
+                        "lineNumber": 49,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                if (entry.isDirectory()) {\r\n",
+                        "lineNumber": 50,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                    Files.createDirectories(entryPath);\r\n",
+                        "lineNumber": 51,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                } else {\r\n",
+                        "lineNumber": 52,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                    Files.createDirectories(entryPath.getParent());\r\n",
+                        "lineNumber": 53,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                    try (InputStream in = zipFile.getInputStream(entry)) {\r\n",
+                        "lineNumber": 54,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                        try (OutputStream out = new FileOutputStream(entryPath.toFile())) {\r\n",
+                        "lineNumber": 55,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/tingley/globalsight/commit/9e9ea721f67f3a7b7c8d207f34ea549fb4ec52ee?diff=split#diff-10bf7160d01d941d63b0f194ae52f54d3b55ae8e8e33beaa7334783770d39117L-1",
+                    "lines": [
+                      {
+                        "line": " File rootFile = new File(docRoot);\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  String rootPath = rootFile.getCanonicalPath();\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  String path = file.getCanonicalPath();\n",
+                        "lineNumber": 20,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  if (!path.startsWith(rootPath)) {\n",
+                        "lineNumber": 22,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": " \t out.print(\"Failed to get XSL file for reason: Bad pathname.\");\n",
+                        "lineNumber": 23,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": " \t return;\n",
+                        "lineNumber": 24,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  }\n",
+                        "lineNumber": 25,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 26,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  input =  new BufferedReader(new FileReader(file));\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/OpenRefine/OpenRefine/commit/7f7b71459ca031978c3f8024cb14af13446d6d9c?diff=split#diff-c8321cdc05ebb81f79c44f1f701d1659b3b20baa5d22df0c9ff29cdc5ec7d1a6L-1",
+                    "lines": [
+                      {
+                        "line": "// For CVE-2018-19859, issue #1840\n",
+                        "lineNumber": 443,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "if (!file.toPath().normalize().startsWith(dir.toPath().normalize())) {\n",
+                        "lineNumber": 444,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tthrow new IllegalArgumentException(\"Zip archives with files escaping their root directory are not allowed.\");\n",
+                        "lineNumber": 445,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "}\n",
+                        "lineNumber": 446,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 447,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "int dot = name.indexOf('.');\n",
+                        "lineNumber": 448,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "String prefix = dot < 0 ? name : name.substring(0, dot);\n",
+                        "lineNumber": 449,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "String suffix = dot < 0 ? \"\" : name.substring(dot);\n",
+                        "lineNumber": 450,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "int index = 2;\n",
+                        "lineNumber": 451,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "while (file.exists()) {\n",
+                        "lineNumber": 452,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 49,
+                "cwe": [
+                  "CWE-23"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "java/InsecureHash",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "The MD5 hash (used in java.security.MessageDigest.getInstance) is insecure. Consider changing it to a secure hash algorithm",
+            "markdown": "The {0} hash (used in {1}) is insecure. Consider changing it to a secure hash algorithm",
+            "arguments": [
+              "[MD5](0)",
+              "[java.security.MessageDigest.getInstance](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/romraider/util/MD5Checksum.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 35,
+                  "endLine": 35,
+                  "startColumn": 24,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "4664286b74fd06ebe21c6817ead5d0527b6bf44660640795f5dbfb4c16212d0f",
+            "1": "ca9876a9.8a08fc23.33fa5dbe.e22980a8.f1d9f854.c80ba7fb.2a1a68a1.54d46e25.ca9876a9.8a08fc23.33fa5dbe.e22980a8.f1d9f854.c80ba7fb.df7e59ba.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/util/MD5Checksum.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 35,
+                            "endLine": 35,
+                            "startColumn": 50,
+                            "endColumn": 55
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/util/MD5Checksum.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 35,
+                            "endLine": 35,
+                            "startColumn": 24,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 365,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/XXE",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "A file is loaded by parse, which allows expansion of external entity references. This may result in an XXE attack leading to the disclosure of confidential data or denial of service.",
+            "markdown": "A file is loaded by {0}, which allows expansion of external entity references. This may result in an XXE attack leading to the disclosure of confidential data or denial of service.",
+            "arguments": [
+              "[parse](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/romraider/editor/ecu/OpenImageWorker.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 126,
+                  "endLine": 126,
+                  "startColumn": 31,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e3b7af85d7bfe47e3c9183a2e41db0752cd516b7281786f5375a37e20b4c5497",
+            "1": "19689298.34cd7446.33fa5dbe.e22980a8.c41fd899.7fda7c5e.55c6f621.54d46e25.19689298.1cbd3ff4.74f7de8b.e22980a8.c41fd899.7fda7c5e.bae646e8.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/editor/ecu/OpenImageWorker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 126,
+                            "endLine": 126,
+                            "startColumn": 14,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 558,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/XXE",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "A file is loaded by parse, which allows expansion of external entity references. This may result in an XXE attack leading to the disclosure of confidential data or denial of service.",
+            "markdown": "A file is loaded by {0}, which allows expansion of external entity references. This may result in an XXE attack leading to the disclosure of confidential data or denial of service.",
+            "arguments": [
+              "[parse](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/romraider/logger/ecu/ui/tab/dyno/DynoControlPanel.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1582,
+                  "endLine": 1582,
+                  "startColumn": 49,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "9ccb83a2a2d459dccea1177562029fb3125bfa0c1ffd6b8e79df1b6fc70c97aa",
+            "1": "bbbd7c96.97b041e4.33fa5dbe.1dc67a76.7b606065.7fda7c5e.3d6d031c.54d46e25.bbbd7c96.97b041e4.33fa5dbe.e22980a8.b519b04e.7fda7c5e.e98f512c.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/logger/ecu/ui/tab/dyno/DynoControlPanel.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1582,
+                            "endLine": 1582,
+                            "startColumn": 32,
+                            "endColumn": 48
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 558,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/XXE",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "A file is loaded by parse, which allows expansion of external entity references. This may result in an XXE attack leading to the disclosure of confidential data or denial of service.",
+            "markdown": "A file is loaded by {0}, which allows expansion of external entity references. This may result in an XXE attack leading to the disclosure of confidential data or denial of service.",
+            "arguments": [
+              "[parse](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/romraider/logger/ecu/definition/xml/EcuDefinitionDocumentLoader.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 60,
+                  "endLine": 60,
+                  "startColumn": 21,
+                  "endColumn": 64
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "d3a763c62b291403c57a49b70b26d66fa0e9701bcd77a7b4067bbe61989915be",
+            "1": "a82d5ebe.c82021e3.33fa5dbe.4d1392c1.b7dd2760.7fda7c5e.55c6f621.278a01da.19689298.6b6c8f02.33fa5dbe.e22980a8.6f8c11e9.7fda7c5e.7f7327a4.278a01da"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/logger/ecu/definition/xml/EcuDefinitionDocumentLoader.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 59,
+                            "endLine": 59,
+                            "startColumn": 24,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 558,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/XXE",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "A file is loaded by parse, which allows expansion of external entity references. This may result in an XXE attack leading to the disclosure of confidential data or denial of service.",
+            "markdown": "A file is loaded by {0}, which allows expansion of external entity references. This may result in an XXE attack leading to the disclosure of confidential data or denial of service.",
+            "arguments": [
+              "[parse](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/romraider/xml/ConversionLayer/XDFConversionLayer.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 106,
+                  "endLine": 106,
+                  "startColumn": 48,
+                  "endColumn": 58
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "b583e2aa75afc8c13997ed586417948d292ee25439764a1964e38b1300137357",
+            "1": "19689298.c8c8034f.33fa5dbe.e22980a8.c41fd899.7fda7c5e.55c6f621.54d46e25.19689298.c8c8034f.74f7de8b.e22980a8.c41fd899.7fda7c5e.bae646e8.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/xml/ConversionLayer/XDFConversionLayer.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 106,
+                            "endLine": 106,
+                            "startColumn": 31,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 558,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/UsageOfUnencryptedSocket",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "Writing to an unencrypted socket is insecure - a man-in-the-middle attacker can tamper the messages. Consider using SSL sockets.",
+            "markdown": "{0} an unencrypted {1} is insecure - a man-in-the-middle attacker can tamper the messages. Consider using SSL sockets.",
+            "arguments": [
+              "[Writing to](0)",
+              "[socket](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/romraider/EditorLoggerCommunication.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 101,
+                  "endLine": 101,
+                  "startColumn": 31,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "7e4a3eabfc15759c0a8c62478193b0ddf7ab9aa449ac6ea9c5cb6ecd3b21b525",
+            "1": "3b542730.83dbfe52.6906ef50.6c52ae28.c41fd899.85d83993.5ef2310d.54d46e25.3b542730.83dbfe52.6906ef50.6c52ae28.c41fd899.85d83993.14f565b1.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/EditorLoggerCommunication.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 101,
+                            "endLine": 101,
+                            "startColumn": 31,
+                            "endColumn": 53
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/EditorLoggerCommunication.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 101,
+                            "endLine": 101,
+                            "startColumn": 31,
+                            "endColumn": 53
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 515,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/PT",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a command line argument flows into java.io.FileInputStream, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "arguments": [
+              "[a command line argument](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11)",
+              "[java.io.FileInputStream](12)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/romraider/ECUExec.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 147,
+                  "endLine": 147,
+                  "startColumn": 13,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "4c70b640d25d91ff4e537813bf915a4595f927ff4c791a4197217b09b6fa499f",
+            "1": "682e2f2f.ff76257e.254d2cff.c8107cc9.e20faf8f.117e971f.26ee4429.54d46e25.8df8fa68.029657f2.254d2cff.de031890.025462d2.ce109560.377b98a3.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/ECUExec.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 147,
+                            "endLine": 147,
+                            "startColumn": 30,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/ECUExec.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 147,
+                            "endLine": 147,
+                            "startColumn": 30,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/editor/ecu/ECUEditor.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 601,
+                            "endLine": 601,
+                            "startColumn": 27,
+                            "endColumn": 42
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/editor/ecu/ECUEditor.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 602,
+                            "endLine": 602,
+                            "startColumn": 23,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/editor/ecu/ECUEditor.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 605,
+                            "endLine": 605,
+                            "startColumn": 27,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/editor/ecu/ECUEditor.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 607,
+                            "endLine": 607,
+                            "startColumn": 47,
+                            "endColumn": 56
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/editor/ecu/OpenImageWorker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 61,
+                            "endLine": 61,
+                            "startColumn": 28,
+                            "endColumn": 42
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/editor/ecu/OpenImageWorker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 62,
+                            "endLine": 62,
+                            "startColumn": 26,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/editor/ecu/OpenImageWorker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 62,
+                            "endLine": 62,
+                            "startColumn": 9,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/editor/ecu/OpenImageWorker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 211,
+                            "endLine": 211,
+                            "startColumn": 43,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/editor/ecu/ECUEditor.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 618,
+                            "endLine": 618,
+                            "startColumn": 35,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/editor/ecu/ECUEditor.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 620,
+                            "endLine": 620,
+                            "startColumn": 51,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/romraider/editor/ecu/ECUEditor.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 620,
+                            "endLine": 620,
+                            "startColumn": 35,
+                            "endColumn": 50
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 515,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "XML",
+            "files": 5,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "HTML",
+            "files": 1,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Java",
+            "files": 535,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}
