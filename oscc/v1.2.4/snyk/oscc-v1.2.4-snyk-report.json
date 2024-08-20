@@ -1,0 +1,1380 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "cpp/IntegerOverflow",
+              "name": "IntegerOverflow",
+              "shortDescription": {
+                "text": "Integer Overflow"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nAn integer overflow is a type of an arithmetic overflow error when the result of an integer operation does not fit within the allocated memory space. Instead of an error in the program, it usually causes the result to be unexpected. In the context of application security, this could lead to bypass of application logic or validation, and in some cases may lead to buffer overflow vulnerabilities.\n\nExample:\n\n```\nnresp = packet_get_int();\nif (nresp > 0) {\n response = xmalloc(nresp*sizeof(char*));\n for (i = 0; i < nresp; i++)\n  response[i] = packet_get_string(NULL);\n}\n```\n\nIf `nresp` is 1073741824 and `sizeof(char*)` is 4 (which is typical), then `nresp*sizeof(char*)` results in an overflow. Therefore, `xmalloc()` receives and allocates a 0-byte buffer. The subsequent loop causes a heap buffer overflow, which may, in turn, be used by an attacker to execute arbitrary code.\n\n## Best practices for prevention\n\nInteger overflow can be hard to detect and prevent, especially in large and complex codebases. Developers should perform checks as appropriate to determine that arithmetic operations do not result in an overflow. This could be as simple as ensuring the result of the additive operation is not less than the operands themselves (and the inverse for subtractive operations). Libraries and processes can help to prevent such issues too - in the case of the GCC compiler, for example, there are built-in functions that check for integer overflows. In the case of C++ programs, there is a library called SafeInt that performs safe operations.\n\n## References\n\n* [CWE-190: Integer Overflow or Wraparound](https://cwe.mitre.org/data/definitions/190.html)",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "cpp",
+                  "IntegerOverflow",
+                  "Security",
+                  "SourceResourceAccess",
+                  "SourceFile",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-190"
+                ]
+              }
+            },
+            {
+              "id": "cpp/UnsafeFunctionStringHandling",
+              "name": "UnsafeFunctionStringHandling",
+              "shortDescription": {
+                "text": "Potential buffer overflow from usage of unsafe function"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nA potential buffer overflow issue was identified via use of an insecure function. Use of this function could lead to memory corruption attacks if arbitrary user input (which has not been validated in terms of its length) is allowed to flow into it. It is advisable to use the safer alternative instead, which is less prone to memory corruption issues.\n\nA buffer overflow is a type of runtime error that allows a program to write past the end of a buffer or array — hence the name overflow — and corrupt adjacent memory. Like most bugs, a buffer overflow doesn’t manifest at every program execution. Instead, the vulnerability is triggered under certain circumstances, such as unexpected user input.\n\nA buffer overflow attack is the exploitation of a buffer overflow vulnerability — typically by a malicious actor who wants to gain access or information, or trigger a crash to deny service to others. Buffer overflows generally result in program crashes, however under certain circumstances, an attacker may be able to trigger remote code execution.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "cpp",
+                  "UnsafeFunctionStringHandling",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/alisw/AliRoot/commit/f600fc614f90fcec43863a247fa68a0b25df501f?diff=split#diff-549671f05f93723480a35c85ff7681323ccf6764ef1b258da9195d9fa53b9803L-1",
+                    "lines": [
+                      {
+                        "line": "sprintf(runNbFileName,\"%s/run%u\",ddlDir,aliHeader->Get(\"RunNb\"));\n",
+                        "lineNumber": 21,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "snprintf(runNbFileName,sizeof(runNbFileName),\"%s/run%u\",ddlDir,aliHeader->Get(\"RunNb\"));\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/nurdism/neko/commit/56bd6acf100f37ca12559f8def619e98f919af13?diff=split#diff-37254a1dc0e29dffd313e2e005c182ba8cd9dd747a0d053a1b597705846a388aL-1",
+                    "lines": [
+                      {
+                        "line": "char cmd[12] = \"setxkbmap \";\n",
+                        "lineNumber": 170,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "strcat(cmd, layout);\n",
+                        "lineNumber": 171,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "char cmd[13] = \"setxkbmap \";\n",
+                        "lineNumber": 170,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "strncat(cmd, layout, 2);\n",
+                        "lineNumber": 171,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/root-project/root/commit/181bbef8d3999fb240c9b4c4c3a2362e74641aad?diff=split#diff-318d614eb480fcc82d94d700c94ab416d68a1dff5e8fb957ae94a6cb9b6793e1L-1",
+                    "lines": [
+                      {
+                        "line": "char line[128];\n",
+                        "lineNumber": 103,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "strcpy(line,GetMethod());\n",
+                        "lineNumber": 104,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "strncpy(line,GetMethod(),127);\n",
+                        "lineNumber": 104,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 33,
+                "cwe": [
+                  "CWE-122"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "cpp/IntegerOverflow",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a file flows into a subtraction operator (-), where it is used in integer arithmetic. This may result in an integer overflow vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into a subtraction operator (-), where it is used in integer arithmetic. This may result in an integer overflow vulnerability.",
+            "arguments": [
+              "[a file](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "api/src/oscc.c",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1080,
+                  "endLine": 1080,
+                  "startColumn": 56,
+                  "endColumn": 60
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e7fc33b8628a1a702e8dfdde0c27c56960e72364aa78c08233e11a16aac96ed9",
+            "1": "f6134306.8a42e06a.6cd74ac4.cc899355.f4aae252.34c6cc13.5db3d4a6.0b0309c2.214d3e14.277c621c.8c1a46aa.25066923.baf5e6ff.51211531.50e07b35.25051215"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 944,
+                            "endLine": 944,
+                            "startColumn": 10,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 944,
+                            "endLine": 944,
+                            "startColumn": 10,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 994,
+                            "endLine": 994,
+                            "startColumn": 40,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 996,
+                            "endLine": 996,
+                            "startColumn": 39,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1052,
+                            "endLine": 1052,
+                            "startColumn": 32,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1056,
+                            "endLine": 1056,
+                            "startColumn": 25,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1063,
+                            "endLine": 1063,
+                            "startColumn": 31,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1063,
+                            "endLine": 1063,
+                            "startColumn": 23,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1063,
+                            "endLine": 1063,
+                            "startColumn": 16,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1067,
+                            "endLine": 1067,
+                            "startColumn": 37,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1069,
+                            "endLine": 1069,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1080,
+                            "endLine": 1080,
+                            "startColumn": 56,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 430,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/IntegerOverflow",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a file flows into a subtraction operator (-), where it is used in integer arithmetic. This may result in an integer overflow vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into a subtraction operator (-), where it is used in integer arithmetic. This may result in an integer overflow vulnerability.",
+            "arguments": [
+              "[a file](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "api/src/oscc.c",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1080,
+                  "endLine": 1080,
+                  "startColumn": 63,
+                  "endColumn": 77
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e7fc33b8628a1a702e8dfdde0c27c56960e72364aa78c08233e11a16aac96ed9",
+            "1": "2d06e3d6.8a42e06a.6cd74ac4.6d50fcac.bb8df851.34c6cc13.0ea6ce33.0b0309c2.214d3e14.277c621c.8c1a46aa.25066923.baf5e6ff.51211531.50e07b35.25051215"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 944,
+                            "endLine": 944,
+                            "startColumn": 10,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 944,
+                            "endLine": 944,
+                            "startColumn": 10,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 994,
+                            "endLine": 994,
+                            "startColumn": 40,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 996,
+                            "endLine": 996,
+                            "startColumn": 39,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1052,
+                            "endLine": 1052,
+                            "startColumn": 32,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1056,
+                            "endLine": 1056,
+                            "startColumn": 25,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1063,
+                            "endLine": 1063,
+                            "startColumn": 31,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1067,
+                            "endLine": 1067,
+                            "startColumn": 29,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1074,
+                            "endLine": 1074,
+                            "startColumn": 41,
+                            "endColumn": 50
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1074,
+                            "endLine": 1074,
+                            "startColumn": 33,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1074,
+                            "endLine": 1074,
+                            "startColumn": 16,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1076,
+                            "endLine": 1076,
+                            "startColumn": 13,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1080,
+                            "endLine": 1080,
+                            "startColumn": 40,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1080,
+                            "endLine": 1080,
+                            "startColumn": 63,
+                            "endColumn": 77
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 430,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/IntegerOverflow",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a file flows into a subtraction operator (-), where it is used in integer arithmetic. This may result in an integer overflow vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into a subtraction operator (-), where it is used in integer arithmetic. This may result in an integer overflow vulnerability.",
+            "arguments": [
+              "[a file](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "api/src/oscc.c",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1082,
+                  "endLine": 1082,
+                  "startColumn": 22,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e3191f83abb54356f69877667ba37f706dc00dc88cc9593588ced0a9fb82235c",
+            "1": "f6134306.8a42e06a.d7144a1f.cc899355.f4aae252.34c6cc13.5db3d4a6.0b0309c2.214d3e14.277c621c.8c1a46aa.25066923.baf5e6ff.51211531.50e07b35.25051215"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 944,
+                            "endLine": 944,
+                            "startColumn": 10,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 944,
+                            "endLine": 944,
+                            "startColumn": 10,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 994,
+                            "endLine": 994,
+                            "startColumn": 40,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 996,
+                            "endLine": 996,
+                            "startColumn": 39,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1052,
+                            "endLine": 1052,
+                            "startColumn": 32,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1056,
+                            "endLine": 1056,
+                            "startColumn": 25,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1063,
+                            "endLine": 1063,
+                            "startColumn": 31,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1063,
+                            "endLine": 1063,
+                            "startColumn": 23,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1063,
+                            "endLine": 1063,
+                            "startColumn": 16,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1067,
+                            "endLine": 1067,
+                            "startColumn": 37,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1069,
+                            "endLine": 1069,
+                            "startColumn": 13,
+                            "endColumn": 17
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1080,
+                            "endLine": 1080,
+                            "startColumn": 56,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1082,
+                            "endLine": 1082,
+                            "startColumn": 22,
+                            "endColumn": 26
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 430,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/IntegerOverflow",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a file flows into a subtraction operator (-), where it is used in integer arithmetic. This may result in an integer overflow vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into a subtraction operator (-), where it is used in integer arithmetic. This may result in an integer overflow vulnerability.",
+            "arguments": [
+              "[a file](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "api/src/oscc.c",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1082,
+                  "endLine": 1082,
+                  "startColumn": 29,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e3191f83abb54356f69877667ba37f706dc00dc88cc9593588ced0a9fb82235c",
+            "1": "2d06e3d6.8a42e06a.d7144a1f.cc899355.d63ab7cd.34c6cc13.5db3d4a6.0b0309c2.214d3e14.277c621c.8c1a46aa.25066923.baf5e6ff.51211531.50e07b35.25051215"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 944,
+                            "endLine": 944,
+                            "startColumn": 10,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 944,
+                            "endLine": 944,
+                            "startColumn": 10,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 994,
+                            "endLine": 994,
+                            "startColumn": 40,
+                            "endColumn": 46
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 996,
+                            "endLine": 996,
+                            "startColumn": 39,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1052,
+                            "endLine": 1052,
+                            "startColumn": 32,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1056,
+                            "endLine": 1056,
+                            "startColumn": 25,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1063,
+                            "endLine": 1063,
+                            "startColumn": 31,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1067,
+                            "endLine": 1067,
+                            "startColumn": 29,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1074,
+                            "endLine": 1074,
+                            "startColumn": 41,
+                            "endColumn": 50
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1074,
+                            "endLine": 1074,
+                            "startColumn": 33,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1074,
+                            "endLine": 1074,
+                            "startColumn": 16,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1076,
+                            "endLine": 1076,
+                            "startColumn": 13,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1080,
+                            "endLine": 1080,
+                            "startColumn": 40,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1080,
+                            "endLine": 1080,
+                            "startColumn": 63,
+                            "endColumn": 77
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "api/src/oscc.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 1082,
+                            "endLine": 1082,
+                            "startColumn": 29,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 430,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/UnsafeFunctionStringHandling",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Using strcpy can lead to buffer overflow vulnerabilities, if arbitrary user input is able to flow into this function without the length of the input being checked. Use the safer alternative strncpy instead.",
+            "markdown": "Using {0} can lead to buffer overflow vulnerabilities, if arbitrary user input is able to flow into this function without the length of the input being checked. Use the safer alternative strncpy instead.",
+            "arguments": [
+              "[strcpy](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "utils/diagnostics_tool/src/terminal_print.c",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 58,
+                  "endLine": 58,
+                  "startColumn": 5,
+                  "endColumn": 11
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "ec5f1bf4101a2c036508aebce4d092c5692598994159793d72dfe663ce2d5050",
+            "1": "3ef501d5.76503df6.dcf34dd0.88d1f3b9.031a268a.34c6cc13.1e451703.730477b7.3ef501d5.76503df6.dcf34dd0.88d1f3b9.031a268a.34c6cc13.1e451703.730477b7"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/diagnostics_tool/src/terminal_print.c",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 58,
+                            "endLine": 58,
+                            "startColumn": 5,
+                            "endColumn": 11
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 520,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "C++",
+            "files": 199,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "C",
+            "files": 10,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}
