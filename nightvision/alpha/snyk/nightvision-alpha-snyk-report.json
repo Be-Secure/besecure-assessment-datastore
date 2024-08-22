@@ -1,0 +1,365 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "java/SetReceiverPermissionsForIntentsNoArg2",
+              "name": "SetReceiverPermissionsForIntentsNoArg2",
+              "shortDescription": {
+                "text": "Unrestricted Android Broadcast"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nAn Android broadcast was found that did not restrict the receiver of the broadcast via a required permission. If an implicit Intent was sent with the broadcast, it may be possible for malicious applications on the device to intercept the broadcast and gain unauthorised access to the data contained within the Intent. This could lead to sensitive information leakage and/or access to unauthorised functionality within the application.\n\n## Best practices for prevention\n* Always use explicit Intents when sending data via Android broadcast receivers\n* Define appropriate permissions for sensitive Android components, and ensure these are enforced by passing a second (non-null) parameter to `sendBroadcast()`",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "SetReceiverPermissionsForIntentsNoArg2",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-862"
+                ]
+              }
+            },
+            {
+              "id": "xml/AndroidDebugEnabled",
+              "name": "AndroidDebugEnabled",
+              "shortDescription": {
+                "text": "Android Debug Mode Enabled"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nWhen debugging, it may be necessary to report detailed information to a developer. Within Android applications, this can be done by setting the `android:debuggable` attribute to `true`. However, if the debugging attribute is not disabled or omitted (the default value if `false`) when the application is released, it can allow attackers to attach a debugger to the application, trace the code execution and potentially access sensitive information.\n\n## Best practices for prevention\n* Do not set `android:debuggable` to `true` when building the application for production releases.\n\n\n## References\n\n* [Android Debuggable](https://developer.android.com/guide/topics/manifest/application-element#debug)",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "xml",
+                  "AndroidDebugEnabled",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-489"
+                ]
+              }
+            },
+            {
+              "id": "java/SetBroadcastPermissionsOnRegisterNoArg3",
+              "name": "SetBroadcastPermissionsOnRegisterNoArg3",
+              "shortDescription": {
+                "text": "Improper Handling of Insufficient Permissions or Privileges"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\nCall to `registerReceiver` misses the broadcastPermission argument. As such, no permissions will be checked for the broadcaster, which allows a malicious application to communicate with the broadcast receiver.\n\n## References\n* [Android Developer Guide](https://developer.android.com/guide/topics/manifest/receiver-element)",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "SetBroadcastPermissionsOnRegisterNoArg3",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-280"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "java/SetReceiverPermissionsForIntentsNoArg2",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Call to sendBroadcast misses the receiverPermission argument - no permissions will be checked for the receiver, which allows a malicious application to intercept this broadcast.",
+            "markdown": "Call to {0} misses the receiverPermission argument - no permissions will be checked for the receiver, which allows a malicious application to intercept this broadcast.",
+            "arguments": [
+              "[sendBroadcast](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/com/ford/openxc/nightvision/VehicleMonitoringService.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 41,
+                  "endLine": 41,
+                  "startColumn": 25,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "c05e7eedd5029341c04c2da3094acd8a89cb42f1aaef0c8d240f4a7c547d55d5",
+            "1": "9cf53582.c8c8034f.fc7d5400.e22980a8.f1d9f854.f940a352.be04624c.54d46e25.991e1752.c8c8034f.fc7d5400.e22980a8.3b22702e.90a77e09.363e7b98.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/com/ford/openxc/nightvision/VehicleMonitoringService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 41,
+                            "endLine": 41,
+                            "startColumn": 25,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 334,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "xml/AndroidDebugEnabled",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "(Beta Suggestion) Android app is being run in debug mode: android:debuggable is set to true. Debug features often gives access to detailed information to attackers.",
+            "markdown": "(Beta Suggestion) Android app is being run in debug mode: {0} is set to {1}. Debug features often gives access to detailed information to attackers.",
+            "arguments": [
+              "[android:debuggable](0)",
+              "[true](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "AndroidManifest.xml",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 19,
+                  "endLine": 20,
+                  "startColumn": 5,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "193ec0c67822d6b420366826d7392a37a6e3ea7dd030b61f29c20a2ed7a7a048",
+            "1": "5f5e999b.a09817a9.90620a9f.1f57d573.bbf1d00d.68721b43.6ce2516c.af0f0512.5f5e999b.a09817a9.90620a9f.1f57d573.bbf1d00d.68721b43.6ce2516c.af0f0512"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "AndroidManifest.xml",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 19,
+                            "endLine": 20,
+                            "startColumn": 5,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "AndroidManifest.xml",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 19,
+                            "endLine": 20,
+                            "startColumn": 5,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 334,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/SetBroadcastPermissionsOnRegisterNoArg3",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "Call to registerReceiver misses the broadcastPermission argument - no permissions will be checked for the broadcaster, which allows a malicious application to communicate with the broadcast receiver.",
+            "markdown": "Call to {0} misses the broadcastPermission argument - no permissions will be checked for the broadcaster, which allows a malicious application to communicate with the broadcast receiver.",
+            "arguments": [
+              "[registerReceiver](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/com/ford/openxc/nightvision/NightVisionActivity.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 39,
+                  "endLine": 39,
+                  "startColumn": 9,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "0c1561303f3d8aa25bfcbdf1d09200de02dd5ea89341c4ed912af11c6eac1060",
+            "1": "d71bca22.33bd7f18.fc7d5400.e22980a8.b4c8f216.41c8b8b8.381e7863.54d46e25.72d339ef.bece668b.fc7d5400.de031890.b4c8f216.ce109560.381e7863.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/com/ford/openxc/nightvision/NightVisionActivity.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 39,
+                            "endLine": 39,
+                            "startColumn": 9,
+                            "endColumn": 25
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 334,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "C++",
+            "files": 1,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "C",
+            "files": 1,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Java",
+            "files": 4,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "XML",
+            "files": 5,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}
