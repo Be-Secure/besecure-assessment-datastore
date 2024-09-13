@@ -1,0 +1,2220 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "cpp/UnsafeFunctionStringHandling",
+              "name": "UnsafeFunctionStringHandling",
+              "shortDescription": {
+                "text": "Potential buffer overflow from usage of unsafe function"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nA potential buffer overflow issue was identified via use of an insecure function. Use of this function could lead to memory corruption attacks if arbitrary user input (which has not been validated in terms of its length) is allowed to flow into it. It is advisable to use the safer alternative instead, which is less prone to memory corruption issues.\n\nA buffer overflow is a type of runtime error that allows a program to write past the end of a buffer or array — hence the name overflow — and corrupt adjacent memory. Like most bugs, a buffer overflow doesn’t manifest at every program execution. Instead, the vulnerability is triggered under certain circumstances, such as unexpected user input.\n\nA buffer overflow attack is the exploitation of a buffer overflow vulnerability — typically by a malicious actor who wants to gain access or information, or trigger a crash to deny service to others. Buffer overflows generally result in program crashes, however under certain circumstances, an attacker may be able to trigger remote code execution.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "cpp",
+                  "UnsafeFunctionStringHandling",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/alisw/AliRoot/commit/f600fc614f90fcec43863a247fa68a0b25df501f?diff=split#diff-549671f05f93723480a35c85ff7681323ccf6764ef1b258da9195d9fa53b9803L-1",
+                    "lines": [
+                      {
+                        "line": "sprintf(runNbFileName,\"%s/run%u\",ddlDir,aliHeader->Get(\"RunNb\"));\n",
+                        "lineNumber": 21,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "snprintf(runNbFileName,sizeof(runNbFileName),\"%s/run%u\",ddlDir,aliHeader->Get(\"RunNb\"));\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/nurdism/neko/commit/56bd6acf100f37ca12559f8def619e98f919af13?diff=split#diff-37254a1dc0e29dffd313e2e005c182ba8cd9dd747a0d053a1b597705846a388aL-1",
+                    "lines": [
+                      {
+                        "line": "char cmd[12] = \"setxkbmap \";\n",
+                        "lineNumber": 170,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "strcat(cmd, layout);\n",
+                        "lineNumber": 171,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "char cmd[13] = \"setxkbmap \";\n",
+                        "lineNumber": 170,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "strncat(cmd, layout, 2);\n",
+                        "lineNumber": 171,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/root-project/root/commit/181bbef8d3999fb240c9b4c4c3a2362e74641aad?diff=split#diff-318d614eb480fcc82d94d700c94ab416d68a1dff5e8fb957ae94a6cb9b6793e1L-1",
+                    "lines": [
+                      {
+                        "line": "char line[128];\n",
+                        "lineNumber": 103,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "strcpy(line,GetMethod());\n",
+                        "lineNumber": 104,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "strncpy(line,GetMethod(),127);\n",
+                        "lineNumber": 104,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 33,
+                "cwe": [
+                  "CWE-122"
+                ]
+              }
+            },
+            {
+              "id": "cpp/BufferOverflow",
+              "name": "BufferOverflow",
+              "shortDescription": {
+                "text": "Buffer Overflow"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nA buffer overflow is a type of runtime error that allows a program to write past the end of a buffer or array — hence the name overflow — and corrupt adjacent memory. Like most bugs, a buffer overflow doesn’t manifest at every program execution. Instead, the vulnerability is triggered under certain circumstances, such as unexpected user input.\n\nA buffer overflow attack is the exploitation of a buffer overflow vulnerability — typically by a malicious actor who wants to gain access or information. In this post, we’ll explain how a buffer overflow occurs and show you how to protect your C++ code from these attacks. Buffer overflows generally result in program crashes, however if the data that would overflow is user controlled, an attacker may cause more damage including deny of service attacks, infinite loops, or even remote code execution.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "cpp",
+                  "BufferOverflow",
+                  "Security",
+                  "SourceLocalEnv",
+                  "SourceStdin",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/EtchedPixels/FUZIX/commit/58d3dedab9395d008b66a7caa786eac8f8a70e2d?diff=split#diff-293516809a2c40af227b5584427d853c14465ae7689492aa5d3dfff1155d3402L-1",
+                    "lines": [
+                      {
+                        "line": "    static char iname[256];\n",
+                        "lineNumber": 14,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    static char iname[512];\n",
+                        "lineNumber": 14,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    int l = strlen(name) - 1;\n",
+                        "lineNumber": 16,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 17,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    /* FIXME: Size check ! */\n",
+                        "lineNumber": 18,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    strcpy(iname, name);\n",
+                        "lineNumber": 19,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    strlcpy(iname, name, 512);\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/uclouvain/openjpeg/commit/8715ce2749d1e5a1e9c77646e9a2ddf0ec82bac9?diff=split#diff-c1330160924cae174cdacdb4b0a6ab7561d56a377c9e44dc867b24030ceda35aL-1",
+                    "lines": [
+                      {
+                        "line": "  char output_file[64];\n",
+                        "lineNumber": 98,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "  const char *output_file;\n",
+                        "lineNumber": 98,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 99,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  /* should be test_tile_encoder 3 2000 2000 1000 1000 8 tte1.j2k */\n",
+                        "lineNumber": 100,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  if( argc == 9 )\n",
+                        "lineNumber": 101,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    {\n",
+                        "lineNumber": 102,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    num_comps = (OPJ_UINT32)atoi( argv[1] );\n",
+                        "lineNumber": 103,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    image_width = atoi( argv[2] );\n",
+                        "lineNumber": 104,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    image_height = atoi( argv[3] );\n",
+                        "lineNumber": 105,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    tile_width = atoi( argv[4] );\n",
+                        "lineNumber": 106,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    tile_height = atoi( argv[5] );\n",
+                        "lineNumber": 107,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    comp_prec = atoi( argv[6] );\n",
+                        "lineNumber": 108,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    irreversible = atoi( argv[7] );\n",
+                        "lineNumber": 109,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    strcpy(output_file, argv[8] );\n",
+                        "lineNumber": 110,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    output_file = argv[8];\n",
+                        "lineNumber": 110,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/aliyun/iotkit-embedded/commit/44eb2606debf4b8c4c7581cda834ac0558003f2f?diff=split#diff-cc5036bd596d2f2e352dd94ee238dc32554bd55aa19b25abe90a62d3b4cad55fL-1",
+                    "lines": [
+                      {
+                        "line": "strcpy(ctx.pk,argv[1]);\n",
+                        "lineNumber": 24,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "strcpy(ctx.dn,argv[2]);\n",
+                        "lineNumber": 25,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "strcpy(ctx.ds,argv[3]);\n",
+                        "lineNumber": 26,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "strncpy(ctx.pk,argv[1],sizeof(ctx.pk)-1);\n",
+                        "lineNumber": 25,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "strncpy(ctx.dn,argv[2],sizeof(ctx.dn)-1);\n",
+                        "lineNumber": 26,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "strncpy(ctx.ds,argv[3],sizeof(ctx.ds)-1);\n",
+                        "lineNumber": 27,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 50,
+                "cwe": [
+                  "CWE-122"
+                ]
+              }
+            },
+            {
+              "id": "cpp/DerefNull",
+              "name": "DerefNull",
+              "shortDescription": {
+                "text": "Dereference of a NULL Pointer"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\nDereferencing a NULL pointer typically results in a program crash or other undefined behaviour. Pointers can be set to NULL a variety of ways, including by the retrun value of standard library functions, often in the case of an error with that function. Pointers may also be initalised to NULL, and subsequently not reassigned on some execution paths before being derefernced. Where it is possible a pointer is NULL, it is best to check before derefencing it.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "cpp",
+                  "DerefNull",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/RaJiska/JAPM/commit/e717737ffd5237ae384072e6c523d1e11dd9ef16?diff=split#diff-612b7cf36bdcb89724f956c18aff3c9296d7d9f44eca7869b1d10da0b7cd1705L-1",
+                    "lines": [
+                      {
+                        "line": "if (*((found = strrchr(path, '\\\\')) + 1) == 0)\n",
+                        "lineNumber": 17,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "if ((found = strrchr(path, '\\\\')) && *found + 1 == 0)\n",
+                        "lineNumber": 17,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t*found = 0;\n",
+                        "lineNumber": 18,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/GNOME/gnumeric/commit/5d6b0e0e854f143d5fa7062495df812933149bc4?diff=split#diff-4bf0193427fd407708e50a71b61d9b6bcac32cab136702e69dd71341ffa22f10L-1",
+                    "lines": [
+                      {
+                        "line": "if (tmp[9] == 0)\n",
+                        "lineNumber": 26,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "if (tmp && tmp[9] == 0)\n",
+                        "lineNumber": 26,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/higepon/mona/commit/72c6a77f8374e9fa1cf38d3093df4d65e4518855?diff=split#diff-6cefc6f1891fe5cfda626004db207043f2723e75642e7f1f74a120d649f85289L-1",
+                    "lines": [
+                      {
+                        "line": "\tif( fp == NULL )\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t{\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\tputs(\"fp is NULL\");\n",
+                        "lineNumber": 20,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\treturn 1;\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 22,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\ttid = Message::lookupMainThread(\"AUDIO.EX5\");\n",
+                        "lineNumber": 24,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tMessage::sendReceive(&msg, tid, MSG_AUDIO_NEW_CHANNEL, 0);\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tch = msg.arg2;\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\ts = Stream::FromHandle(msg.arg3);\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tMessage::sendReceive(&msg, tid, MSG_AUDIO_SET_FORMAT, 2, 16, 44100);\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\treadsize = fread(buf, 1, sizeof(buf), fp);\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 35,
+                "cwe": [
+                  "CWE-476"
+                ]
+              }
+            },
+            {
+              "id": "cpp/IntegerOverflow",
+              "name": "IntegerOverflow",
+              "shortDescription": {
+                "text": "Integer Overflow"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nAn integer overflow is a type of an arithmetic overflow error when the result of an integer operation does not fit within the allocated memory space. Instead of an error in the program, it usually causes the result to be unexpected. In the context of application security, this could lead to bypass of application logic or validation, and in some cases may lead to buffer overflow vulnerabilities.\n\nExample:\n\n```\nnresp = packet_get_int();\nif (nresp > 0) {\n response = xmalloc(nresp*sizeof(char*));\n for (i = 0; i < nresp; i++)\n  response[i] = packet_get_string(NULL);\n}\n```\n\nIf `nresp` is 1073741824 and `sizeof(char*)` is 4 (which is typical), then `nresp*sizeof(char*)` results in an overflow. Therefore, `xmalloc()` receives and allocates a 0-byte buffer. The subsequent loop causes a heap buffer overflow, which may, in turn, be used by an attacker to execute arbitrary code.\n\n## Best practices for prevention\n\nInteger overflow can be hard to detect and prevent, especially in large and complex codebases. Developers should perform checks as appropriate to determine that arithmetic operations do not result in an overflow. This could be as simple as ensuring the result of the additive operation is not less than the operands themselves (and the inverse for subtractive operations). Libraries and processes can help to prevent such issues too - in the case of the GCC compiler, for example, there are built-in functions that check for integer overflows. In the case of C++ programs, there is a library called SafeInt that performs safe operations.\n\n## References\n\n* [CWE-190: Integer Overflow or Wraparound](https://cwe.mitre.org/data/definitions/190.html)",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "cpp",
+                  "IntegerOverflow",
+                  "Security",
+                  "SourceResourceAccess",
+                  "SourceFile",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-190"
+                ]
+              }
+            },
+            {
+              "id": "cpp/CDivisionByZero",
+              "name": "CDivisionByZero",
+              "shortDescription": {
+                "text": "Division By Zero"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\nA value is divided by zero, this can result in unexpected program behaviour.\n\n## Best practices for prevention\nEnsure that any value being used as a divisor cannot be zero.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "cpp",
+                  "CDivisionByZero",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/intel-ctrlsys/sensys/commit/58818452a80ec87478e1e1864b972b3edc6f8a93?diff=split#diff-2aad9f6fb562a2b63480e8392da2ee468ae679a660e83b8f729ed8a24b127a20L-1",
+                    "lines": [
+                      {
+                        "line": "\n",
+                        "lineNumber": 41,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    if (0 == n) return -1;\n",
+                        "lineNumber": 42,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 43,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    avg = sum / n;\n",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/tundra/neutrino/commit/a162f38b6fe88c0d32701fd47802312e91c76940?diff=split#diff-7263d3059b960d3cabdd8d66f28b023d6ff2d89fc9a818f6f8bcee713fa8b494L-1",
+                    "lines": [
+                      {
+                        "line": "double average = 65536.0 / total_failures;\n",
+                        "lineNumber": 127,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "double average = 65536.0 / ((double) total_failures);\n",
+                        "lineNumber": 127,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/libav/libav/commit/eeaa742c3e77077628f9d4e87b5faf24f2b7e183?diff=split#diff-4528f439de40c2872c5d8a66af37daa78af8724948b73fc2c48568a8a77142faL-1",
+                    "lines": [
+                      {
+                        "line": "if(!i) i=1;\n",
+                        "lineNumber": 122,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "dev= int_sqrt((sse*F*F)/i);\n",
+                        "lineNumber": 123,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 45,
+                "cwe": [
+                  "CWE-369"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "cpp/UnsafeFunctionStringHandling",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Using strcpy can lead to buffer overflow vulnerabilities, if arbitrary user input is able to flow into this function without the length of the input being checked. Use the safer alternative strncpy instead.",
+            "markdown": "Using {0} can lead to buffer overflow vulnerabilities, if arbitrary user input is able to flow into this function without the length of the input being checked. Use the safer alternative strncpy instead.",
+            "arguments": [
+              "[strcpy](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "firmware/open_evse/rapi_proc.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 947,
+                  "endLine": 947,
+                  "startColumn": 3,
+                  "endColumn": 9
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e8f20ecdfc581cbb147340cc4f0453d518531784ad2ef81048474b591a375044",
+            "1": "ed27a822.c1126a25.66fa3372.93cc8d4d.031a268a.f6fa4e21.500a1f88.e9c24bc7.ed27a822.c1126a25.66fa3372.93cc8d4d.031a268a.f6fa4e21.500a1f88.e9c24bc7"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "firmware/open_evse/rapi_proc.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 947,
+                            "endLine": 947,
+                            "startColumn": 3,
+                            "endColumn": 9
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 508,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/BufferOverflow",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from the standard input flows into gets, where it is used to manipulate a string. This may result in a buffer overflow vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used to manipulate a string. This may result in a buffer overflow vulnerability.",
+            "arguments": [
+              "[the standard input](0)",
+              "[flows](1)",
+              "[gets](2)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 183,
+                  "endLine": 183,
+                  "startColumn": 5,
+                  "endColumn": 9
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "1035e99dfa6ec9b5272a9bb3f4457e0ba8b6ee40c5b2c80bc6962b10d8c7e1f8",
+            "1": "57664a44.87a4cea3.403f34e3.f3478f9c.d80e68e5.0df9d02a.7c41dfe9.8c5839be.57664a44.87a4cea3.403f34e3.f3478f9c.d80e68e5.0df9d02a.7c41dfe9.8c5839be"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 183,
+                            "endLine": 183,
+                            "startColumn": 10,
+                            "endColumn": 18
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 183,
+                            "endLine": 183,
+                            "startColumn": 10,
+                            "endColumn": 18
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 183,
+                            "endLine": 183,
+                            "startColumn": 5,
+                            "endColumn": 9
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 589,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/BufferOverflow",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from the standard input flows into gets, where it is used to manipulate a string. This may result in a buffer overflow vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used to manipulate a string. This may result in a buffer overflow vulnerability.",
+            "arguments": [
+              "[the standard input](0)",
+              "[flows](1),(2)",
+              "[gets](3)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 83,
+                  "endLine": 83,
+                  "startColumn": 5,
+                  "endColumn": 9
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e3adfe3c15f96c803cb7752e05c963975a5611507b772ddcec418e277a20f3b1",
+            "1": "57664a44.a5c3bdff.403f34e3.f3478f9c.e05f7676.34c6cc13.7c41dfe9.8c5839be.2d06e3d6.a5c3bdff.403f34e3.8ab4267b.e05f7676.34c6cc13.7c41dfe9.8c5839be"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 6,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 6,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 83,
+                            "endLine": 83,
+                            "startColumn": 10,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 83,
+                            "endLine": 83,
+                            "startColumn": 5,
+                            "endColumn": 9
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 589,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/BufferOverflow",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a command line argument flows into sprintf, where it is used to store formatted strings. This may result in a buffer overflow vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used to store formatted strings. This may result in a buffer overflow vulnerability.",
+            "arguments": [
+              "[a command line argument](0)",
+              "[flows](1)",
+              "[sprintf](2)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 257,
+                  "endLine": 257,
+                  "startColumn": 3,
+                  "endColumn": 10
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "774862259674949c06ae1a588c1274f4ec9cd120900b976e8903599c871d53a1",
+            "1": "ed27a822.277c621c.7be03776.64353d55.5ef953d3.34c6cc13.1e451703.074a3eb3.ed27a822.277c621c.0845c629.9b79c23e.5ef953d3.34c6cc13.30ad82ea.348c8065"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 257,
+                            "endLine": 257,
+                            "startColumn": 25,
+                            "endColumn": 32
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 257,
+                            "endLine": 257,
+                            "startColumn": 25,
+                            "endColumn": 32
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 257,
+                            "endLine": 257,
+                            "startColumn": 3,
+                            "endColumn": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 589,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/BufferOverflow",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from the standard input flows into strcpy, where it is used to manipulate a string. This may result in a buffer overflow vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used to manipulate a string. This may result in a buffer overflow vulnerability.",
+            "arguments": [
+              "[the standard input](0)",
+              "[flows](1),(2),(3),(4)",
+              "[strcpy](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 85,
+                  "endLine": 85,
+                  "startColumn": 5,
+                  "endColumn": 11
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e58fb220c5b689568453a7fab5af4e98d572546b4dbb1ff6f165b9c7d106ef99",
+            "1": "2d06e3d6.a5c3bdff.412e46b6.1bd0bc43.546b9441.34c6cc13.30ad82ea.545e9171.b7d559fe.a5c3bdff.403f34e3.8ab4267b.546b9441.34c6cc13.7c41dfe9.8c5839be"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 6,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 6,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 83,
+                            "endLine": 83,
+                            "startColumn": 10,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 84,
+                            "endLine": 84,
+                            "startColumn": 9,
+                            "endColumn": 15
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 85,
+                            "endLine": 85,
+                            "startColumn": 16,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 85,
+                            "endLine": 85,
+                            "startColumn": 5,
+                            "endColumn": 11
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 589,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/BufferOverflow",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from the standard input flows into strcpy, where it is used to manipulate a string. This may result in a buffer overflow vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used to manipulate a string. This may result in a buffer overflow vulnerability.",
+            "arguments": [
+              "[the standard input](0)",
+              "[flows](1),(2),(3),(4),(5)",
+              "[strcpy](6)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 88,
+                  "endLine": 88,
+                  "startColumn": 5,
+                  "endColumn": 11
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "a72977c468eef3141fc0781b9f18a15e8fab79e572db995e5fe8787ccb09f106",
+            "1": "2d06e3d6.a5c3bdff.412e46b6.2ee45d5f.546b9441.6a274ab8.30ad82ea.545e9171.b7d559fe.a5c3bdff.403f34e3.8ab4267b.546b9441.34c6cc13.7c41dfe9.8c5839be"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 6,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 6,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 83,
+                            "endLine": 83,
+                            "startColumn": 10,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 84,
+                            "endLine": 84,
+                            "startColumn": 9,
+                            "endColumn": 15
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 85,
+                            "endLine": 85,
+                            "startColumn": 16,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 88,
+                            "endLine": 88,
+                            "startColumn": 19,
+                            "endColumn": 22
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/rapi_checksum/rapi_checksum.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 88,
+                            "endLine": 88,
+                            "startColumn": 5,
+                            "endColumn": 11
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 589,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/DerefNull",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "A pointer is possibly assigned the return value of a standard library function that may return NULL and is not checked before use. NULL pointer use can lead to program crashes.",
+            "markdown": "A pointer is possibly assigned the return value of a standard library function that may return NULL and is not checked before use. NULL pointer use can lead to program crashes.",
+            "arguments": []
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 139,
+                  "endLine": 139,
+                  "startColumn": 10,
+                  "endColumn": 12
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "d672228ea395c6fc27ef8a51e311146a1ba5563a79d2eba2f87570f609502878",
+            "1": "4ceb4be1.ef235b33.8742f014.1409790a.f9449c39.2f4e1548.172356ab.dc6d574c.6a777357.ef235b33.7118a4fa.219dec78.f9449c39.5cc3f18e.172356ab.e65721aa"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 139,
+                            "endLine": 139,
+                            "startColumn": 10,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 581,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/DerefNull",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "A pointer is possibly assigned the return value of a standard library function that may return NULL and is not checked before use. NULL pointer use can lead to program crashes.",
+            "markdown": "A pointer is possibly assigned the return value of a standard library function that may return NULL and is not checked before use. NULL pointer use can lead to program crashes.",
+            "arguments": []
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 156,
+                  "endLine": 156,
+                  "startColumn": 10,
+                  "endColumn": 12
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "a9edaa2b8c22806031bf557a7ec38a4f6d2fe212adcb04e1862211d70e062be2",
+            "1": "4ceb4be1.ef235b33.8742f014.1409790a.f9449c39.2f4e1548.172356ab.dc6d574c.6a777357.ef235b33.7118a4fa.219dec78.f9449c39.5cc3f18e.172356ab.e65721aa"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 156,
+                            "endLine": 156,
+                            "startColumn": 10,
+                            "endColumn": 12
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 581,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/DerefNull",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "A pointer is possibly assigned the return value of a standard library function that may return NULL and is not checked before use. NULL pointer use can lead to program crashes.",
+            "markdown": "A pointer is possibly assigned the return value of a standard library function that may return NULL and is not checked before use. NULL pointer use can lead to program crashes.",
+            "arguments": []
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 203,
+                  "endLine": 203,
+                  "startColumn": 12,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "228ae0fa2f3d49f5ecce4f8a69c8cd62deae70b3f289dc635684fd73ac18a59a",
+            "1": "4ceb4be1.ef235b33.8742f014.1409790a.f9449c39.2f4e1548.172356ab.dc6d574c.6a777357.ef235b33.7118a4fa.047ee594.f9449c39.5cc3f18e.172356ab.e65721aa"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 203,
+                            "endLine": 203,
+                            "startColumn": 12,
+                            "endColumn": 14
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 581,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/DerefNull",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "A pointer is possibly assigned the return value of a standard library function that may return NULL and is not checked before use. NULL pointer use can lead to program crashes.",
+            "markdown": "A pointer is possibly assigned the return value of a standard library function that may return NULL and is not checked before use. NULL pointer use can lead to program crashes.",
+            "arguments": []
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 220,
+                  "endLine": 220,
+                  "startColumn": 14,
+                  "endColumn": 16
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "b7d53db2e9e0c31dec16c2a9ba5439537558e6db24c08f116daf2f4f562ee35d",
+            "1": "4ceb4be1.ef235b33.8742f014.1409790a.f9449c39.2f4e1548.172356ab.dc6d574c.6a777357.ef235b33.7118a4fa.047ee594.f9449c39.5cc3f18e.172356ab.e65721aa"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/ammeter_cal.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 220,
+                            "endLine": 220,
+                            "startColumn": 14,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 581,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/IntegerOverflow",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a file flows into an addition operator (+), where it is used in integer arithmetic. This may result in an integer overflow vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into an addition operator (+), where it is used in integer arithmetic. This may result in an integer overflow vulnerability.",
+            "arguments": [
+              "[a file](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "utils/ammeter_cal/serialib.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 510,
+                  "endLine": 510,
+                  "startColumn": 51,
+                  "endColumn": 61
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "972d14c51fd600a20a71f2da43a0dd54b13402173c6667f9e65532d1b8aceb90",
+            "1": "2d06e3d6.b95e9447.a0549756.1bd0bc43.5d075b7c.e723426a.30ad82ea.5a88efd9.3e21a431.277c621c.a0549756.1c706e52.baf5e6ff.b391a980.30ad82ea.5a88efd9"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 511,
+                            "endLine": 511,
+                            "startColumn": 25,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 511,
+                            "endLine": 511,
+                            "startColumn": 25,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 511,
+                            "endLine": 511,
+                            "startColumn": 17,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 511,
+                            "endLine": 511,
+                            "startColumn": 13,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 512,
+                            "endLine": 512,
+                            "startColumn": 13,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 513,
+                            "endLine": 513,
+                            "startColumn": 13,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 514,
+                            "endLine": 514,
+                            "startColumn": 25,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 514,
+                            "endLine": 514,
+                            "startColumn": 13,
+                            "endColumn": 23
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 515,
+                            "endLine": 515,
+                            "startColumn": 17,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 510,
+                            "endLine": 510,
+                            "startColumn": 51,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 366,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/IntegerOverflow",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a file flows into a subtraction operator (-), where it is used in integer arithmetic. This may result in an integer overflow vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into a subtraction operator (-), where it is used in integer arithmetic. This may result in an integer overflow vulnerability.",
+            "arguments": [
+              "[a file](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "utils/ammeter_cal/serialib.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 511,
+                  "endLine": 511,
+                  "startColumn": 47,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "5caf3bf878a300eed0701d3087520b6a706485f5d82423fc247e4e25d36f2752",
+            "1": "2d06e3d6.b95e9447.742961a0.1bd0bc43.5d075b7c.e723426a.30ad82ea.5a88efd9.3e21a431.277c621c.8c1a46aa.1c706e52.baf5e6ff.b391a980.30ad82ea.5a88efd9"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 511,
+                            "endLine": 511,
+                            "startColumn": 25,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 511,
+                            "endLine": 511,
+                            "startColumn": 25,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 511,
+                            "endLine": 511,
+                            "startColumn": 17,
+                            "endColumn": 21
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 511,
+                            "endLine": 511,
+                            "startColumn": 13,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 512,
+                            "endLine": 512,
+                            "startColumn": 13,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 513,
+                            "endLine": 513,
+                            "startColumn": 13,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 514,
+                            "endLine": 514,
+                            "startColumn": 25,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 514,
+                            "endLine": 514,
+                            "startColumn": 13,
+                            "endColumn": 23
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 515,
+                            "endLine": 515,
+                            "startColumn": 17,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 510,
+                            "endLine": 510,
+                            "startColumn": 51,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "utils/ammeter_cal/serialib.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 511,
+                            "endLine": 511,
+                            "startColumn": 47,
+                            "endColumn": 57
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 366,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "cpp/CDivisionByZero",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "The divisor in the division operator is possibly zero, which may cause a division by zero to occur. Divisors should be checked to be non-zero before use.",
+            "markdown": "The divisor in the {0} operator is possibly zero, which may cause a division by zero to occur. Divisors should be checked to be non-zero before use.",
+            "arguments": [
+              "[division](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "firmware/open_evse/J1772EvseController.cpp",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 97,
+                  "endLine": 97,
+                  "startColumn": 43,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "6e60c01c7c042cf1717e54ca7284d00726e17358fcd326c14a1e7cce295ee47c",
+            "1": "31ae0555.10ac658c.6138112c.78ddeace.09f8ba64.e723426a.30ad82ea.2a9b9977.31ae0555.10ac658c.4bfab525.1c706e52.09f8ba64.e723426a.30ad82ea.2a9b9977"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "firmware/open_evse/J1772EvseController.cpp",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 97,
+                            "endLine": 97,
+                            "startColumn": 37,
+                            "endColumn": 55
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 508,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "C",
+            "files": 1,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "C++",
+            "files": 44,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "XML",
+            "files": 3,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": false,
+            "lang": "C++",
+            "files": 2,
+            "type": "FAILED_PARSING"
+          }
+        ]
+      }
+    }
+  ]
+}
