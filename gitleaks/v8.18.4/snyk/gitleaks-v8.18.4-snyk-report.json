@@ -1,0 +1,479 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "go/PT/test",
+              "name": "PT/test",
+              "shortDescription": {
+                "text": "Path Traversal"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "## Details\n\nA Directory Traversal attack (also known as path traversal) aims to access files and directories that are stored outside the intended folder. By manipulating files with \"dot-dot-slash (../)\" sequences and its variations, or by using absolute file paths, it may be possible to access arbitrary files and directories stored on file system, including application source code, configuration, and other critical system files.\n\nBeing able to access and manipulate an arbitrary path leads to vulnerabilities when a program is being run with privileges that the user providing the path should not have. A website with a path traversal vulnerability would allow users access to sensitive files on the server hosting it. CLI programs may also be vulnerable to path traversal if they are being ran with elevated privileges (such as with the setuid or setgid flags in Unix systems).\n\nDirectory Traversal vulnerabilities can be generally divided into two types:\n\n- **Information Disclosure**: Allows the attacker to gain information about the folder structure or read the contents of sensitive files on the system.\n\n`st` is a module for serving static files on web pages, and contains a [vulnerability of this type](https://snyk.io/vuln/npm:st:20140206). In our example, we will serve files from the `public` route.\n\nIf an attacker requests the following URL from our server, it will in turn leak the sensitive private key of the root user.\n\n```\ncurl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa\n```\n**Note** `%2e` is the URL encoded version of `.` (dot).\n\n- **Writing arbitrary files**: Allows the attacker to create or replace existing files. This type of vulnerability is also known as `Zip-Slip`.\n\nOne way to achieve this is by using a malicious `zip` archive that holds path traversal filenames. When each filename in the zip archive gets concatenated to the target extraction folder, without validation, the final path ends up outside of the target folder. If an executable or a configuration file is overwritten with a file containing malicious code, the problem can turn into an arbitrary code execution issue quite easily.\n\nThe following is an example of a `zip` archive with one benign file and one malicious file. Extracting the malicious file will result in traversing out of the target folder, ending up in `/root/.ssh/` overwriting the `authorized_keys` file:\n\n```\n2018-04-15 22:04:29 .....           19           19  good.txt\n2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys\n```",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "go",
+                  "PT",
+                  "Security",
+                  "InTest",
+                  "SourceNonServer",
+                  "SourceResourceAccess",
+                  "SourceFile",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/citrix/terraform-provider-citrixadc/commit/a4c0975006ef2020c0db505d69bdcec13f10915b?diff=split#diff-a9109e20e39687dfe49012120251229e209c76557bfef1ac646718448d8ca653L-1",
+                    "lines": [
+                      {
+                        "line": "b, err := ioutil.ReadFile(inputFile)\n",
+                        "lineNumber": 40,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "b, err := ioutil.ReadFile(filepath.Clean(inputFile))\n",
+                        "lineNumber": 40,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/MohawkTSDB/mohawk/commit/e4a68407d6e1f9a3ccfa1f0a320c04d693afe2a6?diff=split#diff-ffb4b68b82d9234bcba450c7ca14d76b3ea0eed74198d1811d802889c58252e5L-1",
+                    "lines": [
+                      {
+                        "line": "\t// Check for \"..\" in the url path,\n",
+                        "lineNumber": 42,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t// if we find \"..\" in the path we will not serve static files\n",
+                        "lineNumber": 43,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tif strings.Contains(path, \"..\") {\n",
+                        "lineNumber": 44,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\ts.next.ServeHTTP(w, r)\n",
+                        "lineNumber": 45,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\treturn\n",
+                        "lineNumber": 46,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 47,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 48,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t// Add index.html to path if it ends with /\n",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif path[len(path)-1:] == \"/\" {\n",
+                        "lineNumber": 50,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tpath = path + \"index.html\"\n",
+                        "lineNumber": 51,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 52,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 53,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// Add /index.html to path if a directory\n",
+                        "lineNumber": 54,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif fi, err := os.Stat(path); err == nil && fi.IsDir() {\n",
+                        "lineNumber": 55,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tpath = path + \"/index.html\"\n",
+                        "lineNumber": 56,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 57,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 58,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t// If file exist serve it\n",
+                        "lineNumber": 59,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tif file, err := ioutil.ReadFile(path); err == nil {\n",
+                        "lineNumber": 60,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/u-root/u-root/commit/?diff=split#diff-b2964e352f657fd0dbf5b5dc2f11b034b389e3ad9d60ef315dca58778612d468L-1",
+                    "lines": [
+                      {
+                        "line": "\tpath := filepath.Join(*directory, filepath.Clean(w.Name()))\n",
+                        "lineNumber": 27,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\tpath := filepath.Join(*directory, filepath.Join(\"/\", w.Name()))\n",
+                        "lineNumber": 27,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tfile, err := os.Open(path)\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 28,
+                "cwe": [
+                  "CWE-23"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "go/PT/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "Unsanitized input from file name flows into os.RemoveAll, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to delete arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to delete arbitrary files.",
+            "arguments": [
+              "[file name](0)",
+              "[flows](1),(2)",
+              "[os.RemoveAll](3)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "detect/detect_test.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 704,
+                  "endLine": 704,
+                  "startColumn": 4,
+                  "endColumn": 16
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "2dea595eea7325779a4886a3c03d3bb680f284d15e30a34b94a5144eb2e09126",
+            "1": "e2d1386d.2209776f.45df3e14.c19d78c5.51a8f989.57f89f2f.860c51ff.1bff12d3.424eddda.277c621c.45df3e14.e22980a8.5ef953d3.57f89f2f.c2cfdcd9.1bff12d3"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "detect/detect_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 704,
+                            "endLine": 704,
+                            "startColumn": 55,
+                            "endColumn": 63
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "detect/detect_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 704,
+                            "endLine": 704,
+                            "startColumn": 55,
+                            "endColumn": 63
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "detect/detect_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 704,
+                            "endLine": 704,
+                            "startColumn": 17,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "detect/detect_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 704,
+                            "endLine": 704,
+                            "startColumn": 4,
+                            "endColumn": 16
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 500,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "go/PT/test",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "Unsanitized input from file name flows into os.Rename, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to rename arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to rename arbitrary files.",
+            "arguments": [
+              "[file name](0)",
+              "[flows](1),(2)",
+              "[os.Rename](3)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "detect/detect_test.go",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 714,
+                  "endLine": 714,
+                  "startColumn": 9,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "11c837ad63409df67b76fa642f48cb68aab2572ffe8f3b3861e0b85bcd1ba58b",
+            "1": "e2d1386d.2209776f.45df3e14.0c66bee6.84c49f13.67ab4541.860c51ff.1bff12d3.68dbcf19.277c621c.45df3e14.e22980a8.e8c00e77.67ab4541.c2cfdcd9.1bff12d3"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "detect/detect_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 714,
+                            "endLine": 714,
+                            "startColumn": 57,
+                            "endColumn": 65
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "detect/detect_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 714,
+                            "endLine": 714,
+                            "startColumn": 57,
+                            "endColumn": 65
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "detect/detect_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 714,
+                            "endLine": 714,
+                            "startColumn": 19,
+                            "endColumn": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "detect/detect_test.go",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 714,
+                            "endLine": 714,
+                            "startColumn": 9,
+                            "endColumn": 18
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 500,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "Go",
+            "files": 156,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "XML",
+            "files": 2,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Python",
+            "files": 1,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}

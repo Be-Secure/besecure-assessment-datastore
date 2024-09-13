@@ -1,0 +1,3895 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "java/InsecureHash",
+              "name": "InsecureHash",
+              "shortDescription": {
+                "text": "Use of Password Hash With Insufficient Computational Effort"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nSensitive information should never be stored in plain text, since this makes it very easy for unauthorized users, whether malicious insiders or outside attackers, to access. Hashing methods are used to make stored passwords and other sensitive data unreadable to users. For example, when a password is defined for the first time, it is hashed and then stored. The next time that user attempts to log on, the password they enter is hashed following the same procedure and compared with the stored value. In this way, the original password never needs to be stored in the system.\n\nHashing is a one-way scheme, meaning a hashed password cannot be reverse engineered. However, if an outdated or custom programmed hashing scheme is used, it becomes simple for an attacker with powerful modern computing power to gain access to the hashes used. This opens up access to all stored password information, leading to breached security. Therefore, it is essential for developers to understand modern, secure password hashing techniques.\n\n## Best practices for prevention\n* Use strong standard algorithms for hashing rather than simpler but outdated methods or DIY hashing schemes, which may have inherent weaknesses.\n* Use modular design for all code dealing with hashing so it can be swapped out as security standards change over time.\n* Use salting in combination with hashing (While this places more demands on resources, it is an essential step for tighter security.).\n* Implement zero-trust architecture to ensure that access to password data is granted only for legitimate business purposes.\n* Increase developer awareness of current standards in data security and cryptography.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "InsecureHash",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/javabeanz/owasp-security-logging/commit/477ecf68f3102f309f3ec9af01ab852294cbd826?diff=split#diff-c14e8b3d208e6acad1c0ca88a8a8227e4140088dfe2206349680aec0558df5cbL-1",
+                    "lines": [
+                      {
+                        "line": "MessageDigest md = MessageDigest.getInstance(\"SHA-1\");\n",
+                        "lineNumber": 18,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "MessageDigest md = MessageDigest.getInstance(\"SHA-256\");\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/serenity-bdd/serenity-core/commit/0f81a03ae3f907922a05167688dadc8c3e3fbfb8?diff=split#diff-801c01409e6adce75757fddee032ee993bc0d54328d0632f7d728689a4b8effdL-1",
+                    "lines": [
+                      {
+                        "line": "return DigestUtils.md5Hex(screenshotData) + \".png\";\n",
+                        "lineNumber": 7,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "return DigestUtils.sha256Hex(screenshotData) + \".png\";\n",
+                        "lineNumber": 7,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/freenet/fred/commit/90a727b4116eafd4b6892fa49295966de4e355ae?diff=split#diff-385b90a2c9a20669f73977a4d82d2dcebad9b0728cfe0479f26285a8cec90bbeL-1",
+                    "lines": [
+                      {
+                        "line": "md = MessageDigest.getInstance(\"SHA-1\");\n",
+                        "lineNumber": 75,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "md = MessageDigest.getInstance(\"SHA-256\");\n",
+                        "lineNumber": 75,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 64,
+                "cwe": [
+                  "CWE-916"
+                ]
+              }
+            },
+            {
+              "id": "java/NonCryptoHardcodedSecret/test",
+              "name": "NonCryptoHardcodedSecret/test",
+              "shortDescription": {
+                "text": "Use of Hardcoded, Security-relevant Constants"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "## Details\n\nWhen constants are hardcoded into applications, this information could easily be reverse-engineered and become known to attackers. For example, if a breached authentication token is hardcoded in multiple places in the application, it may lead to components of the application remaining vulnerable if not all instances are changed.\nAnother negative effect of hard-coding constants is potential unpredictability in the application's performance if the development team fails to update every single instance of the hardcoded constant throughout the code. For these reasons, hard-coding security-relevant constants is considered bad coding practice and should be remedied if present and avoided in future.\n\n## Best practices for prevention\n* Never hard code security-related constants; use symbolic names or configuration lookup files.\n* As hard coding is often done by coders working alone on a small scale, examine all legacy code components and test carefully when scaling.\n* Adopt a \"future-proof code\" mindset: While use of constants may save a little time now and make development simpler in the short term, it could cost time and money adapting to scale or other unforeseen circumstances (such as new hardware) in the future.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "NonCryptoHardcodedSecret",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/shuxianfeng/movision/commit/5ee84a05bac382bea508e6a42da3330b1ccf4371?diff=split#diff-bdd70437062ccb0d3735e4c014d182875ef0c029af6c9c8c3e2a42e4136d410fL-1",
+                    "lines": [
+                      {
+                        "line": "        String accessKeyId = \"LTAITI0FOKgMZQty\";\n",
+                        "lineNumber": 15,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        String accessKeySecret = \"5x12H1yASg31OlPanhTCg0z0PzNr3t\";\n",
+                        "lineNumber": 16,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        String accessKeyId = PropertiesLoader.getValue(\"access.key.id\");\n",
+                        "lineNumber": 17,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        String accessKeySecret = PropertiesLoader.getValue(\"access.key.secret\");\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/xiexianbin/UEditor-for-aliyun-OSS/commit/324d6fd48c4c99d43ac30545ba30f9736b505c61?diff=split#diff-4d95e836c61d2ea3ffdda0f95df204e45f3b74f5ba58cb53c85cdb5114efa29fL-1",
+                    "lines": [
+                      {
+                        "line": "static {\r\n",
+                        "lineNumber": 17,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "String OSSKeyPath = SystemUtil.getProjectClassesPath() + \"OSSKey.properties\";\r\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "// 生成文件输入流\r\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "FileInputStream inpf = null;\r\n",
+                        "lineNumber": 20,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "try {\r\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    inpf = new FileInputStream(new File(OSSKeyPath));\r\n",
+                        "lineNumber": 22,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    OSSKeyProperties.load(inpf);\r\n",
+                        "lineNumber": 23,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    useStatus = (Boolean) OSSKeyProperties.get(\"useStatus\");\r\n",
+                        "lineNumber": 24,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    key = (String) OSSKeyProperties.get(\"key\");\r\n",
+                        "lineNumber": 25,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    secret = (String) OSSKeyProperties.get(\"secret\");\r\n",
+                        "lineNumber": 26,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    endPoint = (String) OSSKeyProperties.get(\"endPoint\");\r\n",
+                        "lineNumber": 27,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "} catch (Exception e) {\r\n",
+                        "lineNumber": 28,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    e.printStackTrace();\r\n",
+                        "lineNumber": 29,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "}\r\n",
+                        "lineNumber": 30,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "}\r\n",
+                        "lineNumber": 31,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/tronprotocol/java-tron/commit/84148c19e3d15f344fc164913be5bee478c1f637?diff=split#diff-9ff136527c21b19349c00267ff04c85b76dae23a2d28bc0f17a7c5b2eac78565L-1",
+                    "lines": [
+                      {
+                        "line": "private String ownerAddress = \"TDZdB4ogHSgU1CGrun8WXaMb2QDDkvAKQm\";\n",
+                        "lineNumber": 17,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "private String ownerAddress = Configuration.getByPath(\"stress.conf\").getString(\"address.exchangeOwnerAddress\");\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "private long exchangeID = commonexchangeid;\n",
+                        "lineNumber": 19,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "private long quant = 1000000L;\n",
+                        "lineNumber": 20,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "private String privateKey = \"549c7797b351e48ab1c6bb5857138b418012d97526fc2acba022357d49c93ac0\";\n",
+                        "lineNumber": 20,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "private String privateKey = Configuration.getByPath(\"stress.conf\").getString(\"privateKey.exchangeOwnerKey\");\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 52,
+                "cwe": [
+                  "CWE-547"
+                ]
+              }
+            },
+            {
+              "id": "java/HardcodedPassword/test",
+              "name": "HardcodedPassword/test",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "HardcodedPassword",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/winstonli/writelatex-git-bridge/commit/1117c70f31cee7d9a84c565c143f353d8bbab19e?diff=split#diff-16d090e60dcd386546c2164ae454bd356cbf326d715a66796582e8c003d8af10L-1",
+                    "lines": [
+                      {
+                        "line": "    public static void setBasicAuth(String username, String password) {\n",
+                        "lineNumber": 27,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        USERNAME = username;\n",
+                        "lineNumber": 28,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        PASSWORD = password;\n",
+                        "lineNumber": 29,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 30,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 31,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    public static void setBaseURL(String baseURL) {\n",
+                        "lineNumber": 32,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        BASE_URL = baseURL;\n",
+                        "lineNumber": 33,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 34,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 35,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/clowee/OpenSZZ-Cloud-Native/commit/ee429faf9d384074cf33515eda2a52e4e85ef061?diff=split#diff-a125fdf9d37b8daa4d9f0a7a46aedd416a80a49936bdee4bae40db3f3eef22deL-1",
+                    "lines": [
+                      {
+                        "line": "final String username = \"noreply.openszz@gmail.com\";\n",
+                        "lineNumber": 19,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "final String password = \"Aa30011992\";\n",
+                        "lineNumber": 20,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "final String username = System.getenv(\"EMAIL\");\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "final String password = System.getenv(\"PWD\");\n",
+                        "lineNumber": 20,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/ScaleSec/vulnado/commit/d4666a783ce3e1edcccdecf44cffcd33efbc18f8?diff=split#diff-0a97815f45976f1bd8887fa62f7671e9f85344c4efeeeef612b6d219e86e50b1L-1",
+                    "lines": [
+                      {
+                        "line": "return DriverManager.getConnection(\"jdbc:postgresql://localhost:5432/vulnado\",\n",
+                        "lineNumber": 13,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        \"postgres\", \"vulnado\");\n",
+                        "lineNumber": 14,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "String url = new StringBuilder()\n",
+                        "lineNumber": 15,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        .append(\"jdbc:postgresql://\")\n",
+                        "lineNumber": 16,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        .append(System.getenv(\"PGHOST\"))\n",
+                        "lineNumber": 17,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        .append(\"/\")\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        .append(System.getenv(\"PGDATABASE\")).toString();\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "return DriverManager.getConnection(url,\n",
+                        "lineNumber": 20,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        System.getenv(\"PGUSER\"), System.getenv(\"PGPASSWORD\"));\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 84,
+                "cwe": [
+                  "CWE-798",
+                  "CWE-259"
+                ]
+              }
+            },
+            {
+              "id": "javascript/PT",
+              "name": "PT",
+              "shortDescription": {
+                "text": "Path Traversal"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "help": {
+                "markdown": "## Details\n\nA Directory Traversal attack (also known as path traversal) aims to access files and directories that are stored outside the intended folder. By manipulating files with \"dot-dot-slash (../)\" sequences and its variations, or by using absolute file paths, it may be possible to access arbitrary files and directories stored on file system, including application source code, configuration, and other critical system files.\n\nBeing able to access and manipulate an arbitrary path leads to vulnerabilities when a program is being run with privileges that the user providing the path should not have. A website with a path traversal vulnerability would allow users access to sensitive files on the server hosting it. CLI programs may also be vulnerable to path traversal if they are being ran with elevated privileges (such as with the setuid or setgid flags in Unix systems).\n\nDirectory Traversal vulnerabilities can be generally divided into two types:\n\n- **Information Disclosure**: Allows the attacker to gain information about the folder structure or read the contents of sensitive files on the system.\n\n`st` is a module for serving static files on web pages, and contains a [vulnerability of this type](https://snyk.io/vuln/npm:st:20140206). In our example, we will serve files from the `public` route.\n\nIf an attacker requests the following URL from our server, it will in turn leak the sensitive private key of the root user.\n\n```\ncurl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa\n```\n**Note** `%2e` is the URL encoded version of `.` (dot).\n\n- **Writing arbitrary files**: Allows the attacker to create or replace existing files. This type of vulnerability is also known as `Zip-Slip`.\n\nOne way to achieve this is by using a malicious `zip` archive that holds path traversal filenames. When each filename in the zip archive gets concatenated to the target extraction folder, without validation, the final path ends up outside of the target folder. If an executable or a configuration file is overwritten with a file containing malicious code, the problem can turn into an arbitrary code execution issue quite easily.\n\nThe following is an example of a `zip` archive with one benign file and one malicious file. Extracting the malicious file will result in traversing out of the target folder, ending up in `/root/.ssh/` overwriting the `authorized_keys` file:\n\n```\n2018-04-15 22:04:29 .....           19           19  good.txt\n2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys\n```",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "javascript",
+                  "PT",
+                  "Security",
+                  "SourceServer",
+                  "SourceHttpParam",
+                  "<unknown>",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/eclipse-vertx/vert.x/commit/d1183271de193b6bef158e2b1dfb5ba65a15cbc9?diff=split#diff-fa3b44a1f7fa945e9aedd043ef316ad52d191aef30871789663bea3426ba14baL-1",
+                    "lines": [
+                      {
+                        "line": "} else if (req.path.indexOf('..') == -1) {\n",
+                        "lineNumber": 8,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "  req.response.sendFile(\".\" + req.path);\n",
+                        "lineNumber": 9,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "} else if (req.path().indexOf('..') == -1) {\n",
+                        "lineNumber": 8,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  req.response.sendFile(\".\" + req.path());\n",
+                        "lineNumber": 9,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/iamfrntdv/adm-dev-kit/commit/8edeb067e703a642cb7ac7c88fb95fce8dd9c248?diff=split#diff-52baeef6a12dda5ae6078825eeb32958966ba6cbdd56792899f6273fecd26eabL-1",
+                    "lines": [
+                      {
+                        "line": "const img = fs.readFileSync(filePath);\n",
+                        "lineNumber": 7,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "res.end(img);\n",
+                        "lineNumber": 8,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "res.sendFile(filePath, {root: './'});\n",
+                        "lineNumber": 7,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/substack/shipboard/commit/e2722480410eea3f3d7b51730dcdea49df649cd2?diff=split#diff-e727e4bdf3657fd1d798edcd6b099d6e092f8573cba266154583a746bba0f346L-1",
+                    "lines": [
+                      {
+                        "line": "    if (has(pages, req.url)) {\n",
+                        "lineNumber": 14,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    var p = req.url.split(/[#?]/)[0];\n",
+                        "lineNumber": 9,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    if (p === '/') {\n",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        html('layout.html').pipe(hyperstream({\n",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            '#content': html(pages[req.url])\n",
+                        "lineNumber": 16,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            '[page=create]': html('create.html'),\n",
+                        "lineNumber": 12,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            '[page=view]': html('view.html'),\n",
+                        "lineNumber": 13,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            '[page=edit]': html('edit.html')\n",
+                        "lineNumber": 14,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        })).pipe(res);\n",
+                        "lineNumber": 17,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 18,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    else st(req, res);\n",
+                        "lineNumber": 19,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "};\n",
+                        "lineNumber": 20,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 21,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "function html (file) {\n",
+                        "lineNumber": 22,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    return fs.createReadStream(path.join(__dirname, 'html', file));\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 40,
+                "cwe": [
+                  "CWE-23"
+                ]
+              }
+            },
+            {
+              "id": "java/NoHardcodedCredentials/test",
+              "name": "NoHardcodedCredentials/test",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "NoHardcodedCredentials",
+                  "Security",
+                  "InTest"
+                ],
+                "categories": [
+                  "Security",
+                  "InTest"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-798"
+                ]
+              }
+            },
+            {
+              "id": "java/ReturnsPassword",
+              "name": "ReturnsPassword",
+              "shortDescription": {
+                "text": "Unprotected Storage of Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nIf credentials are not protected or not sufficiently protected through strong encryption, attackers can access this information in a number of ways. Developers may rely on plain-text storage of credentials when they believe the system is completely secure from attack or only accessible to insiders. This confidence is misguided and dangerous. If a malicious insider-such as a former employee-or a hostile attacker using SQL injection, XML injection, or a brute-force attack accesses the system, they can access this credential information to gain unauthorized permissions within the system and to export other confidential and secure information.\n\n## Best practices for prevention\n* Ensure that passwords are never stored in plain text, even for \"purely internal\" use.\n* Never rely on password encoding, such as base 64 encoding; choose a complex encryption algorithm that includes salting, then hashing.\n* Implement zero-trust approaches in which users have access only to information needed for legitimate business purposes.\n* To the greatest extent possible, secure the application against injection attacks and other types of weaknesses.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "ReturnsPassword",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/ShotaOd/carbon/commit/4562a7a2c0f27065ed63c7615f044423ad1701fd?diff=split#diff-5a57acf4efafddf23331cc9f3c8d724e1cdd01633f61aa2d4e680b9b5241ff71L-1",
+                    "lines": [
+                      {
+                        "line": "import org.mindrot.jbcrypt.BCrypt;\n",
+                        "lineNumber": 6,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 7,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "/**\n",
+                        "lineNumber": 8,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " * @author Shota Oda 2016/11/23.\n",
+                        "lineNumber": 9,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " */\n",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "@Data\n",
+                        "lineNumber": 11,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "@AllArgsConstructor\n",
+                        "lineNumber": 12,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "public class BusinessAuthIdentity implements AuthIdentity{\n",
+                        "lineNumber": 13,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 14,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tprivate Lecturer user;\n",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 16,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t@Override\n",
+                        "lineNumber": 17,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tpublic String username() {\n",
+                        "lineNumber": 18,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn user.getUsername();\n",
+                        "lineNumber": 19,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 20,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 21,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t@Override\n",
+                        "lineNumber": 22,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tpublic String cryptPassword() {\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn user.getPassword();\n",
+                        "lineNumber": 24,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t@Override\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tpublic boolean confirm(String plainPassword) {\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\treturn cryptPassword().equals(plainPassword);\n",
+                        "lineNumber": 28,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        return BCrypt.checkpw(plainPassword, cryptPassword());\n",
+                        "lineNumber": 29,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/inbloom/secure-data-service/commit/3fa417150ddd23be7d76e75ce371d6be3d23e778?diff=split#diff-2c2abfa3625909a294c9c9db46cb34d8c5dda8baab7c7a40c5125abf7ffd05aeL-1",
+                    "lines": [
+                      {
+                        "line": "return !(securityContext == null || securityContext.getAuthentication() == null || securityContext.getAuthentication().getCredentials() == null || securityContext.getAuthentication().getCredentials().equals(\"\"));\n",
+                        "lineNumber": 49,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "return !(securityContext == null || securityContext.getAuthentication() == null || !securityContext.getAuthentication().isAuthenticated());\n",
+                        "lineNumber": 49,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/geoserver/geoserver/commit/2306fad111f1535389489c351af5104abeac00b0?diff=split#diff-7389a9006d12ec8f1e4034b12be4e717327f9a5917972f9b71f8415f1b695a88L-1",
+                    "lines": [
+                      {
+                        "line": "public boolean matches(CharSequence rawPassword, String encodedPassword) {\n",
+                        "lineNumber": 114,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    return rawPassword.equals(decodeToCharArray(encodedPassword));\n",
+                        "lineNumber": 111,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    return this.isPasswordValid(rawPassword.toString(), encodedPassword, null);\n",
+                        "lineNumber": 115,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    //return rawPassword.equals(decodeToCharArray(encodedPassword));\n",
+                        "lineNumber": 116,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 9,
+                "cwe": [
+                  "CWE-256"
+                ]
+              }
+            },
+            {
+              "id": "javascript/HardcodedNonCryptoSecret",
+              "name": "HardcodedNonCryptoSecret",
+              "shortDescription": {
+                "text": "Hardcoded Secret"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "help": {
+                "markdown": "## Details\n\nWhen constants are hardcoded into applications, this information could easily be reverse-engineered and become known to attackers. For example, if a breached authentication token is hardcoded in multiple places in the application, it may lead to components of the application remaining vulnerable if not all instances are changed.\nAnother negative effect of hard-coding constants is potential unpredictability in the application's performance if the development team fails to update every single instance of the hardcoded constant throughout the code. For these reasons, hard-coding security-relevant constants is considered bad coding practice and should be remedied if present and avoided in future.\n\n## Best practices for prevention\n- Never hard code security-related constants; use symbolic names or configuration lookup files.\n- As hard coding is often done by coders working alone on a small scale, examine all legacy code components and test carefully when scaling.\n- Adopt a \"future-proof code\" mindset: While use of constants may save a little time now and make development simpler in the short term, it could cost time and money adapting to scale or other unforeseen circumstances (such as new hardware) in the future.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "javascript",
+                  "HardcodedNonCryptoSecret",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/markstock7/FileManager/commit/50572778825dea6b6fdb34c9ae950d9915743e4c?diff=split#diff-408990876524f4737b49693cedc52fd267e31f665d0a7f71792dcb986d6a8268L-1",
+                    "lines": [
+                      {
+                        "line": "accessKeyId: 'pT3KujnBPxc0ey7G',\n",
+                        "lineNumber": 1,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "secretAccessKey: 'CcHjh2y7tIFljxgUT4U8sQLctkMBHu',\n",
+                        "lineNumber": 2,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "accessKeyId: '',\n",
+                        "lineNumber": 1,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "secretAccessKey: '',\n",
+                        "lineNumber": 2,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/rodrigotamura/go-stack-2019/commit/26e020dfc2272fe76c82c28d86f492c3c84a94c5?diff=split#diff-92f76c0bccc1f970244da3b50449f200d4787cf60a87be14ff4f250d0ba1a590L-1",
+                    "lines": [
+                      {
+                        "line": "secret: '632ca4dfc8b2269e6fdf03ab5a55d2ec',\n",
+                        "lineNumber": 1,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "secret: process.env.APP_SECRET,\n",
+                        "lineNumber": 1,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/appcypher/events-manager-io/commit/656fdf6bfb902894db36b4b3ea98441ee607b75e?diff=split#diff-0cd5bb6f9779938a122d3bfef4a22f6fc66e59742c3a377dde667d8a6c5f5e16L-1",
+                    "lines": [
+                      {
+                        "line": "password: bcrypt.hashSync('admin', 10),\n",
+                        "lineNumber": 6,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "password: bcrypt.hashSync(process.env.ADMIN_SEED_PASSWORD, 10),\n",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 68,
+                "cwe": [
+                  "CWE-547"
+                ]
+              }
+            },
+            {
+              "id": "java/PT",
+              "name": "PT",
+              "shortDescription": {
+                "text": "Path Traversal"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "## Details\n\nA Directory Traversal attack (also known as path traversal) aims to access files and directories that are stored outside the intended folder. By manipulating files with \"dot-dot-slash (../)\" sequences and its variations, or by using absolute file paths, it may be possible to access arbitrary files and directories stored on file system, including application source code, configuration, and other critical system files.\n\nBeing able to access and manipulate an arbitrary path leads to vulnerabilities when a program is being run with privileges that the user providing the path should not have. A website with a path traversal vulnerability would allow users access to sensitive files on the server hosting it. CLI programs may also be vulnerable to path traversal if they are being ran with elevated privileges (such as with the setuid or setgid flags in Unix systems).\n\nDirectory Traversal vulnerabilities can be generally divided into two types:\n\n- **Information Disclosure**: Allows the attacker to gain information about the folder structure or read the contents of sensitive files on the system.\n\n`st` is a module for serving static files on web pages, and contains a [vulnerability of this type](https://snyk.io/vuln/npm:st:20140206). In our example, we will serve files from the `public` route.\n\nIf an attacker requests the following URL from our server, it will in turn leak the sensitive private key of the root user.\n\n```\ncurl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa\n```\n**Note** `%2e` is the URL encoded version of `.` (dot).\n\n- **Writing arbitrary files**: Allows the attacker to create or replace existing files. This type of vulnerability is also known as `Zip-Slip`.\n\nOne way to achieve this is by using a malicious `zip` archive that holds path traversal filenames. When each filename in the zip archive gets concatenated to the target extraction folder, without validation, the final path ends up outside of the target folder. If an executable or a configuration file is overwritten with a file containing malicious code, the problem can turn into an arbitrary code execution issue quite easily.\n\nThe following is an example of a `zip` archive with one benign file and one malicious file. Extracting the malicious file will result in traversing out of the target folder, ending up in `/root/.ssh/` overwriting the `authorized_keys` file:\n\n```\n2018-04-15 22:04:29 .....           19           19  good.txt\n2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys\n```",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "PT",
+                  "Security",
+                  "SourceNonServer",
+                  "SourceResourceAccess",
+                  "SourceArchive",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/blackducksoftware/synopsys-detect/commit/36555b9322986e9560f241d05f2262c29a17663b?diff=split#diff-0762b4660a948292965002710b58e8fdfe28da3fe4aacdf01a6bac7406a33934L-1",
+                    "lines": [
+                      {
+                        "line": "import java.nio.file.Path;\r\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import java.util.Enumeration;\r\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import java.util.zip.ZipEntry;\r\n",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import java.util.zip.ZipFile;\r\n",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\r\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import org.apache.commons.compress.utils.IOUtils;\r\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\r\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "public class DetectZipUtil {\r\n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\r\n",
+                        "lineNumber": 40,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    public static void unzip(File zip, File dest, Charset charset) throws IOException {\r\n",
+                        "lineNumber": 41,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        Path destPath = dest.toPath();\r\n",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        try (ZipFile zipFile = new ZipFile(zip, ZipFile.OPEN_READ, charset)) {\r\n",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            Enumeration<? extends ZipEntry> entries = zipFile.entries();\r\n",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            while (entries.hasMoreElements()) {\r\n",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                ZipEntry entry = entries.nextElement();\r\n",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                Path entryPath = destPath.resolve(entry.getName());\r\n",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                if (!entryPath.normalize().startsWith(dest.toPath()))\r\n",
+                        "lineNumber": 48,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                    throw new IOException(\"Zip entry contained path traversal\");\r\n",
+                        "lineNumber": 49,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                if (entry.isDirectory()) {\r\n",
+                        "lineNumber": 50,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                    Files.createDirectories(entryPath);\r\n",
+                        "lineNumber": 51,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                } else {\r\n",
+                        "lineNumber": 52,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                    Files.createDirectories(entryPath.getParent());\r\n",
+                        "lineNumber": 53,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                    try (InputStream in = zipFile.getInputStream(entry)) {\r\n",
+                        "lineNumber": 54,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "                        try (OutputStream out = new FileOutputStream(entryPath.toFile())) {\r\n",
+                        "lineNumber": 55,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/tingley/globalsight/commit/9e9ea721f67f3a7b7c8d207f34ea549fb4ec52ee?diff=split#diff-10bf7160d01d941d63b0f194ae52f54d3b55ae8e8e33beaa7334783770d39117L-1",
+                    "lines": [
+                      {
+                        "line": " File rootFile = new File(docRoot);\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  String rootPath = rootFile.getCanonicalPath();\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  String path = file.getCanonicalPath();\n",
+                        "lineNumber": 20,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  if (!path.startsWith(rootPath)) {\n",
+                        "lineNumber": 22,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": " \t out.print(\"Failed to get XSL file for reason: Bad pathname.\");\n",
+                        "lineNumber": 23,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": " \t return;\n",
+                        "lineNumber": 24,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  }\n",
+                        "lineNumber": 25,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 26,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  input =  new BufferedReader(new FileReader(file));\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/OpenRefine/OpenRefine/commit/7f7b71459ca031978c3f8024cb14af13446d6d9c?diff=split#diff-c8321cdc05ebb81f79c44f1f701d1659b3b20baa5d22df0c9ff29cdc5ec7d1a6L-1",
+                    "lines": [
+                      {
+                        "line": "// For CVE-2018-19859, issue #1840\n",
+                        "lineNumber": 443,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "if (!file.toPath().normalize().startsWith(dir.toPath().normalize())) {\n",
+                        "lineNumber": 444,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tthrow new IllegalArgumentException(\"Zip archives with files escaping their root directory are not allowed.\");\n",
+                        "lineNumber": 445,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "}\n",
+                        "lineNumber": 446,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 447,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "int dot = name.indexOf('.');\n",
+                        "lineNumber": 448,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "String prefix = dot < 0 ? name : name.substring(0, dot);\n",
+                        "lineNumber": 449,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "String suffix = dot < 0 ? \"\" : name.substring(dot);\n",
+                        "lineNumber": 450,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "int index = 2;\n",
+                        "lineNumber": 451,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "while (file.exists()) {\n",
+                        "lineNumber": 452,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 49,
+                "cwe": [
+                  "CWE-23"
+                ]
+              }
+            },
+            {
+              "id": "java/InsecureRandomData",
+              "name": "InsecureRandomData",
+              "shortDescription": {
+                "text": "Use of Insufficiently Random Values"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nComputer security relies on random numbers for many things: generating secure, confidential session keys; hashing password data; encryption for transmitting sensitive data, and more. It's easy to understand why. If session keys, for example, were generated sequentially, attackers would be able to guess these easily and then hijack legitimate user sessions. Similarly, if encryption techniques used easy-to-guess numbers, attackers could use brute-force attacks to gain unauthorized access.\n\nIn reality, since computers cannot generate truly random numbers, they use \"pseudorandom\" numbers instead, generated using an algorithm that is \"seeded\" in a variety of ways to produce highly variable values in a random-seeming order, making them very hard-in theory-for attackers to guess. However, if developers inadvertently make use of a weak random algorithm, attackers may be able to discover the algorithm, seed, or pattern, ultimately unlocking access to commands or sensitive data, which can then be held for ransom or sold.\n\n## Best practices for prevention\n* Avoid using weak pseudorandom number generators (PRNGs), such as statistical PRNGs. Instead, choose a cryptographically secure PRNG.\n* Avoid using predictable seed values, such as user ID or server start time. Instead, use a seed that is itself pseudorandom, such as one taken from an external hardware source.\n* Use standard, accepted security algorithms and libraries rather than taking a DIY approach and creating custom code that may contain inherent weaknesses or overlook critical flaws.\n* Use static analysis tools to identify potential instances of this weakness in code and then ensure good test coverage with appropriate white-box testing.\n* Educate developers about the importance of entropy in security systems development, and consider adopting tools that are FIPS 140-2 compliant.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "InsecureRandomData",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/inbloom/secure-data-service/commit/1afa95c97019fb8d09b6231ca37584216a928580?diff=split#diff-8ef9dd5e29b021c534d1ad4bb94b2a678c574b05e964b0bb0702365069c82333L-1",
+                    "lines": [
+                      {
+                        "line": "    Random r = new Random();\n",
+                        "lineNumber": 21,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    SecureRandom r = new SecureRandom();\n",
+                        "lineNumber": 22,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    /**\n",
+                        "lineNumber": 24,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "     * Generate a shardable type 1 random UUID .\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "     */\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    @Override\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/keycloak/keycloak/commit/54b5a6c41e74830268ff85b754396f04e48a69c7?diff=split#diff-7ea6f1f4aa924fedcb645eb41921842065edeccb31f1a757807b9a7351ca113dL-1",
+                    "lines": [
+                      {
+                        "line": "import java.util.Random;\n",
+                        "lineNumber": 5,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "import java.security.SecureRandom;\n",
+                        "lineNumber": 5,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 6,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "/**\n",
+                        "lineNumber": 7,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " * @author <a href=\"mailto:bill@burkecentral.com\">Bill Burke</a>\n",
+                        "lineNumber": 8,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " * @version $Revision: 1 $\n",
+                        "lineNumber": 9,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": " */\n",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "public class HmacOTP {\n",
+                        "lineNumber": 11,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    public static final String HMAC_SHA1 = \"HmacSHA1\";\n",
+                        "lineNumber": 12,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    public static final String HMAC_SHA256 = \"HmacSHA256\";\n",
+                        "lineNumber": 13,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    public static final String HMAC_SHA512 = \"HmacSHA512\";\n",
+                        "lineNumber": 14,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    public static final String DEFAULT_ALGORITHM = HMAC_SHA1;\n",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    public static final int DEFAULT_NUMBER_DIGITS = 6;\n",
+                        "lineNumber": 16,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    // 0 1 2 3 4 5 6 7 8\n",
+                        "lineNumber": 17,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    private static final int[] DIGITS_POWER = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000};\n",
+                        "lineNumber": 18,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    protected final String algorithm;\n",
+                        "lineNumber": 19,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    protected final int numberDigits;\n",
+                        "lineNumber": 20,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    protected final int lookAheadWindow;\n",
+                        "lineNumber": 21,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 22,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    public HmacOTP(int numberDigits, String algorithm, int delayWindow) {\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        this.numberDigits = numberDigits;\n",
+                        "lineNumber": 24,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        this.algorithm = algorithm;\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        this.lookAheadWindow = delayWindow;\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    public static String generateSecret(int length) {\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        String chars = \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW1234567890\";\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        Random r = new Random();\n",
+                        "lineNumber": 31,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        SecureRandom r = new SecureRandom();\n",
+                        "lineNumber": 31,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/apache/cordova-android/commit/b37498d5f61faf37c5cbe7ca58f004ceacdffb0f?diff=split#diff-ff6f79695a4b804241961a62677d0a407436caaeb3dd14d86444f30853c64086L-1",
+                    "lines": [
+                      {
+                        "line": "int generateBridgeSecret() {\n",
+                        "lineNumber": 110,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    expectedBridgeSecret = (int)(Math.random() * Integer.MAX_VALUE);\n",
+                        "lineNumber": 109,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    SecureRandom randGen = new SecureRandom();\n",
+                        "lineNumber": 111,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    expectedBridgeSecret = (int)(randGen.nextInt() * Integer.MAX_VALUE);\n",
+                        "lineNumber": 112,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 7,
+                "cwe": [
+                  "CWE-330"
+                ]
+              }
+            },
+            {
+              "id": "javascript/DOMXSS",
+              "name": "DOMXSS",
+              "shortDescription": {
+                "text": "Cross-site Scripting (XSS)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "help": {
+                "markdown": "## Details\n\nA cross-site scripting attack occurs when the attacker tricks a legitimate web-based application or site to accept a request as originating from a trusted source.\n\nThis is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML)  in order to perform actions that are otherwise typically blocked by the browser's Same Origin Policy.\n\nInjecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability.\n\nEscaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as  `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they've been correctly escaped in the application code and in this way the attempted attack is diverted.\n\nThe most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware.\n\n### Types of attacks\nThere are a few methods by which XSS can be manipulated:\n\n|Type|Origin|Description|\n|--|--|--|\n|**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.|\n|**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user's browser.|\n|**DOM-based**|Client|The attacker forces the user's browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.|\n|**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.|\n\n### Affected environments\nThe following environments are susceptible to an XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n## Best practices for prevention\nThis section describes the top best practices designed to specifically protect your code:\n\n* Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches.\n* Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents.\n* Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n* Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions.\n* Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack.\n* Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "javascript",
+                  "DOMXSS",
+                  "Security",
+                  "SourceServer",
+                  "SourceHttpParam",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/Drive4ik/simple-tab-groups/commit/d23caa02378845671eb32ee2c43c368f857b47c3?diff=split#diff-efdba41d528998f946ce1103fa57532e3746b2e9b1984cb92c94a2526451aedbL-1",
+                    "lines": [
+                      {
+                        "line": "document.getElementById('title').innerHTML = title || url;\n",
+                        "lineNumber": 6,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "document.getElementById('title').innerText = title || url;\n",
+                        "lineNumber": 6,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/academic/vipa/commit/31c6fc127f775fd304f484fbb74e07d6d565aa0e?diff=split#diff-f92a276b67e184a63ce4d03fb5d47c10ff0bb2f10cba449dc9d537d2300c605fL-1",
+                    "lines": [
+                      {
+                        "line": "var $citeItemMustTpl = $(\"#step3_cite_item1_tpl\").html();\n",
+                        "lineNumber": 27,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "var $citeItemShouldTpl = $(\"#step3_cite_item2_tpl\").html();\n",
+                        "lineNumber": 28,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "for (var i in $mustFields) {\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    $(\".citationDetailsFields\", $tpl).append(\n",
+                        "lineNumber": 28,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            '<input type=\"text\" class=\"form-control has-warning\" placeholder=\"' +\n",
+                        "lineNumber": 29,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            $mustFields[i] + ' *\" name=\"' + $mustFields[i] + '\" /> ');\n",
+                        "lineNumber": 30,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    renderedTpl = Mustache.render($citeItemMustTpl, {'name': $mustFields[i], 'value': ''});\n",
+                        "lineNumber": 30,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    $(\".citationDetailsFields\", $tpl).append(renderedTpl);\n",
+                        "lineNumber": 31,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/188867052/MatrixAdmin/commit/2252cc42a30439859ba6a2623151514ffc86b2ef?diff=split#diff-7b7071e994f356b320dab8de63d56ee7a17ea6a65e62bdea9b39b20e452c3aa1L-1",
+                    "lines": [
+                      {
+                        "line": "$.post(this._searchUrl, data, function (response) {\n",
+                        "lineNumber": 25,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    $(\".widget-content\")[0].innerHTML = response;\n",
+                        "lineNumber": 26,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "$.post(searchUrl, data, function (response) {\n",
+                        "lineNumber": 28,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    successPointer(response);\n",
+                        "lineNumber": 29,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 115,
+                "cwe": [
+                  "CWE-79"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "java/InsecureHash",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "The MD5 hash (used in com.google.common.hash.Hashing.md5) is insecure. Consider changing it to a secure hash algorithm",
+            "markdown": "The MD5 hash (used in {0}) is insecure. Consider changing it to a secure hash algorithm",
+            "arguments": [
+              "[com.google.common.hash.Hashing.md5](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "core/src/main/java/io/kestra/core/utils/IdUtils.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 14,
+                  "endLine": 14,
+                  "startColumn": 55,
+                  "endColumn": 66
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "f9fa845137ad91d7cb5259d35821bae3b238234361e8123044dbaaf1c6cc6237",
+            "1": "416089e6.dd05ec30.a05291bc.de031890.f748e562.ce109560.cf33cdf9.c9deda65.416089e6.dd05ec30.a05291bc.de031890.f748e562.ce109560.cf33cdf9.c9deda65"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/core/utils/IdUtils.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 14,
+                            "endLine": 14,
+                            "startColumn": 55,
+                            "endColumn": 66
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 357,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/NonCryptoHardcodedSecret/test",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found hardcoded secret.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found hardcoded {0}.",
+            "arguments": [
+              "[secret](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "core/src/test/java/io/kestra/core/encryption/EncryptionServiceTest.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 13,
+                  "endLine": 13,
+                  "startColumn": 39,
+                  "endColumn": 73
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "a1c8712cb8bca8a4a1afb89c2c010e268d037e9c270607af6d0fde769dae7f37",
+            "1": "416089e6.dd05ec30.576dabb8.de031890.8b2d3351.c2a2834d.98347970.988eef72.7656a3d1.dd05ec30.576dabb8.de031890.bb61bed7.c2a2834d.9a962444.988eef72"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/test/java/io/kestra/core/encryption/EncryptionServiceTest.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "endLine": 13,
+                            "startColumn": 39,
+                            "endColumn": 73
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 357,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/HardcodedPassword/test",
+          "ruleIndex": 2,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode passwords in code. Found hardcoded password used in here.",
+            "markdown": "Do not hardcode passwords in code. Found hardcoded password used in {0}.",
+            "arguments": [
+              "[here](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "webserver/src/test/java/io/kestra/webserver/controllers/api/MiscControllerTest.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 49,
+                  "endLine": 49,
+                  "startColumn": 27,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "5fc1944f4dd14fe4fd647fb0945a7edd6e8f53a0ea4c12f3142fee6f74a6b632",
+            "1": "19689298.83dbfe52.71a71d19.bd0e4e78.bc6ac6aa.dd62fee0.5cd65e98.54d46e25.19689298.83dbfe52.71a71d19.e22980a8.f1d9f854.dd62fee0.e097c2d5.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "webserver/src/test/java/io/kestra/webserver/controllers/api/MiscControllerTest.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "endLine": 49,
+                            "startColumn": 27,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 407,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "javascript/PT",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from an HTTP parameter flows into readDirectory, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to list arbitrary directories.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to list arbitrary directories.",
+            "arguments": [
+              "[an HTTP parameter](0)",
+              "[flows](1),(2),(3),(4),(5)",
+              "[readDirectory](6)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 455,
+                  "endLine": 455,
+                  "startColumn": 46,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "9e9d89d4cab13edf5cb7271ee19d382d270391c0c291e2e44d98605f9a254d50",
+            "1": "e0fda459.4773f344.c9330245.d7919eeb.79a7d027.8020cfdf.000cbb68.d087f7d7.5a562d4f.4773f344.c9330245.d7919eeb.eed68a7d.f8890b3c.501fb1c8.b3bc9f29"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 454,
+                            "endLine": 454,
+                            "startColumn": 79,
+                            "endColumn": 85
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 454,
+                            "endLine": 454,
+                            "startColumn": 79,
+                            "endColumn": 85
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 454,
+                            "endLine": 454,
+                            "startColumn": 67,
+                            "endColumn": 85
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 454,
+                            "endLine": 454,
+                            "startColumn": 38,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 454,
+                            "endLine": 454,
+                            "startColumn": 27,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 455,
+                            "endLine": 455,
+                            "startColumn": 60,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 455,
+                            "endLine": 455,
+                            "startColumn": 46,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 825,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "javascript/PT",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from an HTTP parameter flows into readDirectory, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to list arbitrary directories.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to list arbitrary directories.",
+            "arguments": [
+              "[an HTTP parameter](0)",
+              "[flows](1),(2),(3),(4),(5)",
+              "[readDirectory](6)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 467,
+                  "endLine": 467,
+                  "startColumn": 47,
+                  "endColumn": 60
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "983d6cc51869b7486235a28af93791a404382560c9d89ed8340848520ca557bf",
+            "1": "bc2dde6a.4773f344.c9330245.d7919eeb.79a7d027.8020cfdf.ea235696.234e74b3.5a562d4f.4773f344.c9330245.d7919eeb.eed68a7d.f8890b3c.501fb1c8.b3bc9f29"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 463,
+                            "endLine": 463,
+                            "startColumn": 66,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 463,
+                            "endLine": 463,
+                            "startColumn": 66,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 463,
+                            "endLine": 463,
+                            "startColumn": 54,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 463,
+                            "endLine": 463,
+                            "startColumn": 25,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 462,
+                            "endLine": 462,
+                            "startColumn": 27,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 467,
+                            "endLine": 467,
+                            "startColumn": 61,
+                            "endColumn": 68
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/EditorSidebar.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 467,
+                            "endLine": 467,
+                            "startColumn": 47,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 825,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "javascript/PT",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from an HTTP parameter flows into readFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "arguments": [
+              "[an HTTP parameter](0)",
+              "[flows](1),(2),(3),(4),(5)",
+              "[readFile](6)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 141,
+                  "endLine": 141,
+                  "startColumn": 65,
+                  "endColumn": 73
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "0c0e6c2924a6af04a670d0570cf5c3861d3f8b640f302cf89209c308fdf853ba",
+            "1": "c3f8dfad.4773f344.8b18f948.c559ebce.79a7d027.8020cfdf.ea235696.4db8d3de.c3f8dfad.4773f344.8b18f948.4f83689a.eed68a7d.f8890b3c.501fb1c8.b3bc9f29"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 137,
+                            "endLine": 137,
+                            "startColumn": 48,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 137,
+                            "endLine": 137,
+                            "startColumn": 48,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 137,
+                            "endLine": 137,
+                            "startColumn": 36,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 137,
+                            "endLine": 137,
+                            "startColumn": 25,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 136,
+                            "endLine": 136,
+                            "startColumn": 27,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 141,
+                            "endLine": 141,
+                            "startColumn": 74,
+                            "endColumn": 81
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 141,
+                            "endLine": 141,
+                            "startColumn": 65,
+                            "endColumn": 73
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 825,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "javascript/PT",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from an HTTP parameter flows into readFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.",
+            "arguments": [
+              "[an HTTP parameter](0)",
+              "[flows](1),(2),(3),(4)",
+              "[readFile](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 624,
+                  "endLine": 624,
+                  "startColumn": 98,
+                  "endColumn": 106
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "475785f607cd38b7fe153010c5252b870e9f73a5707ce147645af879d9f691cb",
+            "1": "c3f8dfad.4773f344.126beb45.d7919eeb.eed68a7d.8020cfdf.ea235696.ae94f388.c3f8dfad.4773f344.126beb45.4f83689a.eed68a7d.f8890b3c.501fb1c8.b3bc9f29"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 624,
+                            "endLine": 624,
+                            "startColumn": 131,
+                            "endColumn": 137
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 624,
+                            "endLine": 624,
+                            "startColumn": 131,
+                            "endColumn": 137
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 624,
+                            "endLine": 624,
+                            "startColumn": 119,
+                            "endColumn": 137
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 624,
+                            "endLine": 624,
+                            "startColumn": 108,
+                            "endColumn": 117
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 624,
+                            "endLine": 624,
+                            "startColumn": 107,
+                            "endColumn": 185
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/inputs/MonacoEditor.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 624,
+                            "endLine": 624,
+                            "startColumn": 98,
+                            "endColumn": 106
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 825,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/NoHardcodedCredentials/test",
+          "ruleIndex": 4,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code.",
+            "markdown": "Do not hardcode credentials in code.",
+            "arguments": []
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "webserver/src/test/java/io/kestra/webserver/controllers/api/MiscControllerTest.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 48,
+                  "endLine": 48,
+                  "startColumn": 27,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "17c4c821dacb24c5a3b8e0a50ba915b87160da45bf0dab9b115c8ef799d0c3e7",
+            "1": "19689298.b1f2e576.f3ece984.8e6b360a.4a9c8cbc.ba2b7f9a.02a3d1e8.54d46e25.19689298.b1f2e576.fc7d5400.e22980a8.f1d9f854.ba2b7f9a.e097c2d5.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "webserver/src/test/java/io/kestra/webserver/controllers/api/MiscControllerTest.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 48,
+                            "endLine": 48,
+                            "startColumn": 27,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 207,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/ReturnsPassword",
+          "ruleIndex": 5,
+          "level": "warning",
+          "message": {
+            "text": "An attacker might be able to detect the value of the password due to the exposure of comparison timing. When the functions Arrays.equals() or String.equals() are called, they will exit earlier if fewer bytes are matched. Use password encoder such as BCrypt for comparing passwords.",
+            "markdown": "An attacker might be able to detect the value of the password due to the exposure of comparison timing. When the functions Arrays.equals() or String.equals() are called, they will exit earlier if fewer bytes are matched. Use password encoder such as BCrypt for comparing passwords.",
+            "arguments": []
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "core/src/main/java/io/kestra/core/endpoints/BasicAuthEndpointsFilter.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 56,
+                  "endLine": 56,
+                  "startColumn": 21,
+                  "endColumn": 68
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "cb5582a82c831368ed9ec21c1e218abe7c79aac0d8950f1abf7b26fb690ed42c",
+            "1": "524d7e3a.ff76257e.33fa5dbe.d6125030.025462d2.7fda7c5e.b98759f4.180254b9.524d7e3a.1cbd3ff4.33fa5dbe.9998adc9.dd06b926.7fda7c5e.8b3093f8.180254b9"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/core/endpoints/BasicAuthEndpointsFilter.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 56,
+                            "endLine": 56,
+                            "startColumn": 21,
+                            "endColumn": 68
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 507,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "javascript/HardcodedNonCryptoSecret",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ui/src/components/settings/BasicSettings.vue",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 195,
+                  "endLine": 195,
+                  "startColumn": 18,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "35c8af8755314ccef20f635a08bc2bf3258a35ffc94e44c6f6d65406afd08c4d",
+            "1": "c4204708.4773f344.dbcbac65.d7919eeb.11f0dd88.8020cfdf.ea4b1c47.3cee0341.ae77ea27.4773f344.dbcbac65.c559ebce.11f0dd88.5fce695c.ea4b1c47.89d75565"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/settings/BasicSettings.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 195,
+                            "endLine": 195,
+                            "startColumn": 44,
+                            "endColumn": 56
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/settings/BasicSettings.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 195,
+                            "endLine": 195,
+                            "startColumn": 18,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 813,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "javascript/HardcodedNonCryptoSecret",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.",
+            "markdown": "Avoid hardcoding values that are meant to be secret. Found {0} used in {1}.",
+            "arguments": [
+              "[a hardcoded string](0)",
+              "[here](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ui/src/components/settings/BasicSettings.vue",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 196,
+                  "endLine": 196,
+                  "startColumn": 18,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "82ff3b0b4a1cab4edfaccfe8fc6f3bd46caaa8dec00218a1e77c795434e7e79c",
+            "1": "409d38e4.4773f344.8b18f948.d7919eeb.26d5650d.8020cfdf.ea4b1c47.99980d62.409d38e4.4773f344.8b18f948.c559ebce.26d5650d.5fce695c.ea4b1c47.89d75565"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/settings/BasicSettings.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 196,
+                            "endLine": 196,
+                            "startColumn": 41,
+                            "endColumn": 51
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/settings/BasicSettings.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 196,
+                            "endLine": 196,
+                            "startColumn": 18,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 813,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/PT",
+          "ruleIndex": 7,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a zip file flows into java.nio.file.Files.createFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.",
+            "arguments": [
+              "[a zip file](0)",
+              "[flows](1),(2),(3),(4),(5)",
+              "[java.nio.file.Files.createFile](6)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 252,
+                  "endLine": 252,
+                  "startColumn": 33,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "f2a6d972c59dea41aae10f7041349702d6c5952361ce6026e155ddc92e1a397e",
+            "1": "19689298.d081a77a.468e54a4.f9bdd8eb.eaa90905.f940a352.df7e59ba.54d46e25.19689298.c09b81fb.468e54a4.9998adc9.eaa90905.7fda7c5e.df2788bf.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 250,
+                            "endLine": 250,
+                            "startColumn": 84,
+                            "endColumn": 97
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 250,
+                            "endLine": 250,
+                            "startColumn": 84,
+                            "endColumn": 97
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 250,
+                            "endLine": 250,
+                            "startColumn": 45,
+                            "endColumn": 83
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 250,
+                            "endLine": 250,
+                            "startColumn": 38,
+                            "endColumn": 100
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 251,
+                            "endLine": 251,
+                            "startColumn": 57,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 252,
+                            "endLine": 252,
+                            "startColumn": 50,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 252,
+                            "endLine": 252,
+                            "startColumn": 33,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 569,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/PT",
+          "ruleIndex": 7,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a zip file flows into java.nio.file.Files.write, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.",
+            "arguments": [
+              "[a zip file](0)",
+              "[flows](1),(2),(3),(4),(5)",
+              "[java.nio.file.Files.write](6)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 253,
+                  "endLine": 253,
+                  "startColumn": 33,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "0ba05d5e19df3b0c794d656ebc52289f21be1916126d4b53d166e257ec829650",
+            "1": "6d03585f.89433194.468e54a4.f9bdd8eb.eaa90905.f940a352.df7e59ba.54d46e25.19689298.d081a77a.468e54a4.f9bdd8eb.eaa90905.f940a352.bae646e8.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 250,
+                            "endLine": 250,
+                            "startColumn": 84,
+                            "endColumn": 97
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 250,
+                            "endLine": 250,
+                            "startColumn": 84,
+                            "endColumn": 97
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 250,
+                            "endLine": 250,
+                            "startColumn": 45,
+                            "endColumn": 83
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 250,
+                            "endLine": 250,
+                            "startColumn": 38,
+                            "endColumn": 100
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 251,
+                            "endLine": 251,
+                            "startColumn": 57,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 253,
+                            "endLine": 253,
+                            "startColumn": 45,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 253,
+                            "endLine": 253,
+                            "startColumn": 33,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 569,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/PT",
+          "ruleIndex": 7,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from a zip file flows into java.nio.file.Files.copy, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.",
+            "arguments": [
+              "[a zip file](0)",
+              "[flows](1),(2),(3),(4),(5),(6)",
+              "[java.nio.file.Files.copy](7)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "script/src/main/java/io/kestra/plugin/scripts/runner/docker/Docker.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 494,
+                  "endLine": 494,
+                  "startColumn": 33,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "9da1e936740cc840a5c8ae66497c71f8adbefc921662059fd957a08f628e8b1a",
+            "1": "19689298.c09b81fb.77d30fbc.fb426615.742d3e05.f940a352.df2788bf.54d46e25.3ab06a9f.c09b81fb.2159a181.fb426615.742d3e05.7fda7c5e.df2788bf.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "script/src/main/java/io/kestra/plugin/scripts/runner/docker/Docker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 488,
+                            "endLine": 488,
+                            "startColumn": 86,
+                            "endColumn": 99
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "script/src/main/java/io/kestra/plugin/scripts/runner/docker/Docker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 488,
+                            "endLine": 488,
+                            "startColumn": 86,
+                            "endColumn": 99
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "script/src/main/java/io/kestra/plugin/scripts/runner/docker/Docker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 488,
+                            "endLine": 488,
+                            "startColumn": 86,
+                            "endColumn": 111
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "script/src/main/java/io/kestra/plugin/scripts/runner/docker/Docker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 488,
+                            "endLine": 488,
+                            "startColumn": 78,
+                            "endColumn": 85
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "script/src/main/java/io/kestra/plugin/scripts/runner/docker/Docker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 488,
+                            "endLine": 488,
+                            "startColumn": 46,
+                            "endColumn": 77
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "script/src/main/java/io/kestra/plugin/scripts/runner/docker/Docker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 488,
+                            "endLine": 488,
+                            "startColumn": 34,
+                            "endColumn": 155
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "script/src/main/java/io/kestra/plugin/scripts/runner/docker/Docker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 494,
+                            "endLine": 494,
+                            "startColumn": 49,
+                            "endColumn": 58
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "script/src/main/java/io/kestra/plugin/scripts/runner/docker/Docker.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 494,
+                            "endLine": 494,
+                            "startColumn": 33,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 519,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/InsecureRandomData",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "text": "Insecure random data (org.apache.commons.lang3.RandomStringUtils.random) flows from method generateSalt that should return cryptographically secure random. Use SecureRandom to generate passwords",
+            "markdown": "Insecure random data ({0}) {1} from method {2} that should return cryptographically secure random. Use SecureRandom to generate passwords",
+            "arguments": [
+              "[org.apache.commons.lang3.RandomStringUtils.random](0)",
+              "[flows](1)",
+              "[generateSalt](2)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "core/src/main/java/io/kestra/core/utils/AuthUtils.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 16,
+                  "endLine": 16,
+                  "startColumn": 26,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "6fffa9cd5a415c39b5728590ae8c9e818430f85a28f6b85b1c94754e40e8adf9",
+            "1": "fa9c6056.7f413d6f.2254be4e.e22980a8.147d8cdd.0d476878.5b1ccecb.d4b7c9ba.fa9c6056.7f413d6f.2254be4e.e22980a8.147d8cdd.0d476878.5a9aa8e1.d4b7c9ba"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/core/utils/AuthUtils.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 17,
+                            "endLine": 17,
+                            "startColumn": 16,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/core/utils/AuthUtils.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 17,
+                            "endLine": 17,
+                            "startColumn": 16,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "core/src/main/java/io/kestra/core/utils/AuthUtils.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 16,
+                            "endLine": 16,
+                            "startColumn": 26,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 757,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "javascript/DOMXSS",
+          "ruleIndex": 9,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from an HTTP parameter flows into appendChild, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).",
+            "arguments": [
+              "[an HTTP parameter](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16)",
+              "[appendChild](17)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ui/src/components/executions/Logs.vue",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 129,
+                  "endLine": 129,
+                  "startColumn": 27,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "736bd60465f42066907371b297d4dac8f56c24dd7ea818d598c7566c2deb3b24",
+            "1": "a3f4612d.7d4b7307.1b459778.0083fa25.ef9f7d82.8020cfdf.cd61fc56.91c60b7d.8fd83626.7d4b7307.229dd88a.c559ebce.601e4ccc.f8890b3c.83265159.93b008a2"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/executions/Logs.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 106,
+                            "endLine": 106,
+                            "startColumn": 39,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/executions/Logs.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 106,
+                            "endLine": 106,
+                            "startColumn": 39,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/executions/Logs.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 106,
+                            "endLine": 106,
+                            "startColumn": 27,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/executions/Logs.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 126,
+                            "endLine": 126,
+                            "startColumn": 25,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/executions/Logs.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 125,
+                            "endLine": 125,
+                            "startColumn": 21,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/executions/Logs.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 123,
+                            "endLine": 123,
+                            "startColumn": 29,
+                            "endColumn": 37
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/executions/Logs.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 128,
+                            "endLine": 128,
+                            "startColumn": 26,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/executions/Logs.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 129,
+                            "endLine": 129,
+                            "startColumn": 76,
+                            "endColumn": 84
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/executions/Logs.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 129,
+                            "endLine": 129,
+                            "startColumn": 50,
+                            "endColumn": 65
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/components/executions/Logs.vue",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 129,
+                            "endLine": 129,
+                            "startColumn": 39,
+                            "endColumn": 65
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/utils/utils.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 151,
+                            "endLine": 151,
+                            "startColumn": 24,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/utils/utils.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 153,
+                            "endLine": 153,
+                            "startColumn": 21,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/utils/utils.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 153,
+                            "endLine": 153,
+                            "startColumn": 14,
+                            "endColumn": 18
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/utils/utils.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 153,
+                            "endLine": 153,
+                            "startColumn": 9,
+                            "endColumn": 13
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/utils/utils.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 154,
+                            "endLine": 154,
+                            "startColumn": 9,
+                            "endColumn": 13
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/utils/utils.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 155,
+                            "endLine": 155,
+                            "startColumn": 9,
+                            "endColumn": 13
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/utils/utils.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 156,
+                            "endLine": 156,
+                            "startColumn": 35,
+                            "endColumn": 39
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 17,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ui/src/utils/utils.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 156,
+                            "endLine": 156,
+                            "startColumn": 23,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 757,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "XML",
+            "files": 19,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "TypeScript",
+            "files": 5,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "JavaScript",
+            "files": 59,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "HTML",
+            "files": 1,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Vue",
+            "files": 183,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Java",
+            "files": 1155,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": false,
+            "lang": ".config",
+            "files": 1,
+            "type": "FAILED_PARSING"
+          },
+          {
+            "isSupported": false,
+            "lang": "Java",
+            "files": 2,
+            "type": "FAILED_PARSING"
+          }
+        ]
+      }
+    }
+  ]
+}

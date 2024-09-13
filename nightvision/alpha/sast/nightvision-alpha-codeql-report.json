@@ -1,0 +1,146 @@
+[
+  {
+    "number": 12,
+    "created_at": "2024-08-22T07:14:27Z",
+    "updated_at": "2024-08-22T07:14:29Z",
+    "url": "https://api.github.com/repos/Be-Secure/nightvision/code-scanning/alerts/12",
+    "html_url": "https://github.com/Be-Secure/nightvision/security/code-scanning/12",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/improper-intent-verification",
+      "severity": "warning",
+      "description": "Improper verification of intent by broadcast receiver",
+      "name": "java/improper-intent-verification",
+      "tags": ["external/cwe/cwe-925","security"],
+      "full_description": "A broadcast receiver that does not verify intents it receives may be susceptible to unintended behavior by third party applications sending it explicit intents.",
+      "help": "# Improper verification of intent by broadcast receiver\nWhen an Android application uses a `BroadcastReceiver` to receive intents, it is also able to receive explicit intents that are sent directly to it, regardless of its filter. Certain intent actions are only able to be sent by the operating system, not third-party applications. However, a `BroadcastReceiver` that is registered to receive system intents is still able to receive intents from a third-party application, so it should check that the intent received has the expected action. Otherwise, a third-party application could impersonate the system this way to cause unintended behavior, such as a denial of service.\n\n\n## Example\nIn the following code, the `ShutdownReceiver` initiates a shutdown procedure upon receiving an intent, without checking that the received action is indeed `ACTION_SHUTDOWN`. This allows third-party applications to send explicit intents to this receiver to cause a denial of service.\n\n\n```java\npublic class ShutdownReceiver extends BroadcastReceiver {\n    @Override\n    public void onReceive(final Context context, final Intent intent) {\n        mainActivity.saveLocalData();\n        mainActivity.stopActivity();\n    }\n}\n```\n\n```xml\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\" package=\"test\">\n    <application>\n        <receiver android:name=\".BootReceiverXml\">\n            <intent-filter>\n                <action android:name=\"android.intent.action.BOOT_COMPLETED\" />\n            </intent-filter>\n        </receiver>\n    </application>\n</manifest>\n```\n\n## Recommendation\nIn the `onReceive` method of a `BroadcastReceiver`, the action of the received Intent should be checked. The following code demonstrates this.\n\n\n```java\npublic class ShutdownReceiver extends BroadcastReceiver {\n    @Override\n    public void onReceive(final Context context, final Intent intent) {\n        if (!intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {\n            return;\n        }\n        mainActivity.saveLocalData();\n        mainActivity.stopActivity();\n    }\n}\n```\n\n## References\n* Common Weakness Enumeration: [CWE-925](https://cwe.mitre.org/data/definitions/925.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/alpha",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "ab732016b1d1b1afacb8bc6befd5c354b1204828",
+      "message": {
+        "text": "This reciever doesn't verify intents it receives, and it is registered to receive the system action action."
+      },
+      "location": {
+        "path": "src/com/ford/openxc/nightvision/BootupReceiver.java",
+        "start_line": 18,
+        "end_line": 18,
+        "start_column": 17,
+        "end_column": 26
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/nightvision/code-scanning/alerts/12/instances"
+  },
+  {
+    "number": 11,
+    "created_at": "2024-08-22T07:14:27Z",
+    "updated_at": "2024-08-22T07:14:29Z",
+    "url": "https://api.github.com/repos/Be-Secure/nightvision/code-scanning/alerts/11",
+    "html_url": "https://github.com/Be-Secure/nightvision/security/code-scanning/11",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/android/debuggable-attribute-enabled",
+      "severity": "warning",
+      "description": "Android debuggable attribute enabled",
+      "name": "java/android/debuggable-attribute-enabled",
+      "tags": ["external/cwe/cwe-489","security"],
+      "full_description": "An enabled debugger can allow for entry points in the application or reveal sensitive information.",
+      "help": "# Android debuggable attribute enabled\nThe Android manifest file defines configuration settings for Android applications. In this file, the `android:debuggable` attribute of the `application` element can be used to define whether or not the application can be debugged. When set to `true`, this attribute will allow the application to be debugged even when running on a device in user mode.\n\nWhen a debugger is enabled, it could allow for entry points in the application or reveal sensitive information. As a result, `android:debuggable` should only be enabled during development and should be disabled in production builds.\n\n\n## Recommendation\nIn Android applications, either set the `android:debuggable` attribute to `false`, or do not include it in the manifest. The default value, when not included, is `false`.\n\n\n## Example\nIn the example below, the `android:debuggable` attribute is set to `true`.\n\n\n```xml\n<manifest ... >\n    <!-- BAD: 'android:debuggable' set to 'true' -->\n    <application\n        android:debuggable=\"true\">\n        <activity ... >\n        </activity>\n    </application>\n</manifest>\n\n```\nThe corrected version sets the `android:debuggable` attribute to `false`.\n\n\n```xml\n<manifest ... >\n    <!-- GOOD: 'android:debuggable' set to 'false' -->\n    <application\n        android:debuggable=\"false\">\n        <activity ... >\n        </activity>\n    </application>\n</manifest>\n\n```\n\n## References\n* Android Developers: [App Manifest Overview](https://developer.android.com/guide/topics/manifest/manifest-intro).\n* Android Developers: [The android:debuggable attribute](https://developer.android.com/guide/topics/manifest/application-element#debug).\n* Android Developers: [Enable debugging](https://developer.android.com/studio/debug#enable-debug).\n* Common Weakness Enumeration: [CWE-489](https://cwe.mitre.org/data/definitions/489.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/alpha",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "ab732016b1d1b1afacb8bc6befd5c354b1204828",
+      "message": {
+        "text": "The 'android:debuggable' attribute is enabled."
+      },
+      "location": {
+        "path": "AndroidManifest.xml",
+        "start_line": 19,
+        "end_line": 20,
+        "start_column": 5,
+        "end_column": 40
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/nightvision/code-scanning/alerts/11/instances"
+  },
+  {
+    "number": 10,
+    "created_at": "2024-08-22T07:14:27Z",
+    "updated_at": "2024-08-22T07:14:29Z",
+    "url": "https://api.github.com/repos/Be-Secure/nightvision/code-scanning/alerts/10",
+    "html_url": "https://github.com/Be-Secure/nightvision/security/code-scanning/10",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/android/implicitly-exported-component",
+      "severity": "warning",
+      "description": "Implicitly exported Android component",
+      "name": "java/android/implicitly-exported-component",
+      "tags": ["external/cwe/cwe-926","security"],
+      "full_description": "Android components with an '<intent-filter>' and no 'android:exported' attribute are implicitly exported, which can allow for improper access to the components themselves and to their data.",
+      "help": "# Implicitly exported Android component\nThe Android manifest file defines configuration settings for Android applications. In this file, components can be declared with intent filters which specify what the components can do and what types of intents the components can respond to. If the `android:exported` attribute is omitted from the component when an intent filter is included, then the component will be implicitly exported.\n\nAn implicitly exported component could allow for improper access to the component and its data.\n\n\n## Recommendation\nExplicitly set the `android:exported` attribute for every component or use permissions to limit access to the component.\n\n\n## Example\nIn the example below, the `android:exported` attribute is omitted when an intent filter is used.\n\n\n```xml\n<manifest ... >\n    <application ...\n        <!-- BAD: this component is implicitly exported -->\n        <activity>\n            android:name=\".Activity\">\n            <intent-filter>\n                <action android:name=\"android.intent.action.VIEW\" />\n            </intent-filter>\n        </activity>\n    </application>\n</manifest>\n\n```\nA corrected version sets the `android:exported` attribute to `false`.\n\n\n```xml\n<manifest ... >\n    <application ...\n        <!-- GOOD: this component is not exported due to 'android:exported' explicitly set to 'false'-->\n        <activity>\n            android:name=\".Activity\">\n            android:exported=\"false\"\n            <intent-filter>\n                <action android:name=\"android.intent.action.VIEW\" />\n            </intent-filter>\n        </activity>\n    </application>\n</manifest>\n\n```\n\n## References\n* Android Developers: [App Manifest Overview](https://developer.android.com/guide/topics/manifest/manifest-intro).\n* Android Developers: [The &lt;intent-filter&gt; element](https://developer.android.com/guide/topics/manifest/intent-filter-element).\n* Android Developers: [The android:exported attribute](https://developer.android.com/guide/topics/manifest/activity-element#exported).\n* Android Developers: [The android:permission attribute](https://developer.android.com/guide/topics/manifest/activity-element#prmsn).\n* Android Developers: [Safer component exporting](https://developer.android.com/about/versions/12/behavior-changes-12#exported).\n* Common Weakness Enumeration: [CWE-926](https://cwe.mitre.org/data/definitions/926.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/alpha",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "ab732016b1d1b1afacb8bc6befd5c354b1204828",
+      "message": {
+        "text": "This component is implicitly exported."
+      },
+      "location": {
+        "path": "AndroidManifest.xml",
+        "start_line": 38,
+        "end_line": 43,
+        "start_column": 9,
+        "end_column": 21
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/nightvision/code-scanning/alerts/10/instances"
+  }
+]

@@ -1,0 +1,434 @@
+[
+  {
+    "number": 60,
+    "created_at": "2024-08-29T12:28:58Z",
+    "updated_at": "2024-08-29T12:29:00Z",
+    "url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/60",
+    "html_url": "https://github.com/Be-Secure/kestra/security/code-scanning/60",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/zipslip",
+      "severity": "error",
+      "description": "Arbitrary file access during archive extraction (\"Zip Slip\")",
+      "name": "java/zipslip",
+      "tags": ["external/cwe/cwe-022","security"],
+      "full_description": "Extracting files from a malicious ZIP file, or similar type of archive, without validating that the destination file path is within the destination directory can allow an attacker to unexpectedly gain access to resources.",
+      "help": "# Arbitrary file access during archive extraction (\"Zip Slip\")\nExtracting files from a malicious zip file, or similar type of archive, is at risk of directory traversal attacks if filenames from the archive are not properly validated.\n\nZip archives contain archive entries representing each file in the archive. These entries include a file path for the entry, but these file paths are not restricted and may contain unexpected special elements such as the directory traversal element (`..`). If these file paths are used to create a filesystem path, then a file operation may happen in an unexpected location. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\nFor example, if a zip file contains a file entry `..\\sneaky-file`, and the zip file is extracted to the directory `c:\\output`, then naively combining the paths would result in an output file path of `c:\\output\\..\\sneaky-file`, which would cause the file to be written to `c:\\sneaky-file`.\n\n\n## Recommendation\nEnsure that output paths constructed from zip archive entries are validated to prevent writing files to unexpected locations.\n\nThe recommended way of writing an output file from a zip archive entry is to verify that the normalized full path of the output file starts with a prefix that matches the destination directory. Path normalization can be done with either `java.io.File.getCanonicalFile()` or `java.nio.file.Path.normalize()`. Prefix checking can be done with `String.startsWith(..)`, but it is better to use `java.nio.file.Path.startsWith(..)`, as the latter works on complete path segments.\n\nAnother alternative is to validate archive entries against a whitelist of expected files.\n\n\n## Example\nIn this example, a file path taken from a zip archive item entry is combined with a destination directory. The result is used as the destination file path without verifying that the result is within the destination directory. If provided with a zip file containing an archive path like `..\\sneaky-file`, then this file would be written outside the destination directory.\n\n\n```java\nvoid writeZipEntry(ZipEntry entry, File destinationDir) {\n    File file = new File(destinationDir, entry.getName());\n    FileOutputStream fos = new FileOutputStream(file); // BAD\n    // ... write entry to fos ...\n}\n\n```\nTo fix this vulnerability, we need to verify that the normalized `file` still has `destinationDir` as its prefix, and throw an exception if this is not the case.\n\n\n```java\nvoid writeZipEntry(ZipEntry entry, File destinationDir) {\n    File file = new File(destinationDir, entry.getName());\n    if (!file.toPath().normalize().startsWith(destinationDir.toPath()))\n        throw new Exception(\"Bad zip entry\");\n    FileOutputStream fos = new FileOutputStream(file); // OK\n    // ... write entry to fos ...\n}\n\n```\n\n## References\n* Snyk: [Zip Slip Vulnerability](https://snyk.io/research/zip-slip-vulnerability).\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.18.3",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": ".github/workflows/codeql.yml:analyze/language:java",
+      "state": "open",
+      "commit_sha": "984a1c47c3cb3e815f005cb865c68e25895a275c",
+      "message": {
+        "text": "Unsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation."
+      },
+      "location": {
+        "path": "webserver/src/main/java/io/kestra/webserver/controllers/api/NamespaceFileController.java",
+        "start_line": 147,
+        "end_line": 147,
+        "start_column": 76,
+        "end_column": 91
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/60/instances"
+  },
+  {
+    "number": 59,
+    "created_at": "2024-08-29T12:28:58Z",
+    "updated_at": "2024-08-29T12:29:00Z",
+    "url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/59",
+    "html_url": "https://github.com/Be-Secure/kestra/security/code-scanning/59",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/zipslip",
+      "severity": "error",
+      "description": "Arbitrary file access during archive extraction (\"Zip Slip\")",
+      "name": "java/zipslip",
+      "tags": ["external/cwe/cwe-022","security"],
+      "full_description": "Extracting files from a malicious ZIP file, or similar type of archive, without validating that the destination file path is within the destination directory can allow an attacker to unexpectedly gain access to resources.",
+      "help": "# Arbitrary file access during archive extraction (\"Zip Slip\")\nExtracting files from a malicious zip file, or similar type of archive, is at risk of directory traversal attacks if filenames from the archive are not properly validated.\n\nZip archives contain archive entries representing each file in the archive. These entries include a file path for the entry, but these file paths are not restricted and may contain unexpected special elements such as the directory traversal element (`..`). If these file paths are used to create a filesystem path, then a file operation may happen in an unexpected location. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\nFor example, if a zip file contains a file entry `..\\sneaky-file`, and the zip file is extracted to the directory `c:\\output`, then naively combining the paths would result in an output file path of `c:\\output\\..\\sneaky-file`, which would cause the file to be written to `c:\\sneaky-file`.\n\n\n## Recommendation\nEnsure that output paths constructed from zip archive entries are validated to prevent writing files to unexpected locations.\n\nThe recommended way of writing an output file from a zip archive entry is to verify that the normalized full path of the output file starts with a prefix that matches the destination directory. Path normalization can be done with either `java.io.File.getCanonicalFile()` or `java.nio.file.Path.normalize()`. Prefix checking can be done with `String.startsWith(..)`, but it is better to use `java.nio.file.Path.startsWith(..)`, as the latter works on complete path segments.\n\nAnother alternative is to validate archive entries against a whitelist of expected files.\n\n\n## Example\nIn this example, a file path taken from a zip archive item entry is combined with a destination directory. The result is used as the destination file path without verifying that the result is within the destination directory. If provided with a zip file containing an archive path like `..\\sneaky-file`, then this file would be written outside the destination directory.\n\n\n```java\nvoid writeZipEntry(ZipEntry entry, File destinationDir) {\n    File file = new File(destinationDir, entry.getName());\n    FileOutputStream fos = new FileOutputStream(file); // BAD\n    // ... write entry to fos ...\n}\n\n```\nTo fix this vulnerability, we need to verify that the normalized `file` still has `destinationDir` as its prefix, and throw an exception if this is not the case.\n\n\n```java\nvoid writeZipEntry(ZipEntry entry, File destinationDir) {\n    File file = new File(destinationDir, entry.getName());\n    if (!file.toPath().normalize().startsWith(destinationDir.toPath()))\n        throw new Exception(\"Bad zip entry\");\n    FileOutputStream fos = new FileOutputStream(file); // OK\n    // ... write entry to fos ...\n}\n\n```\n\n## References\n* Snyk: [Zip Slip Vulnerability](https://snyk.io/research/zip-slip-vulnerability).\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.18.3",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": ".github/workflows/codeql.yml:analyze/language:java",
+      "state": "open",
+      "commit_sha": "984a1c47c3cb3e815f005cb865c68e25895a275c",
+      "message": {
+        "text": "Unsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation."
+      },
+      "location": {
+        "path": "script/src/main/java/io/kestra/plugin/scripts/runner/docker/Docker.java",
+        "start_line": 488,
+        "end_line": 488,
+        "start_column": 86,
+        "end_column": 101
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/59/instances"
+  },
+  {
+    "number": 58,
+    "created_at": "2024-08-29T12:28:58Z",
+    "updated_at": "2024-08-29T12:29:00Z",
+    "url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/58",
+    "html_url": "https://github.com/Be-Secure/kestra/security/code-scanning/58",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/zipslip",
+      "severity": "error",
+      "description": "Arbitrary file access during archive extraction (\"Zip Slip\")",
+      "name": "java/zipslip",
+      "tags": ["external/cwe/cwe-022","security"],
+      "full_description": "Extracting files from a malicious ZIP file, or similar type of archive, without validating that the destination file path is within the destination directory can allow an attacker to unexpectedly gain access to resources.",
+      "help": "# Arbitrary file access during archive extraction (\"Zip Slip\")\nExtracting files from a malicious zip file, or similar type of archive, is at risk of directory traversal attacks if filenames from the archive are not properly validated.\n\nZip archives contain archive entries representing each file in the archive. These entries include a file path for the entry, but these file paths are not restricted and may contain unexpected special elements such as the directory traversal element (`..`). If these file paths are used to create a filesystem path, then a file operation may happen in an unexpected location. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\nFor example, if a zip file contains a file entry `..\\sneaky-file`, and the zip file is extracted to the directory `c:\\output`, then naively combining the paths would result in an output file path of `c:\\output\\..\\sneaky-file`, which would cause the file to be written to `c:\\sneaky-file`.\n\n\n## Recommendation\nEnsure that output paths constructed from zip archive entries are validated to prevent writing files to unexpected locations.\n\nThe recommended way of writing an output file from a zip archive entry is to verify that the normalized full path of the output file starts with a prefix that matches the destination directory. Path normalization can be done with either `java.io.File.getCanonicalFile()` or `java.nio.file.Path.normalize()`. Prefix checking can be done with `String.startsWith(..)`, but it is better to use `java.nio.file.Path.startsWith(..)`, as the latter works on complete path segments.\n\nAnother alternative is to validate archive entries against a whitelist of expected files.\n\n\n## Example\nIn this example, a file path taken from a zip archive item entry is combined with a destination directory. The result is used as the destination file path without verifying that the result is within the destination directory. If provided with a zip file containing an archive path like `..\\sneaky-file`, then this file would be written outside the destination directory.\n\n\n```java\nvoid writeZipEntry(ZipEntry entry, File destinationDir) {\n    File file = new File(destinationDir, entry.getName());\n    FileOutputStream fos = new FileOutputStream(file); // BAD\n    // ... write entry to fos ...\n}\n\n```\nTo fix this vulnerability, we need to verify that the normalized `file` still has `destinationDir` as its prefix, and throw an exception if this is not the case.\n\n\n```java\nvoid writeZipEntry(ZipEntry entry, File destinationDir) {\n    File file = new File(destinationDir, entry.getName());\n    if (!file.toPath().normalize().startsWith(destinationDir.toPath()))\n        throw new Exception(\"Bad zip entry\");\n    FileOutputStream fos = new FileOutputStream(file); // OK\n    // ... write entry to fos ...\n}\n\n```\n\n## References\n* Snyk: [Zip Slip Vulnerability](https://snyk.io/research/zip-slip-vulnerability).\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.18.3",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": ".github/workflows/codeql.yml:analyze/language:java",
+      "state": "open",
+      "commit_sha": "984a1c47c3cb3e815f005cb865c68e25895a275c",
+      "message": {
+        "text": "Unsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation."
+      },
+      "location": {
+        "path": "core/src/main/java/io/kestra/plugin/core/flow/WorkingDirectory.java",
+        "start_line": 250,
+        "end_line": 250,
+        "start_column": 84,
+        "end_column": 99
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/58/instances"
+  },
+  {
+    "number": 57,
+    "created_at": "2024-08-29T09:02:46Z",
+    "updated_at": "2024-08-29T09:02:47Z",
+    "url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/57",
+    "html_url": "https://github.com/Be-Secure/kestra/security/code-scanning/57",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/insecure-randomness",
+      "severity": "warning",
+      "description": "Insecure randomness",
+      "name": "js/insecure-randomness",
+      "tags": ["external/cwe/cwe-338","security"],
+      "full_description": "Using a cryptographically weak pseudo-random number generator to generate a security-sensitive value may allow an attacker to predict what value will be generated.",
+      "help": "# Insecure randomness\nUsing a cryptographically weak pseudo-random number generator to generate a security-sensitive value, such as a password, makes it easier for an attacker to predict the value.\n\nPseudo-random number generators generate a sequence of numbers that only approximates the properties of random numbers. The sequence is not truly random because it is completely determined by a relatively small set of initial values, the seed. If the random number generator is cryptographically weak, then this sequence may be easily predictable through outside observations.\n\n\n## Recommendation\nUse a cryptographically secure pseudo-random number generator if the output is to be used in a security-sensitive context. As a rule of thumb, a value should be considered \"security-sensitive\" if predicting it would allow the attacker to perform an action that they would otherwise be unable to perform. For example, if an attacker could predict the random password generated for a new user, they would be able to log in as that new user.\n\nFor JavaScript on the NodeJS platform, `crypto.getRandomBytes` provides a cryptographically secure pseudo-random byte generator. Note that the conversion from bytes to numbers can introduce bias that breaks the security.\n\nFor JavaScript in the browser, `crypto.getRandomValues` provides a cryptographically secure pseudo-random number generator.\n\n\n## Example\nThe following examples show different ways of generating a password.\n\nIn the first case, we generate a fresh password by appending a random integer to the end of a static string. The random number generator used (`Math.random`) is not cryptographically secure, so it may be possible for an attacker to predict the generated password.\n\n\n```javascript\nfunction insecurePassword() {\n    // BAD: the random suffix is not cryptographically secure\n    var suffix = Math.random();\n    var password = \"myPassword\" + suffix;\n    return password;\n}\n\n```\nIn the second example, a cryptographically secure random number generator is used for the same purpose. In this case, it is much harder to predict the generated integers.\n\n\n```javascript\nfunction securePassword() {\n    // GOOD: the random suffix is cryptographically secure\n    var suffix = window.crypto.getRandomValues(new Uint32Array(1))[0];\n    var password = \"myPassword\" + suffix;\n    \n    // GOOD: if a random value between 0 and 1 is desired\n    var secret = window.crypto.getRandomValues(new Uint32Array(1))[0] * Math.pow(2,-32);\n}\n\n```\n\n## References\n* Wikipedia: [Pseudo-random number generator](http://en.wikipedia.org/wiki/Pseudorandom_number_generator).\n* Mozilla Developer Network: [Crypto: getRandomValues()](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues).\n* NodeJS: [crypto.randomBytes](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback)\n* Common Weakness Enumeration: [CWE-338](https://cwe.mitre.org/data/definitions/338.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.18.3",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": ".github/workflows/codeql.yml:analyze/language:javascript",
+      "state": "open",
+      "commit_sha": "984a1c47c3cb3e815f005cb865c68e25895a275c",
+      "message": {
+        "text": "This uses a cryptographically insecure random number generated at Math.random() in a security context.\nThis uses a cryptographically insecure random number generated at Math.random() in a security context."
+      },
+      "location": {
+        "path": "ui/src/components/stats/LogChart.vue",
+        "start_line": 121,
+        "end_line": 121,
+        "start_column": 23,
+        "end_column": 34
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/57/instances"
+  },
+  {
+    "number": 5,
+    "created_at": "2024-03-05T06:21:20Z",
+    "updated_at": "2024-08-29T09:02:47Z",
+    "url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/5",
+    "html_url": "https://github.com/Be-Secure/kestra/security/code-scanning/5",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/insecure-randomness",
+      "severity": "warning",
+      "description": "Insecure randomness",
+      "name": "js/insecure-randomness",
+      "tags": ["external/cwe/cwe-338","security"],
+      "full_description": "Using a cryptographically weak pseudo-random number generator to generate a security-sensitive value may allow an attacker to predict what value will be generated.",
+      "help": "# Insecure randomness\nUsing a cryptographically weak pseudo-random number generator to generate a security-sensitive value, such as a password, makes it easier for an attacker to predict the value.\n\nPseudo-random number generators generate a sequence of numbers that only approximates the properties of random numbers. The sequence is not truly random because it is completely determined by a relatively small set of initial values, the seed. If the random number generator is cryptographically weak, then this sequence may be easily predictable through outside observations.\n\n\n## Recommendation\nUse a cryptographically secure pseudo-random number generator if the output is to be used in a security-sensitive context. As a rule of thumb, a value should be considered \"security-sensitive\" if predicting it would allow the attacker to perform an action that they would otherwise be unable to perform. For example, if an attacker could predict the random password generated for a new user, they would be able to log in as that new user.\n\nFor JavaScript on the NodeJS platform, `crypto.getRandomBytes` provides a cryptographically secure pseudo-random byte generator. Note that the conversion from bytes to numbers can introduce bias that breaks the security.\n\nFor JavaScript in the browser, `crypto.getRandomValues` provides a cryptographically secure pseudo-random number generator.\n\n\n## Example\nThe following examples show different ways of generating a password.\n\nIn the first case, we generate a fresh password by appending a random integer to the end of a static string. The random number generator used (`Math.random`) is not cryptographically secure, so it may be possible for an attacker to predict the generated password.\n\n\n```javascript\nfunction insecurePassword() {\n    // BAD: the random suffix is not cryptographically secure\n    var suffix = Math.random();\n    var password = \"myPassword\" + suffix;\n    return password;\n}\n\n```\nIn the second example, a cryptographically secure random number generator is used for the same purpose. In this case, it is much harder to predict the generated integers.\n\n\n```javascript\nfunction securePassword() {\n    // GOOD: the random suffix is cryptographically secure\n    var suffix = window.crypto.getRandomValues(new Uint32Array(1))[0];\n    var password = \"myPassword\" + suffix;\n    \n    // GOOD: if a random value between 0 and 1 is desired\n    var secret = window.crypto.getRandomValues(new Uint32Array(1))[0] * Math.pow(2,-32);\n}\n\n```\n\n## References\n* Wikipedia: [Pseudo-random number generator](http://en.wikipedia.org/wiki/Pseudorandom_number_generator).\n* Mozilla Developer Network: [Crypto: getRandomValues()](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues).\n* NodeJS: [crypto.randomBytes](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback)\n* Common Weakness Enumeration: [CWE-338](https://cwe.mitre.org/data/definitions/338.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.18.3",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": ".github/workflows/codeql.yml:analyze/language:javascript",
+      "state": "open",
+      "commit_sha": "984a1c47c3cb3e815f005cb865c68e25895a275c",
+      "message": {
+        "text": "This uses a cryptographically insecure random number generated at Math.random() in a security context.\nThis uses a cryptographically insecure random number generated at Math.random() in a security context."
+      },
+      "location": {
+        "path": "ui/src/components/stats/StateChart.vue",
+        "start_line": 169,
+        "end_line": 169,
+        "start_column": 23,
+        "end_column": 34
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/5/instances"
+  },
+  {
+    "number": 4,
+    "created_at": "2024-03-05T06:21:20Z",
+    "updated_at": "2024-08-29T09:02:47Z",
+    "url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/4",
+    "html_url": "https://github.com/Be-Secure/kestra/security/code-scanning/4",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/insecure-randomness",
+      "severity": "warning",
+      "description": "Insecure randomness",
+      "name": "js/insecure-randomness",
+      "tags": ["external/cwe/cwe-338","security"],
+      "full_description": "Using a cryptographically weak pseudo-random number generator to generate a security-sensitive value may allow an attacker to predict what value will be generated.",
+      "help": "# Insecure randomness\nUsing a cryptographically weak pseudo-random number generator to generate a security-sensitive value, such as a password, makes it easier for an attacker to predict the value.\n\nPseudo-random number generators generate a sequence of numbers that only approximates the properties of random numbers. The sequence is not truly random because it is completely determined by a relatively small set of initial values, the seed. If the random number generator is cryptographically weak, then this sequence may be easily predictable through outside observations.\n\n\n## Recommendation\nUse a cryptographically secure pseudo-random number generator if the output is to be used in a security-sensitive context. As a rule of thumb, a value should be considered \"security-sensitive\" if predicting it would allow the attacker to perform an action that they would otherwise be unable to perform. For example, if an attacker could predict the random password generated for a new user, they would be able to log in as that new user.\n\nFor JavaScript on the NodeJS platform, `crypto.getRandomBytes` provides a cryptographically secure pseudo-random byte generator. Note that the conversion from bytes to numbers can introduce bias that breaks the security.\n\nFor JavaScript in the browser, `crypto.getRandomValues` provides a cryptographically secure pseudo-random number generator.\n\n\n## Example\nThe following examples show different ways of generating a password.\n\nIn the first case, we generate a fresh password by appending a random integer to the end of a static string. The random number generator used (`Math.random`) is not cryptographically secure, so it may be possible for an attacker to predict the generated password.\n\n\n```javascript\nfunction insecurePassword() {\n    // BAD: the random suffix is not cryptographically secure\n    var suffix = Math.random();\n    var password = \"myPassword\" + suffix;\n    return password;\n}\n\n```\nIn the second example, a cryptographically secure random number generator is used for the same purpose. In this case, it is much harder to predict the generated integers.\n\n\n```javascript\nfunction securePassword() {\n    // GOOD: the random suffix is cryptographically secure\n    var suffix = window.crypto.getRandomValues(new Uint32Array(1))[0];\n    var password = \"myPassword\" + suffix;\n    \n    // GOOD: if a random value between 0 and 1 is desired\n    var secret = window.crypto.getRandomValues(new Uint32Array(1))[0] * Math.pow(2,-32);\n}\n\n```\n\n## References\n* Wikipedia: [Pseudo-random number generator](http://en.wikipedia.org/wiki/Pseudorandom_number_generator).\n* Mozilla Developer Network: [Crypto: getRandomValues()](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues).\n* NodeJS: [crypto.randomBytes](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback)\n* Common Weakness Enumeration: [CWE-338](https://cwe.mitre.org/data/definitions/338.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.18.3",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": ".github/workflows/codeql.yml:analyze/language:javascript",
+      "state": "open",
+      "commit_sha": "984a1c47c3cb3e815f005cb865c68e25895a275c",
+      "message": {
+        "text": "This uses a cryptographically insecure random number generated at Math.random() in a security context.\nThis uses a cryptographically insecure random number generated at Math.random() in a security context."
+      },
+      "location": {
+        "path": "ui/src/components/home/NamespaceTreeMap.vue",
+        "start_line": 139,
+        "end_line": 139,
+        "start_column": 23,
+        "end_column": 34
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/4/instances"
+  },
+  {
+    "number": 3,
+    "created_at": "2024-03-05T06:21:20Z",
+    "updated_at": "2024-08-29T09:02:47Z",
+    "url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/3",
+    "html_url": "https://github.com/Be-Secure/kestra/security/code-scanning/3",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/insecure-randomness",
+      "severity": "warning",
+      "description": "Insecure randomness",
+      "name": "js/insecure-randomness",
+      "tags": ["external/cwe/cwe-338","security"],
+      "full_description": "Using a cryptographically weak pseudo-random number generator to generate a security-sensitive value may allow an attacker to predict what value will be generated.",
+      "help": "# Insecure randomness\nUsing a cryptographically weak pseudo-random number generator to generate a security-sensitive value, such as a password, makes it easier for an attacker to predict the value.\n\nPseudo-random number generators generate a sequence of numbers that only approximates the properties of random numbers. The sequence is not truly random because it is completely determined by a relatively small set of initial values, the seed. If the random number generator is cryptographically weak, then this sequence may be easily predictable through outside observations.\n\n\n## Recommendation\nUse a cryptographically secure pseudo-random number generator if the output is to be used in a security-sensitive context. As a rule of thumb, a value should be considered \"security-sensitive\" if predicting it would allow the attacker to perform an action that they would otherwise be unable to perform. For example, if an attacker could predict the random password generated for a new user, they would be able to log in as that new user.\n\nFor JavaScript on the NodeJS platform, `crypto.getRandomBytes` provides a cryptographically secure pseudo-random byte generator. Note that the conversion from bytes to numbers can introduce bias that breaks the security.\n\nFor JavaScript in the browser, `crypto.getRandomValues` provides a cryptographically secure pseudo-random number generator.\n\n\n## Example\nThe following examples show different ways of generating a password.\n\nIn the first case, we generate a fresh password by appending a random integer to the end of a static string. The random number generator used (`Math.random`) is not cryptographically secure, so it may be possible for an attacker to predict the generated password.\n\n\n```javascript\nfunction insecurePassword() {\n    // BAD: the random suffix is not cryptographically secure\n    var suffix = Math.random();\n    var password = \"myPassword\" + suffix;\n    return password;\n}\n\n```\nIn the second example, a cryptographically secure random number generator is used for the same purpose. In this case, it is much harder to predict the generated integers.\n\n\n```javascript\nfunction securePassword() {\n    // GOOD: the random suffix is cryptographically secure\n    var suffix = window.crypto.getRandomValues(new Uint32Array(1))[0];\n    var password = \"myPassword\" + suffix;\n    \n    // GOOD: if a random value between 0 and 1 is desired\n    var secret = window.crypto.getRandomValues(new Uint32Array(1))[0] * Math.pow(2,-32);\n}\n\n```\n\n## References\n* Wikipedia: [Pseudo-random number generator](http://en.wikipedia.org/wiki/Pseudorandom_number_generator).\n* Mozilla Developer Network: [Crypto: getRandomValues()](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues).\n* NodeJS: [crypto.randomBytes](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback)\n* Common Weakness Enumeration: [CWE-338](https://cwe.mitre.org/data/definitions/338.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.18.3",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": ".github/workflows/codeql.yml:analyze/language:javascript",
+      "state": "open",
+      "commit_sha": "984a1c47c3cb3e815f005cb865c68e25895a275c",
+      "message": {
+        "text": "This uses a cryptographically insecure random number generated at Math.random() in a security context.\nThis uses a cryptographically insecure random number generated at Math.random() in a security context."
+      },
+      "location": {
+        "path": "ui/src/components/flows/TaskEdit.vue",
+        "start_line": 233,
+        "end_line": 233,
+        "start_column": 23,
+        "end_column": 34
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/3/instances"
+  },
+  {
+    "number": 2,
+    "created_at": "2024-03-05T06:21:20Z",
+    "updated_at": "2024-08-29T09:02:47Z",
+    "url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/2",
+    "html_url": "https://github.com/Be-Secure/kestra/security/code-scanning/2",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/insecure-randomness",
+      "severity": "warning",
+      "description": "Insecure randomness",
+      "name": "js/insecure-randomness",
+      "tags": ["external/cwe/cwe-338","security"],
+      "full_description": "Using a cryptographically weak pseudo-random number generator to generate a security-sensitive value may allow an attacker to predict what value will be generated.",
+      "help": "# Insecure randomness\nUsing a cryptographically weak pseudo-random number generator to generate a security-sensitive value, such as a password, makes it easier for an attacker to predict the value.\n\nPseudo-random number generators generate a sequence of numbers that only approximates the properties of random numbers. The sequence is not truly random because it is completely determined by a relatively small set of initial values, the seed. If the random number generator is cryptographically weak, then this sequence may be easily predictable through outside observations.\n\n\n## Recommendation\nUse a cryptographically secure pseudo-random number generator if the output is to be used in a security-sensitive context. As a rule of thumb, a value should be considered \"security-sensitive\" if predicting it would allow the attacker to perform an action that they would otherwise be unable to perform. For example, if an attacker could predict the random password generated for a new user, they would be able to log in as that new user.\n\nFor JavaScript on the NodeJS platform, `crypto.getRandomBytes` provides a cryptographically secure pseudo-random byte generator. Note that the conversion from bytes to numbers can introduce bias that breaks the security.\n\nFor JavaScript in the browser, `crypto.getRandomValues` provides a cryptographically secure pseudo-random number generator.\n\n\n## Example\nThe following examples show different ways of generating a password.\n\nIn the first case, we generate a fresh password by appending a random integer to the end of a static string. The random number generator used (`Math.random`) is not cryptographically secure, so it may be possible for an attacker to predict the generated password.\n\n\n```javascript\nfunction insecurePassword() {\n    // BAD: the random suffix is not cryptographically secure\n    var suffix = Math.random();\n    var password = \"myPassword\" + suffix;\n    return password;\n}\n\n```\nIn the second example, a cryptographically secure random number generator is used for the same purpose. In this case, it is much harder to predict the generated integers.\n\n\n```javascript\nfunction securePassword() {\n    // GOOD: the random suffix is cryptographically secure\n    var suffix = window.crypto.getRandomValues(new Uint32Array(1))[0];\n    var password = \"myPassword\" + suffix;\n    \n    // GOOD: if a random value between 0 and 1 is desired\n    var secret = window.crypto.getRandomValues(new Uint32Array(1))[0] * Math.pow(2,-32);\n}\n\n```\n\n## References\n* Wikipedia: [Pseudo-random number generator](http://en.wikipedia.org/wiki/Pseudorandom_number_generator).\n* Mozilla Developer Network: [Crypto: getRandomValues()](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues).\n* NodeJS: [crypto.randomBytes](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback)\n* Common Weakness Enumeration: [CWE-338](https://cwe.mitre.org/data/definitions/338.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.18.3",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": ".github/workflows/codeql.yml:analyze/language:javascript",
+      "state": "open",
+      "commit_sha": "984a1c47c3cb3e815f005cb865c68e25895a275c",
+      "message": {
+        "text": "This uses a cryptographically insecure random number generated at Math.random() in a security context.\nThis uses a cryptographically insecure random number generated at Math.random() in a security context."
+      },
+      "location": {
+        "path": "ui/src/App.vue",
+        "start_line": 129,
+        "end_line": 129,
+        "start_column": 27,
+        "end_column": 38
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/2/instances"
+  },
+  {
+    "number": 1,
+    "created_at": "2024-03-05T06:21:20Z",
+    "updated_at": "2024-08-29T09:02:47Z",
+    "url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/1",
+    "html_url": "https://github.com/Be-Secure/kestra/security/code-scanning/1",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/insecure-randomness",
+      "severity": "warning",
+      "description": "Insecure randomness",
+      "name": "js/insecure-randomness",
+      "tags": ["external/cwe/cwe-338","security"],
+      "full_description": "Using a cryptographically weak pseudo-random number generator to generate a security-sensitive value may allow an attacker to predict what value will be generated.",
+      "help": "# Insecure randomness\nUsing a cryptographically weak pseudo-random number generator to generate a security-sensitive value, such as a password, makes it easier for an attacker to predict the value.\n\nPseudo-random number generators generate a sequence of numbers that only approximates the properties of random numbers. The sequence is not truly random because it is completely determined by a relatively small set of initial values, the seed. If the random number generator is cryptographically weak, then this sequence may be easily predictable through outside observations.\n\n\n## Recommendation\nUse a cryptographically secure pseudo-random number generator if the output is to be used in a security-sensitive context. As a rule of thumb, a value should be considered \"security-sensitive\" if predicting it would allow the attacker to perform an action that they would otherwise be unable to perform. For example, if an attacker could predict the random password generated for a new user, they would be able to log in as that new user.\n\nFor JavaScript on the NodeJS platform, `crypto.getRandomBytes` provides a cryptographically secure pseudo-random byte generator. Note that the conversion from bytes to numbers can introduce bias that breaks the security.\n\nFor JavaScript in the browser, `crypto.getRandomValues` provides a cryptographically secure pseudo-random number generator.\n\n\n## Example\nThe following examples show different ways of generating a password.\n\nIn the first case, we generate a fresh password by appending a random integer to the end of a static string. The random number generator used (`Math.random`) is not cryptographically secure, so it may be possible for an attacker to predict the generated password.\n\n\n```javascript\nfunction insecurePassword() {\n    // BAD: the random suffix is not cryptographically secure\n    var suffix = Math.random();\n    var password = \"myPassword\" + suffix;\n    return password;\n}\n\n```\nIn the second example, a cryptographically secure random number generator is used for the same purpose. In this case, it is much harder to predict the generated integers.\n\n\n```javascript\nfunction securePassword() {\n    // GOOD: the random suffix is cryptographically secure\n    var suffix = window.crypto.getRandomValues(new Uint32Array(1))[0];\n    var password = \"myPassword\" + suffix;\n    \n    // GOOD: if a random value between 0 and 1 is desired\n    var secret = window.crypto.getRandomValues(new Uint32Array(1))[0] * Math.pow(2,-32);\n}\n\n```\n\n## References\n* Wikipedia: [Pseudo-random number generator](http://en.wikipedia.org/wiki/Pseudorandom_number_generator).\n* Mozilla Developer Network: [Crypto: getRandomValues()](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues).\n* NodeJS: [crypto.randomBytes](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback)\n* Common Weakness Enumeration: [CWE-338](https://cwe.mitre.org/data/definitions/338.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.2"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.18.3",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": ".github/workflows/codeql.yml:analyze/language:javascript",
+      "state": "open",
+      "commit_sha": "984a1c47c3cb3e815f005cb865c68e25895a275c",
+      "message": {
+        "text": "This uses a cryptographically insecure random number generated at Math.random() in a security context.\nThis uses a cryptographically insecure random number generated at Math.random() in a security context."
+      },
+      "location": {
+        "path": "ui/src/components/Id.vue",
+        "start_line": 38,
+        "end_line": 38,
+        "start_column": 23,
+        "end_column": 34
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/kestra/code-scanning/alerts/1/instances"
+  }
+]
