@@ -1,0 +1,50 @@
+[
+  {
+    "number": 1,
+    "created_at": "2024-09-14T05:44:08Z",
+    "updated_at": "2024-09-18T07:03:50Z",
+    "url": "https://api.github.com/repos/Be-Secure/oss-fuzz/code-scanning/alerts/1",
+    "html_url": "https://github.com/Be-Secure/oss-fuzz/security/code-scanning/1",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-crypto-key",
+      "severity": "error",
+      "description": "Use of weak cryptographic key",
+      "name": "py/weak-crypto-key",
+      "tags": ["external/cwe/cwe-326","security"],
+      "full_description": "Use of a cryptographic key that is too small may allow the encryption to be broken.",
+      "help": "# Use of weak cryptographic key\nModern encryption relies on it being computationally infeasible to break the cipher and decode a message without the key. As computational power increases, the ability to break ciphers grows and keys need to become larger.\n\nThe three main asymmetric key algorithms currently in use are Rivest–Shamir–Adleman (RSA) cryptography, Digital Signature Algorithm (DSA), and Elliptic-curve cryptography (ECC). With current technology, key sizes of 2048 bits for RSA and DSA, or 256 bits for ECC, are regarded as unbreakable.\n\n\n## Recommendation\nIncrease the key size to the recommended amount or larger. For RSA or DSA this is at least 2048 bits, for ECC this is at least 256 bits.\n\n\n## References\n* Wikipedia: [Digital Signature Algorithm](https://en.wikipedia.org/wiki/Digital_Signature_Algorithm).\n* Wikipedia: [RSA cryptosystem](https://en.wikipedia.org/wiki/RSA_(cryptosystem)).\n* Wikipedia: [Elliptic-curve cryptography](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography).\n* Python cryptography module: [cryptography.io](https://cryptography.io/en/latest/).\n* NIST: [ Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-326](https://cwe.mitre.org/data/definitions/326.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/alpha_release",
+      "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+      "environment": "{}",
+      "category": ".github/workflows/codeql-analysis.yml:analyze",
+      "state": "open",
+      "commit_sha": "cb113e38f4fdc9f40ef442bd07481858708b972c",
+      "message": {
+        "text": "Creation of an DSA key uses 1024 bits, which is below 2048 and considered breakable."
+      },
+      "location": {
+        "path": "projects/cryptography/fuzz_dsa.py",
+        "start_line": 25,
+        "end_line": 25,
+        "start_column": 19,
+        "end_column": 58
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/oss-fuzz/code-scanning/alerts/1/instances"
+  }
+]

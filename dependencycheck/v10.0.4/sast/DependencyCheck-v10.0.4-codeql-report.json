@@ -1,0 +1,1154 @@
+[
+  {
+    "number": 24,
+    "created_at": "2024-09-18T05:54:20Z",
+    "updated_at": "2024-09-18T05:54:20Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/24",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/24",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/maven/non-https-url",
+      "severity": "error",
+      "description": "Failure to use HTTPS or SFTP URL in Maven artifact upload/download",
+      "name": "java/maven/non-https-url",
+      "tags": ["external/cwe/cwe-300","external/cwe/cwe-319","external/cwe/cwe-494","external/cwe/cwe-829","security"],
+      "full_description": "Non-HTTPS connections can be intercepted by third parties.",
+      "help": "# Failure to use HTTPS or SFTP URL in Maven artifact upload/download\nUsing an insecure protocol like HTTP or FTP to download your dependencies leaves your Maven build vulnerable to a [Man in the Middle (MITM)](https://en.wikipedia.org/wiki/Man-in-the-middle_attack). This can allow attackers to inject malicious code into the artifacts that you are resolving and infect build artifacts that are being produced. This can be used by attackers to perform a [Supply chain attack](https://en.wikipedia.org/wiki/Supply_chain_attack) against your project's users.\n\nThis vulnerability has a [ CVSS v3.1 base score of 8.1/10 ](https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H&version=3.1).\n\n\n## Recommendation\nAlways use HTTPS or SFTP to download artifacts from artifact servers.\n\n\n## Example\nThese examples show examples of locations in Maven POM files where artifact repository upload/download is configured. The first shows the use of HTTP, the second shows the use of HTTPS.\n\n\n```xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>com.semmle</groupId>\n    <artifactId>parent</artifactId>\n    <version>1.0</version>\n    <packaging>pom</packaging>\n\n    <name>Security Testing</name>\n    <description>An example of insecure download and upload of dependencies</description>\n\n    <distributionManagement>\n        <repository>\n            <id>insecure-releases</id>\n            <name>Insecure Repository Releases</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </repository>\n        <snapshotRepository>\n            <id>insecure-snapshots</id>\n            <name>Insecure Repository Snapshots</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </snapshotRepository>\n    </distributionManagement>\n    <repositories>\n        <repository>\n            <id>insecure</id>\n            <name>Insecure Repository</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </repository>\n    </repositories>\n    <pluginRepositories>\n        <pluginRepository>\n            <id>insecure-plugins</id>\n            <name>Insecure Repository Releases</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </pluginRepository>\n    </pluginRepositories>\n</project>\n\n```\n\n```xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>com.semmle</groupId>\n    <artifactId>parent</artifactId>\n    <version>1.0</version>\n    <packaging>pom</packaging>\n\n    <name>Security Testing</name>\n    <description>An example of secure download and upload of dependencies</description>\n\n    <distributionManagement>\n        <repository>\n            <id>insecure-releases</id>\n            <name>Secure Repository Releases</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </repository>\n        <snapshotRepository>\n            <id>insecure-snapshots</id>\n            <name>Secure Repository Snapshots</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </snapshotRepository>\n    </distributionManagement>\n    <repositories>\n        <repository>\n            <id>insecure</id>\n            <name>Secure Repository</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </repository>\n    </repositories>\n    <pluginRepositories>\n        <pluginRepository>\n            <id>insecure-plugins</id>\n            <name>Secure Repository Releases</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </pluginRepository>\n    </pluginRepositories>\n</project>\n\n```\n\n## References\n* Research: [ Want to take over the Java ecosystem? All you need is a MITM! ](https://medium.com/bugbountywriteup/want-to-take-over-the-java-ecosystem-all-you-need-is-a-mitm-1fc329d898fb?source=friends_link&sk=3c99970c55a899ad9ef41f126efcde0e)\n* Research: [ How to take over the computer of any Java (or Closure or Scala) Developer. ](https://max.computer/blog/how-to-take-over-the-computer-of-any-java-or-clojure-or-scala-developer/)\n* Proof of Concept: [ mveytsman/dilettante ](https://github.com/mveytsman/dilettante)\n* Additional Gradle &amp; Maven plugin: [ Announcing nohttp ](https://spring.io/blog/2019/06/10/announcing-nohttp)\n* Java Ecosystem Announcement: [ HTTP Decommission Artifact Server Announcements ](https://gist.github.com/JLLeitschuh/789e49e3d34092a005031a0a1880af99)\n* Common Weakness Enumeration: [CWE-300](https://cwe.mitre.org/data/definitions/300.html).\n* Common Weakness Enumeration: [CWE-319](https://cwe.mitre.org/data/definitions/319.html).\n* Common Weakness Enumeration: [CWE-494](https://cwe.mitre.org/data/definitions/494.html).\n* Common Weakness Enumeration: [CWE-829](https://cwe.mitre.org/data/definitions/829.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "Downloading or uploading artifacts over insecure protocol (eg. http or ftp) to/from repository ftp://ftpperso.free.fr/maven2"
+      },
+      "location": {
+        "path": "core/src/test/resources/dwr-pom.xml",
+        "start_line": 280,
+        "end_line": 283,
+        "start_column": 5,
+        "end_column": 27
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/24/instances"
+  },
+  {
+    "number": 23,
+    "created_at": "2024-09-18T05:54:20Z",
+    "updated_at": "2024-09-18T05:54:20Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/23",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/23",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/maven/non-https-url",
+      "severity": "error",
+      "description": "Failure to use HTTPS or SFTP URL in Maven artifact upload/download",
+      "name": "java/maven/non-https-url",
+      "tags": ["external/cwe/cwe-300","external/cwe/cwe-319","external/cwe/cwe-494","external/cwe/cwe-829","security"],
+      "full_description": "Non-HTTPS connections can be intercepted by third parties.",
+      "help": "# Failure to use HTTPS or SFTP URL in Maven artifact upload/download\nUsing an insecure protocol like HTTP or FTP to download your dependencies leaves your Maven build vulnerable to a [Man in the Middle (MITM)](https://en.wikipedia.org/wiki/Man-in-the-middle_attack). This can allow attackers to inject malicious code into the artifacts that you are resolving and infect build artifacts that are being produced. This can be used by attackers to perform a [Supply chain attack](https://en.wikipedia.org/wiki/Supply_chain_attack) against your project's users.\n\nThis vulnerability has a [ CVSS v3.1 base score of 8.1/10 ](https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H&version=3.1).\n\n\n## Recommendation\nAlways use HTTPS or SFTP to download artifacts from artifact servers.\n\n\n## Example\nThese examples show examples of locations in Maven POM files where artifact repository upload/download is configured. The first shows the use of HTTP, the second shows the use of HTTPS.\n\n\n```xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>com.semmle</groupId>\n    <artifactId>parent</artifactId>\n    <version>1.0</version>\n    <packaging>pom</packaging>\n\n    <name>Security Testing</name>\n    <description>An example of insecure download and upload of dependencies</description>\n\n    <distributionManagement>\n        <repository>\n            <id>insecure-releases</id>\n            <name>Insecure Repository Releases</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </repository>\n        <snapshotRepository>\n            <id>insecure-snapshots</id>\n            <name>Insecure Repository Snapshots</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </snapshotRepository>\n    </distributionManagement>\n    <repositories>\n        <repository>\n            <id>insecure</id>\n            <name>Insecure Repository</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </repository>\n    </repositories>\n    <pluginRepositories>\n        <pluginRepository>\n            <id>insecure-plugins</id>\n            <name>Insecure Repository Releases</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </pluginRepository>\n    </pluginRepositories>\n</project>\n\n```\n\n```xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>com.semmle</groupId>\n    <artifactId>parent</artifactId>\n    <version>1.0</version>\n    <packaging>pom</packaging>\n\n    <name>Security Testing</name>\n    <description>An example of secure download and upload of dependencies</description>\n\n    <distributionManagement>\n        <repository>\n            <id>insecure-releases</id>\n            <name>Secure Repository Releases</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </repository>\n        <snapshotRepository>\n            <id>insecure-snapshots</id>\n            <name>Secure Repository Snapshots</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </snapshotRepository>\n    </distributionManagement>\n    <repositories>\n        <repository>\n            <id>insecure</id>\n            <name>Secure Repository</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </repository>\n    </repositories>\n    <pluginRepositories>\n        <pluginRepository>\n            <id>insecure-plugins</id>\n            <name>Secure Repository Releases</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </pluginRepository>\n    </pluginRepositories>\n</project>\n\n```\n\n## References\n* Research: [ Want to take over the Java ecosystem? All you need is a MITM! ](https://medium.com/bugbountywriteup/want-to-take-over-the-java-ecosystem-all-you-need-is-a-mitm-1fc329d898fb?source=friends_link&sk=3c99970c55a899ad9ef41f126efcde0e)\n* Research: [ How to take over the computer of any Java (or Closure or Scala) Developer. ](https://max.computer/blog/how-to-take-over-the-computer-of-any-java-or-clojure-or-scala-developer/)\n* Proof of Concept: [ mveytsman/dilettante ](https://github.com/mveytsman/dilettante)\n* Additional Gradle &amp; Maven plugin: [ Announcing nohttp ](https://spring.io/blog/2019/06/10/announcing-nohttp)\n* Java Ecosystem Announcement: [ HTTP Decommission Artifact Server Announcements ](https://gist.github.com/JLLeitschuh/789e49e3d34092a005031a0a1880af99)\n* Common Weakness Enumeration: [CWE-300](https://cwe.mitre.org/data/definitions/300.html).\n* Common Weakness Enumeration: [CWE-319](https://cwe.mitre.org/data/definitions/319.html).\n* Common Weakness Enumeration: [CWE-494](https://cwe.mitre.org/data/definitions/494.html).\n* Common Weakness Enumeration: [CWE-829](https://cwe.mitre.org/data/definitions/829.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "Downloading or uploading artifacts over insecure protocol (eg. http or ftp) to/from repository http://repo1.maven.org/maven2"
+      },
+      "location": {
+        "path": "core/src/test/resources/dwr-pom.xml",
+        "start_line": 143,
+        "end_line": 153,
+        "start_column": 5,
+        "end_column": 25
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/23/instances"
+  },
+  {
+    "number": 22,
+    "created_at": "2024-09-18T05:54:20Z",
+    "updated_at": "2024-09-18T05:54:20Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/22",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/22",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "full_description": "Using broken or weak cryptographic algorithms can allow an attacker to compromise security.",
+      "help": "# Use of a broken or risky cryptographic algorithm\nUsing broken or weak cryptographic algorithms can leave data vulnerable to being decrypted.\n\nMany cryptographic algorithms provided by cryptography libraries are known to be weak, or flawed. Using such an algorithm means that an attacker may be able to easily decrypt the encrypted data.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic algorithm. Use at least AES-128 or RSA-2048. Do not use the ECB encryption mode since it is vulnerable to replay and other attacks.\n\n\n## Example\nThe following code shows an example of using a java `Cipher` to encrypt some data. When creating a `Cipher` instance, you must specify the encryption algorithm to use. The first example uses DES, which is an older algorithm that is now considered weak. The second example uses AES, which is a strong modern algorithm.\n\n\n```java\n// BAD: DES is a weak algorithm \nCipher des = Cipher.getInstance(\"DES\");\ncipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);\n\nbyte[] encrypted = cipher.doFinal(input.getBytes(\"UTF-8\"));\n\n// ...\n\n// GOOD: AES is a strong algorithm\nCipher aes = Cipher.getInstance(\"AES\");\n\n// ...\n\n```\n\n## References\n* NIST, FIPS 140 Annex a: [ Approved Security Functions](http://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf).\n* NIST, SP 800-131A: [ Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "Cryptographic algorithm MD5 is weak and should not be used."
+      },
+      "location": {
+        "path": "utils/src/main/java/org/owasp/dependencycheck/utils/Checksum.java",
+        "start_line": 246,
+        "end_line": 246,
+        "start_column": 20,
+        "end_column": 56
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/22/instances"
+  },
+  {
+    "number": 21,
+    "created_at": "2024-09-18T05:54:20Z",
+    "updated_at": "2024-09-18T05:54:20Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/21",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/21",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/path-injection",
+      "severity": "error",
+      "description": "Uncontrolled data used in path expression",
+      "name": "java/path-injection",
+      "tags": ["external/cwe/cwe-022","external/cwe/cwe-023","external/cwe/cwe-036","external/cwe/cwe-073","security"],
+      "full_description": "Accessing paths influenced by users can allow an attacker to access unexpected resources.",
+      "help": "# Uncontrolled data used in path expression\nAccessing paths controlled by users can allow an attacker to access unexpected resources. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\nPaths that are naively constructed from data controlled by a user may be absolute paths, or may contain unexpected special characters such as \"..\". Such a path could point anywhere on the file system.\n\n\n## Recommendation\nValidate user input before using it to construct a file path.\n\nCommon validation methods include checking that the normalized path is relative and does not contain any \"..\" components, or checking that the path is contained within a safe folder. The method you should use depends on how the path is used in the application, and whether the path should be a single path component.\n\nIf the path should be a single path component (such as a file name), you can check for the existence of any path separators (\"/\" or \"\\\\\"), or \"..\" sequences in the input, and reject the input if any are found.\n\nNote that removing \"../\" sequences is *not* sufficient, since the input could still contain a path separator followed by \"..\". For example, the input \".../...//\" would still result in the string \"../\" if only \"../\" sequences are removed.\n\nFinally, the simplest (but most restrictive) option is to use an allow list of safe patterns and make sure that the user input matches one of these patterns.\n\n\n## Example\nIn this example, a file name is read from a `java.net.Socket` and then used to access a file and send it back over the socket. However, a malicious user could enter a file name anywhere on the file system, such as \"/etc/passwd\" or \"../../../etc/passwd\".\n\n\n```java\npublic void sendUserFile(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\t// BAD: read from a file without checking its path\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filename));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\n}\n\n```\nIf the input should only be a file name, you can check that it doesn't contain any path separators or \"..\" sequences.\n\n\n```java\npublic void sendUserFileGood(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\t// GOOD: ensure that the filename has no path separators or parent directory references\n\tif (filename.contains(\"..\") || filename.contains(\"/\") || filename.contains(\"\\\\\")) {\n\t\tthrow new IllegalArgumentException(\"Invalid filename\");\n\t}\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filename));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\t\n}\n\n```\nIf the input should be within a specific directory, you can check that the resolved path is still contained within that directory.\n\n\n```java\npublic void sendUserFileGood(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\n\tPath publicFolder = Paths.get(\"/home/\" + user + \"/public\").normalize().toAbsolutePath();\n\tPath filePath = publicFolder.resolve(filename).normalize().toAbsolutePath();\n\n\t// GOOD: ensure that the path stays within the public folder\n\tif (!filePath.startsWith(publicFolder + File.separator)) {\n\t\tthrow new IllegalArgumentException(\"Invalid filename\");\n\t}\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filePath.toString()));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\n}\n```\n\n## References\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n* Common Weakness Enumeration: [CWE-23](https://cwe.mitre.org/data/definitions/23.html).\n* Common Weakness Enumeration: [CWE-36](https://cwe.mitre.org/data/definitions/36.html).\n* Common Weakness Enumeration: [CWE-73](https://cwe.mitre.org/data/definitions/73.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This path depends on a user-provided value."
+      },
+      "location": {
+        "path": "utils/src/main/java/org/owasp/dependencycheck/utils/Checksum.java",
+        "start_line": 92,
+        "end_line": 92,
+        "start_column": 60,
+        "end_column": 73
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/21/instances"
+  },
+  {
+    "number": 20,
+    "created_at": "2024-09-18T05:54:20Z",
+    "updated_at": "2024-09-18T05:54:20Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/20",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/20",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/path-injection",
+      "severity": "error",
+      "description": "Uncontrolled data used in path expression",
+      "name": "java/path-injection",
+      "tags": ["external/cwe/cwe-022","external/cwe/cwe-023","external/cwe/cwe-036","external/cwe/cwe-073","security"],
+      "full_description": "Accessing paths influenced by users can allow an attacker to access unexpected resources.",
+      "help": "# Uncontrolled data used in path expression\nAccessing paths controlled by users can allow an attacker to access unexpected resources. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\nPaths that are naively constructed from data controlled by a user may be absolute paths, or may contain unexpected special characters such as \"..\". Such a path could point anywhere on the file system.\n\n\n## Recommendation\nValidate user input before using it to construct a file path.\n\nCommon validation methods include checking that the normalized path is relative and does not contain any \"..\" components, or checking that the path is contained within a safe folder. The method you should use depends on how the path is used in the application, and whether the path should be a single path component.\n\nIf the path should be a single path component (such as a file name), you can check for the existence of any path separators (\"/\" or \"\\\\\"), or \"..\" sequences in the input, and reject the input if any are found.\n\nNote that removing \"../\" sequences is *not* sufficient, since the input could still contain a path separator followed by \"..\". For example, the input \".../...//\" would still result in the string \"../\" if only \"../\" sequences are removed.\n\nFinally, the simplest (but most restrictive) option is to use an allow list of safe patterns and make sure that the user input matches one of these patterns.\n\n\n## Example\nIn this example, a file name is read from a `java.net.Socket` and then used to access a file and send it back over the socket. However, a malicious user could enter a file name anywhere on the file system, such as \"/etc/passwd\" or \"../../../etc/passwd\".\n\n\n```java\npublic void sendUserFile(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\t// BAD: read from a file without checking its path\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filename));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\n}\n\n```\nIf the input should only be a file name, you can check that it doesn't contain any path separators or \"..\" sequences.\n\n\n```java\npublic void sendUserFileGood(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\t// GOOD: ensure that the filename has no path separators or parent directory references\n\tif (filename.contains(\"..\") || filename.contains(\"/\") || filename.contains(\"\\\\\")) {\n\t\tthrow new IllegalArgumentException(\"Invalid filename\");\n\t}\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filename));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\t\n}\n\n```\nIf the input should be within a specific directory, you can check that the resolved path is still contained within that directory.\n\n\n```java\npublic void sendUserFileGood(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\n\tPath publicFolder = Paths.get(\"/home/\" + user + \"/public\").normalize().toAbsolutePath();\n\tPath filePath = publicFolder.resolve(filename).normalize().toAbsolutePath();\n\n\t// GOOD: ensure that the path stays within the public folder\n\tif (!filePath.startsWith(publicFolder + File.separator)) {\n\t\tthrow new IllegalArgumentException(\"Invalid filename\");\n\t}\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filePath.toString()));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\n}\n```\n\n## References\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n* Common Weakness Enumeration: [CWE-23](https://cwe.mitre.org/data/definitions/23.html).\n* Common Weakness Enumeration: [CWE-36](https://cwe.mitre.org/data/definitions/36.html).\n* Common Weakness Enumeration: [CWE-73](https://cwe.mitre.org/data/definitions/73.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This path depends on a user-provided value.\nThis path depends on a user-provided value."
+      },
+      "location": {
+        "path": "utils/src/main/java/org/owasp/dependencycheck/utils/HttpResourceConnection.java",
+        "start_line": 148,
+        "end_line": 148,
+        "start_column": 48,
+        "end_column": 52
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/20/instances"
+  },
+  {
+    "number": 19,
+    "created_at": "2024-09-18T05:54:20Z",
+    "updated_at": "2024-09-18T05:54:20Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/19",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/19",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/path-injection",
+      "severity": "error",
+      "description": "Uncontrolled data used in path expression",
+      "name": "java/path-injection",
+      "tags": ["external/cwe/cwe-022","external/cwe/cwe-023","external/cwe/cwe-036","external/cwe/cwe-073","security"],
+      "full_description": "Accessing paths influenced by users can allow an attacker to access unexpected resources.",
+      "help": "# Uncontrolled data used in path expression\nAccessing paths controlled by users can allow an attacker to access unexpected resources. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\nPaths that are naively constructed from data controlled by a user may be absolute paths, or may contain unexpected special characters such as \"..\". Such a path could point anywhere on the file system.\n\n\n## Recommendation\nValidate user input before using it to construct a file path.\n\nCommon validation methods include checking that the normalized path is relative and does not contain any \"..\" components, or checking that the path is contained within a safe folder. The method you should use depends on how the path is used in the application, and whether the path should be a single path component.\n\nIf the path should be a single path component (such as a file name), you can check for the existence of any path separators (\"/\" or \"\\\\\"), or \"..\" sequences in the input, and reject the input if any are found.\n\nNote that removing \"../\" sequences is *not* sufficient, since the input could still contain a path separator followed by \"..\". For example, the input \".../...//\" would still result in the string \"../\" if only \"../\" sequences are removed.\n\nFinally, the simplest (but most restrictive) option is to use an allow list of safe patterns and make sure that the user input matches one of these patterns.\n\n\n## Example\nIn this example, a file name is read from a `java.net.Socket` and then used to access a file and send it back over the socket. However, a malicious user could enter a file name anywhere on the file system, such as \"/etc/passwd\" or \"../../../etc/passwd\".\n\n\n```java\npublic void sendUserFile(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\t// BAD: read from a file without checking its path\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filename));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\n}\n\n```\nIf the input should only be a file name, you can check that it doesn't contain any path separators or \"..\" sequences.\n\n\n```java\npublic void sendUserFileGood(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\t// GOOD: ensure that the filename has no path separators or parent directory references\n\tif (filename.contains(\"..\") || filename.contains(\"/\") || filename.contains(\"\\\\\")) {\n\t\tthrow new IllegalArgumentException(\"Invalid filename\");\n\t}\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filename));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\t\n}\n\n```\nIf the input should be within a specific directory, you can check that the resolved path is still contained within that directory.\n\n\n```java\npublic void sendUserFileGood(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\n\tPath publicFolder = Paths.get(\"/home/\" + user + \"/public\").normalize().toAbsolutePath();\n\tPath filePath = publicFolder.resolve(filename).normalize().toAbsolutePath();\n\n\t// GOOD: ensure that the path stays within the public folder\n\tif (!filePath.startsWith(publicFolder + File.separator)) {\n\t\tthrow new IllegalArgumentException(\"Invalid filename\");\n\t}\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filePath.toString()));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\n}\n```\n\n## References\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n* Common Weakness Enumeration: [CWE-23](https://cwe.mitre.org/data/definitions/23.html).\n* Common Weakness Enumeration: [CWE-36](https://cwe.mitre.org/data/definitions/36.html).\n* Common Weakness Enumeration: [CWE-73](https://cwe.mitre.org/data/definitions/73.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This path depends on a user-provided value.\nThis path depends on a user-provided value."
+      },
+      "location": {
+        "path": "utils/src/main/java/org/owasp/dependencycheck/utils/HttpResourceConnection.java",
+        "start_line": 146,
+        "end_line": 146,
+        "start_column": 17,
+        "end_column": 21
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/19/instances"
+  },
+  {
+    "number": 18,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/18",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/18",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/unsafe-html-expansion",
+      "severity": "warning",
+      "description": "Unsafe expansion of self-closing HTML tag",
+      "name": "js/unsafe-html-expansion",
+      "tags": ["correctness","external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Using regular expressions to expand self-closing HTML tags may lead to cross-site scripting vulnerabilities.",
+      "help": "# Unsafe expansion of self-closing HTML tag\nSanitizing untrusted input for HTML meta-characters is a common technique for preventing cross-site scripting attacks. But even a sanitized input can be dangerous to use if it is modified further before a browser treats it as HTML. A seemingly innocent transformation that expands a self-closing HTML tag from `<div attr=\"{sanitized}\"/>` to `<div attr=\"{sanitized}\"></div>` may in fact cause cross-site scripting vulnerabilities.\n\n\n## Recommendation\nUse a well-tested sanitization library if at all possible, and avoid modifying sanitized values further before treating them as HTML.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using HTML templates that are explicit about the values they treat as HTML.\n\n\n## Example\nThe following function transforms a self-closing HTML tag to a pair of open/close tags. It does so for all non-`img` and non-`area` tags, by using a regular expression with two capture groups. The first capture group corresponds to the name of the tag, and the second capture group to the content of the tag.\n\n\n```javascript\nfunction expandSelfClosingTags(html) {\n\tvar rxhtmlTag = /<(?!img|area)(([a-z][^\\w\\/>]*)[^>]*)\\/>/gi;\n\treturn html.replace(rxhtmlTag, \"<$1></$2>\"); // BAD\n}\n\n```\nWhile it is generally known regular expressions are ill-suited for parsing HTML, variants of this particular transformation pattern have long been considered safe.\n\nHowever, the function is not safe. As an example, consider the following string:\n\n\n```html\n<div alt=\"\n<x\" title=\"/>\n<img src=url404 onerror=alert(1)>\"/>\n\n```\nWhen the above function transforms the string, it becomes a string that results in an alert when a browser treats it as HTML.\n\n\n```html\n<div alt=\"\n<x\" title=\"></x\" >\n<img src=url404 onerror=alert(1)>\"/>\n\n```\n\n## References\n* jQuery: [Security fixes in jQuery 3.5.0](https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/)\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [Types of Cross-Site](https://owasp.org/www-community/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This self-closing HTML tag expansion invalidates prior sanitization as this regular expression may match part of an attribute value."
+      },
+      "location": {
+        "path": "core/src/test/resources/javascript/jquery-1.6.2.js",
+        "start_line": 6102,
+        "end_line": 6102,
+        "start_column": 13,
+        "end_column": 49
+      },
+      "classifications": ["library","test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/18/instances"
+  },
+  {
+    "number": 17,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/17",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/17",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/unsafe-html-expansion",
+      "severity": "warning",
+      "description": "Unsafe expansion of self-closing HTML tag",
+      "name": "js/unsafe-html-expansion",
+      "tags": ["correctness","external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Using regular expressions to expand self-closing HTML tags may lead to cross-site scripting vulnerabilities.",
+      "help": "# Unsafe expansion of self-closing HTML tag\nSanitizing untrusted input for HTML meta-characters is a common technique for preventing cross-site scripting attacks. But even a sanitized input can be dangerous to use if it is modified further before a browser treats it as HTML. A seemingly innocent transformation that expands a self-closing HTML tag from `<div attr=\"{sanitized}\"/>` to `<div attr=\"{sanitized}\"></div>` may in fact cause cross-site scripting vulnerabilities.\n\n\n## Recommendation\nUse a well-tested sanitization library if at all possible, and avoid modifying sanitized values further before treating them as HTML.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using HTML templates that are explicit about the values they treat as HTML.\n\n\n## Example\nThe following function transforms a self-closing HTML tag to a pair of open/close tags. It does so for all non-`img` and non-`area` tags, by using a regular expression with two capture groups. The first capture group corresponds to the name of the tag, and the second capture group to the content of the tag.\n\n\n```javascript\nfunction expandSelfClosingTags(html) {\n\tvar rxhtmlTag = /<(?!img|area)(([a-z][^\\w\\/>]*)[^>]*)\\/>/gi;\n\treturn html.replace(rxhtmlTag, \"<$1></$2>\"); // BAD\n}\n\n```\nWhile it is generally known regular expressions are ill-suited for parsing HTML, variants of this particular transformation pattern have long been considered safe.\n\nHowever, the function is not safe. As an example, consider the following string:\n\n\n```html\n<div alt=\"\n<x\" title=\"/>\n<img src=url404 onerror=alert(1)>\"/>\n\n```\nWhen the above function transforms the string, it becomes a string that results in an alert when a browser treats it as HTML.\n\n\n```html\n<div alt=\"\n<x\" title=\"></x\" >\n<img src=url404 onerror=alert(1)>\"/>\n\n```\n\n## References\n* jQuery: [Security fixes in jQuery 3.5.0](https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/)\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [Types of Cross-Site](https://owasp.org/www-community/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This self-closing HTML tag expansion invalidates prior sanitization as this regular expression may match part of an attribute value."
+      },
+      "location": {
+        "path": "core/src/test/resources/javascript/jquery-1.6.2.js",
+        "start_line": 5692,
+        "end_line": 5692,
+        "start_column": 12,
+        "end_column": 49
+      },
+      "classifications": ["library","test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/17/instances"
+  },
+  {
+    "number": 16,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/16",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/16",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/unsafe-html-expansion",
+      "severity": "warning",
+      "description": "Unsafe expansion of self-closing HTML tag",
+      "name": "js/unsafe-html-expansion",
+      "tags": ["correctness","external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Using regular expressions to expand self-closing HTML tags may lead to cross-site scripting vulnerabilities.",
+      "help": "# Unsafe expansion of self-closing HTML tag\nSanitizing untrusted input for HTML meta-characters is a common technique for preventing cross-site scripting attacks. But even a sanitized input can be dangerous to use if it is modified further before a browser treats it as HTML. A seemingly innocent transformation that expands a self-closing HTML tag from `<div attr=\"{sanitized}\"/>` to `<div attr=\"{sanitized}\"></div>` may in fact cause cross-site scripting vulnerabilities.\n\n\n## Recommendation\nUse a well-tested sanitization library if at all possible, and avoid modifying sanitized values further before treating them as HTML.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using HTML templates that are explicit about the values they treat as HTML.\n\n\n## Example\nThe following function transforms a self-closing HTML tag to a pair of open/close tags. It does so for all non-`img` and non-`area` tags, by using a regular expression with two capture groups. The first capture group corresponds to the name of the tag, and the second capture group to the content of the tag.\n\n\n```javascript\nfunction expandSelfClosingTags(html) {\n\tvar rxhtmlTag = /<(?!img|area)(([a-z][^\\w\\/>]*)[^>]*)\\/>/gi;\n\treturn html.replace(rxhtmlTag, \"<$1></$2>\"); // BAD\n}\n\n```\nWhile it is generally known regular expressions are ill-suited for parsing HTML, variants of this particular transformation pattern have long been considered safe.\n\nHowever, the function is not safe. As an example, consider the following string:\n\n\n```html\n<div alt=\"\n<x\" title=\"/>\n<img src=url404 onerror=alert(1)>\"/>\n\n```\nWhen the above function transforms the string, it becomes a string that results in an alert when a browser treats it as HTML.\n\n\n```html\n<div alt=\"\n<x\" title=\"></x\" >\n<img src=url404 onerror=alert(1)>\"/>\n\n```\n\n## References\n* jQuery: [Security fixes in jQuery 3.5.0](https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/)\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [Types of Cross-Site](https://owasp.org/www-community/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This self-closing HTML tag expansion invalidates prior sanitization as this regular expression may match part of an attribute value."
+      },
+      "location": {
+        "path": "src/site/resources/general/SampleReport.html",
+        "start_line": 13,
+        "end_line": 13,
+        "start_column": 70130,
+        "end_column": 70155
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/16/instances"
+  },
+  {
+    "number": 15,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/15",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/15",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/unsafe-html-expansion",
+      "severity": "warning",
+      "description": "Unsafe expansion of self-closing HTML tag",
+      "name": "js/unsafe-html-expansion",
+      "tags": ["correctness","external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Using regular expressions to expand self-closing HTML tags may lead to cross-site scripting vulnerabilities.",
+      "help": "# Unsafe expansion of self-closing HTML tag\nSanitizing untrusted input for HTML meta-characters is a common technique for preventing cross-site scripting attacks. But even a sanitized input can be dangerous to use if it is modified further before a browser treats it as HTML. A seemingly innocent transformation that expands a self-closing HTML tag from `<div attr=\"{sanitized}\"/>` to `<div attr=\"{sanitized}\"></div>` may in fact cause cross-site scripting vulnerabilities.\n\n\n## Recommendation\nUse a well-tested sanitization library if at all possible, and avoid modifying sanitized values further before treating them as HTML.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using HTML templates that are explicit about the values they treat as HTML.\n\n\n## Example\nThe following function transforms a self-closing HTML tag to a pair of open/close tags. It does so for all non-`img` and non-`area` tags, by using a regular expression with two capture groups. The first capture group corresponds to the name of the tag, and the second capture group to the content of the tag.\n\n\n```javascript\nfunction expandSelfClosingTags(html) {\n\tvar rxhtmlTag = /<(?!img|area)(([a-z][^\\w\\/>]*)[^>]*)\\/>/gi;\n\treturn html.replace(rxhtmlTag, \"<$1></$2>\"); // BAD\n}\n\n```\nWhile it is generally known regular expressions are ill-suited for parsing HTML, variants of this particular transformation pattern have long been considered safe.\n\nHowever, the function is not safe. As an example, consider the following string:\n\n\n```html\n<div alt=\"\n<x\" title=\"/>\n<img src=url404 onerror=alert(1)>\"/>\n\n```\nWhen the above function transforms the string, it becomes a string that results in an alert when a browser treats it as HTML.\n\n\n```html\n<div alt=\"\n<x\" title=\"></x\" >\n<img src=url404 onerror=alert(1)>\"/>\n\n```\n\n## References\n* jQuery: [Security fixes in jQuery 3.5.0](https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/)\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [Types of Cross-Site](https://owasp.org/www-community/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This self-closing HTML tag expansion invalidates prior sanitization as this regular expression may match part of an attribute value."
+      },
+      "location": {
+        "path": "src/site/resources/general/SampleReport.html",
+        "start_line": 13,
+        "end_line": 13,
+        "start_column": 67017,
+        "end_column": 67042
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/15/instances"
+  },
+  {
+    "number": 14,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/14",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/14",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/unsafe-html-expansion",
+      "severity": "warning",
+      "description": "Unsafe expansion of self-closing HTML tag",
+      "name": "js/unsafe-html-expansion",
+      "tags": ["correctness","external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Using regular expressions to expand self-closing HTML tags may lead to cross-site scripting vulnerabilities.",
+      "help": "# Unsafe expansion of self-closing HTML tag\nSanitizing untrusted input for HTML meta-characters is a common technique for preventing cross-site scripting attacks. But even a sanitized input can be dangerous to use if it is modified further before a browser treats it as HTML. A seemingly innocent transformation that expands a self-closing HTML tag from `<div attr=\"{sanitized}\"/>` to `<div attr=\"{sanitized}\"></div>` may in fact cause cross-site scripting vulnerabilities.\n\n\n## Recommendation\nUse a well-tested sanitization library if at all possible, and avoid modifying sanitized values further before treating them as HTML.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using HTML templates that are explicit about the values they treat as HTML.\n\n\n## Example\nThe following function transforms a self-closing HTML tag to a pair of open/close tags. It does so for all non-`img` and non-`area` tags, by using a regular expression with two capture groups. The first capture group corresponds to the name of the tag, and the second capture group to the content of the tag.\n\n\n```javascript\nfunction expandSelfClosingTags(html) {\n\tvar rxhtmlTag = /<(?!img|area)(([a-z][^\\w\\/>]*)[^>]*)\\/>/gi;\n\treturn html.replace(rxhtmlTag, \"<$1></$2>\"); // BAD\n}\n\n```\nWhile it is generally known regular expressions are ill-suited for parsing HTML, variants of this particular transformation pattern have long been considered safe.\n\nHowever, the function is not safe. As an example, consider the following string:\n\n\n```html\n<div alt=\"\n<x\" title=\"/>\n<img src=url404 onerror=alert(1)>\"/>\n\n```\nWhen the above function transforms the string, it becomes a string that results in an alert when a browser treats it as HTML.\n\n\n```html\n<div alt=\"\n<x\" title=\"></x\" >\n<img src=url404 onerror=alert(1)>\"/>\n\n```\n\n## References\n* jQuery: [Security fixes in jQuery 3.5.0](https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/)\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [Types of Cross-Site](https://owasp.org/www-community/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This self-closing HTML tag expansion invalidates prior sanitization as this regular expression may match part of an attribute value."
+      },
+      "location": {
+        "path": "core/src/test/resources/javascript/angular.safe.js",
+        "start_line": 26,
+        "end_line": 26,
+        "start_column": 193,
+        "end_column": 218
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/14/instances"
+  },
+  {
+    "number": 13,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/13",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/13",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-multi-character-sanitization",
+      "severity": "warning",
+      "description": "Incomplete multi-character sanitization",
+      "name": "js/incomplete-multi-character-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A sanitizer that removes a sequence of characters may reintroduce the dangerous sequence.",
+      "help": "# Incomplete multi-character sanitization\nSanitizing untrusted input is a common technique for preventing injection attacks and other security vulnerabilities. Regular expressions are often used to perform this sanitization. However, when the regular expression matches multiple consecutive characters, replacing it just once can result in the unsafe text reappearing in the sanitized input.\n\nAttackers can exploit this issue by crafting inputs that, when sanitized with an ineffective regular expression, still contain malicious code or content. This can lead to code execution, data exposure, or other vulnerabilities.\n\n\n## Recommendation\nTo prevent this issue, it is highly recommended to use a well-tested sanitization library whenever possible. These libraries are more likely to handle corner cases and ensure effective sanitization.\n\nIf a library is not an option, you can consider alternative strategies to fix the issue. For example, applying the regular expression replacement repeatedly until no more replacements can be performed, or rewriting the regular expression to match single characters instead of the entire unsafe text.\n\n\n## Example\nConsider the following JavaScript code that aims to remove all HTML comment start and end tags:\n\n```javascript\n\nstr.replace(/<!--|--!?>/g, \"\");   \n\n```\nGiven the input string \"&lt;!&lt;!--- comment ---&gt;&gt;\", the output will be \"&lt;!-- comment --&gt;\", which still contains an HTML comment.\n\nOne possible fix for this issue is to apply the regular expression replacement repeatedly until no more replacements can be performed. This ensures that the unsafe text does not re-appear in the sanitized input, effectively removing all instances of the targeted pattern:\n\n```javascript\n\nfunction removeHtmlComments(input) {  \n  let previous;  \n  do {  \n    previous = input;  \n    input = input.replace(/<!--|--!?>/g, \"\");  \n  } while (input !== previous);  \n  return input;  \n}  \n\n```\n\n## Example\nAnother example is the following regular expression intended to remove script tags:\n\n```javascript\n\nstr.replace(/<script\\b[^<]*(?:(?!<\\/script>)<[^<]*)*<\\/script>/g, \"\");  \n\n```\nIf the input string is \"&lt;scrip&lt;script&gt;is removed&lt;/script&gt;t&gt;alert(123)&lt;/script&gt;\", the output will be \"&lt;script&gt;alert(123)&lt;/script&gt;\", which still contains a script tag.\n\nA fix for this issue is to rewrite the regular expression to match single characters (\"&lt;\" and \"&gt;\") instead of the entire unsafe text. This simplifies the sanitization process and ensures that all potentially unsafe characters are removed:\n\n```javascript\n\nfunction removeAllHtmlTags(input) {  \n  return input.replace(/<|>/g, \"\");  \n}\n\n```\nAnother potential fix is to use the popular `sanitize-html` npm library. It keeps most of the safe HTML tags while removing all unsafe tags and attributes.\n\n```javascript\n\nconst sanitizeHtml = require(\"sanitize-html\");\nfunction removeAllHtmlTags(input) {  \n  return sanitizeHtml(input);  \n}\n\n```\n\n## Example\nLastly, consider a path sanitizer using the regular expression `/\\.\\.\\//`:\n\n```javascript\n\nstr.replace(/\\.\\.\\//g, \"\");  \n\n```\nThe regular expression attempts to strip out all occurences of `/../` from `str`. This will not work as expected: for the string `/./.././`, for example, it will remove the single occurrence of `/../` in the middle, but the remainder of the string then becomes `/../`, which is another instance of the substring we were trying to remove.\n\nA possible fix for this issue is to use the \"sanitize-filename\" npm library for path sanitization. This library is specifically designed to handle path sanitization, and should handle all corner cases and ensure effective sanitization:\n\n```javascript\n\nconst sanitize = require(\"sanitize-filename\");  \n  \nfunction sanitizePath(input) {  \n  return sanitize(input);  \n}  \n\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Stack Overflow: [Removing all script tags from HTML with JS regular expression](https://stackoverflow.com/questions/6659351/removing-all-script-tags-from-html-with-js-regular-expression).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This string may still contain <script, which may cause an HTML element injection vulnerability."
+      },
+      "location": {
+        "path": "core/src/test/resources/javascript/jquery-1.6.2.js",
+        "start_line": 6817,
+        "end_line": 6817,
+        "start_column": 16,
+        "end_column": 49
+      },
+      "classifications": ["library","test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/13/instances"
+  },
+  {
+    "number": 12,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/12",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/12",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-multi-character-sanitization",
+      "severity": "warning",
+      "description": "Incomplete multi-character sanitization",
+      "name": "js/incomplete-multi-character-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A sanitizer that removes a sequence of characters may reintroduce the dangerous sequence.",
+      "help": "# Incomplete multi-character sanitization\nSanitizing untrusted input is a common technique for preventing injection attacks and other security vulnerabilities. Regular expressions are often used to perform this sanitization. However, when the regular expression matches multiple consecutive characters, replacing it just once can result in the unsafe text reappearing in the sanitized input.\n\nAttackers can exploit this issue by crafting inputs that, when sanitized with an ineffective regular expression, still contain malicious code or content. This can lead to code execution, data exposure, or other vulnerabilities.\n\n\n## Recommendation\nTo prevent this issue, it is highly recommended to use a well-tested sanitization library whenever possible. These libraries are more likely to handle corner cases and ensure effective sanitization.\n\nIf a library is not an option, you can consider alternative strategies to fix the issue. For example, applying the regular expression replacement repeatedly until no more replacements can be performed, or rewriting the regular expression to match single characters instead of the entire unsafe text.\n\n\n## Example\nConsider the following JavaScript code that aims to remove all HTML comment start and end tags:\n\n```javascript\n\nstr.replace(/<!--|--!?>/g, \"\");   \n\n```\nGiven the input string \"&lt;!&lt;!--- comment ---&gt;&gt;\", the output will be \"&lt;!-- comment --&gt;\", which still contains an HTML comment.\n\nOne possible fix for this issue is to apply the regular expression replacement repeatedly until no more replacements can be performed. This ensures that the unsafe text does not re-appear in the sanitized input, effectively removing all instances of the targeted pattern:\n\n```javascript\n\nfunction removeHtmlComments(input) {  \n  let previous;  \n  do {  \n    previous = input;  \n    input = input.replace(/<!--|--!?>/g, \"\");  \n  } while (input !== previous);  \n  return input;  \n}  \n\n```\n\n## Example\nAnother example is the following regular expression intended to remove script tags:\n\n```javascript\n\nstr.replace(/<script\\b[^<]*(?:(?!<\\/script>)<[^<]*)*<\\/script>/g, \"\");  \n\n```\nIf the input string is \"&lt;scrip&lt;script&gt;is removed&lt;/script&gt;t&gt;alert(123)&lt;/script&gt;\", the output will be \"&lt;script&gt;alert(123)&lt;/script&gt;\", which still contains a script tag.\n\nA fix for this issue is to rewrite the regular expression to match single characters (\"&lt;\" and \"&gt;\") instead of the entire unsafe text. This simplifies the sanitization process and ensures that all potentially unsafe characters are removed:\n\n```javascript\n\nfunction removeAllHtmlTags(input) {  \n  return input.replace(/<|>/g, \"\");  \n}\n\n```\nAnother potential fix is to use the popular `sanitize-html` npm library. It keeps most of the safe HTML tags while removing all unsafe tags and attributes.\n\n```javascript\n\nconst sanitizeHtml = require(\"sanitize-html\");\nfunction removeAllHtmlTags(input) {  \n  return sanitizeHtml(input);  \n}\n\n```\n\n## Example\nLastly, consider a path sanitizer using the regular expression `/\\.\\.\\//`:\n\n```javascript\n\nstr.replace(/\\.\\.\\//g, \"\");  \n\n```\nThe regular expression attempts to strip out all occurences of `/../` from `str`. This will not work as expected: for the string `/./.././`, for example, it will remove the single occurrence of `/../` in the middle, but the remainder of the string then becomes `/../`, which is another instance of the substring we were trying to remove.\n\nA possible fix for this issue is to use the \"sanitize-filename\" npm library for path sanitization. This library is specifically designed to handle path sanitization, and should handle all corner cases and ensure effective sanitization:\n\n```javascript\n\nconst sanitize = require(\"sanitize-filename\");  \n  \nfunction sanitizePath(input) {  \n  return sanitize(input);  \n}  \n\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Stack Overflow: [Removing all script tags from HTML with JS regular expression](https://stackoverflow.com/questions/6659351/removing-all-script-tags-from-html-with-js-regular-expression).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This string may still contain <script, which may cause an HTML element injection vulnerability."
+      },
+      "location": {
+        "path": "src/site/resources/general/SampleReport.html",
+        "start_line": 13,
+        "end_line": 13,
+        "start_column": 78488,
+        "end_column": 78504
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/12/instances"
+  },
+  {
+    "number": 11,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/11",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/11",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This replaces only the first occurrence of '%3A'."
+      },
+      "location": {
+        "path": "src/site/resources/js/package-url.js",
+        "start_line": 80,
+        "end_line": 80,
+        "start_column": 30,
+        "end_column": 61
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/11/instances"
+  },
+  {
+    "number": 10,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/10",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/10",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This replaces only the first occurrence of '%3A'."
+      },
+      "location": {
+        "path": "src/site/resources/js/package-url.js",
+        "start_line": 71,
+        "end_line": 71,
+        "start_column": 17,
+        "end_column": 57
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/10/instances"
+  },
+  {
+    "number": 9,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/9",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/9",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This replaces only the first occurrence of '%3A'."
+      },
+      "location": {
+        "path": "src/site/resources/js/package-url.js",
+        "start_line": 67,
+        "end_line": 67,
+        "start_column": 15,
+        "end_column": 52
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/9/instances"
+  },
+  {
+    "number": 8,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/8",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/8",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This replaces only the first occurrence of '%3A'."
+      },
+      "location": {
+        "path": "src/site/resources/js/package-url.js",
+        "start_line": 63,
+        "end_line": 63,
+        "start_column": 17,
+        "end_column": 59
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/8/instances"
+  },
+  {
+    "number": 7,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/7",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/7",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "src/site/resources/general/SampleReport.html",
+        "start_line": 109,
+        "end_line": 109,
+        "start_column": 69,
+        "end_column": 81
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/7/instances"
+  },
+  {
+    "number": 6,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/6",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/6",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "core/src/test/resources/javascript/jquery-1.6.2.js",
+        "start_line": 4915,
+        "end_line": 4915,
+        "start_column": 13,
+        "end_column": 24
+      },
+      "classifications": ["library","test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/6/instances"
+  },
+  {
+    "number": 5,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/5",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/5",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "core/src/test/resources/javascript/angular.safe.js",
+        "start_line": 97,
+        "end_line": 97,
+        "start_column": 306,
+        "end_column": 315
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/5/instances"
+  },
+  {
+    "number": 4,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/4",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/4",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This replaces only the first occurrence of /</."
+      },
+      "location": {
+        "path": "core/src/test/resources/javascript/angular.safe.js",
+        "start_line": 18,
+        "end_line": 18,
+        "start_column": 37,
+        "end_column": 46
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/4/instances"
+  },
+  {
+    "number": 3,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/3",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/3",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "This replaces only the first occurrence of />/."
+      },
+      "location": {
+        "path": "core/src/test/resources/javascript/angular.safe.js",
+        "start_line": 18,
+        "end_line": 18,
+        "start_column": 37,
+        "end_column": 66
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/3/instances"
+  },
+  {
+    "number": 2,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/2",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/2",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/prototype-pollution-utility",
+      "severity": "warning",
+      "description": "Prototype-polluting function",
+      "name": "js/prototype-pollution-utility",
+      "tags": ["external/cwe/cwe-078","external/cwe/cwe-079","external/cwe/cwe-094","external/cwe/cwe-400","external/cwe/cwe-471","external/cwe/cwe-915","security"],
+      "full_description": "Functions recursively assigning properties on objects may be the cause of accidental modification of a built-in prototype object.",
+      "help": "# Prototype-polluting function\nMost JavaScript objects inherit the properties of the built-in `Object.prototype` object. Prototype pollution is a type of vulnerability in which an attacker is able to modify `Object.prototype`. Since most objects inherit from the compromised `Object.prototype`, the attacker can use this to tamper with the application logic, and often escalate to remote code execution or cross-site scripting.\n\nOne way to cause prototype pollution is through use of an unsafe *merge* or *extend* function to recursively copy properties from one object to another, or through the use of a *deep assignment* function to assign to an unverified chain of property names. Such a function has the potential to modify any object reachable from the destination object, and the built-in `Object.prototype` is usually reachable through the special properties `__proto__` and `constructor.prototype`.\n\n\n## Recommendation\nThe most effective place to guard against this is in the function that performs the recursive copy or deep assignment.\n\nOnly merge or assign a property recursively when it is an own property of the *destination* object. Alternatively, block the property names `__proto__` and `constructor` from being merged or assigned to.\n\n\n## Example\nThis function recursively copies properties from `src` to `dst`:\n\n\n```javascript\nfunction merge(dst, src) {\n    for (let key in src) {\n        if (!src.hasOwnProperty(key)) continue;\n        if (isObject(dst[key])) {\n            merge(dst[key], src[key]);\n        } else {\n            dst[key] = src[key];\n        }\n    }\n}\n\n```\nHowever, if `src` is the object `{\"__proto__\": {\"isAdmin\": true}}`, it will inject the property `isAdmin: true` in `Object.prototype`.\n\nThe issue can be fixed by ensuring that only own properties of the destination object are merged recursively:\n\n\n```javascript\nfunction merge(dst, src) {\n    for (let key in src) {\n        if (!src.hasOwnProperty(key)) continue;\n        if (dst.hasOwnProperty(key) && isObject(dst[key])) {\n            merge(dst[key], src[key]);\n        } else {\n            dst[key] = src[key];\n        }\n    }\n}\n\n```\nAlternatively, block the `__proto__` and `constructor` properties:\n\n\n```javascript\nfunction merge(dst, src) {\n    for (let key in src) {\n        if (!src.hasOwnProperty(key)) continue;\n        if (key === \"__proto__\" || key === \"constructor\") continue;\n        if (isObject(dst[key])) {\n            merge(dst[key], src[key]);\n        } else {\n            dst[key] = src[key];\n        }\n    }\n}\n\n```\n\n## References\n* Prototype pollution attacks: [lodash](https://hackerone.com/reports/380873), [jQuery](https://hackerone.com/reports/454365), [extend](https://hackerone.com/reports/381185), [just-extend](https://hackerone.com/reports/430291), [merge.recursive](https://hackerone.com/reports/381194).\n* Common Weakness Enumeration: [CWE-78](https://cwe.mitre.org/data/definitions/78.html).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-94](https://cwe.mitre.org/data/definitions/94.html).\n* Common Weakness Enumeration: [CWE-400](https://cwe.mitre.org/data/definitions/400.html).\n* Common Weakness Enumeration: [CWE-471](https://cwe.mitre.org/data/definitions/471.html).\n* Common Weakness Enumeration: [CWE-915](https://cwe.mitre.org/data/definitions/915.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "Properties are copied from options to target without guarding against prototype pollution."
+      },
+      "location": {
+        "path": "core/src/test/resources/javascript/jquery-1.6.2.js",
+        "start_line": 379,
+        "end_line": 379,
+        "start_column": 6,
+        "end_column": 12
+      },
+      "classifications": ["library","test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/2/instances"
+  },
+  {
+    "number": 1,
+    "created_at": "2024-09-18T05:53:30Z",
+    "updated_at": "2024-09-18T05:53:31Z",
+    "url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/1",
+    "html_url": "https://github.com/Be-Secure/DependencyCheck/security/code-scanning/1",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/prototype-pollution-utility",
+      "severity": "warning",
+      "description": "Prototype-polluting function",
+      "name": "js/prototype-pollution-utility",
+      "tags": ["external/cwe/cwe-078","external/cwe/cwe-079","external/cwe/cwe-094","external/cwe/cwe-400","external/cwe/cwe-471","external/cwe/cwe-915","security"],
+      "full_description": "Functions recursively assigning properties on objects may be the cause of accidental modification of a built-in prototype object.",
+      "help": "# Prototype-polluting function\nMost JavaScript objects inherit the properties of the built-in `Object.prototype` object. Prototype pollution is a type of vulnerability in which an attacker is able to modify `Object.prototype`. Since most objects inherit from the compromised `Object.prototype`, the attacker can use this to tamper with the application logic, and often escalate to remote code execution or cross-site scripting.\n\nOne way to cause prototype pollution is through use of an unsafe *merge* or *extend* function to recursively copy properties from one object to another, or through the use of a *deep assignment* function to assign to an unverified chain of property names. Such a function has the potential to modify any object reachable from the destination object, and the built-in `Object.prototype` is usually reachable through the special properties `__proto__` and `constructor.prototype`.\n\n\n## Recommendation\nThe most effective place to guard against this is in the function that performs the recursive copy or deep assignment.\n\nOnly merge or assign a property recursively when it is an own property of the *destination* object. Alternatively, block the property names `__proto__` and `constructor` from being merged or assigned to.\n\n\n## Example\nThis function recursively copies properties from `src` to `dst`:\n\n\n```javascript\nfunction merge(dst, src) {\n    for (let key in src) {\n        if (!src.hasOwnProperty(key)) continue;\n        if (isObject(dst[key])) {\n            merge(dst[key], src[key]);\n        } else {\n            dst[key] = src[key];\n        }\n    }\n}\n\n```\nHowever, if `src` is the object `{\"__proto__\": {\"isAdmin\": true}}`, it will inject the property `isAdmin: true` in `Object.prototype`.\n\nThe issue can be fixed by ensuring that only own properties of the destination object are merged recursively:\n\n\n```javascript\nfunction merge(dst, src) {\n    for (let key in src) {\n        if (!src.hasOwnProperty(key)) continue;\n        if (dst.hasOwnProperty(key) && isObject(dst[key])) {\n            merge(dst[key], src[key]);\n        } else {\n            dst[key] = src[key];\n        }\n    }\n}\n\n```\nAlternatively, block the `__proto__` and `constructor` properties:\n\n\n```javascript\nfunction merge(dst, src) {\n    for (let key in src) {\n        if (!src.hasOwnProperty(key)) continue;\n        if (key === \"__proto__\" || key === \"constructor\") continue;\n        if (isObject(dst[key])) {\n            merge(dst[key], src[key]);\n        } else {\n            dst[key] = src[key];\n        }\n    }\n}\n\n```\n\n## References\n* Prototype pollution attacks: [lodash](https://hackerone.com/reports/380873), [jQuery](https://hackerone.com/reports/454365), [extend](https://hackerone.com/reports/381185), [just-extend](https://hackerone.com/reports/430291), [merge.recursive](https://hackerone.com/reports/381194).\n* Common Weakness Enumeration: [CWE-78](https://cwe.mitre.org/data/definitions/78.html).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-94](https://cwe.mitre.org/data/definitions/94.html).\n* Common Weakness Enumeration: [CWE-400](https://cwe.mitre.org/data/definitions/400.html).\n* Common Weakness Enumeration: [CWE-471](https://cwe.mitre.org/data/definitions/471.html).\n* Common Weakness Enumeration: [CWE-915](https://cwe.mitre.org/data/definitions/915.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v10.0.4_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "3b4cfa6fc1451bfb320767aa11955ce303d98e63",
+      "message": {
+        "text": "Properties are copied from a to h without guarding against prototype pollution."
+      },
+      "location": {
+        "path": "src/site/resources/general/SampleReport.html",
+        "start_line": 13,
+        "end_line": 13,
+        "start_column": 12116,
+        "end_column": 12117
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/DependencyCheck/code-scanning/alerts/1/instances"
+  }
+]

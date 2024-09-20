@@ -1,0 +1,914 @@
+[
+  {
+    "number": 201,
+    "created_at": "2024-09-16T05:44:45Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/201",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/201",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/polynomial-redos",
+      "severity": "warning",
+      "description": "Polynomial regular expression used on uncontrolled data",
+      "name": "java/polynomial-redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "full_description": "A regular expression that can require polynomial time to match may be vulnerable to denial-of-service attacks.",
+      "help": "# Polynomial regular expression used on uncontrolled data\nSome regular expressions take a long time to match certain input strings to the point where the time it takes to match a string of length *n* is proportional to *n<sup>k</sup>* or even *2<sup>n</sup>*. Such regular expressions can negatively affect performance, or even allow a malicious user to perform a Denial of Service (\"DoS\") attack by crafting an expensive input string for the regular expression to match.\n\nThe regular expression engine provided by Java uses a backtracking non-deterministic finite automata to implement regular expression matching. While this approach is space-efficient and allows supporting advanced features like capture groups, it is not time-efficient in general. The worst-case time complexity of such an automaton can be polynomial or even exponential, meaning that for strings of a certain shape, increasing the input length by ten characters may make the automaton about 1000 times slower.\n\nTypically, a regular expression is affected by this problem if it contains a repetition of the form `r*` or `r+` where the sub-expression `r` is ambiguous in the sense that it can match some string in multiple ways. More information about the precise circumstances can be found in the references.\n\nNote that Java versions 9 and above have some mitigations against ReDoS; however they aren't perfect and more complex regular expressions can still be affected by this problem.\n\n\n## Recommendation\nModify the regular expression to remove the ambiguity, or ensure that the strings matched with the regular expression are short enough that the time-complexity does not matter. Alternatively, an alternate regex library that guarantees linear time execution, such as Google's RE2J, may be used.\n\n\n## Example\nConsider this use of a regular expression, which removes all leading and trailing whitespace in a string:\n\n```java\n\nPattern.compile(\"^\\\\s+|\\\\s+$\").matcher(text).replaceAll(\"\") // BAD\n```\nThe sub-expression `\"\\\\s+$\"` will match the whitespace characters in `text` from left to right, but it can start matching anywhere within a whitespace sequence. This is problematic for strings that do **not** end with a whitespace character. Such a string will force the regular expression engine to process each whitespace sequence once per whitespace character in the sequence.\n\nThis ultimately means that the time cost of trimming a string is quadratic in the length of the string. So a string like `\"a b\"` will take milliseconds to process, but a similar string with a million spaces instead of just one will take several minutes.\n\nAvoid this problem by rewriting the regular expression to not contain the ambiguity about when to start matching whitespace sequences. For instance, by using a negative look-behind (`\"^\\\\s+|(?<!\\\\s)\\\\s+$\"`), or just by using the built-in trim method (`text.trim()`).\n\nNote that the sub-expression `\"^\\\\s+\"` is **not** problematic as the `^` anchor restricts when that sub-expression can start matching, and as the regular expression engine matches from left to right.\n\n\n## Example\nAs a similar, but slightly subtler problem, consider the regular expression that matches lines with numbers, possibly written using scientific notation:\n\n```java\n\n\"^0\\\\.\\\\d+E?\\\\d+$\"\" \n```\nThe problem with this regular expression is in the sub-expression `\\d+E?\\d+` because the second `\\d+` can start matching digits anywhere after the first match of the first `\\d+` if there is no `E` in the input string.\n\nThis is problematic for strings that do **not** end with a digit. Such a string will force the regular expression engine to process each digit sequence once per digit in the sequence, again leading to a quadratic time complexity.\n\nTo make the processing faster, the regular expression should be rewritten such that the two `\\d+` sub-expressions do not have overlapping matches: `\"^0\\\\.\\\\d+(E\\\\d+)?$\"`.\n\n\n## Example\nSometimes it is unclear how a regular expression can be rewritten to avoid the problem. In such cases, it often suffices to limit the length of the input string. For instance, the following regular expression is used to match numbers, and on some non-number inputs it can have quadratic time complexity:\n\n```java\n\nPattern.matches(\"^(\\\\+|-)?(\\\\d+|(\\\\d*\\\\.\\\\d*))?(E|e)?([-+])?(\\\\d+)?$\", str); \n```\nIt is not immediately obvious how to rewrite this regular expression to avoid the problem. However, you can mitigate performance issues by limiting the length to 1000 characters, which will always finish in a reasonable amount of time.\n\n```java\n\nif (str.length() > 1000) {\n    throw new IllegalArgumentException(\"Input too long\");\n}\n\nPattern.matches(\"^(\\\\+|-)?(\\\\d+|(\\\\d*\\\\.\\\\d*))?(E|e)?([-+])?(\\\\d+)?$\", str); \n```\n\n## References\n* OWASP: [Regular expression Denial of Service - ReDoS](https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS).\n* Wikipedia: [ReDoS](https://en.wikipedia.org/wiki/ReDoS).\n* Wikipedia: [Time complexity](https://en.wikipedia.org/wiki/Time_complexity).\n* James Kirrage, Asiri Rathnayake, Hayo Thielecke: [Static Analysis for Regular Expression Denial-of-Service Attack](https://arxiv.org/abs/1301.0849).\n* Common Weakness Enumeration: [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html).\n* Common Weakness Enumeration: [CWE-730](https://cwe.mitre.org/data/definitions/730.html).\n* Common Weakness Enumeration: [CWE-400](https://cwe.mitre.org/data/definitions/400.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "This regular expression that depends on a user-provided value may run slow on strings with many repetitions of ' '.\nThis regular expression that depends on a user-provided value may run slow on strings starting with 'content-disposition' and with many repetitions of 'content-disposition'.\nThis regular expression that depends on a user-provided value may run slow on strings with many repetitions of ' '.\nThis regular expression that depends on a user-provided value may run slow on strings starting with 'content-disposition' and with many repetitions of 'content-disposition'.\nThis regular expression that depends on a user-provided value may run slow on strings with many repetitions of ' '.\nThis regular expression that depends on a user-provided value may run slow on strings starting with 'content-disposition' and with many repetitions of 'content-disposition'."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/parosproxy/paros/core/scanner/VariantMultipartFormParameters.java",
+        "start_line": 187,
+        "end_line": 187,
+        "start_column": 79,
+        "end_column": 83
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/201/instances"
+  },
+  {
+    "number": 200,
+    "created_at": "2024-09-16T05:44:45Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/200",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/200",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/polynomial-redos",
+      "severity": "warning",
+      "description": "Polynomial regular expression used on uncontrolled data",
+      "name": "java/polynomial-redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "full_description": "A regular expression that can require polynomial time to match may be vulnerable to denial-of-service attacks.",
+      "help": "# Polynomial regular expression used on uncontrolled data\nSome regular expressions take a long time to match certain input strings to the point where the time it takes to match a string of length *n* is proportional to *n<sup>k</sup>* or even *2<sup>n</sup>*. Such regular expressions can negatively affect performance, or even allow a malicious user to perform a Denial of Service (\"DoS\") attack by crafting an expensive input string for the regular expression to match.\n\nThe regular expression engine provided by Java uses a backtracking non-deterministic finite automata to implement regular expression matching. While this approach is space-efficient and allows supporting advanced features like capture groups, it is not time-efficient in general. The worst-case time complexity of such an automaton can be polynomial or even exponential, meaning that for strings of a certain shape, increasing the input length by ten characters may make the automaton about 1000 times slower.\n\nTypically, a regular expression is affected by this problem if it contains a repetition of the form `r*` or `r+` where the sub-expression `r` is ambiguous in the sense that it can match some string in multiple ways. More information about the precise circumstances can be found in the references.\n\nNote that Java versions 9 and above have some mitigations against ReDoS; however they aren't perfect and more complex regular expressions can still be affected by this problem.\n\n\n## Recommendation\nModify the regular expression to remove the ambiguity, or ensure that the strings matched with the regular expression are short enough that the time-complexity does not matter. Alternatively, an alternate regex library that guarantees linear time execution, such as Google's RE2J, may be used.\n\n\n## Example\nConsider this use of a regular expression, which removes all leading and trailing whitespace in a string:\n\n```java\n\nPattern.compile(\"^\\\\s+|\\\\s+$\").matcher(text).replaceAll(\"\") // BAD\n```\nThe sub-expression `\"\\\\s+$\"` will match the whitespace characters in `text` from left to right, but it can start matching anywhere within a whitespace sequence. This is problematic for strings that do **not** end with a whitespace character. Such a string will force the regular expression engine to process each whitespace sequence once per whitespace character in the sequence.\n\nThis ultimately means that the time cost of trimming a string is quadratic in the length of the string. So a string like `\"a b\"` will take milliseconds to process, but a similar string with a million spaces instead of just one will take several minutes.\n\nAvoid this problem by rewriting the regular expression to not contain the ambiguity about when to start matching whitespace sequences. For instance, by using a negative look-behind (`\"^\\\\s+|(?<!\\\\s)\\\\s+$\"`), or just by using the built-in trim method (`text.trim()`).\n\nNote that the sub-expression `\"^\\\\s+\"` is **not** problematic as the `^` anchor restricts when that sub-expression can start matching, and as the regular expression engine matches from left to right.\n\n\n## Example\nAs a similar, but slightly subtler problem, consider the regular expression that matches lines with numbers, possibly written using scientific notation:\n\n```java\n\n\"^0\\\\.\\\\d+E?\\\\d+$\"\" \n```\nThe problem with this regular expression is in the sub-expression `\\d+E?\\d+` because the second `\\d+` can start matching digits anywhere after the first match of the first `\\d+` if there is no `E` in the input string.\n\nThis is problematic for strings that do **not** end with a digit. Such a string will force the regular expression engine to process each digit sequence once per digit in the sequence, again leading to a quadratic time complexity.\n\nTo make the processing faster, the regular expression should be rewritten such that the two `\\d+` sub-expressions do not have overlapping matches: `\"^0\\\\.\\\\d+(E\\\\d+)?$\"`.\n\n\n## Example\nSometimes it is unclear how a regular expression can be rewritten to avoid the problem. In such cases, it often suffices to limit the length of the input string. For instance, the following regular expression is used to match numbers, and on some non-number inputs it can have quadratic time complexity:\n\n```java\n\nPattern.matches(\"^(\\\\+|-)?(\\\\d+|(\\\\d*\\\\.\\\\d*))?(E|e)?([-+])?(\\\\d+)?$\", str); \n```\nIt is not immediately obvious how to rewrite this regular expression to avoid the problem. However, you can mitigate performance issues by limiting the length to 1000 characters, which will always finish in a reasonable amount of time.\n\n```java\n\nif (str.length() > 1000) {\n    throw new IllegalArgumentException(\"Input too long\");\n}\n\nPattern.matches(\"^(\\\\+|-)?(\\\\d+|(\\\\d*\\\\.\\\\d*))?(E|e)?([-+])?(\\\\d+)?$\", str); \n```\n\n## References\n* OWASP: [Regular expression Denial of Service - ReDoS](https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS).\n* Wikipedia: [ReDoS](https://en.wikipedia.org/wiki/ReDoS).\n* Wikipedia: [Time complexity](https://en.wikipedia.org/wiki/Time_complexity).\n* James Kirrage, Asiri Rathnayake, Hayo Thielecke: [Static Analysis for Regular Expression Denial-of-Service Attack](https://arxiv.org/abs/1301.0849).\n* Common Weakness Enumeration: [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html).\n* Common Weakness Enumeration: [CWE-730](https://cwe.mitre.org/data/definitions/730.html).\n* Common Weakness Enumeration: [CWE-400](https://cwe.mitre.org/data/definitions/400.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "This regular expression that depends on a user-provided value may run slow on strings with many repetitions of ' '.\nThis regular expression that depends on a user-provided value may run slow on strings starting with 'content-disposition:' and with many repetitions of 'content-disposition:'.\nThis regular expression that depends on a user-provided value may run slow on strings with many repetitions of ' '.\nThis regular expression that depends on a user-provided value may run slow on strings starting with 'content-disposition:' and with many repetitions of 'content-disposition:'.\nThis regular expression that depends on a user-provided value may run slow on strings with many repetitions of ' '.\nThis regular expression that depends on a user-provided value may run slow on strings starting with 'content-disposition:' and with many repetitions of 'content-disposition:'."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/parosproxy/paros/core/scanner/VariantMultipartFormParameters.java",
+        "start_line": 158,
+        "end_line": 158,
+        "start_column": 76,
+        "end_column": 80
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/200/instances"
+  },
+  {
+    "number": 199,
+    "created_at": "2024-09-16T05:44:45Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/199",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/199",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/polynomial-redos",
+      "severity": "warning",
+      "description": "Polynomial regular expression used on uncontrolled data",
+      "name": "java/polynomial-redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "full_description": "A regular expression that can require polynomial time to match may be vulnerable to denial-of-service attacks.",
+      "help": "# Polynomial regular expression used on uncontrolled data\nSome regular expressions take a long time to match certain input strings to the point where the time it takes to match a string of length *n* is proportional to *n<sup>k</sup>* or even *2<sup>n</sup>*. Such regular expressions can negatively affect performance, or even allow a malicious user to perform a Denial of Service (\"DoS\") attack by crafting an expensive input string for the regular expression to match.\n\nThe regular expression engine provided by Java uses a backtracking non-deterministic finite automata to implement regular expression matching. While this approach is space-efficient and allows supporting advanced features like capture groups, it is not time-efficient in general. The worst-case time complexity of such an automaton can be polynomial or even exponential, meaning that for strings of a certain shape, increasing the input length by ten characters may make the automaton about 1000 times slower.\n\nTypically, a regular expression is affected by this problem if it contains a repetition of the form `r*` or `r+` where the sub-expression `r` is ambiguous in the sense that it can match some string in multiple ways. More information about the precise circumstances can be found in the references.\n\nNote that Java versions 9 and above have some mitigations against ReDoS; however they aren't perfect and more complex regular expressions can still be affected by this problem.\n\n\n## Recommendation\nModify the regular expression to remove the ambiguity, or ensure that the strings matched with the regular expression are short enough that the time-complexity does not matter. Alternatively, an alternate regex library that guarantees linear time execution, such as Google's RE2J, may be used.\n\n\n## Example\nConsider this use of a regular expression, which removes all leading and trailing whitespace in a string:\n\n```java\n\nPattern.compile(\"^\\\\s+|\\\\s+$\").matcher(text).replaceAll(\"\") // BAD\n```\nThe sub-expression `\"\\\\s+$\"` will match the whitespace characters in `text` from left to right, but it can start matching anywhere within a whitespace sequence. This is problematic for strings that do **not** end with a whitespace character. Such a string will force the regular expression engine to process each whitespace sequence once per whitespace character in the sequence.\n\nThis ultimately means that the time cost of trimming a string is quadratic in the length of the string. So a string like `\"a b\"` will take milliseconds to process, but a similar string with a million spaces instead of just one will take several minutes.\n\nAvoid this problem by rewriting the regular expression to not contain the ambiguity about when to start matching whitespace sequences. For instance, by using a negative look-behind (`\"^\\\\s+|(?<!\\\\s)\\\\s+$\"`), or just by using the built-in trim method (`text.trim()`).\n\nNote that the sub-expression `\"^\\\\s+\"` is **not** problematic as the `^` anchor restricts when that sub-expression can start matching, and as the regular expression engine matches from left to right.\n\n\n## Example\nAs a similar, but slightly subtler problem, consider the regular expression that matches lines with numbers, possibly written using scientific notation:\n\n```java\n\n\"^0\\\\.\\\\d+E?\\\\d+$\"\" \n```\nThe problem with this regular expression is in the sub-expression `\\d+E?\\d+` because the second `\\d+` can start matching digits anywhere after the first match of the first `\\d+` if there is no `E` in the input string.\n\nThis is problematic for strings that do **not** end with a digit. Such a string will force the regular expression engine to process each digit sequence once per digit in the sequence, again leading to a quadratic time complexity.\n\nTo make the processing faster, the regular expression should be rewritten such that the two `\\d+` sub-expressions do not have overlapping matches: `\"^0\\\\.\\\\d+(E\\\\d+)?$\"`.\n\n\n## Example\nSometimes it is unclear how a regular expression can be rewritten to avoid the problem. In such cases, it often suffices to limit the length of the input string. For instance, the following regular expression is used to match numbers, and on some non-number inputs it can have quadratic time complexity:\n\n```java\n\nPattern.matches(\"^(\\\\+|-)?(\\\\d+|(\\\\d*\\\\.\\\\d*))?(E|e)?([-+])?(\\\\d+)?$\", str); \n```\nIt is not immediately obvious how to rewrite this regular expression to avoid the problem. However, you can mitigate performance issues by limiting the length to 1000 characters, which will always finish in a reasonable amount of time.\n\n```java\n\nif (str.length() > 1000) {\n    throw new IllegalArgumentException(\"Input too long\");\n}\n\nPattern.matches(\"^(\\\\+|-)?(\\\\d+|(\\\\d*\\\\.\\\\d*))?(E|e)?([-+])?(\\\\d+)?$\", str); \n```\n\n## References\n* OWASP: [Regular expression Denial of Service - ReDoS](https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS).\n* Wikipedia: [ReDoS](https://en.wikipedia.org/wiki/ReDoS).\n* Wikipedia: [Time complexity](https://en.wikipedia.org/wiki/Time_complexity).\n* James Kirrage, Asiri Rathnayake, Hayo Thielecke: [Static Analysis for Regular Expression Denial-of-Service Attack](https://arxiv.org/abs/1301.0849).\n* Common Weakness Enumeration: [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html).\n* Common Weakness Enumeration: [CWE-730](https://cwe.mitre.org/data/definitions/730.html).\n* Common Weakness Enumeration: [CWE-400](https://cwe.mitre.org/data/definitions/400.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "This regular expression that depends on a user-provided value may run slow on strings with many repetitions of ' '.\nThis regular expression that depends on a user-provided value may run slow on strings starting with 'content-disposition:' and with many repetitions of ' '.\nThis regular expression that depends on a user-provided value may run slow on strings with many repetitions of ' '.\nThis regular expression that depends on a user-provided value may run slow on strings starting with 'content-disposition:' and with many repetitions of ' '.\nThis regular expression that depends on a user-provided value may run slow on strings with many repetitions of ' '.\nThis regular expression that depends on a user-provided value may run slow on strings starting with 'content-disposition:' and with many repetitions of ' '."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/parosproxy/paros/core/scanner/VariantMultipartFormParameters.java",
+        "start_line": 95,
+        "end_line": 95,
+        "start_column": 66,
+        "end_column": 80
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/199/instances"
+  },
+  {
+    "number": 101,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/101",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/101",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/insecure-trustmanager",
+      "severity": "error",
+      "description": "`TrustManager` that accepts all certificates",
+      "name": "java/insecure-trustmanager",
+      "tags": ["external/cwe/cwe-295","security"],
+      "full_description": "Trusting all certificates allows an attacker to perform a machine-in-the-middle attack.",
+      "help": "# `TrustManager` that accepts all certificates\nIf the `checkServerTrusted` method of a `TrustManager` never throws a `CertificateException`, it trusts every certificate. This allows an attacker to perform a machine-in-the-middle attack against the application, therefore breaking any security Transport Layer Security (TLS) gives.\n\nAn attack might look like this:\n\n1. The vulnerable program connects to `https://example.com`.\n1. The attacker intercepts this connection and presents a valid, self-signed certificate for `https://example.com`.\n1. The vulnerable program calls the `checkServerTrusted` method to check whether it should trust the certificate.\n1. The `checkServerTrusted` method of your `TrustManager` does not throw a `CertificateException`.\n1. The vulnerable program accepts the certificate and proceeds with the connection since your `TrustManager` implicitly trusted it by not throwing an exception.\n1. The attacker can now read the data your program sends to `https://example.com` and/or alter its replies while the program thinks the connection is secure.\n\n## Recommendation\nDo not use a custom `TrustManager` that trusts any certificate. If you have to use a self-signed certificate, don't trust every certificate, but instead only trust this specific certificate. See below for an example of how to do this.\n\n\n## Example\nIn the first (bad) example, the `TrustManager` never throws a `CertificateException` and therefore implicitly trusts any certificate. This allows an attacker to perform a machine-in-the-middle attack. In the second (good) example, the self-signed certificate that should be trusted is loaded into a `KeyStore`. This explicitly defines the certificate as trusted and there is no need to create a custom `TrustManager`.\n\n\n```java\npublic static void main(String[] args) throws Exception {\n    {\n        class InsecureTrustManager implements X509TrustManager {\n            @Override\n            public X509Certificate[] getAcceptedIssuers() {\n                return null;\n            }\n\n            @Override\n            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {\n                // BAD: Does not verify the certificate chain, allowing any certificate.\n            }\n\n            @Override\n            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {\n\n            }\n        }\n        SSLContext context = SSLContext.getInstance(\"TLS\");\n        TrustManager[] trustManager = new TrustManager[] { new InsecureTrustManager() };\n        context.init(null, trustManager, null);\n    }\n    {\n        SSLContext context = SSLContext.getInstance(\"TLS\");\n        File certificateFile = new File(\"path/to/self-signed-certificate\");\n        // Create a `KeyStore` with default type\n        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());\n        // `keyStore` is initially empty\n        keyStore.load(null, null);\n        X509Certificate generatedCertificate;\n        try (InputStream cert = new FileInputStream(certificateFile)) {\n            generatedCertificate = (X509Certificate) CertificateFactory.getInstance(\"X509\")\n                    .generateCertificate(cert);\n        }\n        // Add the self-signed certificate to the key store\n        keyStore.setCertificateEntry(certificateFile.getName(), generatedCertificate);\n        // Get default `TrustManagerFactory`\n        TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());\n        // Use it with our key store that trusts our self-signed certificate\n        tmf.init(keyStore);\n        TrustManager[] trustManagers = tmf.getTrustManagers();\n        context.init(null, trustManagers, null);\n        // GOOD, we are not using a custom `TrustManager` but instead have\n        // added the self-signed certificate we want to trust to the key\n        // store. Note, the `trustManagers` will **only** trust this one\n        // certificate.\n        \n        URL url = new URL(\"https://self-signed.badssl.com/\");\n        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();\n        conn.setSSLSocketFactory(context.getSocketFactory());\n    }\n}\n\n```\n\n## References\n* Android Developers: [Security with HTTPS and SSL](https://developer.android.com/training/articles/security-ssl).\n* Common Weakness Enumeration: [CWE-295](https://cwe.mitre.org/data/definitions/295.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "This uses TrustManager, which is defined in SSLContextManager$ and trusts any certificate."
+      },
+      "location": {
+        "path": "zap/src/main/java/ch/csnc/extension/httpclient/SSLContextManager.java",
+        "start_line": 539,
+        "end_line": 539,
+        "start_column": 41,
+        "end_column": 55
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/101/instances"
+  },
+  {
+    "number": 100,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/100",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/100",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/insecure-trustmanager",
+      "severity": "error",
+      "description": "`TrustManager` that accepts all certificates",
+      "name": "java/insecure-trustmanager",
+      "tags": ["external/cwe/cwe-295","security"],
+      "full_description": "Trusting all certificates allows an attacker to perform a machine-in-the-middle attack.",
+      "help": "# `TrustManager` that accepts all certificates\nIf the `checkServerTrusted` method of a `TrustManager` never throws a `CertificateException`, it trusts every certificate. This allows an attacker to perform a machine-in-the-middle attack against the application, therefore breaking any security Transport Layer Security (TLS) gives.\n\nAn attack might look like this:\n\n1. The vulnerable program connects to `https://example.com`.\n1. The attacker intercepts this connection and presents a valid, self-signed certificate for `https://example.com`.\n1. The vulnerable program calls the `checkServerTrusted` method to check whether it should trust the certificate.\n1. The `checkServerTrusted` method of your `TrustManager` does not throw a `CertificateException`.\n1. The vulnerable program accepts the certificate and proceeds with the connection since your `TrustManager` implicitly trusted it by not throwing an exception.\n1. The attacker can now read the data your program sends to `https://example.com` and/or alter its replies while the program thinks the connection is secure.\n\n## Recommendation\nDo not use a custom `TrustManager` that trusts any certificate. If you have to use a self-signed certificate, don't trust every certificate, but instead only trust this specific certificate. See below for an example of how to do this.\n\n\n## Example\nIn the first (bad) example, the `TrustManager` never throws a `CertificateException` and therefore implicitly trusts any certificate. This allows an attacker to perform a machine-in-the-middle attack. In the second (good) example, the self-signed certificate that should be trusted is loaded into a `KeyStore`. This explicitly defines the certificate as trusted and there is no need to create a custom `TrustManager`.\n\n\n```java\npublic static void main(String[] args) throws Exception {\n    {\n        class InsecureTrustManager implements X509TrustManager {\n            @Override\n            public X509Certificate[] getAcceptedIssuers() {\n                return null;\n            }\n\n            @Override\n            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {\n                // BAD: Does not verify the certificate chain, allowing any certificate.\n            }\n\n            @Override\n            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {\n\n            }\n        }\n        SSLContext context = SSLContext.getInstance(\"TLS\");\n        TrustManager[] trustManager = new TrustManager[] { new InsecureTrustManager() };\n        context.init(null, trustManager, null);\n    }\n    {\n        SSLContext context = SSLContext.getInstance(\"TLS\");\n        File certificateFile = new File(\"path/to/self-signed-certificate\");\n        // Create a `KeyStore` with default type\n        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());\n        // `keyStore` is initially empty\n        keyStore.load(null, null);\n        X509Certificate generatedCertificate;\n        try (InputStream cert = new FileInputStream(certificateFile)) {\n            generatedCertificate = (X509Certificate) CertificateFactory.getInstance(\"X509\")\n                    .generateCertificate(cert);\n        }\n        // Add the self-signed certificate to the key store\n        keyStore.setCertificateEntry(certificateFile.getName(), generatedCertificate);\n        // Get default `TrustManagerFactory`\n        TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());\n        // Use it with our key store that trusts our self-signed certificate\n        tmf.init(keyStore);\n        TrustManager[] trustManagers = tmf.getTrustManagers();\n        context.init(null, trustManagers, null);\n        // GOOD, we are not using a custom `TrustManager` but instead have\n        // added the self-signed certificate we want to trust to the key\n        // store. Note, the `trustManagers` will **only** trust this one\n        // certificate.\n        \n        URL url = new URL(\"https://self-signed.badssl.com/\");\n        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();\n        conn.setSSLSocketFactory(context.getSocketFactory());\n    }\n}\n\n```\n\n## References\n* Android Developers: [Security with HTTPS and SSL](https://developer.android.com/training/articles/security-ssl).\n* Common Weakness Enumeration: [CWE-295](https://cwe.mitre.org/data/definitions/295.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "This uses TrustManager, which is defined in SSLContextManager$ and trusts any certificate."
+      },
+      "location": {
+        "path": "zap/src/main/java/ch/csnc/extension/httpclient/SSLContextManager.java",
+        "start_line": 152,
+        "end_line": 152,
+        "start_column": 45,
+        "end_column": 59
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/100/instances"
+  },
+  {
+    "number": 99,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/99",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/99",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/zipslip",
+      "severity": "error",
+      "description": "Arbitrary file access during archive extraction (\"Zip Slip\")",
+      "name": "java/zipslip",
+      "tags": ["external/cwe/cwe-022","security"],
+      "full_description": "Extracting files from a malicious ZIP file, or similar type of archive, without validating that the destination file path is within the destination directory can allow an attacker to unexpectedly gain access to resources.",
+      "help": "# Arbitrary file access during archive extraction (\"Zip Slip\")\nExtracting files from a malicious zip file, or similar type of archive, is at risk of directory traversal attacks if filenames from the archive are not properly validated.\n\nZip archives contain archive entries representing each file in the archive. These entries include a file path for the entry, but these file paths are not restricted and may contain unexpected special elements such as the directory traversal element (`..`). If these file paths are used to create a filesystem path, then a file operation may happen in an unexpected location. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\nFor example, if a zip file contains a file entry `..\\sneaky-file`, and the zip file is extracted to the directory `c:\\output`, then naively combining the paths would result in an output file path of `c:\\output\\..\\sneaky-file`, which would cause the file to be written to `c:\\sneaky-file`.\n\n\n## Recommendation\nEnsure that output paths constructed from zip archive entries are validated to prevent writing files to unexpected locations.\n\nThe recommended way of writing an output file from a zip archive entry is to verify that the normalized full path of the output file starts with a prefix that matches the destination directory. Path normalization can be done with either `java.io.File.getCanonicalFile()` or `java.nio.file.Path.normalize()`. Prefix checking can be done with `String.startsWith(..)`, but it is better to use `java.nio.file.Path.startsWith(..)`, as the latter works on complete path segments.\n\nAnother alternative is to validate archive entries against a whitelist of expected files.\n\n\n## Example\nIn this example, a file path taken from a zip archive item entry is combined with a destination directory. The result is used as the destination file path without verifying that the result is within the destination directory. If provided with a zip file containing an archive path like `..\\sneaky-file`, then this file would be written outside the destination directory.\n\n\n```java\nvoid writeZipEntry(ZipEntry entry, File destinationDir) {\n    File file = new File(destinationDir, entry.getName());\n    FileOutputStream fos = new FileOutputStream(file); // BAD\n    // ... write entry to fos ...\n}\n\n```\nTo fix this vulnerability, we need to verify that the normalized `file` still has `destinationDir` as its prefix, and throw an exception if this is not the case.\n\n\n```java\nvoid writeZipEntry(ZipEntry entry, File destinationDir) {\n    File file = new File(destinationDir, entry.getName());\n    if (!file.toPath().normalize().startsWith(destinationDir.toPath()))\n        throw new Exception(\"Bad zip entry\");\n    FileOutputStream fos = new FileOutputStream(file); // OK\n    // ... write entry to fos ...\n}\n\n```\n\n## References\n* Snyk: [Zip Slip Vulnerability](https://snyk.io/research/zip-slip-vulnerability).\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Unsanitized archive entry, which may contain '..', is used in a file system operation."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/zaproxy/zap/extension/lang/LangImporter.java",
+        "start_line": 70,
+        "end_line": 70,
+        "start_column": 39,
+        "end_column": 57
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/99/instances"
+  },
+  {
+    "number": 98,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/98",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/98",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "full_description": "Using broken or weak cryptographic algorithms can allow an attacker to compromise security.",
+      "help": "# Use of a broken or risky cryptographic algorithm\nUsing broken or weak cryptographic algorithms can leave data vulnerable to being decrypted.\n\nMany cryptographic algorithms provided by cryptography libraries are known to be weak, or flawed. Using such an algorithm means that an attacker may be able to easily decrypt the encrypted data.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic algorithm. Use at least AES-128 or RSA-2048. Do not use the ECB encryption mode since it is vulnerable to replay and other attacks.\n\n\n## Example\nThe following code shows an example of using a java `Cipher` to encrypt some data. When creating a `Cipher` instance, you must specify the encryption algorithm to use. The first example uses DES, which is an older algorithm that is now considered weak. The second example uses AES, which is a strong modern algorithm.\n\n\n```java\n// BAD: DES is a weak algorithm \nCipher des = Cipher.getInstance(\"DES\");\ncipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);\n\nbyte[] encrypted = cipher.doFinal(input.getBytes(\"UTF-8\"));\n\n// ...\n\n// GOOD: AES is a strong algorithm\nCipher aes = Cipher.getInstance(\"AES\");\n\n// ...\n\n```\n\n## References\n* NIST, FIPS 140 Annex a: [ Approved Security Functions](http://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf).\n* NIST, SP 800-131A: [ Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Cryptographic algorithm MD5 is weak and should not be used."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+        "start_line": 1860,
+        "end_line": 1860,
+        "start_column": 20,
+        "end_column": 52
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/98/instances"
+  },
+  {
+    "number": 97,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/97",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/97",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "full_description": "Using broken or weak cryptographic algorithms can allow an attacker to compromise security.",
+      "help": "# Use of a broken or risky cryptographic algorithm\nUsing broken or weak cryptographic algorithms can leave data vulnerable to being decrypted.\n\nMany cryptographic algorithms provided by cryptography libraries are known to be weak, or flawed. Using such an algorithm means that an attacker may be able to easily decrypt the encrypted data.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic algorithm. Use at least AES-128 or RSA-2048. Do not use the ECB encryption mode since it is vulnerable to replay and other attacks.\n\n\n## Example\nThe following code shows an example of using a java `Cipher` to encrypt some data. When creating a `Cipher` instance, you must specify the encryption algorithm to use. The first example uses DES, which is an older algorithm that is now considered weak. The second example uses AES, which is a strong modern algorithm.\n\n\n```java\n// BAD: DES is a weak algorithm \nCipher des = Cipher.getInstance(\"DES\");\ncipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);\n\nbyte[] encrypted = cipher.doFinal(input.getBytes(\"UTF-8\"));\n\n// ...\n\n// GOOD: AES is a strong algorithm\nCipher aes = Cipher.getInstance(\"AES\");\n\n// ...\n\n```\n\n## References\n* NIST, FIPS 140 Annex a: [ Approved Security Functions](http://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf).\n* NIST, SP 800-131A: [ Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Cryptographic algorithm DES is weak and should not be used."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+        "start_line": 1026,
+        "end_line": 1026,
+        "start_column": 16,
+        "end_column": 50
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/97/instances"
+  },
+  {
+    "number": 96,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/96",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/96",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "full_description": "Using broken or weak cryptographic algorithms can allow an attacker to compromise security.",
+      "help": "# Use of a broken or risky cryptographic algorithm\nUsing broken or weak cryptographic algorithms can leave data vulnerable to being decrypted.\n\nMany cryptographic algorithms provided by cryptography libraries are known to be weak, or flawed. Using such an algorithm means that an attacker may be able to easily decrypt the encrypted data.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic algorithm. Use at least AES-128 or RSA-2048. Do not use the ECB encryption mode since it is vulnerable to replay and other attacks.\n\n\n## Example\nThe following code shows an example of using a java `Cipher` to encrypt some data. When creating a `Cipher` instance, you must specify the encryption algorithm to use. The first example uses DES, which is an older algorithm that is now considered weak. The second example uses AES, which is a strong modern algorithm.\n\n\n```java\n// BAD: DES is a weak algorithm \nCipher des = Cipher.getInstance(\"DES\");\ncipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);\n\nbyte[] encrypted = cipher.doFinal(input.getBytes(\"UTF-8\"));\n\n// ...\n\n// GOOD: AES is a strong algorithm\nCipher aes = Cipher.getInstance(\"AES\");\n\n// ...\n\n```\n\n## References\n* NIST, FIPS 140 Annex a: [ Approved Security Functions](http://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf).\n* NIST, SP 800-131A: [ Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Cryptographic algorithm RC4 is weak and should not be used."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+        "start_line": 851,
+        "end_line": 851,
+        "start_column": 55,
+        "end_column": 93
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/96/instances"
+  },
+  {
+    "number": 95,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/95",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/95",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "full_description": "Using broken or weak cryptographic algorithms can allow an attacker to compromise security.",
+      "help": "# Use of a broken or risky cryptographic algorithm\nUsing broken or weak cryptographic algorithms can leave data vulnerable to being decrypted.\n\nMany cryptographic algorithms provided by cryptography libraries are known to be weak, or flawed. Using such an algorithm means that an attacker may be able to easily decrypt the encrypted data.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic algorithm. Use at least AES-128 or RSA-2048. Do not use the ECB encryption mode since it is vulnerable to replay and other attacks.\n\n\n## Example\nThe following code shows an example of using a java `Cipher` to encrypt some data. When creating a `Cipher` instance, you must specify the encryption algorithm to use. The first example uses DES, which is an older algorithm that is now considered weak. The second example uses AES, which is a strong modern algorithm.\n\n\n```java\n// BAD: DES is a weak algorithm \nCipher des = Cipher.getInstance(\"DES\");\ncipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);\n\nbyte[] encrypted = cipher.doFinal(input.getBytes(\"UTF-8\"));\n\n// ...\n\n// GOOD: AES is a strong algorithm\nCipher aes = Cipher.getInstance(\"AES\");\n\n// ...\n\n```\n\n## References\n* NIST, FIPS 140 Annex a: [ Approved Security Functions](http://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf).\n* NIST, SP 800-131A: [ Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Cryptographic algorithm RC4 is weak and should not be used."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+        "start_line": 847,
+        "end_line": 847,
+        "start_column": 55,
+        "end_column": 93
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/95/instances"
+  },
+  {
+    "number": 94,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/94",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/94",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "full_description": "Using broken or weak cryptographic algorithms can allow an attacker to compromise security.",
+      "help": "# Use of a broken or risky cryptographic algorithm\nUsing broken or weak cryptographic algorithms can leave data vulnerable to being decrypted.\n\nMany cryptographic algorithms provided by cryptography libraries are known to be weak, or flawed. Using such an algorithm means that an attacker may be able to easily decrypt the encrypted data.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic algorithm. Use at least AES-128 or RSA-2048. Do not use the ECB encryption mode since it is vulnerable to replay and other attacks.\n\n\n## Example\nThe following code shows an example of using a java `Cipher` to encrypt some data. When creating a `Cipher` instance, you must specify the encryption algorithm to use. The first example uses DES, which is an older algorithm that is now considered weak. The second example uses AES, which is a strong modern algorithm.\n\n\n```java\n// BAD: DES is a weak algorithm \nCipher des = Cipher.getInstance(\"DES\");\ncipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);\n\nbyte[] encrypted = cipher.doFinal(input.getBytes(\"UTF-8\"));\n\n// ...\n\n// GOOD: AES is a strong algorithm\nCipher aes = Cipher.getInstance(\"AES\");\n\n// ...\n\n```\n\n## References\n* NIST, FIPS 140 Annex a: [ Approved Security Functions](http://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf).\n* NIST, SP 800-131A: [ Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Cryptographic algorithm RC4 is weak and should not be used."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+        "start_line": 844,
+        "end_line": 844,
+        "start_column": 26,
+        "end_column": 53
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/94/instances"
+  },
+  {
+    "number": 93,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/93",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/93",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "full_description": "Using broken or weak cryptographic algorithms can allow an attacker to compromise security.",
+      "help": "# Use of a broken or risky cryptographic algorithm\nUsing broken or weak cryptographic algorithms can leave data vulnerable to being decrypted.\n\nMany cryptographic algorithms provided by cryptography libraries are known to be weak, or flawed. Using such an algorithm means that an attacker may be able to easily decrypt the encrypted data.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic algorithm. Use at least AES-128 or RSA-2048. Do not use the ECB encryption mode since it is vulnerable to replay and other attacks.\n\n\n## Example\nThe following code shows an example of using a java `Cipher` to encrypt some data. When creating a `Cipher` instance, you must specify the encryption algorithm to use. The first example uses DES, which is an older algorithm that is now considered weak. The second example uses AES, which is a strong modern algorithm.\n\n\n```java\n// BAD: DES is a weak algorithm \nCipher des = Cipher.getInstance(\"DES\");\ncipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);\n\nbyte[] encrypted = cipher.doFinal(input.getBytes(\"UTF-8\"));\n\n// ...\n\n// GOOD: AES is a strong algorithm\nCipher aes = Cipher.getInstance(\"AES\");\n\n// ...\n\n```\n\n## References\n* NIST, FIPS 140 Annex a: [ Approved Security Functions](http://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf).\n* NIST, SP 800-131A: [ Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Cryptographic algorithm DES/ECB/NoPadding is weak and should not be used."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+        "start_line": 737,
+        "end_line": 737,
+        "start_column": 32,
+        "end_column": 71
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/93/instances"
+  },
+  {
+    "number": 92,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/92",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/92",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "full_description": "Using broken or weak cryptographic algorithms can allow an attacker to compromise security.",
+      "help": "# Use of a broken or risky cryptographic algorithm\nUsing broken or weak cryptographic algorithms can leave data vulnerable to being decrypted.\n\nMany cryptographic algorithms provided by cryptography libraries are known to be weak, or flawed. Using such an algorithm means that an attacker may be able to easily decrypt the encrypted data.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic algorithm. Use at least AES-128 or RSA-2048. Do not use the ECB encryption mode since it is vulnerable to replay and other attacks.\n\n\n## Example\nThe following code shows an example of using a java `Cipher` to encrypt some data. When creating a `Cipher` instance, you must specify the encryption algorithm to use. The first example uses DES, which is an older algorithm that is now considered weak. The second example uses AES, which is a strong modern algorithm.\n\n\n```java\n// BAD: DES is a weak algorithm \nCipher des = Cipher.getInstance(\"DES\");\ncipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);\n\nbyte[] encrypted = cipher.doFinal(input.getBytes(\"UTF-8\"));\n\n// ...\n\n// GOOD: AES is a strong algorithm\nCipher aes = Cipher.getInstance(\"AES\");\n\n// ...\n\n```\n\n## References\n* NIST, FIPS 140 Annex a: [ Approved Security Functions](http://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf).\n* NIST, SP 800-131A: [ Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Cryptographic algorithm DES/ECB/NoPadding is weak and should not be used."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+        "start_line": 647,
+        "end_line": 647,
+        "start_column": 32,
+        "end_column": 71
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/92/instances"
+  },
+  {
+    "number": 91,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/91",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/91",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "full_description": "Using broken or weak cryptographic algorithms can allow an attacker to compromise security.",
+      "help": "# Use of a broken or risky cryptographic algorithm\nUsing broken or weak cryptographic algorithms can leave data vulnerable to being decrypted.\n\nMany cryptographic algorithms provided by cryptography libraries are known to be weak, or flawed. Using such an algorithm means that an attacker may be able to easily decrypt the encrypted data.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic algorithm. Use at least AES-128 or RSA-2048. Do not use the ECB encryption mode since it is vulnerable to replay and other attacks.\n\n\n## Example\nThe following code shows an example of using a java `Cipher` to encrypt some data. When creating a `Cipher` instance, you must specify the encryption algorithm to use. The first example uses DES, which is an older algorithm that is now considered weak. The second example uses AES, which is a strong modern algorithm.\n\n\n```java\n// BAD: DES is a weak algorithm \nCipher des = Cipher.getInstance(\"DES\");\ncipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);\n\nbyte[] encrypted = cipher.doFinal(input.getBytes(\"UTF-8\"));\n\n// ...\n\n// GOOD: AES is a strong algorithm\nCipher aes = Cipher.getInstance(\"AES\");\n\n// ...\n\n```\n\n## References\n* NIST, FIPS 140 Annex a: [ Approved Security Functions](http://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf).\n* NIST, SP 800-131A: [ Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Cryptographic algorithm RC4 is weak and should not be used."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+        "start_line": 595,
+        "end_line": 595,
+        "start_column": 43,
+        "end_column": 72
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/91/instances"
+  },
+  {
+    "number": 90,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/90",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/90",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "full_description": "Using broken or weak cryptographic algorithms can allow an attacker to compromise security.",
+      "help": "# Use of a broken or risky cryptographic algorithm\nUsing broken or weak cryptographic algorithms can leave data vulnerable to being decrypted.\n\nMany cryptographic algorithms provided by cryptography libraries are known to be weak, or flawed. Using such an algorithm means that an attacker may be able to easily decrypt the encrypted data.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic algorithm. Use at least AES-128 or RSA-2048. Do not use the ECB encryption mode since it is vulnerable to replay and other attacks.\n\n\n## Example\nThe following code shows an example of using a java `Cipher` to encrypt some data. When creating a `Cipher` instance, you must specify the encryption algorithm to use. The first example uses DES, which is an older algorithm that is now considered weak. The second example uses AES, which is a strong modern algorithm.\n\n\n```java\n// BAD: DES is a weak algorithm \nCipher des = Cipher.getInstance(\"DES\");\ncipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);\n\nbyte[] encrypted = cipher.doFinal(input.getBytes(\"UTF-8\"));\n\n// ...\n\n// GOOD: AES is a strong algorithm\nCipher aes = Cipher.getInstance(\"AES\");\n\n// ...\n\n```\n\n## References\n* NIST, FIPS 140 Annex a: [ Approved Security Functions](http://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf).\n* NIST, SP 800-131A: [ Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Cryptographic algorithm RC4 is weak and should not be used."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+        "start_line": 594,
+        "end_line": 594,
+        "start_column": 32,
+        "end_column": 57
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/90/instances"
+  },
+  {
+    "number": 89,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/89",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/89",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "full_description": "Using broken or weak cryptographic algorithms can allow an attacker to compromise security.",
+      "help": "# Use of a broken or risky cryptographic algorithm\nUsing broken or weak cryptographic algorithms can leave data vulnerable to being decrypted.\n\nMany cryptographic algorithms provided by cryptography libraries are known to be weak, or flawed. Using such an algorithm means that an attacker may be able to easily decrypt the encrypted data.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic algorithm. Use at least AES-128 or RSA-2048. Do not use the ECB encryption mode since it is vulnerable to replay and other attacks.\n\n\n## Example\nThe following code shows an example of using a java `Cipher` to encrypt some data. When creating a `Cipher` instance, you must specify the encryption algorithm to use. The first example uses DES, which is an older algorithm that is now considered weak. The second example uses AES, which is a strong modern algorithm.\n\n\n```java\n// BAD: DES is a weak algorithm \nCipher des = Cipher.getInstance(\"DES\");\ncipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);\n\nbyte[] encrypted = cipher.doFinal(input.getBytes(\"UTF-8\"));\n\n// ...\n\n// GOOD: AES is a strong algorithm\nCipher aes = Cipher.getInstance(\"AES\");\n\n// ...\n\n```\n\n## References\n* NIST, FIPS 140 Annex a: [ Approved Security Functions](http://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf).\n* NIST, SP 800-131A: [ Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Cryptographic algorithm DES/ECB/NoPadding is weak and should not be used."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+        "start_line": 568,
+        "end_line": 568,
+        "start_column": 27,
+        "end_column": 66
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/89/instances"
+  },
+  {
+    "number": 88,
+    "created_at": "2023-03-15T07:34:10Z",
+    "updated_at": "2024-09-16T05:44:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/88",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/88",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/weak-cryptographic-algorithm",
+      "severity": "warning",
+      "description": "Use of a broken or risky cryptographic algorithm",
+      "name": "java/weak-cryptographic-algorithm",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","security"],
+      "full_description": "Using broken or weak cryptographic algorithms can allow an attacker to compromise security.",
+      "help": "# Use of a broken or risky cryptographic algorithm\nUsing broken or weak cryptographic algorithms can leave data vulnerable to being decrypted.\n\nMany cryptographic algorithms provided by cryptography libraries are known to be weak, or flawed. Using such an algorithm means that an attacker may be able to easily decrypt the encrypted data.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic algorithm. Use at least AES-128 or RSA-2048. Do not use the ECB encryption mode since it is vulnerable to replay and other attacks.\n\n\n## Example\nThe following code shows an example of using a java `Cipher` to encrypt some data. When creating a `Cipher` instance, you must specify the encryption algorithm to use. The first example uses DES, which is an older algorithm that is now considered weak. The second example uses AES, which is a strong modern algorithm.\n\n\n```java\n// BAD: DES is a weak algorithm \nCipher des = Cipher.getInstance(\"DES\");\ncipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);\n\nbyte[] encrypted = cipher.doFinal(input.getBytes(\"UTF-8\"));\n\n// ...\n\n// GOOD: AES is a strong algorithm\nCipher aes = Cipher.getInstance(\"AES\");\n\n// ...\n\n```\n\n## References\n* NIST, FIPS 140 Annex a: [ Approved Security Functions](http://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf).\n* NIST, SP 800-131A: [ Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf).\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"java\"}",
+      "category": "/language:java",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Cryptographic algorithm DES/ECB/NoPadding is weak and should not be used."
+      },
+      "location": {
+        "path": "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+        "start_line": 565,
+        "end_line": 565,
+        "start_column": 34,
+        "end_column": 73
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/88/instances"
+  },
+  {
+    "number": 87,
+    "created_at": "2023-03-15T07:29:04Z",
+    "updated_at": "2024-09-16T05:38:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/87",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/87",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/functionality-from-untrusted-source",
+      "severity": "warning",
+      "description": "Inclusion of functionality from an untrusted source",
+      "name": "js/functionality-from-untrusted-source",
+      "tags": ["external/cwe/cwe-830","security"],
+      "full_description": "Including functionality from an untrusted source may allow an attacker to control the functionality and execute arbitrary code.",
+      "help": "# Inclusion of functionality from an untrusted source\nIncluding a resource from an untrusted source or using an untrusted channel may allow an attacker to include arbitrary code in the response. When including an external resource (for example, a `script` element or an `iframe` element) on a page, it is important to ensure that the received data is not malicious.\n\nWhen including external resources, it is possible to verify that the responding server is the intended one by using an `https` URL. This prevents a MITM (man-in-the-middle) attack where an attacker might have been able to spoof a server response.\n\nEven when `https` is used, an attacker might still compromise the server. When you use a `script` element, you can check for subresource integrity - that is, you can check the contents of the data received by supplying a cryptographic digest of the expected sources to the `script` element. The script will only load sources that match the digest and an attacker will be unable to modify the script even when the server is compromised.\n\nSubresource integrity (SRI) checking is commonly recommended when importing a fixed version of a library - for example, from a CDN (content-delivery network). Then, the fixed digest of that version of the library can easily be added to the `script` element's `integrity` attribute.\n\nA dynamic service cannot be easily used with SRI. Nevertheless, it is possible to list multiple acceptable SHA hashes in the `integrity` attribute, such as those for the content generated for major browers used by your users.\n\nSee the \\[\\`CUSTOMIZING.md\\`\\](https://github.com/github/codeql/blob/main/javascript/ql/src/Security/CWE-830/CUSTOMIZING.md) file in the source code for this query for information on how to extend the list of hostnames required to use SRI by this query.\n\n\n## Recommendation\nWhen an `iframe` element is used to embed a page, it is important to use an `https` URL.\n\nWhen using a `script` element to load a script, it is important to use an `https` URL and to consider checking subresource integrity.\n\n\n## Example\nThe following example loads the jQuery library from the jQuery CDN without using `https` and without checking subresource integrity.\n\n\n```html\n<html>\n    <head>\n        <title>jQuery demo</title>\n        <script src=\"http://code.jquery.com/jquery-3.6.0.slim.min.js\" crossorigin=\"anonymous\"></script>\n    </head>\n    <body>\n        ...\n    </body>\n</html>\n```\nInstead, loading jQuery from the same domain using `https` and checking subresource integrity is recommended, as in the next example.\n\n\n```html\n<html>\n    <head>\n        <title>jQuery demo</title>\n        <script src=\"https://code.jquery.com/jquery-3.6.0.slim.min.js\" integrity=\"sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=\" crossorigin=\"anonymous\"></script>\n    </head>\n    <body>\n        ...\n    </body>\n</html>\n```\n\n## References\n* MDN: [Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity)\n* Smashing Magazine: [Understanding Subresource Integrity](https://www.smashingmagazine.com/2019/04/understanding-subresource-integrity/)\n* Common Weakness Enumeration: [CWE-830](https://cwe.mitre.org/data/definitions/830.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": "/language:javascript",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Script loaded using unencrypted connection."
+      },
+      "location": {
+        "path": "zap/src/test/resources/org/zaproxy/zap/spider/parser/html/ScriptElementsSpiderHtmlParser.html",
+        "start_line": 9,
+        "end_line": 9,
+        "start_column": 1,
+        "end_column": 57
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/87/instances"
+  },
+  {
+    "number": 86,
+    "created_at": "2023-03-15T07:29:04Z",
+    "updated_at": "2024-09-16T05:38:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/86",
+    "html_url": "https://github.com/Be-Secure/zaproxy/security/code-scanning/86",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/functionality-from-untrusted-source",
+      "severity": "warning",
+      "description": "Inclusion of functionality from an untrusted source",
+      "name": "js/functionality-from-untrusted-source",
+      "tags": ["external/cwe/cwe-830","security"],
+      "full_description": "Including functionality from an untrusted source may allow an attacker to control the functionality and execute arbitrary code.",
+      "help": "# Inclusion of functionality from an untrusted source\nIncluding a resource from an untrusted source or using an untrusted channel may allow an attacker to include arbitrary code in the response. When including an external resource (for example, a `script` element or an `iframe` element) on a page, it is important to ensure that the received data is not malicious.\n\nWhen including external resources, it is possible to verify that the responding server is the intended one by using an `https` URL. This prevents a MITM (man-in-the-middle) attack where an attacker might have been able to spoof a server response.\n\nEven when `https` is used, an attacker might still compromise the server. When you use a `script` element, you can check for subresource integrity - that is, you can check the contents of the data received by supplying a cryptographic digest of the expected sources to the `script` element. The script will only load sources that match the digest and an attacker will be unable to modify the script even when the server is compromised.\n\nSubresource integrity (SRI) checking is commonly recommended when importing a fixed version of a library - for example, from a CDN (content-delivery network). Then, the fixed digest of that version of the library can easily be added to the `script` element's `integrity` attribute.\n\nA dynamic service cannot be easily used with SRI. Nevertheless, it is possible to list multiple acceptable SHA hashes in the `integrity` attribute, such as those for the content generated for major browers used by your users.\n\nSee the \\[\\`CUSTOMIZING.md\\`\\](https://github.com/github/codeql/blob/main/javascript/ql/src/Security/CWE-830/CUSTOMIZING.md) file in the source code for this query for information on how to extend the list of hostnames required to use SRI by this query.\n\n\n## Recommendation\nWhen an `iframe` element is used to embed a page, it is important to use an `https` URL.\n\nWhen using a `script` element to load a script, it is important to use an `https` URL and to consider checking subresource integrity.\n\n\n## Example\nThe following example loads the jQuery library from the jQuery CDN without using `https` and without checking subresource integrity.\n\n\n```html\n<html>\n    <head>\n        <title>jQuery demo</title>\n        <script src=\"http://code.jquery.com/jquery-3.6.0.slim.min.js\" crossorigin=\"anonymous\"></script>\n    </head>\n    <body>\n        ...\n    </body>\n</html>\n```\nInstead, loading jQuery from the same domain using `https` and checking subresource integrity is recommended, as in the next example.\n\n\n```html\n<html>\n    <head>\n        <title>jQuery demo</title>\n        <script src=\"https://code.jquery.com/jquery-3.6.0.slim.min.js\" integrity=\"sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=\" crossorigin=\"anonymous\"></script>\n    </head>\n    <body>\n        ...\n    </body>\n</html>\n```\n\n## References\n* MDN: [Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity)\n* Smashing Magazine: [Understanding Subresource Integrity](https://www.smashingmagazine.com/2019/04/understanding-subresource-integrity/)\n* Common Weakness Enumeration: [CWE-830](https://cwe.mitre.org/data/definitions/830.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v2.15.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"language\":\"javascript\"}",
+      "category": "/language:javascript",
+      "state": "open",
+      "commit_sha": "af2b7187b66d4807a2d51c75da3e01b426a0a6a7",
+      "message": {
+        "text": "Iframe loaded using unencrypted connection."
+      },
+      "location": {
+        "path": "zap/src/test/resources/org/zaproxy/zap/spider/parser/html/IFrameElementsSpiderHtmlParser.html",
+        "start_line": 10,
+        "end_line": 10,
+        "start_column": 1,
+        "end_column": 57
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/zaproxy/code-scanning/alerts/86/instances"
+  }
+]

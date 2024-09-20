@@ -1,0 +1,50 @@
+[
+  {
+    "number": 125,
+    "created_at": "2024-09-16T10:11:36Z",
+    "updated_at": "2024-09-16T10:11:39Z",
+    "url": "https://api.github.com/repos/Be-Secure/trivy/code-scanning/alerts/125",
+    "html_url": "https://github.com/Be-Secure/trivy/security/code-scanning/125",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incomplete-hostname-regexp",
+      "severity": "warning",
+      "description": "Incomplete regular expression for hostnames",
+      "name": "go/incomplete-hostname-regexp",
+      "tags": ["correctness","external/cwe/cwe-20","security"],
+      "full_description": "Matching a URL or hostname against a regular expression that contains an unescaped dot as part of the hostname might match more hostnames than expected.",
+      "help": "# Incomplete regular expression for hostnames\nSanitizing untrusted URLs is an important technique for preventing attacks such as request forgeries and malicious redirections. Often, this is done by checking that the host of a URL is in a set of allowed hosts.\n\nIf a regular expression implements such a check, it is easy to accidentally make the check too permissive by not escaping regular-expression meta-characters such as `.`.\n\nEven if the check is not used in a security-critical context, the incomplete check may still cause undesirable behavior when it accidentally succeeds.\n\n\n## Recommendation\nEscape all meta-characters appropriately when constructing regular expressions for security checks, paying special attention to the `.` meta-character.\n\n\n## Example\nThe following example code checks that a URL redirection will reach the `example.com` domain, or one of its subdomains.\n\n\n```go\npackage main\n\nimport (\n\t\"errors\"\n\t\"net/http\"\n\t\"regexp\"\n)\n\nfunc checkRedirect(req *http.Request, via []*http.Request) error {\n\t// BAD: the host of `req.URL` may be controlled by an attacker\n\tre := \"^((www|beta).)?example.com/\"\n\tif matched, _ := regexp.MatchString(re, req.URL.Host); matched {\n\t\treturn nil\n\t}\n\treturn errors.New(\"Invalid redirect\")\n}\n\n```\nThe check is however easy to bypass because the unescaped `.` allows for any character before `example.com`, effectively allowing the redirect to go to an attacker-controlled domain such as `wwwXexample.com`.\n\nAddress this vulnerability by escaping `.` appropriately:\n\n\n```go\npackage main\n\nimport (\n\t\"errors\"\n\t\"net/http\"\n\t\"regexp\"\n)\n\nfunc checkRedirectGood(req *http.Request, via []*http.Request) error {\n\t// GOOD: the host of `req.URL` must be `example.com`, `www.example.com` or `beta.example.com`\n\tre := \"^((www|beta)\\\\.)?example\\\\.com/\"\n\tif matched, _ := regexp.MatchString(re, req.URL.Host); matched {\n\t\treturn nil\n\t}\n\treturn errors.New(\"Invalid redirect\")\n}\n\n```\nYou may also want to consider using raw string literals to avoid having to escape backslashes:\n\n\n```go\npackage main\n\nimport (\n\t\"errors\"\n\t\"net/http\"\n\t\"regexp\"\n)\n\nfunc checkRedirectGood2(req *http.Request, via []*http.Request) error {\n\t// GOOD: the host of `req.URL` must be `example.com`, `www.example.com` or `beta.example.com`\n\tre := `^((www|beta)\\.)?example\\.com/`\n\tif matched, _ := regexp.MatchString(re, req.URL.Host); matched {\n\t\treturn nil\n\t}\n\treturn errors.New(\"Invalid redirect\")\n}\n\n```\n\n## References\n* OWASP: [SSRF](https://www.owasp.org/index.php/Server_Side_Request_Forgery)\n* OWASP: [Unvalidated Redirects and Forwards Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.55.1_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "578bdd40b0e311214271bddd8c3ff1d00e8cea48",
+      "message": {
+        "text": "This regular expression has an unescaped dot before 'slack.com', so it might match more hosts than expected when the regular expression is used."
+      },
+      "location": {
+        "path": "pkg/fanal/secret/builtin-rules.go",
+        "start_line": 256,
+        "end_line": 256,
+        "start_column": 25,
+        "end_column": 85
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/trivy/code-scanning/alerts/125/instances"
+  }
+]

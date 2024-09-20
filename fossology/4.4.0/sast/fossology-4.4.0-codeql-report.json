@@ -1,0 +1,1154 @@
+[
+  {
+    "number": 24,
+    "created_at": "2024-09-18T09:27:23Z",
+    "updated_at": "2024-09-18T09:27:25Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/24",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/24",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/maven/non-https-url",
+      "severity": "error",
+      "description": "Failure to use HTTPS or SFTP URL in Maven artifact upload/download",
+      "name": "java/maven/non-https-url",
+      "tags": ["external/cwe/cwe-300","external/cwe/cwe-319","external/cwe/cwe-494","external/cwe/cwe-829","security"],
+      "full_description": "Non-HTTPS connections can be intercepted by third parties.",
+      "help": "# Failure to use HTTPS or SFTP URL in Maven artifact upload/download\nUsing an insecure protocol like HTTP or FTP to download your dependencies leaves your Maven build vulnerable to a [Man in the Middle (MITM)](https://en.wikipedia.org/wiki/Man-in-the-middle_attack). This can allow attackers to inject malicious code into the artifacts that you are resolving and infect build artifacts that are being produced. This can be used by attackers to perform a [Supply chain attack](https://en.wikipedia.org/wiki/Supply_chain_attack) against your project's users.\n\nThis vulnerability has a [ CVSS v3.1 base score of 8.1/10 ](https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H&version=3.1).\n\n\n## Recommendation\nAlways use HTTPS or SFTP to download artifacts from artifact servers.\n\n\n## Example\nThese examples show examples of locations in Maven POM files where artifact repository upload/download is configured. The first shows the use of HTTP, the second shows the use of HTTPS.\n\n\n```xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>com.semmle</groupId>\n    <artifactId>parent</artifactId>\n    <version>1.0</version>\n    <packaging>pom</packaging>\n\n    <name>Security Testing</name>\n    <description>An example of insecure download and upload of dependencies</description>\n\n    <distributionManagement>\n        <repository>\n            <id>insecure-releases</id>\n            <name>Insecure Repository Releases</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </repository>\n        <snapshotRepository>\n            <id>insecure-snapshots</id>\n            <name>Insecure Repository Snapshots</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </snapshotRepository>\n    </distributionManagement>\n    <repositories>\n        <repository>\n            <id>insecure</id>\n            <name>Insecure Repository</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </repository>\n    </repositories>\n    <pluginRepositories>\n        <pluginRepository>\n            <id>insecure-plugins</id>\n            <name>Insecure Repository Releases</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </pluginRepository>\n    </pluginRepositories>\n</project>\n\n```\n\n```xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>com.semmle</groupId>\n    <artifactId>parent</artifactId>\n    <version>1.0</version>\n    <packaging>pom</packaging>\n\n    <name>Security Testing</name>\n    <description>An example of secure download and upload of dependencies</description>\n\n    <distributionManagement>\n        <repository>\n            <id>insecure-releases</id>\n            <name>Secure Repository Releases</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </repository>\n        <snapshotRepository>\n            <id>insecure-snapshots</id>\n            <name>Secure Repository Snapshots</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </snapshotRepository>\n    </distributionManagement>\n    <repositories>\n        <repository>\n            <id>insecure</id>\n            <name>Secure Repository</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </repository>\n    </repositories>\n    <pluginRepositories>\n        <pluginRepository>\n            <id>insecure-plugins</id>\n            <name>Secure Repository Releases</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </pluginRepository>\n    </pluginRepositories>\n</project>\n\n```\n\n## References\n* Research: [ Want to take over the Java ecosystem? All you need is a MITM! ](https://medium.com/bugbountywriteup/want-to-take-over-the-java-ecosystem-all-you-need-is-a-mitm-1fc329d898fb?source=friends_link&sk=3c99970c55a899ad9ef41f126efcde0e)\n* Research: [ How to take over the computer of any Java (or Closure or Scala) Developer. ](https://max.computer/blog/how-to-take-over-the-computer-of-any-java-or-clojure-or-scala-developer/)\n* Proof of Concept: [ mveytsman/dilettante ](https://github.com/mveytsman/dilettante)\n* Additional Gradle &amp; Maven plugin: [ Announcing nohttp ](https://spring.io/blog/2019/06/10/announcing-nohttp)\n* Java Ecosystem Announcement: [ HTTP Decommission Artifact Server Announcements ](https://gist.github.com/JLLeitschuh/789e49e3d34092a005031a0a1880af99)\n* Common Weakness Enumeration: [CWE-300](https://cwe.mitre.org/data/definitions/300.html).\n* Common Weakness Enumeration: [CWE-319](https://cwe.mitre.org/data/definitions/319.html).\n* Common Weakness Enumeration: [CWE-494](https://cwe.mitre.org/data/definitions/494.html).\n* Common Weakness Enumeration: [CWE-829](https://cwe.mitre.org/data/definitions/829.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "Downloading or uploading artifacts over insecure protocol (eg. http or ftp) to/from repository http://repo.maven.apache.org/maven2/"
+      },
+      "location": {
+        "path": "src/nomos/agent_tests/testdata/NomosTestfiles/CDDL/CDDL-1.0-ref.xml",
+        "start_line": 226,
+        "end_line": 229,
+        "start_column": 1,
+        "end_column": 21
+      },
+      "classifications": ["library","test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/24/instances"
+  },
+  {
+    "number": 23,
+    "created_at": "2024-09-18T09:27:23Z",
+    "updated_at": "2024-09-18T09:27:25Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/23",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/23",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/maven/non-https-url",
+      "severity": "error",
+      "description": "Failure to use HTTPS or SFTP URL in Maven artifact upload/download",
+      "name": "java/maven/non-https-url",
+      "tags": ["external/cwe/cwe-300","external/cwe/cwe-319","external/cwe/cwe-494","external/cwe/cwe-829","security"],
+      "full_description": "Non-HTTPS connections can be intercepted by third parties.",
+      "help": "# Failure to use HTTPS or SFTP URL in Maven artifact upload/download\nUsing an insecure protocol like HTTP or FTP to download your dependencies leaves your Maven build vulnerable to a [Man in the Middle (MITM)](https://en.wikipedia.org/wiki/Man-in-the-middle_attack). This can allow attackers to inject malicious code into the artifacts that you are resolving and infect build artifacts that are being produced. This can be used by attackers to perform a [Supply chain attack](https://en.wikipedia.org/wiki/Supply_chain_attack) against your project's users.\n\nThis vulnerability has a [ CVSS v3.1 base score of 8.1/10 ](https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H&version=3.1).\n\n\n## Recommendation\nAlways use HTTPS or SFTP to download artifacts from artifact servers.\n\n\n## Example\nThese examples show examples of locations in Maven POM files where artifact repository upload/download is configured. The first shows the use of HTTP, the second shows the use of HTTPS.\n\n\n```xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>com.semmle</groupId>\n    <artifactId>parent</artifactId>\n    <version>1.0</version>\n    <packaging>pom</packaging>\n\n    <name>Security Testing</name>\n    <description>An example of insecure download and upload of dependencies</description>\n\n    <distributionManagement>\n        <repository>\n            <id>insecure-releases</id>\n            <name>Insecure Repository Releases</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </repository>\n        <snapshotRepository>\n            <id>insecure-snapshots</id>\n            <name>Insecure Repository Snapshots</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </snapshotRepository>\n    </distributionManagement>\n    <repositories>\n        <repository>\n            <id>insecure</id>\n            <name>Insecure Repository</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </repository>\n    </repositories>\n    <pluginRepositories>\n        <pluginRepository>\n            <id>insecure-plugins</id>\n            <name>Insecure Repository Releases</name>\n            <!-- BAD! Use HTTPS -->\n            <url>http://insecure-repository.example</url>\n        </pluginRepository>\n    </pluginRepositories>\n</project>\n\n```\n\n```xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>com.semmle</groupId>\n    <artifactId>parent</artifactId>\n    <version>1.0</version>\n    <packaging>pom</packaging>\n\n    <name>Security Testing</name>\n    <description>An example of secure download and upload of dependencies</description>\n\n    <distributionManagement>\n        <repository>\n            <id>insecure-releases</id>\n            <name>Secure Repository Releases</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </repository>\n        <snapshotRepository>\n            <id>insecure-snapshots</id>\n            <name>Secure Repository Snapshots</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </snapshotRepository>\n    </distributionManagement>\n    <repositories>\n        <repository>\n            <id>insecure</id>\n            <name>Secure Repository</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </repository>\n    </repositories>\n    <pluginRepositories>\n        <pluginRepository>\n            <id>insecure-plugins</id>\n            <name>Secure Repository Releases</name>\n            <!-- GOOD! Use HTTPS -->\n            <url>https://insecure-repository.example</url>\n        </pluginRepository>\n    </pluginRepositories>\n</project>\n\n```\n\n## References\n* Research: [ Want to take over the Java ecosystem? All you need is a MITM! ](https://medium.com/bugbountywriteup/want-to-take-over-the-java-ecosystem-all-you-need-is-a-mitm-1fc329d898fb?source=friends_link&sk=3c99970c55a899ad9ef41f126efcde0e)\n* Research: [ How to take over the computer of any Java (or Closure or Scala) Developer. ](https://max.computer/blog/how-to-take-over-the-computer-of-any-java-or-clojure-or-scala-developer/)\n* Proof of Concept: [ mveytsman/dilettante ](https://github.com/mveytsman/dilettante)\n* Additional Gradle &amp; Maven plugin: [ Announcing nohttp ](https://spring.io/blog/2019/06/10/announcing-nohttp)\n* Java Ecosystem Announcement: [ HTTP Decommission Artifact Server Announcements ](https://gist.github.com/JLLeitschuh/789e49e3d34092a005031a0a1880af99)\n* Common Weakness Enumeration: [CWE-300](https://cwe.mitre.org/data/definitions/300.html).\n* Common Weakness Enumeration: [CWE-319](https://cwe.mitre.org/data/definitions/319.html).\n* Common Weakness Enumeration: [CWE-494](https://cwe.mitre.org/data/definitions/494.html).\n* Common Weakness Enumeration: [CWE-829](https://cwe.mitre.org/data/definitions/829.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "Downloading or uploading artifacts over insecure protocol (eg. http or ftp) to/from repository http://repo.maven.apache.org/maven2/"
+      },
+      "location": {
+        "path": "src/nomos/agent_tests/testdata/NomosTestfiles/CDDL/CDDL-1.0-ref.xml",
+        "start_line": 217,
+        "end_line": 222,
+        "start_column": 1,
+        "end_column": 15
+      },
+      "classifications": ["library","test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/23/instances"
+  },
+  {
+    "number": 22,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/22",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/22",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery-ui.js",
+        "start_line": 16,
+        "end_line": 16,
+        "start_column": 13056,
+        "end_column": 13065
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/22/instances"
+  },
+  {
+    "number": 21,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/21",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/21",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery-ui.js",
+        "start_line": 10,
+        "end_line": 10,
+        "start_column": 12753,
+        "end_column": 12762
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/21/instances"
+  },
+  {
+    "number": 20,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/20",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/20",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "This replaces only the first occurrence of \"\\\\n\"."
+      },
+      "location": {
+        "path": "src/nomos/agent_tests/testdata/NomosTestfiles/MPL/webutil.js",
+        "start_line": 69,
+        "end_line": 69,
+        "start_column": 23,
+        "end_column": 48
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/20/instances"
+  },
+  {
+    "number": 19,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/19",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/19",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-multi-character-sanitization",
+      "severity": "warning",
+      "description": "Incomplete multi-character sanitization",
+      "name": "js/incomplete-multi-character-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A sanitizer that removes a sequence of characters may reintroduce the dangerous sequence.",
+      "help": "# Incomplete multi-character sanitization\nSanitizing untrusted input is a common technique for preventing injection attacks and other security vulnerabilities. Regular expressions are often used to perform this sanitization. However, when the regular expression matches multiple consecutive characters, replacing it just once can result in the unsafe text reappearing in the sanitized input.\n\nAttackers can exploit this issue by crafting inputs that, when sanitized with an ineffective regular expression, still contain malicious code or content. This can lead to code execution, data exposure, or other vulnerabilities.\n\n\n## Recommendation\nTo prevent this issue, it is highly recommended to use a well-tested sanitization library whenever possible. These libraries are more likely to handle corner cases and ensure effective sanitization.\n\nIf a library is not an option, you can consider alternative strategies to fix the issue. For example, applying the regular expression replacement repeatedly until no more replacements can be performed, or rewriting the regular expression to match single characters instead of the entire unsafe text.\n\n\n## Example\nConsider the following JavaScript code that aims to remove all HTML comment start and end tags:\n\n```javascript\n\nstr.replace(/<!--|--!?>/g, \"\");   \n\n```\nGiven the input string \"&lt;!&lt;!--- comment ---&gt;&gt;\", the output will be \"&lt;!-- comment --&gt;\", which still contains an HTML comment.\n\nOne possible fix for this issue is to apply the regular expression replacement repeatedly until no more replacements can be performed. This ensures that the unsafe text does not re-appear in the sanitized input, effectively removing all instances of the targeted pattern:\n\n```javascript\n\nfunction removeHtmlComments(input) {  \n  let previous;  \n  do {  \n    previous = input;  \n    input = input.replace(/<!--|--!?>/g, \"\");  \n  } while (input !== previous);  \n  return input;  \n}  \n\n```\n\n## Example\nAnother example is the following regular expression intended to remove script tags:\n\n```javascript\n\nstr.replace(/<script\\b[^<]*(?:(?!<\\/script>)<[^<]*)*<\\/script>/g, \"\");  \n\n```\nIf the input string is \"&lt;scrip&lt;script&gt;is removed&lt;/script&gt;t&gt;alert(123)&lt;/script&gt;\", the output will be \"&lt;script&gt;alert(123)&lt;/script&gt;\", which still contains a script tag.\n\nA fix for this issue is to rewrite the regular expression to match single characters (\"&lt;\" and \"&gt;\") instead of the entire unsafe text. This simplifies the sanitization process and ensures that all potentially unsafe characters are removed:\n\n```javascript\n\nfunction removeAllHtmlTags(input) {  \n  return input.replace(/<|>/g, \"\");  \n}\n\n```\nAnother potential fix is to use the popular `sanitize-html` npm library. It keeps most of the safe HTML tags while removing all unsafe tags and attributes.\n\n```javascript\n\nconst sanitizeHtml = require(\"sanitize-html\");\nfunction removeAllHtmlTags(input) {  \n  return sanitizeHtml(input);  \n}\n\n```\n\n## Example\nLastly, consider a path sanitizer using the regular expression `/\\.\\.\\//`:\n\n```javascript\n\nstr.replace(/\\.\\.\\//g, \"\");  \n\n```\nThe regular expression attempts to strip out all occurences of `/../` from `str`. This will not work as expected: for the string `/./.././`, for example, it will remove the single occurrence of `/../` in the middle, but the remainder of the string then becomes `/../`, which is another instance of the substring we were trying to remove.\n\nA possible fix for this issue is to use the \"sanitize-filename\" npm library for path sanitization. This library is specifically designed to handle path sanitization, and should handle all corner cases and ensure effective sanitization:\n\n```javascript\n\nconst sanitize = require(\"sanitize-filename\");  \n  \nfunction sanitizePath(input) {  \n  return sanitize(input);  \n}  \n\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Stack Overflow: [Removing all script tags from HTML with JS regular expression](https://stackoverflow.com/questions/6659351/removing-all-script-tags-from-html-with-js-regular-expression).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "This string may still contain <script, which may cause an HTML element injection vulnerability."
+      },
+      "location": {
+        "path": "src/nomos/agent_tests/testdata/NomosTestfiles/Dual-license/sarissa.js",
+        "start_line": 520,
+        "end_line": 520,
+        "start_column": 12,
+        "end_column": 36
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/19/instances"
+  },
+  {
+    "number": 18,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/18",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/18",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/html-constructed-from-input",
+      "severity": "error",
+      "description": "Unsafe HTML constructed from library input",
+      "name": "js/html-constructed-from-input",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Using externally controlled strings to construct HTML might allow a malicious user to perform a cross-site scripting attack.",
+      "help": "# Unsafe HTML constructed from library input\nWhen a library function dynamically constructs HTML in a potentially unsafe way, then it's important to document to clients of the library that the function should only be used with trusted inputs. If the function is not documented as being potentially unsafe, then a client may inadvertently use inputs containing unsafe HTML fragments, and thereby leave the client vulnerable to cross-site scripting attacks.\n\n\n## Recommendation\nDocument all library functions that can lead to cross-site scripting attacks, and guard against unsafe inputs where dynamic HTML construction is not intended.\n\n\n## Example\nThe following example has a library function that renders a boldface name by writing to the `innerHTML` property of an element.\n\n\n```javascript\nmodule.exports = function showBoldName(name) {\n  document.getElementById('name').innerHTML = \"<b>\" + name + \"</b>\";\n}\n\n```\nThis library function, however, does not escape unsafe HTML, and a client that calls the function with user-supplied input may be vulnerable to cross-site scripting attacks.\n\nThe library could either document that this function should not be used with unsafe inputs, or use safe APIs such as `innerText`.\n\n\n```javascript\nmodule.exports = function showBoldName(name) {\n  const bold = document.createElement('b');\n  bold.innerText = name;\n  document.getElementById('name').appendChild(bold);\n}\n\n```\nAlternatively, an HTML sanitizer can be used to remove unsafe content.\n\n\n```javascript\n\nconst striptags = require('striptags');\nmodule.exports = function showBoldName(name) {\n  document.getElementById('name').innerHTML = \"<b>\" + striptags(name) + \"</b>\";\n}\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet).\n* OWASP [DOM Based XSS](https://www.owasp.org/index.php/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "This HTML construction which depends on library input might later allow cross-site scripting."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery-ui.js",
+        "start_line": 11,
+        "end_line": 11,
+        "start_column": 22746,
+        "end_column": 22747
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/18/instances"
+  },
+  {
+    "number": 17,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/17",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/17",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/html-constructed-from-input",
+      "severity": "error",
+      "description": "Unsafe HTML constructed from library input",
+      "name": "js/html-constructed-from-input",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Using externally controlled strings to construct HTML might allow a malicious user to perform a cross-site scripting attack.",
+      "help": "# Unsafe HTML constructed from library input\nWhen a library function dynamically constructs HTML in a potentially unsafe way, then it's important to document to clients of the library that the function should only be used with trusted inputs. If the function is not documented as being potentially unsafe, then a client may inadvertently use inputs containing unsafe HTML fragments, and thereby leave the client vulnerable to cross-site scripting attacks.\n\n\n## Recommendation\nDocument all library functions that can lead to cross-site scripting attacks, and guard against unsafe inputs where dynamic HTML construction is not intended.\n\n\n## Example\nThe following example has a library function that renders a boldface name by writing to the `innerHTML` property of an element.\n\n\n```javascript\nmodule.exports = function showBoldName(name) {\n  document.getElementById('name').innerHTML = \"<b>\" + name + \"</b>\";\n}\n\n```\nThis library function, however, does not escape unsafe HTML, and a client that calls the function with user-supplied input may be vulnerable to cross-site scripting attacks.\n\nThe library could either document that this function should not be used with unsafe inputs, or use safe APIs such as `innerText`.\n\n\n```javascript\nmodule.exports = function showBoldName(name) {\n  const bold = document.createElement('b');\n  bold.innerText = name;\n  document.getElementById('name').appendChild(bold);\n}\n\n```\nAlternatively, an HTML sanitizer can be used to remove unsafe content.\n\n\n```javascript\n\nconst striptags = require('striptags');\nmodule.exports = function showBoldName(name) {\n  document.getElementById('name').innerHTML = \"<b>\" + striptags(name) + \"</b>\";\n}\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet).\n* OWASP [DOM Based XSS](https://www.owasp.org/index.php/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "This HTML construction which depends on library input might later allow cross-site scripting."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery.dataTables.editable.js",
+        "start_line": 1234,
+        "end_line": 1234,
+        "start_column": 59,
+        "end_column": 88
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/17/instances"
+  },
+  {
+    "number": 16,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/16",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/16",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/html-constructed-from-input",
+      "severity": "error",
+      "description": "Unsafe HTML constructed from library input",
+      "name": "js/html-constructed-from-input",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Using externally controlled strings to construct HTML might allow a malicious user to perform a cross-site scripting attack.",
+      "help": "# Unsafe HTML constructed from library input\nWhen a library function dynamically constructs HTML in a potentially unsafe way, then it's important to document to clients of the library that the function should only be used with trusted inputs. If the function is not documented as being potentially unsafe, then a client may inadvertently use inputs containing unsafe HTML fragments, and thereby leave the client vulnerable to cross-site scripting attacks.\n\n\n## Recommendation\nDocument all library functions that can lead to cross-site scripting attacks, and guard against unsafe inputs where dynamic HTML construction is not intended.\n\n\n## Example\nThe following example has a library function that renders a boldface name by writing to the `innerHTML` property of an element.\n\n\n```javascript\nmodule.exports = function showBoldName(name) {\n  document.getElementById('name').innerHTML = \"<b>\" + name + \"</b>\";\n}\n\n```\nThis library function, however, does not escape unsafe HTML, and a client that calls the function with user-supplied input may be vulnerable to cross-site scripting attacks.\n\nThe library could either document that this function should not be used with unsafe inputs, or use safe APIs such as `innerText`.\n\n\n```javascript\nmodule.exports = function showBoldName(name) {\n  const bold = document.createElement('b');\n  bold.innerText = name;\n  document.getElementById('name').appendChild(bold);\n}\n\n```\nAlternatively, an HTML sanitizer can be used to remove unsafe content.\n\n\n```javascript\n\nconst striptags = require('striptags');\nmodule.exports = function showBoldName(name) {\n  document.getElementById('name').innerHTML = \"<b>\" + striptags(name) + \"</b>\";\n}\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet).\n* OWASP [DOM Based XSS](https://www.owasp.org/index.php/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "This HTML construction which depends on library input might later allow cross-site scripting."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery.dataTables.editable.js",
+        "start_line": 1229,
+        "end_line": 1229,
+        "start_column": 59,
+        "end_column": 88
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/16/instances"
+  },
+  {
+    "number": 15,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/15",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/15",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/unsafe-jquery-plugin",
+      "severity": "warning",
+      "description": "Unsafe jQuery plugin",
+      "name": "js/unsafe-jquery-plugin",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","frameworks/jquery","security"],
+      "full_description": "A jQuery plugin that unintentionally constructs HTML from some of its options may be unsafe to use for clients.",
+      "help": "# Unsafe jQuery plugin\nLibrary plugins, such as those for the jQuery library, are often configurable through options provided by the clients of the plugin. Clients, however, do not know the implementation details of the plugin, so it is important to document the capabilities of each option. The documentation for the plugin options that the client is responsible for sanitizing is of particular importance. Otherwise, the plugin may write user input (for example, a URL query parameter) to a web page without properly sanitizing it first, which allows for a cross-site scripting vulnerability in the client application through dynamic HTML construction.\n\n\n## Recommendation\nDocument all options that can lead to cross-site scripting attacks, and guard against unsafe inputs where dynamic HTML construction is not intended.\n\n\n## Example\nThe following example shows a jQuery plugin that selects a DOM element, and copies its text content to another DOM element. The selection is performed by using the plugin option `sourceSelector` as a CSS selector.\n\n\n```javascript\njQuery.fn.copyText = function(options) {\n\t// BAD may evaluate `options.sourceSelector` as HTML\n\tvar source = jQuery(options.sourceSelector),\n\t    text = source.text();\n\tjQuery(this).text(text);\n}\n\n```\nThis is, however, not a safe plugin, since the call to `jQuery` interprets `sourceSelector` as HTML if it is a string that starts with `<`.\n\nInstead of documenting that the client is responsible for sanitizing `sourceSelector`, the plugin can use `jQuery.find` to always interpret `sourceSelector` as a CSS selector:\n\n\n```javascript\njQuery.fn.copyText = function(options) {\n\t// GOOD may not evaluate `options.sourceSelector` as HTML\n\tvar source = jQuery.find(options.sourceSelector),\n\t    text = source.text();\n\tjQuery(this).text(text);\n}\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://www.owasp.org/index.php/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* jQuery: [Plugin creation](https://learn.jquery.com/plugins/basic-plugin-creation/).\n* Bootstrap: [XSS vulnerable bootstrap plugins](https://github.com/twbs/bootstrap/pull/27047).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "Potential XSS vulnerability in the '$.fn.position' plugin."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery-ui.js",
+        "start_line": 9,
+        "end_line": 9,
+        "start_column": 13331,
+        "end_column": 13335
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/15/instances"
+  },
+  {
+    "number": 14,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/14",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/14",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/unsafe-jquery-plugin",
+      "severity": "warning",
+      "description": "Unsafe jQuery plugin",
+      "name": "js/unsafe-jquery-plugin",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","frameworks/jquery","security"],
+      "full_description": "A jQuery plugin that unintentionally constructs HTML from some of its options may be unsafe to use for clients.",
+      "help": "# Unsafe jQuery plugin\nLibrary plugins, such as those for the jQuery library, are often configurable through options provided by the clients of the plugin. Clients, however, do not know the implementation details of the plugin, so it is important to document the capabilities of each option. The documentation for the plugin options that the client is responsible for sanitizing is of particular importance. Otherwise, the plugin may write user input (for example, a URL query parameter) to a web page without properly sanitizing it first, which allows for a cross-site scripting vulnerability in the client application through dynamic HTML construction.\n\n\n## Recommendation\nDocument all options that can lead to cross-site scripting attacks, and guard against unsafe inputs where dynamic HTML construction is not intended.\n\n\n## Example\nThe following example shows a jQuery plugin that selects a DOM element, and copies its text content to another DOM element. The selection is performed by using the plugin option `sourceSelector` as a CSS selector.\n\n\n```javascript\njQuery.fn.copyText = function(options) {\n\t// BAD may evaluate `options.sourceSelector` as HTML\n\tvar source = jQuery(options.sourceSelector),\n\t    text = source.text();\n\tjQuery(this).text(text);\n}\n\n```\nThis is, however, not a safe plugin, since the call to `jQuery` interprets `sourceSelector` as HTML if it is a string that starts with `<`.\n\nInstead of documenting that the client is responsible for sanitizing `sourceSelector`, the plugin can use `jQuery.find` to always interpret `sourceSelector` as a CSS selector:\n\n\n```javascript\njQuery.fn.copyText = function(options) {\n\t// GOOD may not evaluate `options.sourceSelector` as HTML\n\tvar source = jQuery.find(options.sourceSelector),\n\t    text = source.text();\n\tjQuery(this).text(text);\n}\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://www.owasp.org/index.php/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* jQuery: [Plugin creation](https://learn.jquery.com/plugins/basic-plugin-creation/).\n* Bootstrap: [XSS vulnerable bootstrap plugins](https://github.com/twbs/bootstrap/pull/27047).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "Potential XSS vulnerability in the '$.fn.makeEditable' plugin."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery.dataTables.editable.js",
+        "start_line": 1225,
+        "end_line": 1225,
+        "start_column": 35,
+        "end_column": 71
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/14/instances"
+  },
+  {
+    "number": 13,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/13",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/13",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/unsafe-jquery-plugin",
+      "severity": "warning",
+      "description": "Unsafe jQuery plugin",
+      "name": "js/unsafe-jquery-plugin",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","frameworks/jquery","security"],
+      "full_description": "A jQuery plugin that unintentionally constructs HTML from some of its options may be unsafe to use for clients.",
+      "help": "# Unsafe jQuery plugin\nLibrary plugins, such as those for the jQuery library, are often configurable through options provided by the clients of the plugin. Clients, however, do not know the implementation details of the plugin, so it is important to document the capabilities of each option. The documentation for the plugin options that the client is responsible for sanitizing is of particular importance. Otherwise, the plugin may write user input (for example, a URL query parameter) to a web page without properly sanitizing it first, which allows for a cross-site scripting vulnerability in the client application through dynamic HTML construction.\n\n\n## Recommendation\nDocument all options that can lead to cross-site scripting attacks, and guard against unsafe inputs where dynamic HTML construction is not intended.\n\n\n## Example\nThe following example shows a jQuery plugin that selects a DOM element, and copies its text content to another DOM element. The selection is performed by using the plugin option `sourceSelector` as a CSS selector.\n\n\n```javascript\njQuery.fn.copyText = function(options) {\n\t// BAD may evaluate `options.sourceSelector` as HTML\n\tvar source = jQuery(options.sourceSelector),\n\t    text = source.text();\n\tjQuery(this).text(text);\n}\n\n```\nThis is, however, not a safe plugin, since the call to `jQuery` interprets `sourceSelector` as HTML if it is a string that starts with `<`.\n\nInstead of documenting that the client is responsible for sanitizing `sourceSelector`, the plugin can use `jQuery.find` to always interpret `sourceSelector` as a CSS selector:\n\n\n```javascript\njQuery.fn.copyText = function(options) {\n\t// GOOD may not evaluate `options.sourceSelector` as HTML\n\tvar source = jQuery.find(options.sourceSelector),\n\t    text = source.text();\n\tjQuery(this).text(text);\n}\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://www.owasp.org/index.php/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* jQuery: [Plugin creation](https://learn.jquery.com/plugins/basic-plugin-creation/).\n* Bootstrap: [XSS vulnerable bootstrap plugins](https://github.com/twbs/bootstrap/pull/27047).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "Potential XSS vulnerability in the '$.fn.makeEditable' plugin."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery.dataTables.editable.js",
+        "start_line": 1138,
+        "end_line": 1138,
+        "start_column": 21,
+        "end_column": 57
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/13/instances"
+  },
+  {
+    "number": 12,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/12",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/12",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/unsafe-jquery-plugin",
+      "severity": "warning",
+      "description": "Unsafe jQuery plugin",
+      "name": "js/unsafe-jquery-plugin",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","frameworks/jquery","security"],
+      "full_description": "A jQuery plugin that unintentionally constructs HTML from some of its options may be unsafe to use for clients.",
+      "help": "# Unsafe jQuery plugin\nLibrary plugins, such as those for the jQuery library, are often configurable through options provided by the clients of the plugin. Clients, however, do not know the implementation details of the plugin, so it is important to document the capabilities of each option. The documentation for the plugin options that the client is responsible for sanitizing is of particular importance. Otherwise, the plugin may write user input (for example, a URL query parameter) to a web page without properly sanitizing it first, which allows for a cross-site scripting vulnerability in the client application through dynamic HTML construction.\n\n\n## Recommendation\nDocument all options that can lead to cross-site scripting attacks, and guard against unsafe inputs where dynamic HTML construction is not intended.\n\n\n## Example\nThe following example shows a jQuery plugin that selects a DOM element, and copies its text content to another DOM element. The selection is performed by using the plugin option `sourceSelector` as a CSS selector.\n\n\n```javascript\njQuery.fn.copyText = function(options) {\n\t// BAD may evaluate `options.sourceSelector` as HTML\n\tvar source = jQuery(options.sourceSelector),\n\t    text = source.text();\n\tjQuery(this).text(text);\n}\n\n```\nThis is, however, not a safe plugin, since the call to `jQuery` interprets `sourceSelector` as HTML if it is a string that starts with `<`.\n\nInstead of documenting that the client is responsible for sanitizing `sourceSelector`, the plugin can use `jQuery.find` to always interpret `sourceSelector` as a CSS selector:\n\n\n```javascript\njQuery.fn.copyText = function(options) {\n\t// GOOD may not evaluate `options.sourceSelector` as HTML\n\tvar source = jQuery.find(options.sourceSelector),\n\t    text = source.text();\n\tjQuery(this).text(text);\n}\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://www.owasp.org/index.php/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* jQuery: [Plugin creation](https://learn.jquery.com/plugins/basic-plugin-creation/).\n* Bootstrap: [XSS vulnerable bootstrap plugins](https://github.com/twbs/bootstrap/pull/27047).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "Potential XSS vulnerability in the '$.fn.editable' plugin."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery.jeditable.js",
+        "start_line": 436,
+        "end_line": 436,
+        "start_column": 34,
+        "end_column": 49
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/12/instances"
+  },
+  {
+    "number": 11,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/11",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/11",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/unsafe-jquery-plugin",
+      "severity": "warning",
+      "description": "Unsafe jQuery plugin",
+      "name": "js/unsafe-jquery-plugin",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","frameworks/jquery","security"],
+      "full_description": "A jQuery plugin that unintentionally constructs HTML from some of its options may be unsafe to use for clients.",
+      "help": "# Unsafe jQuery plugin\nLibrary plugins, such as those for the jQuery library, are often configurable through options provided by the clients of the plugin. Clients, however, do not know the implementation details of the plugin, so it is important to document the capabilities of each option. The documentation for the plugin options that the client is responsible for sanitizing is of particular importance. Otherwise, the plugin may write user input (for example, a URL query parameter) to a web page without properly sanitizing it first, which allows for a cross-site scripting vulnerability in the client application through dynamic HTML construction.\n\n\n## Recommendation\nDocument all options that can lead to cross-site scripting attacks, and guard against unsafe inputs where dynamic HTML construction is not intended.\n\n\n## Example\nThe following example shows a jQuery plugin that selects a DOM element, and copies its text content to another DOM element. The selection is performed by using the plugin option `sourceSelector` as a CSS selector.\n\n\n```javascript\njQuery.fn.copyText = function(options) {\n\t// BAD may evaluate `options.sourceSelector` as HTML\n\tvar source = jQuery(options.sourceSelector),\n\t    text = source.text();\n\tjQuery(this).text(text);\n}\n\n```\nThis is, however, not a safe plugin, since the call to `jQuery` interprets `sourceSelector` as HTML if it is a string that starts with `<`.\n\nInstead of documenting that the client is responsible for sanitizing `sourceSelector`, the plugin can use `jQuery.find` to always interpret `sourceSelector` as a CSS selector:\n\n\n```javascript\njQuery.fn.copyText = function(options) {\n\t// GOOD may not evaluate `options.sourceSelector` as HTML\n\tvar source = jQuery.find(options.sourceSelector),\n\t    text = source.text();\n\tjQuery(this).text(text);\n}\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://www.owasp.org/index.php/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* jQuery: [Plugin creation](https://learn.jquery.com/plugins/basic-plugin-creation/).\n* Bootstrap: [XSS vulnerable bootstrap plugins](https://github.com/twbs/bootstrap/pull/27047).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "Potential XSS vulnerability in the '$.fn.editable' plugin."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery.jeditable.js",
+        "start_line": 421,
+        "end_line": 421,
+        "start_column": 32,
+        "end_column": 47
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/11/instances"
+  },
+  {
+    "number": 10,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/10",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/10",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/unsafe-jquery-plugin",
+      "severity": "warning",
+      "description": "Unsafe jQuery plugin",
+      "name": "js/unsafe-jquery-plugin",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","frameworks/jquery","security"],
+      "full_description": "A jQuery plugin that unintentionally constructs HTML from some of its options may be unsafe to use for clients.",
+      "help": "# Unsafe jQuery plugin\nLibrary plugins, such as those for the jQuery library, are often configurable through options provided by the clients of the plugin. Clients, however, do not know the implementation details of the plugin, so it is important to document the capabilities of each option. The documentation for the plugin options that the client is responsible for sanitizing is of particular importance. Otherwise, the plugin may write user input (for example, a URL query parameter) to a web page without properly sanitizing it first, which allows for a cross-site scripting vulnerability in the client application through dynamic HTML construction.\n\n\n## Recommendation\nDocument all options that can lead to cross-site scripting attacks, and guard against unsafe inputs where dynamic HTML construction is not intended.\n\n\n## Example\nThe following example shows a jQuery plugin that selects a DOM element, and copies its text content to another DOM element. The selection is performed by using the plugin option `sourceSelector` as a CSS selector.\n\n\n```javascript\njQuery.fn.copyText = function(options) {\n\t// BAD may evaluate `options.sourceSelector` as HTML\n\tvar source = jQuery(options.sourceSelector),\n\t    text = source.text();\n\tjQuery(this).text(text);\n}\n\n```\nThis is, however, not a safe plugin, since the call to `jQuery` interprets `sourceSelector` as HTML if it is a string that starts with `<`.\n\nInstead of documenting that the client is responsible for sanitizing `sourceSelector`, the plugin can use `jQuery.find` to always interpret `sourceSelector` as a CSS selector:\n\n\n```javascript\njQuery.fn.copyText = function(options) {\n\t// GOOD may not evaluate `options.sourceSelector` as HTML\n\tvar source = jQuery.find(options.sourceSelector),\n\t    text = source.text();\n\tjQuery(this).text(text);\n}\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://www.owasp.org/index.php/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* jQuery: [Plugin creation](https://learn.jquery.com/plugins/basic-plugin-creation/).\n* Bootstrap: [XSS vulnerable bootstrap plugins](https://github.com/twbs/bootstrap/pull/27047).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "Potential XSS vulnerability in the '$.fn.treeview' plugin."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery.treeview.js",
+        "start_line": 233,
+        "end_line": 233,
+        "start_column": 11,
+        "end_column": 27
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/10/instances"
+  },
+  {
+    "number": 9,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/9",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/9",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/xss-through-dom",
+      "severity": "warning",
+      "description": "DOM text reinterpreted as HTML",
+      "name": "js/xss-through-dom",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Reinterpreting text from the DOM as HTML can lead to a cross-site scripting vulnerability.",
+      "help": "# DOM text reinterpreted as HTML\nExtracting text from a DOM node and interpreting it as HTML can lead to a cross-site scripting vulnerability.\n\nA webpage with this vulnerability reads text from the DOM, and afterwards adds the text as HTML to the DOM. Using text from the DOM as HTML effectively unescapes the text, and thereby invalidates any escaping done on the text. If an attacker is able to control the safe sanitized text, then this vulnerability can be exploited to perform a cross-site scripting attack.\n\n\n## Recommendation\nTo guard against cross-site scripting, consider using contextual output encoding/escaping before writing text to the page, or one of the other solutions that are mentioned in the References section below.\n\n\n## Example\nThe following example shows a webpage using a `data-target` attribute to select and manipulate a DOM element using the JQuery library. In the example, the `data-target` attribute is read into the `target` variable, and the `$` function is then supposed to use the `target` variable as a CSS selector to determine which element should be manipulated.\n\n\n```javascript\n$(\"button\").click(function () {\n    var target = $(this).attr(\"data-target\");\n    $(target).hide();\n});\n\n```\nHowever, if an attacker can control the `data-target` attribute, then the value of `target` can be used to cause the `$` function to execute arbitrary JavaScript.\n\nThe above vulnerability can be fixed by using `$.find` instead of `$`. The `$.find` function will only interpret `target` as a CSS selector and never as HTML, thereby preventing an XSS attack.\n\n\n```javascript\n$(\"button\").click(function () {\n    var target = $(this).attr(\"data-target\");\n\t$.find(target).hide();\n});\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://owasp.org/www-community/attacks/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://owasp.org/www-community/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "DOM text is reinterpreted as HTML without escaping meta-characters.\nDOM text is reinterpreted as HTML without escaping meta-characters.\nDOM text is reinterpreted as HTML without escaping meta-characters.\nDOM text is reinterpreted as HTML without escaping meta-characters."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/ui-clearing-view_bulk.js",
+        "start_line": 65,
+        "end_line": 65,
+        "start_column": 36,
+        "end_column": 37
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/9/instances"
+  },
+  {
+    "number": 8,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/8",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/8",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/xss-through-dom",
+      "severity": "warning",
+      "description": "DOM text reinterpreted as HTML",
+      "name": "js/xss-through-dom",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Reinterpreting text from the DOM as HTML can lead to a cross-site scripting vulnerability.",
+      "help": "# DOM text reinterpreted as HTML\nExtracting text from a DOM node and interpreting it as HTML can lead to a cross-site scripting vulnerability.\n\nA webpage with this vulnerability reads text from the DOM, and afterwards adds the text as HTML to the DOM. Using text from the DOM as HTML effectively unescapes the text, and thereby invalidates any escaping done on the text. If an attacker is able to control the safe sanitized text, then this vulnerability can be exploited to perform a cross-site scripting attack.\n\n\n## Recommendation\nTo guard against cross-site scripting, consider using contextual output encoding/escaping before writing text to the page, or one of the other solutions that are mentioned in the References section below.\n\n\n## Example\nThe following example shows a webpage using a `data-target` attribute to select and manipulate a DOM element using the JQuery library. In the example, the `data-target` attribute is read into the `target` variable, and the `$` function is then supposed to use the `target` variable as a CSS selector to determine which element should be manipulated.\n\n\n```javascript\n$(\"button\").click(function () {\n    var target = $(this).attr(\"data-target\");\n    $(target).hide();\n});\n\n```\nHowever, if an attacker can control the `data-target` attribute, then the value of `target` can be used to cause the `$` function to execute arbitrary JavaScript.\n\nThe above vulnerability can be fixed by using `$.find` instead of `$`. The `$.find` function will only interpret `target` as a CSS selector and never as HTML, thereby preventing an XSS attack.\n\n\n```javascript\n$(\"button\").click(function () {\n    var target = $(this).attr(\"data-target\");\n\t$.find(target).hide();\n});\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://owasp.org/www-community/attacks/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://owasp.org/www-community/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "DOM text is reinterpreted as HTML without escaping meta-characters."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/license.js",
+        "start_line": 12,
+        "end_line": 12,
+        "start_column": 44,
+        "end_column": 75
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/8/instances"
+  },
+  {
+    "number": 7,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/7",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/7",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/xss-through-dom",
+      "severity": "warning",
+      "description": "DOM text reinterpreted as HTML",
+      "name": "js/xss-through-dom",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Reinterpreting text from the DOM as HTML can lead to a cross-site scripting vulnerability.",
+      "help": "# DOM text reinterpreted as HTML\nExtracting text from a DOM node and interpreting it as HTML can lead to a cross-site scripting vulnerability.\n\nA webpage with this vulnerability reads text from the DOM, and afterwards adds the text as HTML to the DOM. Using text from the DOM as HTML effectively unescapes the text, and thereby invalidates any escaping done on the text. If an attacker is able to control the safe sanitized text, then this vulnerability can be exploited to perform a cross-site scripting attack.\n\n\n## Recommendation\nTo guard against cross-site scripting, consider using contextual output encoding/escaping before writing text to the page, or one of the other solutions that are mentioned in the References section below.\n\n\n## Example\nThe following example shows a webpage using a `data-target` attribute to select and manipulate a DOM element using the JQuery library. In the example, the `data-target` attribute is read into the `target` variable, and the `$` function is then supposed to use the `target` variable as a CSS selector to determine which element should be manipulated.\n\n\n```javascript\n$(\"button\").click(function () {\n    var target = $(this).attr(\"data-target\");\n    $(target).hide();\n});\n\n```\nHowever, if an attacker can control the `data-target` attribute, then the value of `target` can be used to cause the `$` function to execute arbitrary JavaScript.\n\nThe above vulnerability can be fixed by using `$.find` instead of `$`. The `$.find` function will only interpret `target` as a CSS selector and never as HTML, thereby preventing an XSS attack.\n\n\n```javascript\n$(\"button\").click(function () {\n    var target = $(this).attr(\"data-target\");\n\t$.find(target).hide();\n});\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://owasp.org/www-community/attacks/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://owasp.org/www-community/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "DOM text is reinterpreted as HTML without escaping meta-characters."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/change-license-common.js",
+        "start_line": 376,
+        "end_line": 376,
+        "start_column": 51,
+        "end_column": 124
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/7/instances"
+  },
+  {
+    "number": 6,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/6",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/6",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/xss-through-dom",
+      "severity": "warning",
+      "description": "DOM text reinterpreted as HTML",
+      "name": "js/xss-through-dom",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Reinterpreting text from the DOM as HTML can lead to a cross-site scripting vulnerability.",
+      "help": "# DOM text reinterpreted as HTML\nExtracting text from a DOM node and interpreting it as HTML can lead to a cross-site scripting vulnerability.\n\nA webpage with this vulnerability reads text from the DOM, and afterwards adds the text as HTML to the DOM. Using text from the DOM as HTML effectively unescapes the text, and thereby invalidates any escaping done on the text. If an attacker is able to control the safe sanitized text, then this vulnerability can be exploited to perform a cross-site scripting attack.\n\n\n## Recommendation\nTo guard against cross-site scripting, consider using contextual output encoding/escaping before writing text to the page, or one of the other solutions that are mentioned in the References section below.\n\n\n## Example\nThe following example shows a webpage using a `data-target` attribute to select and manipulate a DOM element using the JQuery library. In the example, the `data-target` attribute is read into the `target` variable, and the `$` function is then supposed to use the `target` variable as a CSS selector to determine which element should be manipulated.\n\n\n```javascript\n$(\"button\").click(function () {\n    var target = $(this).attr(\"data-target\");\n    $(target).hide();\n});\n\n```\nHowever, if an attacker can control the `data-target` attribute, then the value of `target` can be used to cause the `$` function to execute arbitrary JavaScript.\n\nThe above vulnerability can be fixed by using `$.find` instead of `$`. The `$.find` function will only interpret `target` as a CSS selector and never as HTML, thereby preventing an XSS attack.\n\n\n```javascript\n$(\"button\").click(function () {\n    var target = $(this).attr(\"data-target\");\n\t$.find(target).hide();\n});\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://owasp.org/www-community/attacks/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://owasp.org/www-community/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "DOM text is reinterpreted as HTML without escaping meta-characters.\nDOM text is reinterpreted as HTML without escaping meta-characters."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/change-license-common.js",
+        "start_line": 236,
+        "end_line": 236,
+        "start_column": 33,
+        "end_column": 38
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/6/instances"
+  },
+  {
+    "number": 5,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/5",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/5",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/xss-through-dom",
+      "severity": "warning",
+      "description": "DOM text reinterpreted as HTML",
+      "name": "js/xss-through-dom",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Reinterpreting text from the DOM as HTML can lead to a cross-site scripting vulnerability.",
+      "help": "# DOM text reinterpreted as HTML\nExtracting text from a DOM node and interpreting it as HTML can lead to a cross-site scripting vulnerability.\n\nA webpage with this vulnerability reads text from the DOM, and afterwards adds the text as HTML to the DOM. Using text from the DOM as HTML effectively unescapes the text, and thereby invalidates any escaping done on the text. If an attacker is able to control the safe sanitized text, then this vulnerability can be exploited to perform a cross-site scripting attack.\n\n\n## Recommendation\nTo guard against cross-site scripting, consider using contextual output encoding/escaping before writing text to the page, or one of the other solutions that are mentioned in the References section below.\n\n\n## Example\nThe following example shows a webpage using a `data-target` attribute to select and manipulate a DOM element using the JQuery library. In the example, the `data-target` attribute is read into the `target` variable, and the `$` function is then supposed to use the `target` variable as a CSS selector to determine which element should be manipulated.\n\n\n```javascript\n$(\"button\").click(function () {\n    var target = $(this).attr(\"data-target\");\n    $(target).hide();\n});\n\n```\nHowever, if an attacker can control the `data-target` attribute, then the value of `target` can be used to cause the `$` function to execute arbitrary JavaScript.\n\nThe above vulnerability can be fixed by using `$.find` instead of `$`. The `$.find` function will only interpret `target` as a CSS selector and never as HTML, thereby preventing an XSS attack.\n\n\n```javascript\n$(\"button\").click(function () {\n    var target = $(this).attr(\"data-target\");\n\t$.find(target).hide();\n});\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://owasp.org/www-community/attacks/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://owasp.org/www-community/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "DOM text is reinterpreted as HTML without escaping meta-characters."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/browse.js",
+        "start_line": 43,
+        "end_line": 43,
+        "start_column": 27,
+        "end_column": 30
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/5/instances"
+  },
+  {
+    "number": 4,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/4",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/4",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/redos",
+      "severity": "error",
+      "description": "Inefficient regular expression",
+      "name": "js/redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "full_description": "A regular expression that requires exponential time to match certain inputs can be a performance bottleneck, and may be vulnerable to denial-of-service attacks.",
+      "help": "# Inefficient regular expression\nSome regular expressions take a long time to match certain input strings to the point where the time it takes to match a string of length *n* is proportional to *n<sup>k</sup>* or even *2<sup>n</sup>*. Such regular expressions can negatively affect performance, or even allow a malicious user to perform a Denial of Service (\"DoS\") attack by crafting an expensive input string for the regular expression to match.\n\nThe regular expression engines provided by many popular JavaScript platforms use backtracking non-deterministic finite automata to implement regular expression matching. While this approach is space-efficient and allows supporting advanced features like capture groups, it is not time-efficient in general. The worst-case time complexity of such an automaton can be polynomial or even exponential, meaning that for strings of a certain shape, increasing the input length by ten characters may make the automaton about 1000 times slower.\n\nTypically, a regular expression is affected by this problem if it contains a repetition of the form `r*` or `r+` where the sub-expression `r` is ambiguous in the sense that it can match some string in multiple ways. More information about the precise circumstances can be found in the references.\n\n\n## Recommendation\nModify the regular expression to remove the ambiguity, or ensure that the strings matched with the regular expression are short enough that the time-complexity does not matter.\n\n\n## Example\nConsider this regular expression:\n\n```javascript\n\n/^_(__|.)+_$/\n```\nIts sub-expression `\"(__|.)+?\"` can match the string `\"__\"` either by the first alternative `\"__\"` to the left of the `\"|\"` operator, or by two repetitions of the second alternative `\".\"` to the right. Thus, a string consisting of an odd number of underscores followed by some other character will cause the regular expression engine to run for an exponential amount of time before rejecting the input.\n\nThis problem can be avoided by rewriting the regular expression to remove the ambiguity between the two branches of the alternative inside the repetition:\n\n```javascript\n\n/^_(__|[^_])+_$/\n```\n\n## References\n* OWASP: [Regular expression Denial of Service - ReDoS](https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS).\n* Wikipedia: [ReDoS](https://en.wikipedia.org/wiki/ReDoS).\n* Wikipedia: [Time complexity](https://en.wikipedia.org/wiki/Time_complexity).\n* James Kirrage, Asiri Rathnayake, Hayo Thielecke: [Static Analysis for Regular Expression Denial-of-Service Attack](https://arxiv.org/abs/1301.0849).\n* Common Weakness Enumeration: [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html).\n* Common Weakness Enumeration: [CWE-730](https://cwe.mitre.org/data/definitions/730.html).\n* Common Weakness Enumeration: [CWE-400](https://cwe.mitre.org/data/definitions/400.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "This part of the regular expression may cause exponential backtracking on strings starting with 'ftp://a' and containing many repetitions of '0.0'."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery.validate.js",
+        "start_line": 1028,
+        "end_line": 1028,
+        "start_column": 423,
+        "end_column": 485
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/4/instances"
+  },
+  {
+    "number": 3,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/3",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/3",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/redos",
+      "severity": "error",
+      "description": "Inefficient regular expression",
+      "name": "js/redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "full_description": "A regular expression that requires exponential time to match certain inputs can be a performance bottleneck, and may be vulnerable to denial-of-service attacks.",
+      "help": "# Inefficient regular expression\nSome regular expressions take a long time to match certain input strings to the point where the time it takes to match a string of length *n* is proportional to *n<sup>k</sup>* or even *2<sup>n</sup>*. Such regular expressions can negatively affect performance, or even allow a malicious user to perform a Denial of Service (\"DoS\") attack by crafting an expensive input string for the regular expression to match.\n\nThe regular expression engines provided by many popular JavaScript platforms use backtracking non-deterministic finite automata to implement regular expression matching. While this approach is space-efficient and allows supporting advanced features like capture groups, it is not time-efficient in general. The worst-case time complexity of such an automaton can be polynomial or even exponential, meaning that for strings of a certain shape, increasing the input length by ten characters may make the automaton about 1000 times slower.\n\nTypically, a regular expression is affected by this problem if it contains a repetition of the form `r*` or `r+` where the sub-expression `r` is ambiguous in the sense that it can match some string in multiple ways. More information about the precise circumstances can be found in the references.\n\n\n## Recommendation\nModify the regular expression to remove the ambiguity, or ensure that the strings matched with the regular expression are short enough that the time-complexity does not matter.\n\n\n## Example\nConsider this regular expression:\n\n```javascript\n\n/^_(__|.)+_$/\n```\nIts sub-expression `\"(__|.)+?\"` can match the string `\"__\"` either by the first alternative `\"__\"` to the left of the `\"|\"` operator, or by two repetitions of the second alternative `\".\"` to the right. Thus, a string consisting of an odd number of underscores followed by some other character will cause the regular expression engine to run for an exponential amount of time before rejecting the input.\n\nThis problem can be avoided by rewriting the regular expression to remove the ambiguity between the two branches of the alternative inside the repetition:\n\n```javascript\n\n/^_(__|[^_])+_$/\n```\n\n## References\n* OWASP: [Regular expression Denial of Service - ReDoS](https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS).\n* Wikipedia: [ReDoS](https://en.wikipedia.org/wiki/ReDoS).\n* Wikipedia: [Time complexity](https://en.wikipedia.org/wiki/Time_complexity).\n* James Kirrage, Asiri Rathnayake, Hayo Thielecke: [Static Analysis for Regular Expression Denial-of-Service Attack](https://arxiv.org/abs/1301.0849).\n* Common Weakness Enumeration: [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html).\n* Common Weakness Enumeration: [CWE-730](https://cwe.mitre.org/data/definitions/730.html).\n* Common Weakness Enumeration: [CWE-400](https://cwe.mitre.org/data/definitions/400.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "This part of the regular expression may cause exponential backtracking on strings starting with 'ftp://' and containing many repetitions of '0.0.'."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery.validate.js",
+        "start_line": 1028,
+        "end_line": 1028,
+        "start_column": 315,
+        "end_column": 543
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/3/instances"
+  },
+  {
+    "number": 2,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/2",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/2",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/redos",
+      "severity": "error",
+      "description": "Inefficient regular expression",
+      "name": "js/redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "full_description": "A regular expression that requires exponential time to match certain inputs can be a performance bottleneck, and may be vulnerable to denial-of-service attacks.",
+      "help": "# Inefficient regular expression\nSome regular expressions take a long time to match certain input strings to the point where the time it takes to match a string of length *n* is proportional to *n<sup>k</sup>* or even *2<sup>n</sup>*. Such regular expressions can negatively affect performance, or even allow a malicious user to perform a Denial of Service (\"DoS\") attack by crafting an expensive input string for the regular expression to match.\n\nThe regular expression engines provided by many popular JavaScript platforms use backtracking non-deterministic finite automata to implement regular expression matching. While this approach is space-efficient and allows supporting advanced features like capture groups, it is not time-efficient in general. The worst-case time complexity of such an automaton can be polynomial or even exponential, meaning that for strings of a certain shape, increasing the input length by ten characters may make the automaton about 1000 times slower.\n\nTypically, a regular expression is affected by this problem if it contains a repetition of the form `r*` or `r+` where the sub-expression `r` is ambiguous in the sense that it can match some string in multiple ways. More information about the precise circumstances can be found in the references.\n\n\n## Recommendation\nModify the regular expression to remove the ambiguity, or ensure that the strings matched with the regular expression are short enough that the time-complexity does not matter.\n\n\n## Example\nConsider this regular expression:\n\n```javascript\n\n/^_(__|.)+_$/\n```\nIts sub-expression `\"(__|.)+?\"` can match the string `\"__\"` either by the first alternative `\"__\"` to the left of the `\"|\"` operator, or by two repetitions of the second alternative `\".\"` to the right. Thus, a string consisting of an odd number of underscores followed by some other character will cause the regular expression engine to run for an exponential amount of time before rejecting the input.\n\nThis problem can be avoided by rewriting the regular expression to remove the ambiguity between the two branches of the alternative inside the repetition:\n\n```javascript\n\n/^_(__|[^_])+_$/\n```\n\n## References\n* OWASP: [Regular expression Denial of Service - ReDoS](https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS).\n* Wikipedia: [ReDoS](https://en.wikipedia.org/wiki/ReDoS).\n* Wikipedia: [Time complexity](https://en.wikipedia.org/wiki/Time_complexity).\n* James Kirrage, Asiri Rathnayake, Hayo Thielecke: [Static Analysis for Regular Expression Denial-of-Service Attack](https://arxiv.org/abs/1301.0849).\n* Common Weakness Enumeration: [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html).\n* Common Weakness Enumeration: [CWE-730](https://cwe.mitre.org/data/definitions/730.html).\n* Common Weakness Enumeration: [CWE-400](https://cwe.mitre.org/data/definitions/400.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "This part of the regular expression may cause exponential backtracking on strings starting with 'a@a' and containing many repetitions of '0.0'."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery.validate.js",
+        "start_line": 1022,
+        "end_line": 1022,
+        "start_column": 610,
+        "end_column": 672
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/2/instances"
+  },
+  {
+    "number": 1,
+    "created_at": "2024-09-18T09:27:00Z",
+    "updated_at": "2024-09-18T09:27:02Z",
+    "url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/1",
+    "html_url": "https://github.com/Be-Secure/fossology/security/code-scanning/1",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/redos",
+      "severity": "error",
+      "description": "Inefficient regular expression",
+      "name": "js/redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "full_description": "A regular expression that requires exponential time to match certain inputs can be a performance bottleneck, and may be vulnerable to denial-of-service attacks.",
+      "help": "# Inefficient regular expression\nSome regular expressions take a long time to match certain input strings to the point where the time it takes to match a string of length *n* is proportional to *n<sup>k</sup>* or even *2<sup>n</sup>*. Such regular expressions can negatively affect performance, or even allow a malicious user to perform a Denial of Service (\"DoS\") attack by crafting an expensive input string for the regular expression to match.\n\nThe regular expression engines provided by many popular JavaScript platforms use backtracking non-deterministic finite automata to implement regular expression matching. While this approach is space-efficient and allows supporting advanced features like capture groups, it is not time-efficient in general. The worst-case time complexity of such an automaton can be polynomial or even exponential, meaning that for strings of a certain shape, increasing the input length by ten characters may make the automaton about 1000 times slower.\n\nTypically, a regular expression is affected by this problem if it contains a repetition of the form `r*` or `r+` where the sub-expression `r` is ambiguous in the sense that it can match some string in multiple ways. More information about the precise circumstances can be found in the references.\n\n\n## Recommendation\nModify the regular expression to remove the ambiguity, or ensure that the strings matched with the regular expression are short enough that the time-complexity does not matter.\n\n\n## Example\nConsider this regular expression:\n\n```javascript\n\n/^_(__|.)+_$/\n```\nIts sub-expression `\"(__|.)+?\"` can match the string `\"__\"` either by the first alternative `\"__\"` to the left of the `\"|\"` operator, or by two repetitions of the second alternative `\".\"` to the right. Thus, a string consisting of an odd number of underscores followed by some other character will cause the regular expression engine to run for an exponential amount of time before rejecting the input.\n\nThis problem can be avoided by rewriting the regular expression to remove the ambiguity between the two branches of the alternative inside the repetition:\n\n```javascript\n\n/^_(__|[^_])+_$/\n```\n\n## References\n* OWASP: [Regular expression Denial of Service - ReDoS](https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS).\n* Wikipedia: [ReDoS](https://en.wikipedia.org/wiki/ReDoS).\n* Wikipedia: [Time complexity](https://en.wikipedia.org/wiki/Time_complexity).\n* James Kirrage, Asiri Rathnayake, Hayo Thielecke: [Static Analysis for Regular Expression Denial-of-Service Attack](https://arxiv.org/abs/1301.0849).\n* Common Weakness Enumeration: [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html).\n* Common Weakness Enumeration: [CWE-730](https://cwe.mitre.org/data/definitions/730.html).\n* Common Weakness Enumeration: [CWE-400](https://cwe.mitre.org/data/definitions/400.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/4.4.0_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "76f6f0121fe7586824d27b43806b954bd09e6914",
+      "message": {
+        "text": "This part of the regular expression may cause exponential backtracking on strings starting with 'a@' and containing many repetitions of '0.0.'."
+      },
+      "location": {
+        "path": "src/www/ui/scripts/jquery.validate.js",
+        "start_line": 1022,
+        "end_line": 1022,
+        "start_column": 502,
+        "end_column": 730
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/fossology/code-scanning/alerts/1/instances"
+  }
+]

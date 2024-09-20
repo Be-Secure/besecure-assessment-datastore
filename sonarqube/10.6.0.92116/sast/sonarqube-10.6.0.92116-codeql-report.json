@@ -1,0 +1,866 @@
+[
+  {
+    "number": 45,
+    "created_at": "2024-09-16T06:57:51Z",
+    "updated_at": "2024-09-16T06:57:52Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/45",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/45",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/implicit-cast-in-compound-assignment",
+      "severity": "warning",
+      "description": "Implicit narrowing conversion in compound assignment",
+      "name": "java/implicit-cast-in-compound-assignment",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security"],
+      "full_description": "Compound assignment statements (for example 'intvar += longvar') that implicitly cast a value of a wider type to a narrower type may result in information loss and numeric errors such as overflows.",
+      "help": "# Implicit narrowing conversion in compound assignment\nCompound assignment statements of the form `x += y` or `x *= y` perform an implicit narrowing conversion if the type of `x` is narrower than the type of `y`. For example, `x += y` is equivalent to `x = (T)(x + y)`, where `T` is the type of `x`. This can result in information loss and numeric errors such as overflows.\n\n\n## Recommendation\nEnsure that the type of the left-hand side of the compound assignment statement is at least as wide as the type of the right-hand side.\n\n\n## Example\nIf `x` is of type `short` and `y` is of type `int`, the expression `x + y` is of type `int`. However, the expression `x += y` is equivalent to `x = (short) (x + y)`. The expression `x + y` is cast to the type of the left-hand side of the assignment: `short`, possibly leading to information loss.\n\nTo avoid implicitly narrowing the type of `x + y`, change the type of `x` to `int`. Then the types of `x` and `x + y` are both `int` and there is no need for an implicit cast.\n\n\n## References\n* J. Bloch and N. Gafter, *Java Puzzlers: Traps, Pitfalls, and Corner Cases*, Puzzle 9. Addison-Wesley, 2005.\n* Java Language Specification: [Compound Assignment Operators](https://docs.oracle.com/javase/specs/jls/se11/html/jls-15.html#jls-15.26.2), [Narrowing Primitive Conversion](https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html#jls-5.1.3).\n* SEI CERT Oracle Coding Standard for Java: [NUM00-J. Detect or prevent integer overflow](https://wiki.sei.cmu.edu/confluence/display/java/NUM00-J.+Detect+or+prevent+integer+overflow).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "Implicit cast of source type int to narrower destination type short."
+      },
+      "location": {
+        "path": "server/sonar-webserver-webapi/src/it/java/org/sonar/server/hotspot/ws/AssignActionIT.java",
+        "start_line": 573,
+        "end_line": 573,
+        "start_column": 5,
+        "end_column": 27
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/45/instances"
+  },
+  {
+    "number": 44,
+    "created_at": "2024-09-16T06:57:51Z",
+    "updated_at": "2024-09-16T06:57:52Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/44",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/44",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/http-response-splitting",
+      "severity": "error",
+      "description": "HTTP response splitting",
+      "name": "java/http-response-splitting",
+      "tags": ["external/cwe/cwe-113","security"],
+      "full_description": "Writing user input directly to an HTTP header makes code vulnerable to attack by header splitting.",
+      "help": "# HTTP response splitting\nDirectly writing user input (for example, an HTTP request parameter) to an HTTP header can lead to an HTTP request-splitting or response-splitting vulnerability.\n\nHTTP response splitting can lead to vulnerabilities such as XSS and cache poisoning.\n\nHTTP request splitting can allow an attacker to inject an additional HTTP request into a client's outgoing socket connection. This can allow an attacker to perform an SSRF-like attack.\n\nIn the context of a servlet container, if the user input includes blank lines and the servlet container does not escape the blank lines, then a remote user can cause the response to turn into two separate responses. The remote user can then control one or more responses, which is also HTTP response splitting.\n\n\n## Recommendation\nGuard against HTTP header splitting in the same way as guarding against cross-site scripting. Before passing any data into HTTP headers, either check the data for special characters, or escape any special characters that are present.\n\nIf the code calls Netty API's directly, ensure that the `validateHeaders` parameter is set to `true`.\n\n\n## Example\nThe following example shows the 'name' parameter being written to a cookie in two different ways. The first way writes it directly to the cookie, and thus is vulnerable to response-splitting attacks. The second way first removes all special characters, thus avoiding the potential problem.\n\n\n```java\npublic class ResponseSplitting extends HttpServlet {\n\tprotected void doGet(HttpServletRequest request, HttpServletResponse response)\n\tthrows ServletException, IOException {\n\t\t// BAD: setting a cookie with an unvalidated parameter\n\t\tCookie cookie = new Cookie(\"name\", request.getParameter(\"name\"));\n\t\tresponse.addCookie(cookie);\n\n\t\t// GOOD: remove special characters before putting them in the header\n\t\tString name = removeSpecial(request.getParameter(\"name\"));\n\t\tCookie cookie2 = new Cookie(\"name\", name);\n\t\tresponse.addCookie(cookie2);\n\t}\n\n\tprivate static String removeSpecial(String str) {\n\t\treturn str.replaceAll(\"[^a-zA-Z ]\", \"\");\n\t}\n}\n\n```\n\n## Example\nThe following example shows the use of the library 'netty' with HTTP response-splitting verification configurations. The second way will verify the parameters before using them to build the HTTP response.\n\n\n```java\nimport io.netty.handler.codec.http.DefaultHttpHeaders;\n\npublic class ResponseSplitting {\n    // BAD: Disables the internal response splitting verification\n    private final DefaultHttpHeaders badHeaders = new DefaultHttpHeaders(false);\n\n    // GOOD: Verifies headers passed don't contain CRLF characters\n    private final DefaultHttpHeaders goodHeaders = new DefaultHttpHeaders();\n\n    // BAD: Disables the internal response splitting verification\n    private final DefaultHttpResponse badResponse = new DefaultHttpResponse(version, httpResponseStatus, false);\n\n    // GOOD: Verifies headers passed don't contain CRLF characters\n    private final DefaultHttpResponse goodResponse = new DefaultHttpResponse(version, httpResponseStatus);\n}\n\n```\n\n## Example\nThe following example shows the use of the netty library with configurations for verification of HTTP request splitting. The second recommended approach in the example verifies the parameters before using them to build the HTTP request.\n\n\n```java\npublic class NettyRequestSplitting {\n    // BAD: Disables the internal request splitting verification\n    private final DefaultHttpHeaders badHeaders = new DefaultHttpHeaders(false);\n\n    // GOOD: Verifies headers passed don't contain CRLF characters\n    private final DefaultHttpHeaders goodHeaders = new DefaultHttpHeaders();\n\n    // BAD: Disables the internal request splitting verification\n    private final DefaultHttpRequest badRequest = new DefaultHttpRequest(httpVersion, method, uri, false);\n\n    // GOOD: Verifies headers passed don't contain CRLF characters\n    private final DefaultHttpRequest goodResponse = new DefaultHttpRequest(httpVersion, method, uri);\n}\n\n```\n\n## References\n* SecLists.org: [HTTP response splitting](https://seclists.org/bugtraq/2005/Apr/187).\n* OWASP: [HTTP Response Splitting](https://www.owasp.org/index.php/HTTP_Response_Splitting).\n* Wikipedia: [HTTP response splitting](http://en.wikipedia.org/wiki/HTTP_response_splitting).\n* CAPEC: [CAPEC-105: HTTP Request Splitting](https://capec.mitre.org/data/definitions/105.html)\n* Common Weakness Enumeration: [CWE-113](https://cwe.mitre.org/data/definitions/113.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "This header depends on a user-provided value, which may cause a response-splitting vulnerability."
+      },
+      "location": {
+        "path": "server/sonar-webserver-api/src/main/java/org/sonar/server/http/JavaxHttpResponse.java",
+        "start_line": 97,
+        "end_line": 97,
+        "start_column": 24,
+        "end_column": 35
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/44/instances"
+  },
+  {
+    "number": 43,
+    "created_at": "2024-09-16T06:57:51Z",
+    "updated_at": "2024-09-16T06:57:52Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/43",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/43",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/ssrf",
+      "severity": "error",
+      "description": "Server-side request forgery",
+      "name": "java/ssrf",
+      "tags": ["external/cwe/cwe-918","security"],
+      "full_description": "Making web requests based on unvalidated user-input may cause the server to communicate with malicious servers.",
+      "help": "# Server-side request forgery\nDirectly incorporating user input into an HTTP request without validating the input can facilitate server-side request forgery (SSRF) attacks. In these attacks, the server may be tricked into making a request and interacting with an attacker-controlled server.\n\n\n## Recommendation\nTo guard against SSRF attacks, you should avoid putting user-provided input directly into a request URL. Instead, maintain a list of authorized URLs on the server; then choose from that list based on the input provided. Alternatively, ensure requests constructed from user input are limited to a particular host or more restrictive URL prefix.\n\n\n## Example\nThe following example shows an HTTP request parameter being used directly to form a new request without validating the input, which facilitates SSRF attacks. It also shows how to remedy the problem by validating the user input against a known fixed string.\n\n\n```java\nimport java.net.http.HttpClient;\n\npublic class SSRF extends HttpServlet {\n\tprivate static final String VALID_URI = \"http://lgtm.com\";\n\tprivate HttpClient client = HttpClient.newHttpClient();\n\n\tprotected void doGet(HttpServletRequest request, HttpServletResponse response)\n\t\tthrows ServletException, IOException {\n\t\tURI uri = new URI(request.getParameter(\"uri\"));\n\t\t// BAD: a request parameter is incorporated without validation into a Http request\n\t\tHttpRequest r = HttpRequest.newBuilder(uri).build();\n\t\tclient.send(r, null);\n\n\t\t// GOOD: the request parameter is validated against a known fixed string\n\t\tif (VALID_URI.equals(request.getParameter(\"uri\"))) {\n\t\t\tHttpRequest r2 = HttpRequest.newBuilder(uri).build();\n\t\t\tclient.send(r2, null);\n\t\t}\n\t}\n}\n\n```\n\n## References\n* [OWASP SSRF](https://owasp.org/www-community/attacks/Server_Side_Request_Forgery)\n* Common Weakness Enumeration: [CWE-918](https://cwe.mitre.org/data/definitions/918.html).\n",
+      "security_severity_level": "critical"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "Potential server-side request forgery due to a user-provided value."
+      },
+      "location": {
+        "path": "server/sonar-alm-client/src/main/java/org/sonar/alm/client/GenericApplicationHttpClient.java",
+        "start_line": 184,
+        "end_line": 184,
+        "start_column": 53,
+        "end_column": 89
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/43/instances"
+  },
+  {
+    "number": 42,
+    "created_at": "2024-09-16T06:57:51Z",
+    "updated_at": "2024-09-16T06:57:52Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/42",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/42",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/path-injection",
+      "severity": "error",
+      "description": "Uncontrolled data used in path expression",
+      "name": "java/path-injection",
+      "tags": ["external/cwe/cwe-022","external/cwe/cwe-023","external/cwe/cwe-036","external/cwe/cwe-073","security"],
+      "full_description": "Accessing paths influenced by users can allow an attacker to access unexpected resources.",
+      "help": "# Uncontrolled data used in path expression\nAccessing paths controlled by users can allow an attacker to access unexpected resources. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\nPaths that are naively constructed from data controlled by a user may be absolute paths, or may contain unexpected special characters such as \"..\". Such a path could point anywhere on the file system.\n\n\n## Recommendation\nValidate user input before using it to construct a file path.\n\nCommon validation methods include checking that the normalized path is relative and does not contain any \"..\" components, or checking that the path is contained within a safe folder. The method you should use depends on how the path is used in the application, and whether the path should be a single path component.\n\nIf the path should be a single path component (such as a file name), you can check for the existence of any path separators (\"/\" or \"\\\\\"), or \"..\" sequences in the input, and reject the input if any are found.\n\nNote that removing \"../\" sequences is *not* sufficient, since the input could still contain a path separator followed by \"..\". For example, the input \".../...//\" would still result in the string \"../\" if only \"../\" sequences are removed.\n\nFinally, the simplest (but most restrictive) option is to use an allow list of safe patterns and make sure that the user input matches one of these patterns.\n\n\n## Example\nIn this example, a file name is read from a `java.net.Socket` and then used to access a file and send it back over the socket. However, a malicious user could enter a file name anywhere on the file system, such as \"/etc/passwd\" or \"../../../etc/passwd\".\n\n\n```java\npublic void sendUserFile(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\t// BAD: read from a file without checking its path\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filename));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\n}\n\n```\nIf the input should only be a file name, you can check that it doesn't contain any path separators or \"..\" sequences.\n\n\n```java\npublic void sendUserFileGood(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\t// GOOD: ensure that the filename has no path separators or parent directory references\n\tif (filename.contains(\"..\") || filename.contains(\"/\") || filename.contains(\"\\\\\")) {\n\t\tthrow new IllegalArgumentException(\"Invalid filename\");\n\t}\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filename));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\t\n}\n\n```\nIf the input should be within a specific directory, you can check that the resolved path is still contained within that directory.\n\n\n```java\npublic void sendUserFileGood(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\n\tPath publicFolder = Paths.get(\"/home/\" + user + \"/public\").normalize().toAbsolutePath();\n\tPath filePath = publicFolder.resolve(filename).normalize().toAbsolutePath();\n\n\t// GOOD: ensure that the path stays within the public folder\n\tif (!filePath.startsWith(publicFolder + File.separator)) {\n\t\tthrow new IllegalArgumentException(\"Invalid filename\");\n\t}\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filePath.toString()));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\n}\n```\n\n## References\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n* Common Weakness Enumeration: [CWE-23](https://cwe.mitre.org/data/definitions/23.html).\n* Common Weakness Enumeration: [CWE-36](https://cwe.mitre.org/data/definitions/36.html).\n* Common Weakness Enumeration: [CWE-73](https://cwe.mitre.org/data/definitions/73.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "This path depends on a user-provided value."
+      },
+      "location": {
+        "path": "server/sonar-webserver/src/main/java/org/sonar/server/platform/web/StaticResourcesServlet.java",
+        "start_line": 148,
+        "end_line": 148,
+        "start_column": 62,
+        "end_column": 70
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/42/instances"
+  },
+  {
+    "number": 41,
+    "created_at": "2024-09-16T06:57:51Z",
+    "updated_at": "2024-09-16T06:57:52Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/41",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/41",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/path-injection",
+      "severity": "error",
+      "description": "Uncontrolled data used in path expression",
+      "name": "java/path-injection",
+      "tags": ["external/cwe/cwe-022","external/cwe/cwe-023","external/cwe/cwe-036","external/cwe/cwe-073","security"],
+      "full_description": "Accessing paths influenced by users can allow an attacker to access unexpected resources.",
+      "help": "# Uncontrolled data used in path expression\nAccessing paths controlled by users can allow an attacker to access unexpected resources. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\nPaths that are naively constructed from data controlled by a user may be absolute paths, or may contain unexpected special characters such as \"..\". Such a path could point anywhere on the file system.\n\n\n## Recommendation\nValidate user input before using it to construct a file path.\n\nCommon validation methods include checking that the normalized path is relative and does not contain any \"..\" components, or checking that the path is contained within a safe folder. The method you should use depends on how the path is used in the application, and whether the path should be a single path component.\n\nIf the path should be a single path component (such as a file name), you can check for the existence of any path separators (\"/\" or \"\\\\\"), or \"..\" sequences in the input, and reject the input if any are found.\n\nNote that removing \"../\" sequences is *not* sufficient, since the input could still contain a path separator followed by \"..\". For example, the input \".../...//\" would still result in the string \"../\" if only \"../\" sequences are removed.\n\nFinally, the simplest (but most restrictive) option is to use an allow list of safe patterns and make sure that the user input matches one of these patterns.\n\n\n## Example\nIn this example, a file name is read from a `java.net.Socket` and then used to access a file and send it back over the socket. However, a malicious user could enter a file name anywhere on the file system, such as \"/etc/passwd\" or \"../../../etc/passwd\".\n\n\n```java\npublic void sendUserFile(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\t// BAD: read from a file without checking its path\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filename));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\n}\n\n```\nIf the input should only be a file name, you can check that it doesn't contain any path separators or \"..\" sequences.\n\n\n```java\npublic void sendUserFileGood(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\t// GOOD: ensure that the filename has no path separators or parent directory references\n\tif (filename.contains(\"..\") || filename.contains(\"/\") || filename.contains(\"\\\\\")) {\n\t\tthrow new IllegalArgumentException(\"Invalid filename\");\n\t}\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filename));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\t\n}\n\n```\nIf the input should be within a specific directory, you can check that the resolved path is still contained within that directory.\n\n\n```java\npublic void sendUserFileGood(Socket sock, String user) {\n\tBufferedReader filenameReader = new BufferedReader(\n\t\t\tnew InputStreamReader(sock.getInputStream(), \"UTF-8\"));\n\tString filename = filenameReader.readLine();\n\n\tPath publicFolder = Paths.get(\"/home/\" + user + \"/public\").normalize().toAbsolutePath();\n\tPath filePath = publicFolder.resolve(filename).normalize().toAbsolutePath();\n\n\t// GOOD: ensure that the path stays within the public folder\n\tif (!filePath.startsWith(publicFolder + File.separator)) {\n\t\tthrow new IllegalArgumentException(\"Invalid filename\");\n\t}\n\tBufferedReader fileReader = new BufferedReader(new FileReader(filePath.toString()));\n\tString fileLine = fileReader.readLine();\n\twhile(fileLine != null) {\n\t\tsock.getOutputStream().write(fileLine.getBytes());\n\t\tfileLine = fileReader.readLine();\n\t}\n}\n```\n\n## References\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n* Common Weakness Enumeration: [CWE-23](https://cwe.mitre.org/data/definitions/23.html).\n* Common Weakness Enumeration: [CWE-36](https://cwe.mitre.org/data/definitions/36.html).\n* Common Weakness Enumeration: [CWE-73](https://cwe.mitre.org/data/definitions/73.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "This path depends on a user-provided value."
+      },
+      "location": {
+        "path": "server/sonar-webserver/src/main/java/org/sonar/server/platform/web/StaticResourcesServlet.java",
+        "start_line": 143,
+        "end_line": 143,
+        "start_column": 52,
+        "end_column": 60
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/41/instances"
+  },
+  {
+    "number": 40,
+    "created_at": "2024-09-16T06:57:51Z",
+    "updated_at": "2024-09-16T06:57:52Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/40",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/40",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/zipslip",
+      "severity": "error",
+      "description": "Arbitrary file access during archive extraction (\"Zip Slip\")",
+      "name": "java/zipslip",
+      "tags": ["external/cwe/cwe-022","security"],
+      "full_description": "Extracting files from a malicious ZIP file, or similar type of archive, without validating that the destination file path is within the destination directory can allow an attacker to unexpectedly gain access to resources.",
+      "help": "# Arbitrary file access during archive extraction (\"Zip Slip\")\nExtracting files from a malicious zip file, or similar type of archive, is at risk of directory traversal attacks if filenames from the archive are not properly validated.\n\nZip archives contain archive entries representing each file in the archive. These entries include a file path for the entry, but these file paths are not restricted and may contain unexpected special elements such as the directory traversal element (`..`). If these file paths are used to create a filesystem path, then a file operation may happen in an unexpected location. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\nFor example, if a zip file contains a file entry `..\\sneaky-file`, and the zip file is extracted to the directory `c:\\output`, then naively combining the paths would result in an output file path of `c:\\output\\..\\sneaky-file`, which would cause the file to be written to `c:\\sneaky-file`.\n\n\n## Recommendation\nEnsure that output paths constructed from zip archive entries are validated to prevent writing files to unexpected locations.\n\nThe recommended way of writing an output file from a zip archive entry is to verify that the normalized full path of the output file starts with a prefix that matches the destination directory. Path normalization can be done with either `java.io.File.getCanonicalFile()` or `java.nio.file.Path.normalize()`. Prefix checking can be done with `String.startsWith(..)`, but it is better to use `java.nio.file.Path.startsWith(..)`, as the latter works on complete path segments.\n\nAnother alternative is to validate archive entries against a whitelist of expected files.\n\n\n## Example\nIn this example, a file path taken from a zip archive item entry is combined with a destination directory. The result is used as the destination file path without verifying that the result is within the destination directory. If provided with a zip file containing an archive path like `..\\sneaky-file`, then this file would be written outside the destination directory.\n\n\n```java\nvoid writeZipEntry(ZipEntry entry, File destinationDir) {\n    File file = new File(destinationDir, entry.getName());\n    FileOutputStream fos = new FileOutputStream(file); // BAD\n    // ... write entry to fos ...\n}\n\n```\nTo fix this vulnerability, we need to verify that the normalized `file` still has `destinationDir` as its prefix, and throw an exception if this is not the case.\n\n\n```java\nvoid writeZipEntry(ZipEntry entry, File destinationDir) {\n    File file = new File(destinationDir, entry.getName());\n    if (!file.toPath().normalize().startsWith(destinationDir.toPath()))\n        throw new Exception(\"Bad zip entry\");\n    FileOutputStream fos = new FileOutputStream(file); // OK\n    // ... write entry to fos ...\n}\n\n```\n\n## References\n* Snyk: [Zip Slip Vulnerability](https://snyk.io/research/zip-slip-vulnerability).\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "Unsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation.\nUnsanitized archive entry, which may contain '..', is used in a file system operation."
+      },
+      "location": {
+        "path": "sonar-scanner-engine/src/test/java/org/sonar/scm/git/Utils.java",
+        "start_line": 50,
+        "end_line": 50,
+        "start_column": 37,
+        "end_column": 52
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/40/instances"
+  },
+  {
+    "number": 39,
+    "created_at": "2024-09-16T06:57:51Z",
+    "updated_at": "2024-09-16T06:57:52Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/39",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/39",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/insecure-cookie",
+      "severity": "error",
+      "description": "Failure to use secure cookies",
+      "name": "java/insecure-cookie",
+      "tags": ["external/cwe/cwe-614","security"],
+      "full_description": "Insecure cookies may be sent in cleartext, which makes them vulnerable to interception.",
+      "help": "# Failure to use secure cookies\nFailing to set the 'secure' flag on a cookie can cause it to be sent in cleartext. This makes it easier for an attacker to intercept.\n\n\n## Recommendation\nAlways use `setSecure` to set the 'secure' flag on a cookie before adding it to an `HttpServletResponse`.\n\n\n## Example\nThis example shows two ways of adding a cookie to an `HttpServletResponse`. The first way leaves out the setting of the 'secure' flag; the second way includes the setting of the flag.\n\n\n```java\npublic static void test(HttpServletRequest request, HttpServletResponse response) {\n\t{\n\t\tCookie cookie = new Cookie(\"secret\", \"fakesecret\");\n\t\t\n\t\t// BAD: 'secure' flag not set\n\t\tresponse.addCookie(cookie);\n\t}\n\n\t{\n\t\tCookie cookie = new Cookie(\"secret\", \"fakesecret\");\n\t\t\n\t\t// GOOD: set 'secure' flag\n\t\tcookie.setSecure(true);\n\t\tresponse.addCookie(cookie);\n\t}\n}\n```\n\n## References\n* SEI CERT Oracle Coding Standard for Java: [SER03-J. Do not serialize unencrypted, sensitive data](https://wiki.sei.cmu.edu/confluence/display/java/SER03-J.+Do+not+serialize+unencrypted+sensitive+data).\n* Java Platform, Enterprise Edition (Java EE) 7, API Specification: [Class Cookie](https://docs.oracle.com/javaee/7/api/javax/servlet/http/Cookie.html).\n* Common Weakness Enumeration: [CWE-614](https://cwe.mitre.org/data/definitions/614.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "Cookie is added to response without the 'secure' flag being set."
+      },
+      "location": {
+        "path": "server/sonar-webserver-api/src/test/java/org/sonar/server/http/JavaxHttpResponseTest.java",
+        "start_line": 75,
+        "end_line": 75,
+        "start_column": 5,
+        "end_column": 73
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/39/instances"
+  },
+  {
+    "number": 38,
+    "created_at": "2024-09-16T06:57:51Z",
+    "updated_at": "2024-09-16T06:57:52Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/38",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/38",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/insecure-cookie",
+      "severity": "error",
+      "description": "Failure to use secure cookies",
+      "name": "java/insecure-cookie",
+      "tags": ["external/cwe/cwe-614","security"],
+      "full_description": "Insecure cookies may be sent in cleartext, which makes them vulnerable to interception.",
+      "help": "# Failure to use secure cookies\nFailing to set the 'secure' flag on a cookie can cause it to be sent in cleartext. This makes it easier for an attacker to intercept.\n\n\n## Recommendation\nAlways use `setSecure` to set the 'secure' flag on a cookie before adding it to an `HttpServletResponse`.\n\n\n## Example\nThis example shows two ways of adding a cookie to an `HttpServletResponse`. The first way leaves out the setting of the 'secure' flag; the second way includes the setting of the flag.\n\n\n```java\npublic static void test(HttpServletRequest request, HttpServletResponse response) {\n\t{\n\t\tCookie cookie = new Cookie(\"secret\", \"fakesecret\");\n\t\t\n\t\t// BAD: 'secure' flag not set\n\t\tresponse.addCookie(cookie);\n\t}\n\n\t{\n\t\tCookie cookie = new Cookie(\"secret\", \"fakesecret\");\n\t\t\n\t\t// GOOD: set 'secure' flag\n\t\tcookie.setSecure(true);\n\t\tresponse.addCookie(cookie);\n\t}\n}\n```\n\n## References\n* SEI CERT Oracle Coding Standard for Java: [SER03-J. Do not serialize unencrypted, sensitive data](https://wiki.sei.cmu.edu/confluence/display/java/SER03-J.+Do+not+serialize+unencrypted+sensitive+data).\n* Java Platform, Enterprise Edition (Java EE) 7, API Specification: [Class Cookie](https://docs.oracle.com/javaee/7/api/javax/servlet/http/Cookie.html).\n* Common Weakness Enumeration: [CWE-614](https://cwe.mitre.org/data/definitions/614.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "Cookie is added to response without the 'secure' flag being set."
+      },
+      "location": {
+        "path": "server/sonar-webserver-api/src/main/java/org/sonar/server/http/JavaxHttpResponse.java",
+        "start_line": 97,
+        "end_line": 97,
+        "start_column": 5,
+        "end_column": 36
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/38/instances"
+  },
+  {
+    "number": 37,
+    "created_at": "2024-09-16T06:57:51Z",
+    "updated_at": "2024-09-16T06:57:52Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/37",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/37",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/insecure-randomness",
+      "severity": "warning",
+      "description": "Insecure randomness",
+      "name": "java/insecure-randomness",
+      "tags": ["external/cwe/cwe-330","external/cwe/cwe-338","security"],
+      "full_description": "Using a cryptographically Insecure pseudo-random number generator to generate a security-sensitive value may allow an attacker to predict what value will be generated.",
+      "help": "# Insecure randomness\nIf you use a cryptographically weak pseudo-random number generator to generate security-sensitive values, such as passwords, attackers can more easily predict those values.\n\nPseudo-random number generators generate a sequence of numbers that only approximates the properties of random numbers. The sequence is not truly random because it is completely determined by a relatively small set of initial values (the seed). If the random number generator is cryptographically weak, then this sequence may be easily predictable through outside observations.\n\n\n## Recommendation\nThe `java.util.Random` random number generator is not cryptographically secure. Use a secure random number generator such as `java.security.SecureRandom` instead.\n\nUse a cryptographically secure pseudo-random number generator if the output is to be used in a security-sensitive context. As a general rule, a value should be considered \"security-sensitive\" if predicting it would allow the attacker to perform an action that they would otherwise be unable to perform. For example, if an attacker could predict the random password generated for a new user, they would be able to log in as that new user.\n\n\n## Example\nThe following examples show different ways of generating a cookie with a random value.\n\nIn the first (BAD) case, we generate a fresh cookie by appending a random integer to the end of a static string. The random number generator used (`Random`) is not cryptographically secure, so it may be possible for an attacker to predict the generated cookie.\n\n\n```java\nRandom r = new Random();\n\nbyte[] bytes = new byte[16];\nr.nextBytes(bytes);\n\nString cookieValue = encode(bytes);\n\nCookie cookie = new Cookie(\"name\", cookieValue);\nresponse.addCookie(cookie);\n\n```\nIn the second (GOOD) case, we generate a fresh cookie by appending a random integer to the end of a static string. The random number generator used (`SecureRandom`) is cryptographically secure, so it is not possible for an attacker to predict the generated cookie.\n\n\n```java\nSecureRandom r = new SecureRandom();\n\nbyte[] bytes = new byte[16];\nr.nextBytes(bytes);\n\nString cookieValue = encode(bytes);\n\nCookie cookie = new Cookie(\"name\", cookieValue);\nresponse.addCookie(cookie);\n\n```\n\n## References\n* Wikipedia: [Pseudo-random number generator](http://en.wikipedia.org/wiki/Pseudorandom_number_generator).\n* Java Docs: [Random](http://docs.oracle.com/javase/8/docs/api/java/util/Random.html).\n* Java Docs: [SecureRandom](http://docs.oracle.com/javase/8/docs/api/java/security/SecureRandom.html).\n* Common Weakness Enumeration: [CWE-330](https://cwe.mitre.org/data/definitions/330.html).\n* Common Weakness Enumeration: [CWE-338](https://cwe.mitre.org/data/definitions/338.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "Potential Insecure randomness due to a Insecure randomness source.."
+      },
+      "location": {
+        "path": "server/sonar-webserver-auth/src/main/java/org/sonar/server/authentication/CredentialsLocalAuthentication.java",
+        "start_line": 229,
+        "end_line": 229,
+        "start_column": 14,
+        "end_column": 82
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/37/instances"
+  },
+  {
+    "number": 36,
+    "created_at": "2024-09-16T06:57:51Z",
+    "updated_at": "2024-09-16T06:57:52Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/36",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/36",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "java/insecure-randomness",
+      "severity": "warning",
+      "description": "Insecure randomness",
+      "name": "java/insecure-randomness",
+      "tags": ["external/cwe/cwe-330","external/cwe/cwe-338","security"],
+      "full_description": "Using a cryptographically Insecure pseudo-random number generator to generate a security-sensitive value may allow an attacker to predict what value will be generated.",
+      "help": "# Insecure randomness\nIf you use a cryptographically weak pseudo-random number generator to generate security-sensitive values, such as passwords, attackers can more easily predict those values.\n\nPseudo-random number generators generate a sequence of numbers that only approximates the properties of random numbers. The sequence is not truly random because it is completely determined by a relatively small set of initial values (the seed). If the random number generator is cryptographically weak, then this sequence may be easily predictable through outside observations.\n\n\n## Recommendation\nThe `java.util.Random` random number generator is not cryptographically secure. Use a secure random number generator such as `java.security.SecureRandom` instead.\n\nUse a cryptographically secure pseudo-random number generator if the output is to be used in a security-sensitive context. As a general rule, a value should be considered \"security-sensitive\" if predicting it would allow the attacker to perform an action that they would otherwise be unable to perform. For example, if an attacker could predict the random password generated for a new user, they would be able to log in as that new user.\n\n\n## Example\nThe following examples show different ways of generating a cookie with a random value.\n\nIn the first (BAD) case, we generate a fresh cookie by appending a random integer to the end of a static string. The random number generator used (`Random`) is not cryptographically secure, so it may be possible for an attacker to predict the generated cookie.\n\n\n```java\nRandom r = new Random();\n\nbyte[] bytes = new byte[16];\nr.nextBytes(bytes);\n\nString cookieValue = encode(bytes);\n\nCookie cookie = new Cookie(\"name\", cookieValue);\nresponse.addCookie(cookie);\n\n```\nIn the second (GOOD) case, we generate a fresh cookie by appending a random integer to the end of a static string. The random number generator used (`SecureRandom`) is cryptographically secure, so it is not possible for an attacker to predict the generated cookie.\n\n\n```java\nSecureRandom r = new SecureRandom();\n\nbyte[] bytes = new byte[16];\nr.nextBytes(bytes);\n\nString cookieValue = encode(bytes);\n\nCookie cookie = new Cookie(\"name\", cookieValue);\nresponse.addCookie(cookie);\n\n```\n\n## References\n* Wikipedia: [Pseudo-random number generator](http://en.wikipedia.org/wiki/Pseudorandom_number_generator).\n* Java Docs: [Random](http://docs.oracle.com/javase/8/docs/api/java/util/Random.html).\n* Java Docs: [SecureRandom](http://docs.oracle.com/javase/8/docs/api/java/security/SecureRandom.html).\n* Common Weakness Enumeration: [CWE-330](https://cwe.mitre.org/data/definitions/330.html).\n* Common Weakness Enumeration: [CWE-338](https://cwe.mitre.org/data/definitions/338.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"java-kotlin\"}",
+      "category": "/language:java-kotlin",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "Potential Insecure randomness due to a Insecure randomness source.."
+      },
+      "location": {
+        "path": "server/sonar-webserver-auth/src/main/java/org/sonar/server/authentication/CredentialsLocalAuthentication.java",
+        "start_line": 74,
+        "end_line": 74,
+        "start_column": 70,
+        "end_column": 84
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/36/instances"
+  },
+  {
+    "number": 35,
+    "created_at": "2024-09-16T06:50:04Z",
+    "updated_at": "2024-09-16T06:50:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/35",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/35",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/insecure-randomness",
+      "severity": "warning",
+      "description": "Insecure randomness",
+      "name": "js/insecure-randomness",
+      "tags": ["external/cwe/cwe-338","security"],
+      "full_description": "Using a cryptographically weak pseudo-random number generator to generate a security-sensitive value may allow an attacker to predict what value will be generated.",
+      "help": "# Insecure randomness\nUsing a cryptographically weak pseudo-random number generator to generate a security-sensitive value, such as a password, makes it easier for an attacker to predict the value.\n\nPseudo-random number generators generate a sequence of numbers that only approximates the properties of random numbers. The sequence is not truly random because it is completely determined by a relatively small set of initial values, the seed. If the random number generator is cryptographically weak, then this sequence may be easily predictable through outside observations.\n\n\n## Recommendation\nUse a cryptographically secure pseudo-random number generator if the output is to be used in a security-sensitive context. As a rule of thumb, a value should be considered \"security-sensitive\" if predicting it would allow the attacker to perform an action that they would otherwise be unable to perform. For example, if an attacker could predict the random password generated for a new user, they would be able to log in as that new user.\n\nFor JavaScript on the NodeJS platform, `crypto.getRandomBytes` provides a cryptographically secure pseudo-random byte generator. Note that the conversion from bytes to numbers can introduce bias that breaks the security.\n\nFor JavaScript in the browser, `crypto.getRandomValues` provides a cryptographically secure pseudo-random number generator.\n\n\n## Example\nThe following examples show different ways of generating a password.\n\nIn the first case, we generate a fresh password by appending a random integer to the end of a static string. The random number generator used (`Math.random`) is not cryptographically secure, so it may be possible for an attacker to predict the generated password.\n\n\n```javascript\nfunction insecurePassword() {\n    // BAD: the random suffix is not cryptographically secure\n    var suffix = Math.random();\n    var password = \"myPassword\" + suffix;\n    return password;\n}\n\n```\nIn the second example, a cryptographically secure random number generator is used for the same purpose. In this case, it is much harder to predict the generated integers.\n\n\n```javascript\nfunction securePassword() {\n    // GOOD: the random suffix is cryptographically secure\n    var suffix = window.crypto.getRandomValues(new Uint32Array(1))[0];\n    var password = \"myPassword\" + suffix;\n    \n    // GOOD: if a random value between 0 and 1 is desired\n    var secret = window.crypto.getRandomValues(new Uint32Array(1))[0] * Math.pow(2,-32);\n}\n\n```\n\n## References\n* Wikipedia: [Pseudo-random number generator](http://en.wikipedia.org/wiki/Pseudorandom_number_generator).\n* Mozilla Developer Network: [Crypto: getRandomValues()](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues).\n* NodeJS: [crypto.randomBytes](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback)\n* Common Weakness Enumeration: [CWE-338](https://cwe.mitre.org/data/definitions/338.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "This uses a cryptographically insecure random number generated at Math.random() in a security context."
+      },
+      "location": {
+        "path": "server/sonar-web/src/main/js/helpers/testMocks.ts",
+        "start_line": 312,
+        "end_line": 312,
+        "start_column": 13,
+        "end_column": 37
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/35/instances"
+  },
+  {
+    "number": 34,
+    "created_at": "2024-09-16T06:50:04Z",
+    "updated_at": "2024-09-16T06:50:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/34",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/34",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/insecure-randomness",
+      "severity": "warning",
+      "description": "Insecure randomness",
+      "name": "js/insecure-randomness",
+      "tags": ["external/cwe/cwe-338","security"],
+      "full_description": "Using a cryptographically weak pseudo-random number generator to generate a security-sensitive value may allow an attacker to predict what value will be generated.",
+      "help": "# Insecure randomness\nUsing a cryptographically weak pseudo-random number generator to generate a security-sensitive value, such as a password, makes it easier for an attacker to predict the value.\n\nPseudo-random number generators generate a sequence of numbers that only approximates the properties of random numbers. The sequence is not truly random because it is completely determined by a relatively small set of initial values, the seed. If the random number generator is cryptographically weak, then this sequence may be easily predictable through outside observations.\n\n\n## Recommendation\nUse a cryptographically secure pseudo-random number generator if the output is to be used in a security-sensitive context. As a rule of thumb, a value should be considered \"security-sensitive\" if predicting it would allow the attacker to perform an action that they would otherwise be unable to perform. For example, if an attacker could predict the random password generated for a new user, they would be able to log in as that new user.\n\nFor JavaScript on the NodeJS platform, `crypto.getRandomBytes` provides a cryptographically secure pseudo-random byte generator. Note that the conversion from bytes to numbers can introduce bias that breaks the security.\n\nFor JavaScript in the browser, `crypto.getRandomValues` provides a cryptographically secure pseudo-random number generator.\n\n\n## Example\nThe following examples show different ways of generating a password.\n\nIn the first case, we generate a fresh password by appending a random integer to the end of a static string. The random number generator used (`Math.random`) is not cryptographically secure, so it may be possible for an attacker to predict the generated password.\n\n\n```javascript\nfunction insecurePassword() {\n    // BAD: the random suffix is not cryptographically secure\n    var suffix = Math.random();\n    var password = \"myPassword\" + suffix;\n    return password;\n}\n\n```\nIn the second example, a cryptographically secure random number generator is used for the same purpose. In this case, it is much harder to predict the generated integers.\n\n\n```javascript\nfunction securePassword() {\n    // GOOD: the random suffix is cryptographically secure\n    var suffix = window.crypto.getRandomValues(new Uint32Array(1))[0];\n    var password = \"myPassword\" + suffix;\n    \n    // GOOD: if a random value between 0 and 1 is desired\n    var secret = window.crypto.getRandomValues(new Uint32Array(1))[0] * Math.pow(2,-32);\n}\n\n```\n\n## References\n* Wikipedia: [Pseudo-random number generator](http://en.wikipedia.org/wiki/Pseudorandom_number_generator).\n* Mozilla Developer Network: [Crypto: getRandomValues()](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues).\n* NodeJS: [crypto.randomBytes](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback)\n* Common Weakness Enumeration: [CWE-338](https://cwe.mitre.org/data/definitions/338.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "This uses a cryptographically insecure random number generated at Math.random() in a security context."
+      },
+      "location": {
+        "path": "server/sonar-web/src/main/js/api/mocks/AlmIntegrationsServiceMock.ts",
+        "start_line": 304,
+        "end_line": 304,
+        "start_column": 15,
+        "end_column": 49
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/34/instances"
+  },
+  {
+    "number": 33,
+    "created_at": "2024-09-16T06:50:04Z",
+    "updated_at": "2024-09-16T06:50:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/33",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/33",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/xss",
+      "severity": "error",
+      "description": "Client-side cross-site scripting",
+      "name": "js/xss",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Writing user input directly to the DOM allows for a cross-site scripting vulnerability.",
+      "help": "# Client-side cross-site scripting\nDirectly writing user input (for example, a URL query parameter) to a webpage without properly sanitizing the input first, allows for a cross-site scripting vulnerability.\n\nThis kind of vulnerability is also called *DOM-based* cross-site scripting, to distinguish it from other types of cross-site scripting.\n\n\n## Recommendation\nTo guard against cross-site scripting, consider using contextual output encoding/escaping before writing user input to the page, or one of the other solutions that are mentioned in the references.\n\n\n## Example\nThe following example shows part of the page URL being written directly to the document, leaving the website vulnerable to cross-site scripting.\n\n\n```javascript\nfunction setLanguageOptions() {\n    var href = document.location.href,\n        deflt = href.substring(href.indexOf(\"default=\")+8);\n    document.write(\"<OPTION value=1>\"+deflt+\"</OPTION>\");\n    document.write(\"<OPTION value=2>English</OPTION>\");\n}\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://www.owasp.org/index.php/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "Cross-site scripting vulnerability due to user-provided value.\nCross-site scripting vulnerability due to user-provided value."
+      },
+      "location": {
+        "path": "server/sonar-web/src/main/js/apps/sessions/components/LoginContainer.tsx",
+        "start_line": 90,
+        "end_line": 90,
+        "start_column": 29,
+        "end_column": 62
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/33/instances"
+  },
+  {
+    "number": 32,
+    "created_at": "2024-09-16T06:50:04Z",
+    "updated_at": "2024-09-16T06:50:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/32",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/32",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/xss",
+      "severity": "error",
+      "description": "Client-side cross-site scripting",
+      "name": "js/xss",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","security"],
+      "full_description": "Writing user input directly to the DOM allows for a cross-site scripting vulnerability.",
+      "help": "# Client-side cross-site scripting\nDirectly writing user input (for example, a URL query parameter) to a webpage without properly sanitizing the input first, allows for a cross-site scripting vulnerability.\n\nThis kind of vulnerability is also called *DOM-based* cross-site scripting, to distinguish it from other types of cross-site scripting.\n\n\n## Recommendation\nTo guard against cross-site scripting, consider using contextual output encoding/escaping before writing user input to the page, or one of the other solutions that are mentioned in the references.\n\n\n## Example\nThe following example shows part of the page URL being written directly to the document, leaving the website vulnerable to cross-site scripting.\n\n\n```javascript\nfunction setLanguageOptions() {\n    var href = document.location.href,\n        deflt = href.substring(href.indexOf(\"default=\")+8);\n    document.write(\"<OPTION value=1>\"+deflt+\"</OPTION>\");\n    document.write(\"<OPTION value=2>English</OPTION>\");\n}\n\n```\n\n## References\n* OWASP: [DOM based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).\n* OWASP: [XSS (Cross Site Scripting) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).\n* OWASP [DOM Based XSS](https://www.owasp.org/index.php/DOM_Based_XSS).\n* OWASP [Types of Cross-Site Scripting](https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting).\n* Wikipedia: [Cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "Cross-site scripting vulnerability due to user-provided value."
+      },
+      "location": {
+        "path": "server/sonar-web/src/main/js/apps/maintenance/components/App.tsx",
+        "start_line": 155,
+        "end_line": 155,
+        "start_column": 31,
+        "end_column": 64
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/32/instances"
+  },
+  {
+    "number": 31,
+    "created_at": "2024-09-16T06:50:04Z",
+    "updated_at": "2024-09-16T06:50:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/31",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/31",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/client-side-unvalidated-url-redirection",
+      "severity": "error",
+      "description": "Client-side URL redirect",
+      "name": "js/client-side-unvalidated-url-redirection",
+      "tags": ["external/cwe/cwe-079","external/cwe/cwe-116","external/cwe/cwe-601","security"],
+      "full_description": "Client-side URL redirection based on unvalidated user input may cause redirection to malicious web sites.",
+      "help": "# Client-side URL redirect\nRedirecting to a URL that is constructed from parts of the DOM that may be controlled by an attacker can facilitate phishing attacks. In these attacks, unsuspecting users can be redirected to a malicious site that looks very similar to the real site they intend to visit, but which is controlled by the attacker.\n\n\n## Recommendation\nTo guard against untrusted URL redirection, it is advisable to avoid putting user input directly into a redirect URL. Instead, maintain a list of authorized redirects on the server; then choose from that list based on the user input provided.\n\n\n## Example\nThe following example uses a regular expression to extract a query parameter from the document URL, and then uses it to construct a new URL to redirect to without any further validation. This may allow an attacker to craft a link that redirects from a trusted website to some arbitrary website of their choosing, which facilitates phishing attacks:\n\n\n```javascript\nwindow.location = /.*redirect=([^&]*).*/.exec(document.location.href)[1];\n\n```\n\n## References\n* OWASP: [ XSS Unvalidated Redirects and Forwards Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html).\n* Common Weakness Enumeration: [CWE-79](https://cwe.mitre.org/data/definitions/79.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n* Common Weakness Enumeration: [CWE-601](https://cwe.mitre.org/data/definitions/601.html).\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "Untrusted URL redirection depends on a user-provided value."
+      },
+      "location": {
+        "path": "server/sonar-web/src/main/js/apps/sessions/components/LoginContainer.tsx",
+        "start_line": 90,
+        "end_line": 90,
+        "start_column": 29,
+        "end_column": 62
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/31/instances"
+  },
+  {
+    "number": 30,
+    "created_at": "2024-09-16T06:50:04Z",
+    "updated_at": "2024-09-16T06:50:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/30",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/30",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/path-injection",
+      "severity": "error",
+      "description": "Uncontrolled data used in path expression",
+      "name": "js/path-injection",
+      "tags": ["external/cwe/cwe-022","external/cwe/cwe-023","external/cwe/cwe-036","external/cwe/cwe-073","external/cwe/cwe-099","security"],
+      "full_description": "Accessing paths influenced by users can allow an attacker to access unexpected resources.",
+      "help": "# Uncontrolled data used in path expression\nAccessing files using paths constructed from user-controlled data can allow an attacker to access unexpected resources. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\n\n## Recommendation\nValidate user input before using it to construct a file path.\n\nThe validation method you should use depends on whether you want to allow the user to specify complex paths with multiple components that may span multiple folders, or only simple filenames without a path component.\n\nIn the former case, a common strategy is to make sure that the constructed file path is contained within a safe root folder. First, normalize the path using `path.resolve` or `fs.realpathSync` to remove any \"..\" segments. You should always normalize the file path since an unnormalized path that starts with the root folder can still be used to access files outside the root folder. Then, after you have normalized the path, check that the path starts with the root folder.\n\nIn the latter case, you can use a library like the `sanitize-filename` npm package to eliminate any special characters from the file path. Note that it is *not* sufficient to only remove \"../\" sequences: for example, applying this filter to \".../...//\" would still result in the string \"../\".\n\nFinally, the simplest (but most restrictive) option is to use an allow list of safe patterns and make sure that the user input matches one of these patterns.\n\n\n## Example\nIn the first (bad) example, the code reads the file name from an HTTP request, then accesses that file within a root folder. A malicious user could enter a file name containing \"../\" segments to navigate outside the root folder and access sensitive files.\n\n\n```javascript\nconst fs = require('fs'),\n      http = require('http'),\n      url = require('url');\n\nconst ROOT = \"/var/www/\";\n\nvar server = http.createServer(function(req, res) {\n  let filePath = url.parse(req.url, true).query.path;\n\n  // BAD: This function uses unsanitized input that can read any file on the file system.\n  res.write(fs.readFileSync(ROOT + filePath, 'utf8'));\n});\n```\nThe second (good) example shows how to avoid access to sensitive files by sanitizing the file path. First, the code resolves the file name relative to a root folder, normalizing the path and removing any \"../\" segments in the process. Then, the code calls `fs.realpathSync` to resolve any symbolic links in the path. Finally, the code checks that the normalized path starts with the path of the root folder, ensuring the file is contained within the root folder.\n\n\n```javascript\nconst fs = require('fs'),\n      http = require('http'),\n      path = require('path'),\n      url = require('url');\n\nconst ROOT = \"/var/www/\";\n\nvar server = http.createServer(function(req, res) {\n  let filePath = url.parse(req.url, true).query.path;\n\n  // GOOD: Verify that the file path is under the root directory\n  filePath = fs.realpathSync(path.resolve(ROOT, filePath));\n  if (!filePath.startsWith(ROOT)) {\n    res.statusCode = 403;\n    res.end();\n    return;\n  }\n  res.write(fs.readFileSync(filePath, 'utf8'));\n});\n```\n\n## References\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* npm: [sanitize-filename](https://www.npmjs.com/package/sanitize-filename) package.\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n* Common Weakness Enumeration: [CWE-23](https://cwe.mitre.org/data/definitions/23.html).\n* Common Weakness Enumeration: [CWE-36](https://cwe.mitre.org/data/definitions/36.html).\n* Common Weakness Enumeration: [CWE-73](https://cwe.mitre.org/data/definitions/73.html).\n* Common Weakness Enumeration: [CWE-99](https://cwe.mitre.org/data/definitions/99.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "This path depends on a user-provided value."
+      },
+      "location": {
+        "path": "server/sonar-web/scripts/start.js",
+        "start_line": 46,
+        "end_line": 46,
+        "start_column": 15,
+        "end_column": 39
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/30/instances"
+  },
+  {
+    "number": 29,
+    "created_at": "2024-09-16T06:50:04Z",
+    "updated_at": "2024-09-16T06:50:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/29",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/29",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "server/sonar-web/src/main/js/helpers/csv.ts",
+        "start_line": 21,
+        "end_line": 21,
+        "start_column": 19,
+        "end_column": 32
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/29/instances"
+  },
+  {
+    "number": 28,
+    "created_at": "2024-09-16T06:50:04Z",
+    "updated_at": "2024-09-16T06:50:06Z",
+    "url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/28",
+    "html_url": "https://github.com/Be-Secure/sonarqube/security/code-scanning/28",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "js/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "js/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the string `replace` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed, for instance by using prepared statements for SQL queries.\n\nOtherwise, make sure to use a regular expression with the `g` flag to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nFor example, assume that we want to embed a user-controlled string `accountNumber` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following function attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(\"'\", \"''\");\n}\n\n```\nAs written, this sanitizer is ineffective: if the first argument to `replace` is a string literal (as in this case), only the *first* occurrence of that string is replaced.\n\nAs mentioned above, the function `escapeQuotes` should be replaced with a purpose-built sanitization library, such as the npm module `sqlstring`. Many other sanitization libraries are available from npm and other sources.\n\nIf this is not an option, `escapeQuotes` should be rewritten to use a regular expression with the `g` (\"global\") flag instead:\n\n\n```javascript\nfunction escapeQuotes(s) {\n  return s.replace(/'/g, \"''\");\n}\n\n```\nNote that it is very important to include the global flag: `s.replace(/'/, \"''\")` *without* the global flag is equivalent to the first example above and only replaces the first quote.\n\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* npm: [sqlstring](https://www.npmjs.com/package/sqlstring) package.\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/10.6.0.92116_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"javascript-typescript\"}",
+      "category": "/language:javascript-typescript",
+      "state": "open",
+      "commit_sha": "16ab0bdc506ad9f9acd64ee5e9891ba5c097c82a",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "server/sonar-web/src/main/js/apps/settings/components/SubCategoryDefinitionsList.tsx",
+        "start_line": 46,
+        "end_line": 46,
+        "start_column": 41,
+        "end_column": 66
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sonarqube/code-scanning/alerts/28/instances"
+  }
+]
