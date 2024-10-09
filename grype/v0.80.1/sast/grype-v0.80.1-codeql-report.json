@@ -1,0 +1,98 @@
+[
+  {
+    "number": 15,
+    "created_at": "2024-09-18T05:08:01Z",
+    "updated_at": "2024-09-18T05:08:03Z",
+    "url": "https://api.github.com/repos/Be-Secure/grype/code-scanning/alerts/15",
+    "html_url": "https://github.com/Be-Secure/grype/security/code-scanning/15",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incomplete-hostname-regexp",
+      "severity": "warning",
+      "description": "Incomplete regular expression for hostnames",
+      "name": "go/incomplete-hostname-regexp",
+      "tags": ["correctness","external/cwe/cwe-20","security"],
+      "full_description": "Matching a URL or hostname against a regular expression that contains an unescaped dot as part of the hostname might match more hostnames than expected.",
+      "help": "# Incomplete regular expression for hostnames\nSanitizing untrusted URLs is an important technique for preventing attacks such as request forgeries and malicious redirections. Often, this is done by checking that the host of a URL is in a set of allowed hosts.\n\nIf a regular expression implements such a check, it is easy to accidentally make the check too permissive by not escaping regular-expression meta-characters such as `.`.\n\nEven if the check is not used in a security-critical context, the incomplete check may still cause undesirable behavior when it accidentally succeeds.\n\n\n## Recommendation\nEscape all meta-characters appropriately when constructing regular expressions for security checks, paying special attention to the `.` meta-character.\n\n\n## Example\nThe following example code checks that a URL redirection will reach the `example.com` domain, or one of its subdomains.\n\n\n```go\npackage main\n\nimport (\n\t\"errors\"\n\t\"net/http\"\n\t\"regexp\"\n)\n\nfunc checkRedirect(req *http.Request, via []*http.Request) error {\n\t// BAD: the host of `req.URL` may be controlled by an attacker\n\tre := \"^((www|beta).)?example.com/\"\n\tif matched, _ := regexp.MatchString(re, req.URL.Host); matched {\n\t\treturn nil\n\t}\n\treturn errors.New(\"Invalid redirect\")\n}\n\n```\nThe check is however easy to bypass because the unescaped `.` allows for any character before `example.com`, effectively allowing the redirect to go to an attacker-controlled domain such as `wwwXexample.com`.\n\nAddress this vulnerability by escaping `.` appropriately:\n\n\n```go\npackage main\n\nimport (\n\t\"errors\"\n\t\"net/http\"\n\t\"regexp\"\n)\n\nfunc checkRedirectGood(req *http.Request, via []*http.Request) error {\n\t// GOOD: the host of `req.URL` must be `example.com`, `www.example.com` or `beta.example.com`\n\tre := \"^((www|beta)\\\\.)?example\\\\.com/\"\n\tif matched, _ := regexp.MatchString(re, req.URL.Host); matched {\n\t\treturn nil\n\t}\n\treturn errors.New(\"Invalid redirect\")\n}\n\n```\nYou may also want to consider using raw string literals to avoid having to escape backslashes:\n\n\n```go\npackage main\n\nimport (\n\t\"errors\"\n\t\"net/http\"\n\t\"regexp\"\n)\n\nfunc checkRedirectGood2(req *http.Request, via []*http.Request) error {\n\t// GOOD: the host of `req.URL` must be `example.com`, `www.example.com` or `beta.example.com`\n\tre := `^((www|beta)\\.)?example\\.com/`\n\tif matched, _ := regexp.MatchString(re, req.URL.Host); matched {\n\t\treturn nil\n\t}\n\treturn errors.New(\"Invalid redirect\")\n}\n\n```\n\n## References\n* OWASP: [SSRF](https://www.owasp.org/index.php/Server_Side_Request_Forgery)\n* OWASP: [Unvalidated Redirects and Forwards Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.80.1_release",
+      "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+      "environment": "{\"language\":\"go\"}",
+      "category": ".github/workflows/codeql-analysis.yml:analyze/language:go",
+      "state": "open",
+      "commit_sha": "c7af8d140bacdfb03ff18d1b5fda33e67daf2535",
+      "message": {
+        "text": "This regular expression has an unescaped dot before 'golang.org', so it might match more hosts than expected when the regular expression is used."
+      },
+      "location": {
+        "path": "grype/match/explicit_ignores.go",
+        "start_line": 28,
+        "end_line": 28,
+        "start_column": 30,
+        "end_column": 58
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/grype/code-scanning/alerts/15/instances"
+  },
+  {
+    "number": 14,
+    "created_at": "2024-09-18T05:08:01Z",
+    "updated_at": "2024-09-18T05:08:03Z",
+    "url": "https://api.github.com/repos/Be-Secure/grype/code-scanning/alerts/14",
+    "html_url": "https://github.com/Be-Secure/grype/security/code-scanning/14",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/regex/missing-regexp-anchor",
+      "severity": "warning",
+      "description": "Missing regular expression anchor",
+      "name": "go/regex/missing-regexp-anchor",
+      "tags": ["correctness","external/cwe/cwe-20","security"],
+      "full_description": "Regular expressions without anchors can be vulnerable to bypassing.",
+      "help": "# Missing regular expression anchor\nSanitizing untrusted input with regular expressions is a common technique. However, it is error-prone to match untrusted input against regular expressions without anchors such as `^` or `$`. Malicious input can bypass such security checks by embedding one of the allowed patterns in an unexpected location.\n\nEven if the matching is not done in a security-critical context, it may still cause undesirable behavior when the regular expression accidentally matches.\n\n\n## Recommendation\nUse anchors to ensure that regular expressions match at the expected locations.\n\n\n## Example\nThe following example code checks that a URL redirection will reach the `example.com` domain, or one of its subdomains, and not some malicious site.\n\n\n```go\npackage main\n\nimport (\n\t\"errors\"\n\t\"net/http\"\n\t\"regexp\"\n)\n\nfunc checkRedirect2(req *http.Request, via []*http.Request) error {\n\t// BAD: the host of `req.URL` may be controlled by an attacker\n\tre := \"https?://www\\\\.example\\\\.com/\"\n\tif matched, _ := regexp.MatchString(re, req.URL.String()); matched {\n\t\treturn nil\n\t}\n\treturn errors.New(\"Invalid redirect\")\n}\n\n```\nThe check with the regular expression match is, however, easy to bypass. For example, the string `http://example.com/` can be embedded in the query string component: `http://evil-example.net/?x=http://example.com/`.\n\nAddress these shortcomings by using anchors in the regular expression instead:\n\n\n```go\npackage main\n\nimport (\n\t\"errors\"\n\t\"net/http\"\n\t\"regexp\"\n)\n\nfunc checkRedirect2Good(req *http.Request, via []*http.Request) error {\n\t// GOOD: the host of `req.URL` cannot be controlled by an attacker\n\tre := \"^https?://www\\\\.example\\\\.com/\"\n\tif matched, _ := regexp.MatchString(re, req.URL.String()); matched {\n\t\treturn nil\n\t}\n\treturn errors.New(\"Invalid redirect\")\n}\n\n```\nA related mistake is to write a regular expression with multiple alternatives, but to only anchor one of the alternatives. As an example, the regular expression `^www\\.example\\.com|beta\\.example\\.com` will match the host `evil.beta.example.com` because the regular expression is parsed as `(^www\\.example\\.com)|(beta\\.example\\.com)/`, so the second alternative `beta\\.example\\.com` is not anchored at the beginning of the string.\n\nWhen checking for a domain name that may have subdomains, it is important to anchor the regular expression or ensure that the domain name is prefixed with a dot.\n\n\n```go\npackage main\n\nimport (\n\t\"regexp\"\n)\n\nfunc checkSubdomain(domain String) {\n\t// Checking strictly that the domain is `example.com`.\n\tre := \"^example\\\\.com$\"\n\tif matched, _ := regexp.MatchString(re, domain); matched {\n\t\t// domain is good.\n\t}\n\n\t// GOOD: Alternatively, check the domain is `example.com` or a subdomain of `example.com`.\n\tre2 := \"(^|\\\\.)example\\\\.com$\"\n\n\tif matched, _ := regexp.MatchString(re2, domain); matched {\n\t\t// domain is good.\n\t}\n}\n\n```\n\n## References\n* OWASP: [SSRF](https://www.owasp.org/index.php/Server_Side_Request_Forgery)\n* OWASP: [Unvalidated Redirects and Forwards Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.80.1_release",
+      "analysis_key": ".github/workflows/codeql-analysis.yml:analyze",
+      "environment": "{\"language\":\"go\"}",
+      "category": ".github/workflows/codeql-analysis.yml:analyze/language:go",
+      "state": "open",
+      "commit_sha": "c7af8d140bacdfb03ff18d1b5fda33e67daf2535",
+      "message": {
+        "text": "When this is used as a regular expression on a URL, it may match anywhere, and arbitrary hosts may come before or after it."
+      },
+      "location": {
+        "path": "grype/match/explicit_ignores.go",
+        "start_line": 28,
+        "end_line": 28,
+        "start_column": 30,
+        "end_column": 58
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/grype/code-scanning/alerts/14/instances"
+  }
+]
