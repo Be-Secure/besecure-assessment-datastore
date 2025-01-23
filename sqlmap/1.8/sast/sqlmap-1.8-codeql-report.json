@@ -1,0 +1,1442 @@
+[
+  {
+    "number": 58,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/58",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/58",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/redos",
+      "severity": "error",
+      "description": "Inefficient regular expression",
+      "name": "py/redos",
+      "tags": ["external/cwe/cwe-1333","external/cwe/cwe-400","external/cwe/cwe-730","security"],
+      "full_description": "A regular expression that requires exponential time to match certain inputs can be a performance bottleneck, and may be vulnerable to denial-of-service attacks.",
+      "help": "# Inefficient regular expression\nSome regular expressions take a long time to match certain input strings to the point where the time it takes to match a string of length *n* is proportional to *n<sup>k</sup>* or even *2<sup>n</sup>*. Such regular expressions can negatively affect performance, or even allow a malicious user to perform a Denial of Service (\"DoS\") attack by crafting an expensive input string for the regular expression to match.\n\nThe regular expression engine provided by Python uses a backtracking non-deterministic finite automata to implement regular expression matching. While this approach is space-efficient and allows supporting advanced features like capture groups, it is not time-efficient in general. The worst-case time complexity of such an automaton can be polynomial or even exponential, meaning that for strings of a certain shape, increasing the input length by ten characters may make the automaton about 1000 times slower.\n\nTypically, a regular expression is affected by this problem if it contains a repetition of the form `r*` or `r+` where the sub-expression `r` is ambiguous in the sense that it can match some string in multiple ways. More information about the precise circumstances can be found in the references.\n\n\n## Recommendation\nModify the regular expression to remove the ambiguity, or ensure that the strings matched with the regular expression are short enough that the time-complexity does not matter.\n\n\n## Example\nConsider this regular expression:\n\n```python\n\n^_(__|.)+_$\n```\nIts sub-expression `\"(__|.)+?\"` can match the string `\"__\"` either by the first alternative `\"__\"` to the left of the `\"|\"` operator, or by two repetitions of the second alternative `\".\"` to the right. Thus, a string consisting of an odd number of underscores followed by some other character will cause the regular expression engine to run for an exponential amount of time before rejecting the input.\n\nThis problem can be avoided by rewriting the regular expression to remove the ambiguity between the two branches of the alternative inside the repetition:\n\n```python\n\n^_(__|[^_])+_$\n```\n\n## References\n* OWASP: [Regular expression Denial of Service - ReDoS](https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS).\n* Wikipedia: [ReDoS](https://en.wikipedia.org/wiki/ReDoS).\n* Wikipedia: [Time complexity](https://en.wikipedia.org/wiki/Time_complexity).\n* James Kirrage, Asiri Rathnayake, Hayo Thielecke: [Static Analysis for Regular Expression Denial-of-Service Attack](https://arxiv.org/abs/1301.0849).\n* Common Weakness Enumeration: [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html).\n* Common Weakness Enumeration: [CWE-730](https://cwe.mitre.org/data/definitions/730.html).\n* Common Weakness Enumeration: [CWE-400](https://cwe.mitre.org/data/definitions/400.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "This part of the regular expression may cause exponential backtracking on strings starting with 'select * from ' and containing many repetitions of '.'."
+      },
+      "location": {
+        "path": "lib/core/common.py",
+        "start_line": 1825,
+        "end_line": 1825,
+        "start_column": 92,
+        "end_column": 98
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/58/instances"
+  },
+  {
+    "number": 57,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/57",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/57",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/clear-text-storage-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text storage of sensitive information",
+      "name": "py/clear-text-storage-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-315","external/cwe/cwe-359","security"],
+      "full_description": "Sensitive information stored without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text storage of sensitive information\nSensitive information that is stored unencrypted is accessible to an attacker who gains access to the storage. This is particularly important for cookies, which are stored on the machine of the end-user.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted before being stored. If possible, avoid placing sensitive information in cookies altogether. Instead, prefer storing, in the cookie, a key that can be used to look up the sensitive information.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the `standard out` and `standard error` streams of the application, causing logged sensitive information to be stored as well.\n\n\n## Example\nThe following example code stores user credentials (in this case, their password) in a cookie in plain text:\n\n\n```python\nfrom flask import Flask, make_response, request\n\napp = Flask(\"Leak password\")\n\n@app.route('/')\ndef index():\n    password = request.args.get(\"password\")\n    resp = make_response(render_template(...))\n    resp.set_cookie(\"password\", password)\n    return resp\n\n```\nInstead, the credentials should be encrypted, for instance by using the `cryptography` module, or not stored at all.\n\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-315](https://cwe.mitre.org/data/definitions/315.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "This expression stores sensitive data (password) as clear text."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 652,
+        "end_line": 652,
+        "start_column": 29,
+        "end_column": 33
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/57/instances"
+  },
+  {
+    "number": 56,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/56",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/56",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/clear-text-logging-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "py/clear-text-logging-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nIf sensitive data is written to a log entry it could be exposed to an attacker who gains access to the logs.\n\nPotential attackers can obtain sensitive user data when the log output is displayed. Additionally that data may expose system information such as full path names, system information, and sometimes usernames and passwords.\n\n\n## Recommendation\nSensitive data should not be logged.\n\n\n## Example\nIn the example the entire process environment is logged using \\`print\\`. Regular users of the production deployed application should not have access to this much information about the environment configuration.\n\n\n```python\n# BAD: Logging cleartext sensitive data\nimport os\nprint(f\"[INFO] Environment: {os.environ}\")\n```\nIn the second example the data that is logged is not sensitive.\n\n\n```python\nnot_sensitive_data = {'a': 1, 'b': 2}\n# GOOD: it is fine to log data that is not sensitive\nprint(f\"[INFO] Some object contains: {not_sensitive_data}\")\n```\n\n## References\n* OWASP: [Insertion of Sensitive Information into Log File](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "This expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 1225,
+        "end_line": 1225,
+        "start_column": 37,
+        "end_column": 44
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/56/instances"
+  },
+  {
+    "number": 55,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/55",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/55",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/clear-text-logging-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "py/clear-text-logging-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nIf sensitive data is written to a log entry it could be exposed to an attacker who gains access to the logs.\n\nPotential attackers can obtain sensitive user data when the log output is displayed. Additionally that data may expose system information such as full path names, system information, and sometimes usernames and passwords.\n\n\n## Recommendation\nSensitive data should not be logged.\n\n\n## Example\nIn the example the entire process environment is logged using \\`print\\`. Regular users of the production deployed application should not have access to this much information about the environment configuration.\n\n\n```python\n# BAD: Logging cleartext sensitive data\nimport os\nprint(f\"[INFO] Environment: {os.environ}\")\n```\nIn the second example the data that is logged is not sensitive.\n\n\n```python\nnot_sensitive_data = {'a': 1, 'b': 2}\n# GOOD: it is fine to log data that is not sensitive\nprint(f\"[INFO] Some object contains: {not_sensitive_data}\")\n```\n\n## References\n* OWASP: [Insertion of Sensitive Information into Log File](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "This expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 1161,
+        "end_line": 1161,
+        "start_column": 33,
+        "end_column": 40
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/55/instances"
+  },
+  {
+    "number": 54,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/54",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/54",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/clear-text-logging-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "py/clear-text-logging-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nIf sensitive data is written to a log entry it could be exposed to an attacker who gains access to the logs.\n\nPotential attackers can obtain sensitive user data when the log output is displayed. Additionally that data may expose system information such as full path names, system information, and sometimes usernames and passwords.\n\n\n## Recommendation\nSensitive data should not be logged.\n\n\n## Example\nIn the example the entire process environment is logged using \\`print\\`. Regular users of the production deployed application should not have access to this much information about the environment configuration.\n\n\n```python\n# BAD: Logging cleartext sensitive data\nimport os\nprint(f\"[INFO] Environment: {os.environ}\")\n```\nIn the second example the data that is logged is not sensitive.\n\n\n```python\nnot_sensitive_data = {'a': 1, 'b': 2}\n# GOOD: it is fine to log data that is not sensitive\nprint(f\"[INFO] Some object contains: {not_sensitive_data}\")\n```\n\n## References\n* OWASP: [Insertion of Sensitive Information into Log File](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "This expression logs sensitive data (password) as clear text."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 1078,
+        "end_line": 1078,
+        "start_column": 45,
+        "end_column": 52
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/54/instances"
+  },
+  {
+    "number": 53,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/53",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/53",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/clear-text-logging-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "py/clear-text-logging-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nIf sensitive data is written to a log entry it could be exposed to an attacker who gains access to the logs.\n\nPotential attackers can obtain sensitive user data when the log output is displayed. Additionally that data may expose system information such as full path names, system information, and sometimes usernames and passwords.\n\n\n## Recommendation\nSensitive data should not be logged.\n\n\n## Example\nIn the example the entire process environment is logged using \\`print\\`. Regular users of the production deployed application should not have access to this much information about the environment configuration.\n\n\n```python\n# BAD: Logging cleartext sensitive data\nimport os\nprint(f\"[INFO] Environment: {os.environ}\")\n```\nIn the second example the data that is logged is not sensitive.\n\n\n```python\nnot_sensitive_data = {'a': 1, 'b': 2}\n# GOOD: it is fine to log data that is not sensitive\nprint(f\"[INFO] Some object contains: {not_sensitive_data}\")\n```\n\n## References\n* OWASP: [Insertion of Sensitive Information into Log File](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "This expression logs sensitive data (password) as clear text."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 1067,
+        "end_line": 1067,
+        "start_column": 48,
+        "end_column": 55
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/53/instances"
+  },
+  {
+    "number": 52,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/52",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/52",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/clear-text-logging-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "py/clear-text-logging-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nIf sensitive data is written to a log entry it could be exposed to an attacker who gains access to the logs.\n\nPotential attackers can obtain sensitive user data when the log output is displayed. Additionally that data may expose system information such as full path names, system information, and sometimes usernames and passwords.\n\n\n## Recommendation\nSensitive data should not be logged.\n\n\n## Example\nIn the example the entire process environment is logged using \\`print\\`. Regular users of the production deployed application should not have access to this much information about the environment configuration.\n\n\n```python\n# BAD: Logging cleartext sensitive data\nimport os\nprint(f\"[INFO] Environment: {os.environ}\")\n```\nIn the second example the data that is logged is not sensitive.\n\n\n```python\nnot_sensitive_data = {'a': 1, 'b': 2}\n# GOOD: it is fine to log data that is not sensitive\nprint(f\"[INFO] Some object contains: {not_sensitive_data}\")\n```\n\n## References\n* OWASP: [Insertion of Sensitive Information into Log File](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "This expression logs sensitive data (password) as clear text."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 743,
+        "end_line": 743,
+        "start_column": 25,
+        "end_column": 32
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/52/instances"
+  },
+  {
+    "number": 51,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/51",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/51",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/clear-text-logging-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "py/clear-text-logging-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nIf sensitive data is written to a log entry it could be exposed to an attacker who gains access to the logs.\n\nPotential attackers can obtain sensitive user data when the log output is displayed. Additionally that data may expose system information such as full path names, system information, and sometimes usernames and passwords.\n\n\n## Recommendation\nSensitive data should not be logged.\n\n\n## Example\nIn the example the entire process environment is logged using \\`print\\`. Regular users of the production deployed application should not have access to this much information about the environment configuration.\n\n\n```python\n# BAD: Logging cleartext sensitive data\nimport os\nprint(f\"[INFO] Environment: {os.environ}\")\n```\nIn the second example the data that is logged is not sensitive.\n\n\n```python\nnot_sensitive_data = {'a': 1, 'b': 2}\n# GOOD: it is fine to log data that is not sensitive\nprint(f\"[INFO] Some object contains: {not_sensitive_data}\")\n```\n\n## References\n* OWASP: [Insertion of Sensitive Information into Log File](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "This expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text."
+      },
+      "location": {
+        "path": "lib/core/common.py",
+        "start_line": 1035,
+        "end_line": 1035,
+        "start_column": 34,
+        "end_column": 75
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/51/instances"
+  },
+  {
+    "number": 50,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/50",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/50",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/clear-text-logging-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "py/clear-text-logging-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nIf sensitive data is written to a log entry it could be exposed to an attacker who gains access to the logs.\n\nPotential attackers can obtain sensitive user data when the log output is displayed. Additionally that data may expose system information such as full path names, system information, and sometimes usernames and passwords.\n\n\n## Recommendation\nSensitive data should not be logged.\n\n\n## Example\nIn the example the entire process environment is logged using \\`print\\`. Regular users of the production deployed application should not have access to this much information about the environment configuration.\n\n\n```python\n# BAD: Logging cleartext sensitive data\nimport os\nprint(f\"[INFO] Environment: {os.environ}\")\n```\nIn the second example the data that is logged is not sensitive.\n\n\n```python\nnot_sensitive_data = {'a': 1, 'b': 2}\n# GOOD: it is fine to log data that is not sensitive\nprint(f\"[INFO] Some object contains: {not_sensitive_data}\")\n```\n\n## References\n* OWASP: [Insertion of Sensitive Information into Log File](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "This expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text."
+      },
+      "location": {
+        "path": "lib/core/common.py",
+        "start_line": 1031,
+        "end_line": 1031,
+        "start_column": 38,
+        "end_column": 112
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/50/instances"
+  },
+  {
+    "number": 49,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/49",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/49",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/clear-text-logging-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "py/clear-text-logging-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nIf sensitive data is written to a log entry it could be exposed to an attacker who gains access to the logs.\n\nPotential attackers can obtain sensitive user data when the log output is displayed. Additionally that data may expose system information such as full path names, system information, and sometimes usernames and passwords.\n\n\n## Recommendation\nSensitive data should not be logged.\n\n\n## Example\nIn the example the entire process environment is logged using \\`print\\`. Regular users of the production deployed application should not have access to this much information about the environment configuration.\n\n\n```python\n# BAD: Logging cleartext sensitive data\nimport os\nprint(f\"[INFO] Environment: {os.environ}\")\n```\nIn the second example the data that is logged is not sensitive.\n\n\n```python\nnot_sensitive_data = {'a': 1, 'b': 2}\n# GOOD: it is fine to log data that is not sensitive\nprint(f\"[INFO] Some object contains: {not_sensitive_data}\")\n```\n\n## References\n* OWASP: [Insertion of Sensitive Information into Log File](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "This expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text."
+      },
+      "location": {
+        "path": "lib/core/common.py",
+        "start_line": 1029,
+        "end_line": 1029,
+        "start_column": 38,
+        "end_column": 69
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/49/instances"
+  },
+  {
+    "number": 48,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/48",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/48",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 479,
+        "end_line": 479,
+        "start_column": 48,
+        "end_column": 66
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/48/instances"
+  },
+  {
+    "number": 47,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/47",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/47",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA1) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 469,
+        "end_line": 469,
+        "start_column": 39,
+        "end_column": 74
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/47/instances"
+  },
+  {
+    "number": 46,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/46",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/46",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 459,
+        "end_line": 459,
+        "start_column": 37,
+        "end_column": 72
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/46/instances"
+  },
+  {
+    "number": 45,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/45",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/45",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 449,
+        "end_line": 449,
+        "start_column": 27,
+        "end_column": 62
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/45/instances"
+  },
+  {
+    "number": 44,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/44",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/44",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 430,
+        "end_line": 430,
+        "start_column": 21,
+        "end_column": 25
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/44/instances"
+  },
+  {
+    "number": 43,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/43",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/43",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 409,
+        "end_line": 409,
+        "start_column": 17,
+        "end_column": 20
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/43/instances"
+  },
+  {
+    "number": 42,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/42",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/42",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 393,
+        "end_line": 393,
+        "start_column": 17,
+        "end_column": 43
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/42/instances"
+  },
+  {
+    "number": 41,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/41",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/41",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA512) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 350,
+        "end_line": 350,
+        "start_column": 21,
+        "end_column": 39
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/41/instances"
+  },
+  {
+    "number": 40,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/40",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/40",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA384) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 340,
+        "end_line": 340,
+        "start_column": 21,
+        "end_column": 39
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/40/instances"
+  },
+  {
+    "number": 39,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/39",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/39",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 330,
+        "end_line": 330,
+        "start_column": 21,
+        "end_column": 39
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/39/instances"
+  },
+  {
+    "number": 38,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/38",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/38",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA224) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 320,
+        "end_line": 320,
+        "start_column": 21,
+        "end_column": 39
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/38/instances"
+  },
+  {
+    "number": 37,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/37",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/37",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA512) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA512) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 312,
+        "end_line": 312,
+        "start_column": 60,
+        "end_column": 75
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/37/instances"
+  },
+  {
+    "number": 36,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/36",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/36",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 301,
+        "end_line": 301,
+        "start_column": 60,
+        "end_column": 75
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/36/instances"
+  },
+  {
+    "number": 35,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/35",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/35",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA1) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA1) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 290,
+        "end_line": 290,
+        "start_column": 55,
+        "end_column": 70
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/35/instances"
+  },
+  {
+    "number": 34,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/34",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/34",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA1) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA1) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 279,
+        "end_line": 279,
+        "start_column": 54,
+        "end_column": 62
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/34/instances"
+  },
+  {
+    "number": 33,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/33",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/33",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA1) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA1) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 267,
+        "end_line": 267,
+        "start_column": 19,
+        "end_column": 27
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/33/instances"
+  },
+  {
+    "number": 32,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/32",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/32",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 255,
+        "end_line": 255,
+        "start_column": 18,
+        "end_column": 26
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/32/instances"
+  },
+  {
+    "number": 31,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/31",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/31",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA1) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA1) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 214,
+        "end_line": 214,
+        "start_column": 31,
+        "end_column": 49
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/31/instances"
+  },
+  {
+    "number": 30,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/30",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/30",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA1) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 196,
+        "end_line": 196,
+        "start_column": 77,
+        "end_column": 101
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/30/instances"
+  },
+  {
+    "number": 29,
+    "created_at": "2024-09-16T10:19:46Z",
+    "updated_at": "2024-09-16T10:19:48Z",
+    "url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/29",
+    "html_url": "https://github.com/Be-Secure/sqlmap/security/code-scanning/29",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "py/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `py/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```python\nimport hashlib\n\ndef certificate_matches_known_hash_bad(certificate, known_hash):\n    hash = hashlib.md5(certificate).hexdigest() # BAD\n    return hash == known_hash\n\ndef certificate_matches_known_hash_good(certificate, known_hash):\n    hash = hashlib.sha256(certificate).hexdigest() # GOOD\n    return hash == known_hash\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```python\nimport hashlib\n\ndef get_password_hash(password: str, salt: str):\n    return hashlib.sha256(password + salt).hexdigest() # BAD\n\n```\nThe second function uses Argon2 (through the `argon2-cffi` PyPI package), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```python\nfrom argon2 import PasswordHasher\n\ndef get_initial_hash(password: str):\n    ph = PasswordHasher()\n    return ph.hash(password) # GOOD\n\ndef check_password(password: str, known_hash):\n    ph = PasswordHasher()\n    return ph.verify(known_hash, password) # GOOD\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.18.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/1.8_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "5c566c03bb6f1ac9315371fb55f233529dd935cd",
+      "message": {
+        "text": "Sensitive data (password) is used in a hashing algorithm (SHA1) that is insecure for password hashing, since it is not a computationally expensive hash function."
+      },
+      "location": {
+        "path": "lib/utils/hash.py",
+        "start_line": 196,
+        "end_line": 196,
+        "start_column": 41,
+        "end_column": 57
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/sqlmap/code-scanning/alerts/29/instances"
+  }
+]
