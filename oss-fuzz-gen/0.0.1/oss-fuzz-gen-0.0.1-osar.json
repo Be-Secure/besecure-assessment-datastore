@@ -1,0 +1,110 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "oss-fuzz-gen",
+        "version": "0.0.1",
+        "url": "https://github.com/Be-Secure/oss-fuzz-gen",
+        "environment": "oss-fuzz-gen-RT-env"
+    },
+    "completionCriteria": [],
+    "completionStatus": false,
+    "assessments": [
+        {
+            "tool": {
+                "name": "criticality_score",
+                "type": "criticality_score",
+                "version": "2.0.3",
+                "playbook": "besman-criticality_score-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Fri Dec 20 09:20:59 AM IST 2024",
+                "duration": "4 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/oss-fuzz-gen/0.0.1/criticality_score/oss-fuzz-gen-v0.0.1-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": "0.30643"
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "sonarqube",
+                "type": "sast",
+                "version": "9.9.4",
+                "playbook": "besman-sonarqube-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Mon Jan  6 12:44:44 PM IST 2025",
+                "duration": "0 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/oss-fuzz-gen/0.0.1/sast/oss-fuzz-gen-0.0.1-sonarqube-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MAJOR",
+                    "value": 6
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "scorecard",
+                "type": "scorecard",
+                "version": "v4.13.1",
+                "playbook": "besman-scorecard-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Thu Jan  9 09:48:51 AM IST 2025",
+                "duration": "52 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/oss-fuzz-gen/0.0.1/scorecard/oss-fuzz-gen-0.0.1-scorecard-report.json"
+            },
+            "results": [
+                {
+                    "feature": "ScoreCard",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 4
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "cyclonedx-sbom-generator",
+                "type": "sbom",
+                "version": "0.0.1",
+                "playbook": "besman-cyclonedx-sbom-generator-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Thu Jan 23 04:11:15 PM IST 2025",
+                "duration": "102 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/oss-fuzz-gen/0.0.1/sbom/oss-fuzz-gen-0.0.1-cdx-sbom-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Dependency",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 162
+                }
+            ]
+        }
+    ]
+}

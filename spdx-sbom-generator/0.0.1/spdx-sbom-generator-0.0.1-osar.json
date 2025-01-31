@@ -1,0 +1,127 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "spdx-sbom-generator",
+        "version": "0.0.1",
+        "url": "https://github.com/Be-Secure/spdx-sbom-generator",
+        "environment": "spdx-sbom-generator-RT-env"
+    },
+    "completionCriteria": [],
+    "completionStatus": false,
+    "assessments": [
+        {
+            "tool": {
+                "name": "criticality_score",
+                "type": "criticality_score",
+                "version": "2.0.3",
+                "playbook": "besman-criticality_score-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Fri Dec 20 09:14:38 AM IST 2024",
+                "duration": "5 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/spdx-sbom-generator/0.0.1/criticality_score/spdx-sbom-generator-0.0.1-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": "0.30848"
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "sonarqube",
+                "type": "sast",
+                "version": "9.9.4",
+                "playbook": "besman-sonarqube-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Mon Jan  6 11:38:43 AM IST 2025",
+                "duration": "0 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/spdx-sbom-generator/0.0.1/sast/spdx-sbom-generator-0.0.1-sonarqube-report.json"
+            },
+            "results": []
+        },
+        {
+            "tool": {
+                "name": "scorecard",
+                "type": "scorecard",
+                "version": "v4.13.1",
+                "playbook": "besman-scorecard-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Thu Jan  9 09:44:02 AM IST 2025",
+                "duration": "73 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/spdx-sbom-generator/0.0.1/scorecard/spdx-sbom-generator-0.0.1-scorecard-report.json"
+            },
+            "results": [
+                {
+                    "feature": "ScoreCard",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 2.6
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "spdx-sbom-generator",
+                "type": "sbom",
+                "version": "v0.0.15",
+                "playbook": "besman-spdx-sbom-generator-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Mon Jan 13 10:10:57 AM IST 2025",
+                "duration": "26 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/spdx-sbom-generator/0.0.1/sbom/spdx-sbom-generator-0.0.1-sbom-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Dependency",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 44
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "cyclonedx-sbom-generator",
+                "type": "sbom",
+                "version": "0.0.1",
+                "playbook": "besman-cyclonedx-sbom-generator-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Thu Jan 23 03:51:40 PM IST 2025",
+                "duration": "57 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/spdx-sbom-generator/0.0.1/sbom/spdx-sbom-generator-0.0.1-cdx-sbom-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Dependency",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 800
+                }
+            ]
+        }
+    ]
+}

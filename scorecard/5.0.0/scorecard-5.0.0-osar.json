@@ -1,0 +1,62 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "scorecard",
+        "version": "5.0.0",
+        "url": "https://github.com/Be-Secure/scorecard",
+        "environment": "scorecard-RT-env"
+    },
+    "completionCriteria": [],
+    "completionStatus": false,
+    "assessments": [
+        {
+            "tool": {
+                "name": "criticality_score",
+                "type": "criticality_score",
+                "version": "2.0.3",
+                "playbook": "besman-criticality_score-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Mon Jan 27 09:45:15 AM IST 2025",
+                "duration": "4 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/scorecard/5.0.0/criticality_score/scorecard-5.0.0-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": "0.35777"
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "sonarqube",
+                "type": "sast",
+                "version": "9.9.4",
+                "playbook": "besman-sonarqube-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Mon Jan 27 09:49:11 AM IST 2025",
+                "duration": "0 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/scorecard/5.0.0/sast/scorecard-5.0.0-sonarqube-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MAJOR",
+                    "value": 8
+                }
+            ]
+        }
+    ]
+}

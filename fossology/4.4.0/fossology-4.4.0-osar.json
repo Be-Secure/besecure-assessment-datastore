@@ -1,0 +1,110 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "fossology",
+        "version": "4.4.0",
+        "url": "https://github.com/Be-Secure/fossology",
+        "environment": "fossology-RT-env"
+    },
+    "completionCriteria": [],
+    "completionStatus": false,
+    "assessments": [
+        {
+            "tool": {
+                "name": "criticality_score",
+                "type": "criticality_score",
+                "version": "2.0.3",
+                "playbook": "besman-criticality_score-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Fri Dec 20 09:01:21 AM IST 2024",
+                "duration": "7 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/fossology/4.4.0/criticality_score/fossology-4.4.0-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": "0.39601"
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "sonarqube",
+                "type": "sast",
+                "version": "9.9.4",
+                "playbook": "besman-sonarqube-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Mon Jan  6 11:28:14 AM IST 2025",
+                "duration": "0 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/fossology/4.4.0/sast/fossology-4.4.0-sonarqube-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "CRITICAL",
+                    "value": 5
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "scorecard",
+                "type": "scorecard",
+                "version": "v4.13.1",
+                "playbook": "besman-scorecard-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Thu Jan  9 09:40:37 AM IST 2025",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/fossology/4.4.0/scorecard/fossology-4.4.0-scorecard-report.json"
+            },
+            "results": [
+                {
+                    "feature": "ScoreCard",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 3.1
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "cyclonedx-sbom-generator",
+                "type": "sbom",
+                "version": "0.0.1",
+                "playbook": "besman-cyclonedx-sbom-generator-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Thu Jan 23 03:48:40 PM IST 2025",
+                "duration": "30 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/fossology/4.4.0/sbom/fossology-4.4.0-cdx-sbom-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Dependency",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 1983
+                }
+            ]
+        }
+    ]
+}

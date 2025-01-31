@@ -1,0 +1,110 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "grimoirelab",
+        "version": "0.2.62",
+        "url": "https://github.com/Be-Secure/grimoirelab",
+        "environment": "grimoirelab-RT-env"
+    },
+    "completionCriteria": [],
+    "completionStatus": false,
+    "assessments": [
+        {
+            "tool": {
+                "name": "criticality_score",
+                "type": "criticality_score",
+                "version": "2.0.3",
+                "playbook": "besman-criticality_score-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Fri Dec 20 09:34:26 AM IST 2024",
+                "duration": "4 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/grimoirelab/0.2.62/criticality_score/grimoirelab-0.2.62-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": "0.36139"
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "sonarqube",
+                "type": "sast",
+                "version": "9.9.4",
+                "playbook": "besman-sonarqube-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Mon Jan  6 12:49:06 PM IST 2025",
+                "duration": "0 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/grimoirelab/0.2.62/sast/grimoirelab-0.2.62-sonarqube-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MAJOR",
+                    "value": 20
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "scorecard",
+                "type": "scorecard",
+                "version": "v4.13.1",
+                "playbook": "besman-scorecard-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Thu Jan  9 09:51:04 AM IST 2025",
+                "duration": "63 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/grimoirelab/0.2.62/scorecard/grimoirelab-0.2.62-scorecard-report.json"
+            },
+            "results": [
+                {
+                    "feature": "ScoreCard",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 4.2
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "cyclonedx-sbom-generator",
+                "type": "sbom",
+                "version": "0.0.1",
+                "playbook": "besman-cyclonedx-sbom-generator-0.0.1-playbook.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Thu Jan 23 04:17:21 PM IST 2025",
+                "duration": "35 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/grimoirelab/0.2.62/sbom/grimoirelab-0.2.62-cdx-sbom-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Dependency",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 103
+                }
+            ]
+        }
+    ]
+}
