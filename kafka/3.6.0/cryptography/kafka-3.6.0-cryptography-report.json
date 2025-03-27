@@ -1,0 +1,318 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "serialNumber": "urn:uuid:056ebfb0-b9e8-4b1f-804f-1c7f814e991a",
+    "version": 1,
+    "metadata": {
+      "timestamp": "2025-02-26T09:16:34Z",
+      "properties": [
+        {
+          "name": "gitUrl",
+          "value": "https://github.com/apache/kafka"
+        },
+        {
+          "name": "revision",
+          "value": "trunk"
+        },
+        {
+          "name": "commit",
+          "value": "f20f299"
+        }
+      ]
+    },
+    "components": [
+      {
+        "type": "cryptographic-asset",
+        "bom-ref": "84a19814-00cb-4203-a290-9b5421280633",
+        "name": "SHA256",
+        "evidence": {
+          "occurrences": [
+            {
+              "location": "clients/src/main/java/org/apache/kafka/common/security/ssl/CommonNameLoggingTrustManagerFactoryWrapper.java",
+              "line": 183,
+              "offset": 21,
+              "additionalContext": "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+            }
+          ]
+        },
+        "cryptoProperties": {
+          "assetType": "algorithm",
+          "algorithmProperties": {
+            "primitive": "hash",
+            "parameterSetIdentifier": "256",
+            "cryptoFunctions": [
+              "digest"
+            ]
+          },
+          "oid": "2.16.840.1.101.3.4.2.1"
+        }
+      },
+      {
+        "type": "cryptographic-asset",
+        "bom-ref": "ff11be02-d1ac-4887-ae6e-b4e49f2bc41c",
+        "name": "key@ff11be02-d1ac-4887-ae6e-b4e49f2bc41c",
+        "evidence": {
+          "occurrences": [
+            {
+              "location": "clients/src/main/java/org/apache/kafka/common/security/ssl/DefaultSslEngineFactory.java",
+              "line": 430,
+              "offset": 27
+            }
+          ]
+        },
+        "cryptoProperties": {
+          "assetType": "related-crypto-material",
+          "relatedCryptoMaterialProperties": {
+            "type": "secret-key"
+          }
+        }
+      },
+      {
+        "type": "cryptographic-asset",
+        "bom-ref": "5dc8d1ab-85a2-40a0-a336-351438a620ec",
+        "name": "DSA",
+        "evidence": {
+          "occurrences": [
+            {
+              "location": "clients/src/main/java/org/apache/kafka/common/security/ssl/DefaultSslEngineFactory.java",
+              "line": 429,
+              "offset": 27
+            }
+          ]
+        },
+        "cryptoProperties": {
+          "assetType": "algorithm",
+          "algorithmProperties": {
+            "primitive": "signature",
+            "parameterSetIdentifier": "2048",
+            "cryptoFunctions": [
+              "keygen"
+            ]
+          },
+          "oid": "1.2.840.10040.4.1"
+        }
+      },
+      {
+        "type": "cryptographic-asset",
+        "bom-ref": "65c423f4-6a60-4051-8edc-1a5f782fea48",
+        "name": "secret-key@65c423f4-6a60-4051-8edc-1a5f782fea48",
+        "evidence": {
+          "occurrences": [
+            {
+              "location": "clients/src/main/java/org/apache/kafka/common/security/ssl/DefaultSslEngineFactory.java",
+              "line": 517,
+              "offset": 46,
+              "additionalContext": "javax.crypto.SecretKeyFactory#getInstance(Ljava/lang/String;)Ljavax/crypto/SecretKeyFactory;"
+            }
+          ]
+        },
+        "cryptoProperties": {
+          "assetType": "related-crypto-material",
+          "relatedCryptoMaterialProperties": {
+            "type": "secret-key"
+          }
+        }
+      },
+      {
+        "type": "cryptographic-asset",
+        "bom-ref": "e8225c04-dfee-4283-b053-f46c8cdaa1f1",
+        "name": "HMAC-SHA512",
+        "evidence": {
+          "occurrences": [
+            {
+              "location": "metadata/src/main/java/org/apache/kafka/controller/DelegationTokenControlManager.java",
+              "line": 136,
+              "offset": 18,
+              "additionalContext": "javax.crypto.Mac#getInstance(Ljava/lang/String;)Ljavax/crypto/Mac;"
+            }
+          ]
+        },
+        "cryptoProperties": {
+          "assetType": "algorithm",
+          "algorithmProperties": {
+            "primitive": "mac",
+            "cryptoFunctions": [
+              "tag"
+            ]
+          },
+          "oid": "1.2.840.113549.2.11"
+        }
+      },
+      {
+        "type": "cryptographic-asset",
+        "bom-ref": "3e623753-9aac-493b-80ce-21ec2f64de38",
+        "name": "key@3e623753-9aac-493b-80ce-21ec2f64de38",
+        "evidence": {
+          "occurrences": [
+            {
+              "location": "clients/src/main/java/org/apache/kafka/common/security/ssl/DefaultSslEngineFactory.java",
+              "line": 429,
+              "offset": 27
+            }
+          ]
+        },
+        "cryptoProperties": {
+          "assetType": "related-crypto-material",
+          "relatedCryptoMaterialProperties": {
+            "type": "secret-key"
+          }
+        }
+      },
+      {
+        "type": "cryptographic-asset",
+        "bom-ref": "3ebe86a3-4373-4c3e-a32b-6b6dc3baee59",
+        "name": "PRIVATE KEY",
+        "evidence": {
+          "occurrences": [
+            {
+              "location": "clients/src/main/java/org/apache/kafka/common/security/ssl/DefaultSslEngineFactory.java",
+              "line": 517,
+              "offset": 46,
+              "additionalContext": "javax.crypto.SecretKeyFactory#getInstance(Ljava/lang/String;)Ljavax/crypto/SecretKeyFactory;"
+            },
+            {
+              "location": "clients/src/main/java/org/apache/kafka/common/security/ssl/DefaultSslEngineFactory.java",
+              "line": 519,
+              "offset": 32,
+              "additionalContext": "javax.crypto.Cipher#getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+            }
+          ]
+        },
+        "cryptoProperties": {
+          "assetType": "algorithm",
+          "algorithmProperties": {
+            "primitive": "other",
+            "cryptoFunctions": [
+              "keygen"
+            ]
+          }
+        }
+      },
+      {
+        "type": "cryptographic-asset",
+        "bom-ref": "f7e5697b-626b-4a71-b057-bd6bd865e2f8",
+        "name": "RSA-2048",
+        "evidence": {
+          "occurrences": [
+            {
+              "location": "clients/src/main/java/org/apache/kafka/common/security/ssl/DefaultSslEngineFactory.java",
+              "line": 428,
+              "offset": 27
+            }
+          ]
+        },
+        "cryptoProperties": {
+          "assetType": "algorithm",
+          "algorithmProperties": {
+            "primitive": "pke",
+            "parameterSetIdentifier": "2048",
+            "cryptoFunctions": [
+              "keygen"
+            ]
+          },
+          "oid": "1.2.840.113549.1.1.1"
+        }
+      },
+      {
+        "type": "cryptographic-asset",
+        "bom-ref": "f33a8409-6252-4f17-b3ba-18ad1bfba44c",
+        "name": "SHA512",
+        "evidence": {
+          "occurrences": [
+            {
+              "location": "metadata/src/main/java/org/apache/kafka/controller/DelegationTokenControlManager.java",
+              "line": 136,
+              "offset": 18,
+              "additionalContext": "javax.crypto.Mac#getInstance(Ljava/lang/String;)Ljavax/crypto/Mac;"
+            }
+          ]
+        },
+        "cryptoProperties": {
+          "assetType": "algorithm",
+          "algorithmProperties": {
+            "primitive": "hash",
+            "parameterSetIdentifier": "512",
+            "cryptoFunctions": [
+              "digest"
+            ]
+          },
+          "oid": "2.16.840.1.101.3.4.2.3"
+        }
+      },
+      {
+        "type": "cryptographic-asset",
+        "bom-ref": "c730ac20-a820-4337-b501-c2039d8457e1",
+        "name": "EC",
+        "evidence": {
+          "occurrences": [
+            {
+              "location": "clients/src/main/java/org/apache/kafka/common/security/ssl/DefaultSslEngineFactory.java",
+              "line": 430,
+              "offset": 27
+            }
+          ]
+        },
+        "cryptoProperties": {
+          "assetType": "algorithm",
+          "algorithmProperties": {
+            "primitive": "pke",
+            "cryptoFunctions": [
+              "keygen"
+            ]
+          }
+        }
+      },
+      {
+        "type": "cryptographic-asset",
+        "bom-ref": "e249f26f-07b8-4e6e-96ae-e0827f1dc6a6",
+        "name": "key@e249f26f-07b8-4e6e-96ae-e0827f1dc6a6",
+        "evidence": {
+          "occurrences": [
+            {
+              "location": "clients/src/main/java/org/apache/kafka/common/security/ssl/DefaultSslEngineFactory.java",
+              "line": 428,
+              "offset": 27
+            }
+          ]
+        },
+        "cryptoProperties": {
+          "assetType": "related-crypto-material",
+          "relatedCryptoMaterialProperties": {
+            "type": "secret-key"
+          }
+        }
+      }
+    ],
+    "dependencies": [
+      {
+        "ref": "ff11be02-d1ac-4887-ae6e-b4e49f2bc41c",
+        "dependsOn": [
+          "c730ac20-a820-4337-b501-c2039d8457e1"
+        ]
+      },
+      {
+        "ref": "e249f26f-07b8-4e6e-96ae-e0827f1dc6a6",
+        "dependsOn": [
+          "f7e5697b-626b-4a71-b057-bd6bd865e2f8"
+        ]
+      },
+      {
+        "ref": "65c423f4-6a60-4051-8edc-1a5f782fea48",
+        "dependsOn": [
+          "3ebe86a3-4373-4c3e-a32b-6b6dc3baee59"
+        ]
+      },
+      {
+        "ref": "3e623753-9aac-493b-80ce-21ec2f64de38",
+        "dependsOn": [
+          "5dc8d1ab-85a2-40a0-a336-351438a620ec"
+        ]
+      },
+      {
+        "ref": "e8225c04-dfee-4283-b053-f46c8cdaa1f1",
+        "dependsOn": [
+          "f33a8409-6252-4f17-b3ba-18ad1bfba44c"
+        ]
+      }
+    ]
+  }
