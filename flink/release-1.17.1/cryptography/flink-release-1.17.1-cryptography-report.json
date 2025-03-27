@@ -1,0 +1,77 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:f1992bdf-550e-4f5a-be2c-27283fc6c61e",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-02-26T09:29:55Z",
+    "properties": [
+      {
+        "name": "gitUrl",
+        "value": "https://github.com/apache/flink"
+      },
+      {
+        "name": "revision",
+        "value": "master"
+      },
+      {
+        "name": "commit",
+        "value": "69559fb"
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "a0c043f6-e210-45c4-92ba-4461229e0232",
+      "name": "SHA256",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "flink-python/src/main/java/org/apache/flink/python/util/PythonDependencyUtils.java",
+            "line": 326,
+            "offset": 32,
+            "additionalContext": "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+          }
+        ]
+      },
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "hash",
+          "parameterSetIdentifier": "256",
+          "cryptoFunctions": [
+            "digest"
+          ]
+        },
+        "oid": "2.16.840.1.101.3.4.2.1"
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "2072d041-0eff-47ad-ab01-3b82c5764fa6",
+      "name": "MD5",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "flink-table/flink-table-common/src/main/java/org/apache/flink/table/utils/EncodingUtils.java",
+            "line": 169,
+            "offset": 19,
+            "additionalContext": "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+          }
+        ]
+      },
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "hash",
+          "parameterSetIdentifier": "128",
+          "cryptoFunctions": [
+            "digest"
+          ]
+        }
+      }
+    }
+  ],
+  "dependencies": []
+}
