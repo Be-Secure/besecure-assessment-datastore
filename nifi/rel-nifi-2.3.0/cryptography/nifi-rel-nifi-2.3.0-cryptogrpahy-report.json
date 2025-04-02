@@ -1,0 +1,751 @@
+{
+    "bomFormat" : "CycloneDX",
+    "specVersion" : "1.6",
+    "serialNumber" : "urn:uuid:586f4c96-946d-41cd-8113-d8d948542691",
+    "version" : 1,
+    "metadata" : {
+      "timestamp" : "2025-04-01T15:40:56Z",
+      "tools" : {
+        "components" : [ ],
+        "services" : [
+          {
+            "provider" : {
+              "name" : "PQCA"
+            },
+            "name" : "CBOMkit-action"
+          }
+        ]
+      },
+      "properties" : [
+        {
+          "name" : "gitUrl",
+          "value" : "https://github.com/padmalava/nifi"
+        },
+        {
+          "name" : "revision",
+          "value" : "main"
+        },
+        {
+          "name" : "commit",
+          "value" : "4a20ad2"
+        }
+      ]
+    },
+    "components" : [
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "4e572e8b-185a-4f65-a7b0-e558835f4d66",
+        "name" : "SHA1",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-commons/nifi-uuid5/src/main/java/org/apache/nifi/uuid5/Uuid5Util.java",
+              "line" : 84,
+              "offset" : 48,
+              "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "hash",
+            "parameterSetIdentifier" : "160",
+            "cryptoFunctions" : [
+              "digest"
+            ]
+          },
+          "oid" : "1.3.14.3.2.26"
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "fa1c8593-3b47-4daf-b5ef-8ca81b33ae08",
+        "name" : "key@fa1c8593-3b47-4daf-b5ef-8ca81b33ae08",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-pgp-bundle/nifi-pgp-test-utils/src/main/java/org/apache/nifi/pgp/util/PGPSecretKeyGenerator.java",
+              "line" : 97,
+              "offset" : 53,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key",
+            "size" : 2048
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "0bf1c9d8-2b5d-4901-a2c5-6f7572c5fdd2",
+        "name" : "key@0bf1c9d8-2b5d-4901-a2c5-6f7572c5fdd2",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-pgp-bundle/nifi-pgp-test-utils/src/main/java/org/apache/nifi/pgp/util/PGPSecretKeyGenerator.java",
+              "line" : 110,
+              "offset" : 50,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key"
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "5ba691d2-72c4-41d7-80ba-aca486b7e80b",
+        "name" : "key@5ba691d2-72c4-41d7-80ba-aca486b7e80b",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-bootstrap/src/main/java/org/apache/nifi/bootstrap/property/SecurityApplicationPropertyHandler.java",
+              "line" : 262,
+              "offset" : 31,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key",
+            "size" : 4096
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "a9cf3559-3f12-419e-905a-992a55921e4c",
+        "name" : "RSA-4096",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-bootstrap/src/main/java/org/apache/nifi/bootstrap/property/SecurityApplicationPropertyHandler.java",
+              "line" : 262,
+              "offset" : 31,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "pke",
+            "parameterSetIdentifier" : "4096",
+            "cryptoFunctions" : [
+              "keygen"
+            ]
+          },
+          "oid" : "1.2.840.113549.1.1.1"
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "febe1b34-1684-4a2b-82d7-8f7ab905d2ed",
+        "name" : "secret-key@febe1b34-1684-4a2b-82d7-8f7ab905d2ed",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-azure-bundle/nifi-azure-processors/src/main/java/org/apache/nifi/processors/azure/ClientSideEncryptionSupport.java",
+              "line" : 126,
+              "offset" : 49,
+              "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key"
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "2e57f98a-2426-4350-ab30-3e6e089e1a9c",
+        "name" : "HMAC-SHA256",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-azure-bundle/nifi-azure-reporting-task/src/main/java/org/apache/nifi/reporting/azure/loganalytics/AbstractAzureLogAnalyticsReportingTask.java",
+              "line" : 106,
+              "offset" : 22,
+              "additionalContext" : "javax.crypto.Mac#getInstance(Ljava/lang/String;)Ljavax/crypto/Mac;"
+            },
+            {
+              "location" : "nifi-extension-bundles/nifi-azure-bundle/nifi-azure-reporting-task/src/main/java/org/apache/nifi/reporting/azure/loganalytics/AbstractAzureLogAnalyticsReportingTask.java",
+              "line" : 107,
+              "offset" : 21,
+              "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "mac",
+            "cryptoFunctions" : [
+              "tag"
+            ]
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "98ab8aec-882c-43bc-acc7-7cfb1d226f03",
+        "name" : "key@98ab8aec-882c-43bc-acc7-7cfb1d226f03",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-pgp-bundle/nifi-pgp-test-utils/src/main/java/org/apache/nifi/pgp/util/PGPSecretKeyGenerator.java",
+              "line" : 104,
+              "offset" : 57,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;Ljava/security/Provider;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key"
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "b2eb1aef-688d-4ce0-a21f-922348f7c451",
+        "name" : "key@b2eb1aef-688d-4ce0-a21f-922348f7c451",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-framework-bundle/nifi-framework/nifi-web/nifi-web-security/src/main/java/org/apache/nifi/web/security/configuration/KeyPairGeneratorConfiguration.java",
+              "line" : 62,
+              "offset" : 15,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key"
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "c846c9ee-c28e-453c-858e-ef778a40e464",
+        "name" : "key@c846c9ee-c28e-453c-858e-ef778a40e464",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-framework-bundle/nifi-framework/nifi-web/nifi-web-security/src/main/java/org/apache/nifi/web/security/configuration/KeyPairGeneratorConfiguration.java",
+              "line" : 62,
+              "offset" : 15,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key"
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "082b299f-4bec-4578-8758-ca1f6ae3a4f4",
+        "name" : "AES128-GCM",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-commons/nifi-property-encryptor/src/main/java/org/apache/nifi/encrypt/KeyedCipherPropertyEncryptor.java",
+              "line" : 101,
+              "offset" : 34,
+              "additionalContext" : "javax.crypto.Cipher#getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "ae",
+            "parameterSetIdentifier" : "128",
+            "mode" : "gcm",
+            "cryptoFunctions" : [
+              "decrypt",
+              "encrypt"
+            ]
+          },
+          "oid" : "2.16.840.1.101.3.4.1"
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "c4eaa332-c515-445a-92c9-aaf668e46181",
+        "name" : "RSA-2048",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-pgp-bundle/nifi-pgp-test-utils/src/main/java/org/apache/nifi/pgp/util/PGPSecretKeyGenerator.java",
+              "line" : 110,
+              "offset" : 50,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            },
+            {
+              "location" : "nifi-extension-bundles/nifi-github-bundle/nifi-github-extensions/src/main/java/org/apache/nifi/github/StandardPrivateKeyReader.java",
+              "line" : 58,
+              "offset" : 38,
+              "additionalContext" : "java.security.KeyFactory#getInstance(Ljava/lang/String;)Ljava/security/KeyFactory;"
+            },
+            {
+              "location" : "nifi-framework-bundle/nifi-framework/nifi-web/nifi-web-security/src/main/java/org/apache/nifi/web/security/configuration/KeyPairGeneratorConfiguration.java",
+              "line" : 62,
+              "offset" : 15,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "pke",
+            "parameterSetIdentifier" : "2048",
+            "cryptoFunctions" : [
+              "keygen"
+            ]
+          },
+          "oid" : "1.2.840.113549.1.1.1"
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "5fc5a551-0d95-458d-bf03-820c7bdfa94d",
+        "name" : "secret-key@5fc5a551-0d95-458d-bf03-820c7bdfa94d",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-aws-bundle/nifi-aws-processors/src/main/java/org/apache/nifi/processors/aws/s3/encryption/ClientSideCEncryptionStrategy.java",
+              "line" : 59,
+              "offset" : 43,
+              "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key"
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "01cf1aeb-5a38-4ce4-927e-736a6c059a6e",
+        "name" : "SHA256",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-azure-bundle/nifi-azure-reporting-task/src/main/java/org/apache/nifi/reporting/azure/loganalytics/AbstractAzureLogAnalyticsReportingTask.java",
+              "line" : 106,
+              "offset" : 22,
+              "additionalContext" : "javax.crypto.Mac#getInstance(Ljava/lang/String;)Ljavax/crypto/Mac;"
+            },
+            {
+              "location" : "nifi-extension-bundles/nifi-azure-bundle/nifi-azure-reporting-task/src/main/java/org/apache/nifi/reporting/azure/loganalytics/AbstractAzureLogAnalyticsReportingTask.java",
+              "line" : 107,
+              "offset" : 21,
+              "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+            },
+            {
+              "location" : "nifi-extension-bundles/nifi-standard-services/nifi-record-serialization-services-bundle/nifi-record-serialization-services/src/main/java/org/apache/nifi/schema/inference/VolatileSchemaCache.java",
+              "line" : 119,
+              "offset" : 21,
+              "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+            },
+            {
+              "location" : "nifi-bootstrap/src/main/java/org/apache/nifi/bootstrap/property/SecurityApplicationPropertyHandler.java",
+              "line" : 280,
+              "offset" : 48,
+              "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+            },
+            {
+              "location" : "nifi-framework-bundle/nifi-framework/nifi-nar-utils/src/main/java/org/apache/nifi/nar/FileDigestUtils.java",
+              "line" : 67,
+              "offset" : 19,
+              "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+            },
+            {
+              "location" : "nifi-commons/nifi-utils/src/main/java/org/apache/nifi/util/security/MessageDigestUtils.java",
+              "line" : 75,
+              "offset" : 19,
+              "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "hash",
+            "parameterSetIdentifier" : "256",
+            "cryptoFunctions" : [
+              "digest"
+            ]
+          },
+          "oid" : "2.16.840.1.101.3.4.2.1"
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "ed43aa78-a23f-48f1-b217-3ba85dcebbf0",
+        "name" : "ELGAMAL",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-pgp-bundle/nifi-pgp-test-utils/src/main/java/org/apache/nifi/pgp/util/PGPSecretKeyGenerator.java",
+              "line" : 104,
+              "offset" : 57,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;Ljava/security/Provider;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "other",
+            "cryptoFunctions" : [
+              "keygen"
+            ]
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "2281e0d8-7826-4df5-be71-9b59a1778e3c",
+        "name" : "DSA",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-pgp-bundle/nifi-pgp-test-utils/src/main/java/org/apache/nifi/pgp/util/PGPSecretKeyGenerator.java",
+              "line" : 97,
+              "offset" : 53,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "signature",
+            "parameterSetIdentifier" : "2048",
+            "cryptoFunctions" : [
+              "keygen"
+            ]
+          },
+          "oid" : "1.2.840.10040.4.1"
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "4298c1a1-71da-42bb-b917-533344210074",
+        "name" : "PBES2",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-commons/nifi-security-crypto-key/src/main/java/org/apache/nifi/security/crypto/key/pbkdf2/Pbkdf2DerivedKeyProvider.java",
+              "line" : 58,
+              "offset" : 53,
+              "additionalContext" : "org.bouncycastle.crypto.generators.PKCS5S2ParametersGenerator#<init>(Lorg/bouncycastle/crypto/Digest;)V"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "kdf"
+          },
+          "oid" : "1.2.840.113549.1.5"
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "74c682f2-de5c-4f06-be7e-6334151356a6",
+        "name" : "AES128",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-aws-bundle/nifi-aws-processors/src/main/java/org/apache/nifi/processors/aws/s3/encryption/ClientSideCEncryptionStrategy.java",
+              "line" : 59,
+              "offset" : 43,
+              "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+            },
+            {
+              "location" : "nifi-extension-bundles/nifi-azure-bundle/nifi-azure-processors/src/main/java/org/apache/nifi/processors/azure/ClientSideEncryptionSupport.java",
+              "line" : 126,
+              "offset" : 49,
+              "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "block-cipher",
+            "parameterSetIdentifier" : "128",
+            "cryptoFunctions" : [
+              "keygen"
+            ]
+          },
+          "oid" : "2.16.840.1.101.3.4.1"
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "98e182ae-f652-4841-ac6b-0f677408eea9",
+        "name" : "secret-key@98e182ae-f652-4841-ac6b-0f677408eea9",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-azure-bundle/nifi-azure-reporting-task/src/main/java/org/apache/nifi/reporting/azure/loganalytics/AbstractAzureLogAnalyticsReportingTask.java",
+              "line" : 107,
+              "offset" : 21,
+              "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key"
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "3f1a6e12-04b3-4abf-90e6-5a845bd0b1a6",
+        "name" : "key@3f1a6e12-04b3-4abf-90e6-5a845bd0b1a6",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-github-bundle/nifi-github-extensions/src/main/java/org/apache/nifi/github/StandardPrivateKeyReader.java",
+              "line" : 58,
+              "offset" : 38,
+              "additionalContext" : "java.security.KeyFactory#getInstance(Ljava/lang/String;)Ljava/security/KeyFactory;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key"
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "f4e7fda3-f9db-4c95-a903-c90de0480a26",
+        "name" : "Ed25519",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-framework-bundle/nifi-framework/nifi-web/nifi-web-security/src/main/java/org/apache/nifi/web/security/jwt/key/Ed25519Signer.java",
+              "line" : 56,
+              "offset" : 44,
+              "additionalContext" : "java.security.Signature#getInstance(Ljava/lang/String;)Ljava/security/Signature;"
+            },
+            {
+              "location" : "nifi-framework-bundle/nifi-framework/nifi-web/nifi-web-security/src/main/java/org/apache/nifi/web/security/jwt/key/Ed25519Verifier.java",
+              "line" : 72,
+              "offset" : 40,
+              "additionalContext" : "java.security.Signature#getInstance(Ljava/lang/String;)Ljava/security/Signature;"
+            },
+            {
+              "location" : "nifi-framework-bundle/nifi-framework/nifi-web/nifi-web-security/src/main/java/org/apache/nifi/web/security/configuration/KeyPairGeneratorConfiguration.java",
+              "line" : 62,
+              "offset" : 15,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "signature",
+            "curve" : "Edwards25519",
+            "cryptoFunctions" : [
+              "sign"
+            ]
+          },
+          "oid" : "1.3.101.112"
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "5fb02b42-46e5-4d79-9646-72c403eca1e3",
+        "name" : "TLS",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-commons/nifi-security-ssl/src/main/java/org/apache/nifi/security/ssl/StandardSslContextBuilder.java",
+              "line" : 167,
+              "offset" : 19,
+              "additionalContext" : "javax.net.ssl.SSLContext#getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "protocol",
+          "protocolProperties" : {
+            "type" : "tls"
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "ce21ae87-579f-4dbc-ba74-c196fa8b3aa7",
+        "name" : "SHA512",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "nifi-extension-bundles/nifi-asana-bundle/nifi-asana-processors/src/main/java/org/apache/nifi/processors/asana/utils/GenericAsanaObjectFetcher.java",
+              "line" : 172,
+              "offset" : 54,
+              "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+            },
+            {
+              "location" : "c2/c2-client-bundle/c2-client-service/src/main/java/org/apache/nifi/c2/client/service/ManifestHashProvider.java",
+              "line" : 59,
+              "offset" : 24,
+              "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+            },
+            {
+              "location" : "nifi-framework-bundle/nifi-framework/nifi-web/nifi-web-security/src/main/java/org/apache/nifi/web/security/jwt/key/Ed25519Signer.java",
+              "line" : 56,
+              "offset" : 44,
+              "additionalContext" : "java.security.Signature#getInstance(Ljava/lang/String;)Ljava/security/Signature;"
+            },
+            {
+              "location" : "nifi-framework-bundle/nifi-framework/nifi-web/nifi-web-security/src/main/java/org/apache/nifi/web/security/jwt/key/Ed25519Verifier.java",
+              "line" : 72,
+              "offset" : 40,
+              "additionalContext" : "java.security.Signature#getInstance(Ljava/lang/String;)Ljava/security/Signature;"
+            },
+            {
+              "location" : "nifi-framework-bundle/nifi-framework/nifi-web/nifi-web-security/src/main/java/org/apache/nifi/web/security/configuration/KeyPairGeneratorConfiguration.java",
+              "line" : 62,
+              "offset" : 15,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            },
+            {
+              "location" : "nifi-commons/nifi-security-crypto-key/src/main/java/org/apache/nifi/security/crypto/key/pbkdf2/Pbkdf2DerivedKeyProvider.java",
+              "line" : 57,
+              "offset" : 30,
+              "additionalContext" : "org.bouncycastle.crypto.digests.SHA512Digest#<init>()V"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "hash",
+            "parameterSetIdentifier" : "512",
+            "cryptoFunctions" : [
+              "digest"
+            ]
+          },
+          "oid" : "2.16.840.1.101.3.4.2.3"
+        }
+      }
+    ],
+    "dependencies" : [
+      {
+        "ref" : "2e57f98a-2426-4350-ab30-3e6e089e1a9c",
+        "dependsOn" : [
+          "01cf1aeb-5a38-4ce4-927e-736a6c059a6e"
+        ]
+      },
+      {
+        "ref" : "5ba691d2-72c4-41d7-80ba-aca486b7e80b",
+        "dependsOn" : [
+          "a9cf3559-3f12-419e-905a-992a55921e4c"
+        ]
+      },
+      {
+        "ref" : "98e182ae-f652-4841-ac6b-0f677408eea9",
+        "dependsOn" : [
+          "2e57f98a-2426-4350-ab30-3e6e089e1a9c"
+        ]
+      },
+      {
+        "ref" : "fa1c8593-3b47-4daf-b5ef-8ca81b33ae08",
+        "dependsOn" : [
+          "2281e0d8-7826-4df5-be71-9b59a1778e3c"
+        ]
+      },
+      {
+        "ref" : "0bf1c9d8-2b5d-4901-a2c5-6f7572c5fdd2",
+        "dependsOn" : [
+          "c4eaa332-c515-445a-92c9-aaf668e46181"
+        ]
+      },
+      {
+        "ref" : "b2eb1aef-688d-4ce0-a21f-922348f7c451",
+        "dependsOn" : [
+          "c4eaa332-c515-445a-92c9-aaf668e46181"
+        ]
+      },
+      {
+        "ref" : "f4e7fda3-f9db-4c95-a903-c90de0480a26",
+        "dependsOn" : [
+          "ce21ae87-579f-4dbc-ba74-c196fa8b3aa7"
+        ]
+      },
+      {
+        "ref" : "c846c9ee-c28e-453c-858e-ef778a40e464",
+        "dependsOn" : [
+          "f4e7fda3-f9db-4c95-a903-c90de0480a26"
+        ]
+      },
+      {
+        "ref" : "4298c1a1-71da-42bb-b917-533344210074",
+        "dependsOn" : [
+          "ce21ae87-579f-4dbc-ba74-c196fa8b3aa7"
+        ]
+      },
+      {
+        "ref" : "98ab8aec-882c-43bc-acc7-7cfb1d226f03",
+        "dependsOn" : [
+          "ed43aa78-a23f-48f1-b217-3ba85dcebbf0"
+        ]
+      },
+      {
+        "ref" : "febe1b34-1684-4a2b-82d7-8f7ab905d2ed",
+        "dependsOn" : [
+          "74c682f2-de5c-4f06-be7e-6334151356a6"
+        ]
+      },
+      {
+        "ref" : "3f1a6e12-04b3-4abf-90e6-5a845bd0b1a6",
+        "dependsOn" : [
+          "c4eaa332-c515-445a-92c9-aaf668e46181"
+        ]
+      },
+      {
+        "ref" : "5fc5a551-0d95-458d-bf03-820c7bdfa94d",
+        "dependsOn" : [
+          "74c682f2-de5c-4f06-be7e-6334151356a6"
+        ]
+      }
+    ]
+  }
