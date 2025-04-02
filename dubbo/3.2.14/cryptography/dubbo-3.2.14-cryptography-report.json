@@ -1,0 +1,328 @@
+{
+    "bomFormat" : "CycloneDX",
+    "specVersion" : "1.6",
+    "serialNumber" : "urn:uuid:80d5735a-72c9-4f22-984e-2f2082e2f71a",
+    "version" : 1,
+    "metadata" : {
+      "timestamp" : "2025-04-01T14:56:20Z",
+      "tools" : {
+        "components" : [ ],
+        "services" : [
+          {
+            "provider" : {
+              "name" : "PQCA"
+            },
+            "name" : "CBOMkit-action"
+          }
+        ]
+      },
+      "properties" : [
+        {
+          "name" : "gitUrl",
+          "value" : "https://github.com/padmalava/dubbo"
+        },
+        {
+          "name" : "revision",
+          "value" : "3.3"
+        },
+        {
+          "name" : "commit",
+          "value" : "d1a58ce"
+        }
+      ]
+    },
+    "components" : [
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "7efa7493-93ad-429d-97e6-df6e77a37bb1",
+        "name" : "SHA256",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "dubbo-plugin/dubbo-auth/src/main/java/org/apache/dubbo/auth/utils/SignatureUtils.java",
+              "line" : 63,
+              "offset" : 18,
+              "additionalContext" : "javax.crypto.Mac#getInstance(Ljava/lang/String;)Ljavax/crypto/Mac;"
+            },
+            {
+              "location" : "dubbo-plugin/dubbo-auth/src/main/java/org/apache/dubbo/auth/utils/SignatureUtils.java",
+              "line" : 67,
+              "offset" : 35,
+              "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "hash",
+            "parameterSetIdentifier" : "256",
+            "cryptoFunctions" : [
+              "digest"
+            ]
+          },
+          "oid" : "2.16.840.1.101.3.4.2.1"
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "cd3dc962-c9c7-4d71-863a-abe6c380277d",
+        "name" : "secret-key@cd3dc962-c9c7-4d71-863a-abe6c380277d",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "dubbo-plugin/dubbo-auth/src/main/java/org/apache/dubbo/auth/utils/SignatureUtils.java",
+              "line" : 67,
+              "offset" : 35,
+              "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key"
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "b1261e24-f24f-43fa-a1a0-9a1fac9ce2cd",
+        "name" : "key@b1261e24-f24f-43fa-a1a0-9a1fac9ce2cd",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "dubbo-plugin/dubbo-security/src/main/java/org/apache/dubbo/security/cert/DubboCertManager.java",
+              "line" : 319,
+              "offset" : 33,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key"
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "0b4fee2a-d7fc-4d79-98cd-354f690d0016",
+        "name" : "RSA-4096",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "dubbo-plugin/dubbo-security/src/main/java/org/apache/dubbo/security/cert/DubboCertManager.java",
+              "line" : 292,
+              "offset" : 43,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "pke",
+            "parameterSetIdentifier" : "4096",
+            "cryptoFunctions" : [
+              "keygen"
+            ]
+          },
+          "oid" : "1.2.840.113549.1.1.1"
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "ed43e9d5-ae08-4a65-a35a-9d25d2749c61",
+        "name" : "HMAC-SHA256",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "dubbo-plugin/dubbo-auth/src/main/java/org/apache/dubbo/auth/utils/SignatureUtils.java",
+              "line" : 63,
+              "offset" : 18,
+              "additionalContext" : "javax.crypto.Mac#getInstance(Ljava/lang/String;)Ljavax/crypto/Mac;"
+            },
+            {
+              "location" : "dubbo-plugin/dubbo-auth/src/main/java/org/apache/dubbo/auth/utils/SignatureUtils.java",
+              "line" : 67,
+              "offset" : 35,
+              "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "mac",
+            "cryptoFunctions" : [
+              "tag"
+            ]
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "b14a5547-7787-4bf3-8aec-12b63bdef970",
+        "name" : "key@b14a5547-7787-4bf3-8aec-12b63bdef970",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "dubbo-plugin/dubbo-security/src/main/java/org/apache/dubbo/security/cert/DubboCertManager.java",
+              "line" : 319,
+              "offset" : 33,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key"
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "49fd07aa-53e9-4378-99e5-57ecc460986d",
+        "name" : "EC",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "dubbo-plugin/dubbo-security/src/main/java/org/apache/dubbo/security/cert/DubboCertManager.java",
+              "line" : 319,
+              "offset" : 33,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "pke",
+            "cryptoFunctions" : [
+              "keygen"
+            ]
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "ef408a33-42db-4801-a8b6-211c91824084",
+        "name" : "MD5",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "dubbo-common/src/main/java/org/apache/dubbo/common/io/Bytes.java",
+              "line" : 928,
+              "offset" : 22,
+              "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+            },
+            {
+              "location" : "dubbo-common/src/main/java/org/apache/dubbo/common/utils/MD5Utils.java",
+              "line" : 43,
+              "offset" : 21,
+              "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+            },
+            {
+              "location" : "dubbo-maven-plugin/src/main/java/org/apache/dubbo/maven/plugin/protoc/DubboProtocCompilerMojo.java",
+              "line" : 517,
+              "offset" : 27,
+              "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "hash",
+            "parameterSetIdentifier" : "128",
+            "cryptoFunctions" : [
+              "digest"
+            ]
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "542906c2-f58f-4129-ac49-69efc6c42e11",
+        "name" : "key@542906c2-f58f-4129-ac49-69efc6c42e11",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "dubbo-plugin/dubbo-security/src/main/java/org/apache/dubbo/security/cert/DubboCertManager.java",
+              "line" : 292,
+              "offset" : 43,
+              "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "related-crypto-material",
+          "relatedCryptoMaterialProperties" : {
+            "type" : "secret-key",
+            "size" : 4096
+          }
+        }
+      },
+      {
+        "type" : "cryptographic-asset",
+        "bom-ref" : "761a7e76-054b-4950-a137-75f7ba836eda",
+        "name" : "EC-secp256r1",
+        "evidence" : {
+          "occurrences" : [
+            {
+              "location" : "dubbo-plugin/dubbo-security/src/main/java/org/apache/dubbo/security/cert/DubboCertManager.java",
+              "line" : 318,
+              "offset" : 40,
+              "additionalContext" : "java.security.spec.ECGenParameterSpec#<init>(Ljava/lang/String;)V"
+            }
+          ]
+        },
+        "cryptoProperties" : {
+          "assetType" : "algorithm",
+          "algorithmProperties" : {
+            "primitive" : "pke",
+            "curve" : "secp256r1",
+            "cryptoFunctions" : [
+              "keygen"
+            ]
+          },
+          "oid" : "1.2.840.10045.2.1"
+        }
+      }
+    ],
+    "dependencies" : [
+      {
+        "ref" : "b14a5547-7787-4bf3-8aec-12b63bdef970",
+        "dependsOn" : [
+          "49fd07aa-53e9-4378-99e5-57ecc460986d"
+        ]
+      },
+      {
+        "ref" : "ed43e9d5-ae08-4a65-a35a-9d25d2749c61",
+        "dependsOn" : [
+          "7efa7493-93ad-429d-97e6-df6e77a37bb1"
+        ]
+      },
+      {
+        "ref" : "542906c2-f58f-4129-ac49-69efc6c42e11",
+        "dependsOn" : [
+          "0b4fee2a-d7fc-4d79-98cd-354f690d0016"
+        ]
+      },
+      {
+        "ref" : "b1261e24-f24f-43fa-a1a0-9a1fac9ce2cd",
+        "dependsOn" : [
+          "761a7e76-054b-4950-a137-75f7ba836eda"
+        ]
+      },
+      {
+        "ref" : "cd3dc962-c9c7-4d71-863a-abe6c380277d",
+        "dependsOn" : [
+          "ed43e9d5-ae08-4a65-a35a-9d25d2749c61"
+        ]
+      }
+    ]
+  }
