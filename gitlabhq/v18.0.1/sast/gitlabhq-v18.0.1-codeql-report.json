@@ -1,0 +1,1473 @@
+[
+  {
+    "number": 113,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/113",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/113",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/clear-text-storage-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text storage of sensitive information",
+      "name": "rb/clear-text-storage-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Storing sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text storage of sensitive information\nSensitive information that is stored unencrypted is accessible to an attacker who gains access to the storage.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted before being stored.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the `standard out` and `standard error` streams of the application, causing logged sensitive information to be stored as well.\n\n\n## Example\nThe following example code stores user credentials (in this case, their password) to disk in plain text:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password})\"\n  end\nend\n\n```\nInstead, the credentials should be masked or redacted before storing:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    password_escaped = password.sub(/.*/, \"[redacted]\")\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password_escaped})\"\n  end\nend\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This stores sensitive data returned by a write to user_provided_certificate as clear text."
+      },
+      "location": {
+        "path": "app/services/pages/domains/update_service.rb",
+        "start_line": 9,
+        "end_line": 9,
+        "start_column": 43,
+        "end_column": 49
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/113/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 112,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/112",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/112",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/clear-text-storage-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text storage of sensitive information",
+      "name": "rb/clear-text-storage-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Storing sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text storage of sensitive information\nSensitive information that is stored unencrypted is accessible to an attacker who gains access to the storage.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted before being stored.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the `standard out` and `standard error` streams of the application, causing logged sensitive information to be stored as well.\n\n\n## Example\nThe following example code stores user credentials (in this case, their password) to disk in plain text:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password})\"\n  end\nend\n\n```\nInstead, the credentials should be masked or redacted before storing:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    password_escaped = password.sub(/.*/, \"[redacted]\")\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password_escaped})\"\n  end\nend\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This stores sensitive data returned by a write to password as clear text.\nThis stores sensitive data returned by a write to password as clear text.\nThis stores sensitive data returned by an assignment to password as clear text."
+      },
+      "location": {
+        "path": "app/models/remote_mirror.rb",
+        "start_line": 200,
+        "end_line": 200,
+        "start_column": 24,
+        "end_column": 70
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/112/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 111,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/111",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/111",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/clear-text-storage-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text storage of sensitive information",
+      "name": "rb/clear-text-storage-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Storing sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text storage of sensitive information\nSensitive information that is stored unencrypted is accessible to an attacker who gains access to the storage.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted before being stored.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the `standard out` and `standard error` streams of the application, causing logged sensitive information to be stored as well.\n\n\n## Example\nThe following example code stores user credentials (in this case, their password) to disk in plain text:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password})\"\n  end\nend\n\n```\nInstead, the credentials should be masked or redacted before storing:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    password_escaped = password.sub(/.*/, \"[redacted]\")\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password_escaped})\"\n  end\nend\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This stores sensitive data returned by a parameter certificate as clear text."
+      },
+      "location": {
+        "path": "app/models/pages_domain.rb",
+        "start_line": 222,
+        "end_line": 222,
+        "start_column": 24,
+        "end_column": 35
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/111/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 110,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/110",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/110",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/clear-text-storage-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text storage of sensitive information",
+      "name": "rb/clear-text-storage-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Storing sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text storage of sensitive information\nSensitive information that is stored unencrypted is accessible to an attacker who gains access to the storage.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted before being stored.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the `standard out` and `standard error` streams of the application, causing logged sensitive information to be stored as well.\n\n\n## Example\nThe following example code stores user credentials (in this case, their password) to disk in plain text:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password})\"\n  end\nend\n\n```\nInstead, the credentials should be masked or redacted before storing:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    password_escaped = password.sub(/.*/, \"[redacted]\")\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password_escaped})\"\n  end\nend\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This stores sensitive data returned by a parameter certificate as clear text."
+      },
+      "location": {
+        "path": "app/models/pages_domain.rb",
+        "start_line": 217,
+        "end_line": 217,
+        "start_column": 24,
+        "end_column": 35
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/110/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 109,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/109",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/109",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/clear-text-storage-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text storage of sensitive information",
+      "name": "rb/clear-text-storage-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Storing sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text storage of sensitive information\nSensitive information that is stored unencrypted is accessible to an attacker who gains access to the storage.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted before being stored.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the `standard out` and `standard error` streams of the application, causing logged sensitive information to be stored as well.\n\n\n## Example\nThe following example code stores user credentials (in this case, their password) to disk in plain text:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password})\"\n  end\nend\n\n```\nInstead, the credentials should be masked or redacted before storing:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    password_escaped = password.sub(/.*/, \"[redacted]\")\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password_escaped})\"\n  end\nend\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This stores sensitive data returned by a write to password as clear text."
+      },
+      "location": {
+        "path": "vendor/gems/attr_encrypted/test/active_record_test.rb",
+        "start_line": 183,
+        "end_line": 183,
+        "start_column": 30,
+        "end_column": 71
+      },
+      "classifications": ["library","test"]
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/109/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 108,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/108",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/108",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/clear-text-storage-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text storage of sensitive information",
+      "name": "rb/clear-text-storage-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Storing sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text storage of sensitive information\nSensitive information that is stored unencrypted is accessible to an attacker who gains access to the storage.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted before being stored.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the `standard out` and `standard error` streams of the application, causing logged sensitive information to be stored as well.\n\n\n## Example\nThe following example code stores user credentials (in this case, their password) to disk in plain text:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password})\"\n  end\nend\n\n```\nInstead, the credentials should be masked or redacted before storing:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    password_escaped = password.sub(/.*/, \"[redacted]\")\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password_escaped})\"\n  end\nend\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This stores sensitive data returned by an assignment to password as clear text.\nThis stores sensitive data returned by a parameter password as clear text.\nThis stores sensitive data returned by a parameter password as clear text."
+      },
+      "location": {
+        "path": "db/fixtures/development/37_timelogs.rb",
+        "start_line": 71,
+        "end_line": 71,
+        "start_column": 19,
+        "end_column": 27
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/108/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 107,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/107",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/107",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/clear-text-storage-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text storage of sensitive information",
+      "name": "rb/clear-text-storage-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Storing sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text storage of sensitive information\nSensitive information that is stored unencrypted is accessible to an attacker who gains access to the storage.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted before being stored.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the `standard out` and `standard error` streams of the application, causing logged sensitive information to be stored as well.\n\n\n## Example\nThe following example code stores user credentials (in this case, their password) to disk in plain text:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password})\"\n  end\nend\n\n```\nInstead, the credentials should be masked or redacted before storing:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    password_escaped = password.sub(/.*/, \"[redacted]\")\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password_escaped})\"\n  end\nend\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This stores sensitive data returned by an assignment to escaped_passphrase as clear text."
+      },
+      "location": {
+        "path": "app/services/packages/debian/generate_distribution_key_service.rb",
+        "start_line": 71,
+        "end_line": 71,
+        "start_column": 49,
+        "end_column": 72
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/107/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 106,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/106",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/106",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/clear-text-storage-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text storage of sensitive information",
+      "name": "rb/clear-text-storage-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Storing sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text storage of sensitive information\nSensitive information that is stored unencrypted is accessible to an attacker who gains access to the storage.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted before being stored.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the `standard out` and `standard error` streams of the application, causing logged sensitive information to be stored as well.\n\n\n## Example\nThe following example code stores user credentials (in this case, their password) to disk in plain text:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password})\"\n  end\nend\n\n```\nInstead, the credentials should be masked or redacted before storing:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    password_escaped = password.sub(/.*/, \"[redacted]\")\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password_escaped})\"\n  end\nend\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This stores sensitive data returned by a write to password as clear text."
+      },
+      "location": {
+        "path": "spec/models/integration_spec.rb",
+        "start_line": 1056,
+        "end_line": 1060,
+        "start_column": 21,
+        "end_column": 10
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/106/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 105,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/105",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/105",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/clear-text-storage-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text storage of sensitive information",
+      "name": "rb/clear-text-storage-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Storing sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text storage of sensitive information\nSensitive information that is stored unencrypted is accessible to an attacker who gains access to the storage.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted before being stored.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the `standard out` and `standard error` streams of the application, causing logged sensitive information to be stored as well.\n\n\n## Example\nThe following example code stores user credentials (in this case, their password) to disk in plain text:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password})\"\n  end\nend\n\n```\nInstead, the credentials should be masked or redacted before storing:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    password_escaped = password.sub(/.*/, \"[redacted]\")\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password_escaped})\"\n  end\nend\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This stores sensitive data returned by a write to password as clear text."
+      },
+      "location": {
+        "path": "spec/models/integration_spec.rb",
+        "start_line": 1016,
+        "end_line": 1020,
+        "start_column": 21,
+        "end_column": 10
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/105/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 104,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/104",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/104",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/clear-text-storage-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text storage of sensitive information",
+      "name": "rb/clear-text-storage-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Storing sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text storage of sensitive information\nSensitive information that is stored unencrypted is accessible to an attacker who gains access to the storage.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted before being stored.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the `standard out` and `standard error` streams of the application, causing logged sensitive information to be stored as well.\n\n\n## Example\nThe following example code stores user credentials (in this case, their password) to disk in plain text:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password})\"\n  end\nend\n\n```\nInstead, the credentials should be masked or redacted before storing:\n\n\n```ruby\nclass UserSession\n  def login(username, password)\n    # ...\n    password_escaped = password.sub(/.*/, \"[redacted]\")\n    logfile = File.open(\"login_attempts.log\")\n    logfile.puts \"login with password: #{password_escaped})\"\n  end\nend\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This stores sensitive data returned by a write to password as clear text."
+      },
+      "location": {
+        "path": "spec/models/integration_spec.rb",
+        "start_line": 949,
+        "end_line": 953,
+        "start_column": 21,
+        "end_column": 10
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/104/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 103,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/103",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/103",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/weak-sensitive-data-hashing",
+      "severity": "warning",
+      "description": "Use of a broken or weak cryptographic hashing algorithm on sensitive data",
+      "name": "rb/weak-sensitive-data-hashing",
+      "tags": ["external/cwe/cwe-327","external/cwe/cwe-328","external/cwe/cwe-916","security"],
+      "full_description": "Using broken or weak cryptographic hashing algorithms can compromise security.",
+      "help": "# Use of a broken or weak cryptographic hashing algorithm on sensitive data\nUsing a broken or weak cryptographic hash function can leave data vulnerable, and should not be used in security related code.\n\nA strong cryptographic hash function should be resistant to:\n\n* pre-image attacks: if you know a hash value `h(x)`, you should not be able to easily find the input `x`.\n* collision attacks: if you know a hash value `h(x)`, you should not be able to easily find a different input `y` with the same hash value `h(x) = h(y)`.\nIn cases with a limited input space, such as for passwords, the hash function also needs to be computationally expensive to be resistant to brute-force attacks. Passwords should also have an unique salt applied before hashing, but that is not considered by this query.\n\nAs an example, both MD5 and SHA-1 are known to be vulnerable to collision attacks.\n\nSince it's OK to use a weak cryptographic hash function in a non-security context, this query only alerts when these are used to hash sensitive data (such as passwords, certificates, usernames).\n\nUse of broken or weak cryptographic algorithms that are not hashing algorithms, is handled by the `rb/weak-cryptographic-algorithm` query.\n\n\n## Recommendation\nEnsure that you use a strong, modern cryptographic hash function:\n\n* such as Argon2, scrypt, bcrypt, or PBKDF2 for passwords and other data with limited input space.\n* such as SHA-2, or SHA-3 in other cases.\n\n## Example\nThe following example shows two functions for checking whether the hash of a certificate matches a known value -- to prevent tampering. The first function uses MD5 that is known to be vulnerable to collision attacks. The second function uses SHA-256 that is a strong cryptographic hashing function.\n\n\n```ruby\nrequire 'openssl'\n\ndef certificate_matches_known_hash_bad(certificate, known_hash)\n  hash = OpenSSL::Digest.new('SHA1').digest certificate\n  hash == known_hash\nend\n\ndef certificate_matches_known_hash_good(certificate, known_hash)\n  hash = OpenSSL::Digest.new('SHA256').digest certificate\n  hash == known_hash\nend\n\n```\n\n## Example\nThe following example shows two functions for hashing passwords. The first function uses SHA-256 to hash passwords. Although SHA-256 is a strong cryptographic hash function, it is not suitable for password hashing since it is not computationally expensive.\n\n\n```ruby\nrequire 'openssl'\n\ndef get_password_hash(password, salt)\n  OpenSSL::Digest.new('SHA256').digest(password + salt) # BAD\nend\n\n```\nThe second function uses Argon2 (through the `argon2` gem), which is a strong password hashing algorithm (and includes a per-password salt by default).\n\n\n```ruby\nrequire 'argon2'\n\ndef get_initial_hash(password)\n  Argon2::Password.create(password)\nend\n\ndef check_password(password, known_hash)\n  Argon2::Password.verify_password(password, known_hash)\nend\n\n```\n\n## References\n* OWASP: [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-327](https://cwe.mitre.org/data/definitions/327.html).\n* Common Weakness Enumeration: [CWE-328](https://cwe.mitre.org/data/definitions/328.html).\n* Common Weakness Enumeration: [CWE-916](https://cwe.mitre.org/data/definitions/916.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "Sensitive data (id) is used in a hashing algorithm (SHA1) that is insecure.\nSensitive data (id) is used in a hashing algorithm (SHA1) that is insecure."
+      },
+      "location": {
+        "path": "app/models/resource_event.rb",
+        "start_line": 19,
+        "end_line": 19,
+        "start_column": 30,
+        "end_column": 57
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/103/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 102,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/102",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/102",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "rb/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the `String#sub` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed. Otherwise, make sure to use `String#gsub` rather than `String#sub`, to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nAs an example, assume that we want to embed a user-controlled string `account_number` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following method attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```ruby\ndef escape_quotes(s)\n  s.sub \"'\", \"''\"\nend\n```\nAs written, this sanitizer is ineffective: `String#sub` will replace only the *first* occurrence of that string.\n\nAs mentioned above, the method `escape_quotes` should be replaced with a purpose-built sanitizer, such as `ActiveRecord::Base::sanitize_sql` in Rails, or by using ORM methods that automatically sanitize parameters.\n\nIf this is not an option, `escape_quotes` should be rewritten to use the `String#gsub` method instead:\n\n\n```ruby\ndef escape_quotes(s)\n  s.gsub \"'\", \"''\"\nend\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Rails: [ActiveRecord::Base::sanitize_sql](https://api.rubyonrails.org/classes/ActiveRecord/Sanitization/ClassMethods.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "qa/qa/service/docker_run/gitlab_runner.rb",
+        "start_line": 106,
+        "end_line": 106,
+        "start_column": 23,
+        "end_column": 69
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/102/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 101,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/101",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/101",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "rb/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the `String#sub` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed. Otherwise, make sure to use `String#gsub` rather than `String#sub`, to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nAs an example, assume that we want to embed a user-controlled string `account_number` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following method attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```ruby\ndef escape_quotes(s)\n  s.sub \"'\", \"''\"\nend\n```\nAs written, this sanitizer is ineffective: `String#sub` will replace only the *first* occurrence of that string.\n\nAs mentioned above, the method `escape_quotes` should be replaced with a purpose-built sanitizer, such as `ActiveRecord::Base::sanitize_sql` in Rails, or by using ORM methods that automatically sanitize parameters.\n\nIf this is not an option, `escape_quotes` should be rewritten to use the `String#gsub` method instead:\n\n\n```ruby\ndef escape_quotes(s)\n  s.gsub \"'\", \"''\"\nend\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Rails: [ActiveRecord::Base::sanitize_sql](https://api.rubyonrails.org/classes/ActiveRecord/Sanitization/ClassMethods.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "lib/gitlab/file_markdown_link_builder.rb",
+        "start_line": 12,
+        "end_line": 12,
+        "start_column": 22,
+        "end_column": 43
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/101/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 100,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/100",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/100",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "rb/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the `String#sub` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed. Otherwise, make sure to use `String#gsub` rather than `String#sub`, to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nAs an example, assume that we want to embed a user-controlled string `account_number` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following method attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```ruby\ndef escape_quotes(s)\n  s.sub \"'\", \"''\"\nend\n```\nAs written, this sanitizer is ineffective: `String#sub` will replace only the *first* occurrence of that string.\n\nAs mentioned above, the method `escape_quotes` should be replaced with a purpose-built sanitizer, such as `ActiveRecord::Base::sanitize_sql` in Rails, or by using ORM methods that automatically sanitize parameters.\n\nIf this is not an option, `escape_quotes` should be rewritten to use the `String#gsub` method instead:\n\n\n```ruby\ndef escape_quotes(s)\n  s.gsub \"'\", \"''\"\nend\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Rails: [ActiveRecord::Base::sanitize_sql](https://api.rubyonrails.org/classes/ActiveRecord/Sanitization/ClassMethods.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "lib/gitlab/database/background_migration/batched_migration.rb",
+        "start_line": 326,
+        "end_line": 326,
+        "start_column": 64,
+        "end_column": 101
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/100/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 99,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/99",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/99",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "rb/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the `String#sub` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed. Otherwise, make sure to use `String#gsub` rather than `String#sub`, to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nAs an example, assume that we want to embed a user-controlled string `account_number` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following method attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```ruby\ndef escape_quotes(s)\n  s.sub \"'\", \"''\"\nend\n```\nAs written, this sanitizer is ineffective: `String#sub` will replace only the *first* occurrence of that string.\n\nAs mentioned above, the method `escape_quotes` should be replaced with a purpose-built sanitizer, such as `ActiveRecord::Base::sanitize_sql` in Rails, or by using ORM methods that automatically sanitize parameters.\n\nIf this is not an option, `escape_quotes` should be rewritten to use the `String#gsub` method instead:\n\n\n```ruby\ndef escape_quotes(s)\n  s.gsub \"'\", \"''\"\nend\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Rails: [ActiveRecord::Base::sanitize_sql](https://api.rubyonrails.org/classes/ActiveRecord/Sanitization/ClassMethods.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This replaces only the first occurrence of \"}}\"."
+      },
+      "location": {
+        "path": "app/services/packages/terraform_module/metadata/parse_hcl_file_service.rb",
+        "start_line": 88,
+        "end_line": 88,
+        "start_column": 19,
+        "end_column": 36
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/99/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 98,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/98",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/98",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "rb/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the `String#sub` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed. Otherwise, make sure to use `String#gsub` rather than `String#sub`, to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nAs an example, assume that we want to embed a user-controlled string `account_number` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following method attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```ruby\ndef escape_quotes(s)\n  s.sub \"'\", \"''\"\nend\n```\nAs written, this sanitizer is ineffective: `String#sub` will replace only the *first* occurrence of that string.\n\nAs mentioned above, the method `escape_quotes` should be replaced with a purpose-built sanitizer, such as `ActiveRecord::Base::sanitize_sql` in Rails, or by using ORM methods that automatically sanitize parameters.\n\nIf this is not an option, `escape_quotes` should be rewritten to use the `String#gsub` method instead:\n\n\n```ruby\ndef escape_quotes(s)\n  s.gsub \"'\", \"''\"\nend\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Rails: [ActiveRecord::Base::sanitize_sql](https://api.rubyonrails.org/classes/ActiveRecord/Sanitization/ClassMethods.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "app/helpers/projects_helper.rb",
+        "start_line": 899,
+        "end_line": 899,
+        "start_column": 7,
+        "end_column": 40
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/98/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 97,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/97",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/97",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "rb/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the `String#sub` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed. Otherwise, make sure to use `String#gsub` rather than `String#sub`, to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nAs an example, assume that we want to embed a user-controlled string `account_number` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following method attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```ruby\ndef escape_quotes(s)\n  s.sub \"'\", \"''\"\nend\n```\nAs written, this sanitizer is ineffective: `String#sub` will replace only the *first* occurrence of that string.\n\nAs mentioned above, the method `escape_quotes` should be replaced with a purpose-built sanitizer, such as `ActiveRecord::Base::sanitize_sql` in Rails, or by using ORM methods that automatically sanitize parameters.\n\nIf this is not an option, `escape_quotes` should be rewritten to use the `String#gsub` method instead:\n\n\n```ruby\ndef escape_quotes(s)\n  s.gsub \"'\", \"''\"\nend\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Rails: [ActiveRecord::Base::sanitize_sql](https://api.rubyonrails.org/classes/ActiveRecord/Sanitization/ClassMethods.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This replaces only the first occurrence of \"/\"."
+      },
+      "location": {
+        "path": "spec/requests/api/npm_project_packages_spec.rb",
+        "start_line": 600,
+        "end_line": 600,
+        "start_column": 55,
+        "end_column": 83
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/97/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 96,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/96",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/96",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "rb/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the `String#sub` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed. Otherwise, make sure to use `String#gsub` rather than `String#sub`, to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nAs an example, assume that we want to embed a user-controlled string `account_number` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following method attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```ruby\ndef escape_quotes(s)\n  s.sub \"'\", \"''\"\nend\n```\nAs written, this sanitizer is ineffective: `String#sub` will replace only the *first* occurrence of that string.\n\nAs mentioned above, the method `escape_quotes` should be replaced with a purpose-built sanitizer, such as `ActiveRecord::Base::sanitize_sql` in Rails, or by using ORM methods that automatically sanitize parameters.\n\nIf this is not an option, `escape_quotes` should be rewritten to use the `String#gsub` method instead:\n\n\n```ruby\ndef escape_quotes(s)\n  s.gsub \"'\", \"''\"\nend\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Rails: [ActiveRecord::Base::sanitize_sql](https://api.rubyonrails.org/classes/ActiveRecord/Sanitization/ClassMethods.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "spec/support/helpers/graphql/arguments.rb",
+        "start_line": 43,
+        "end_line": 43,
+        "start_column": 39,
+        "end_column": 66
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/96/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 95,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/95",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/95",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "rb/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the `String#sub` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed. Otherwise, make sure to use `String#gsub` rather than `String#sub`, to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nAs an example, assume that we want to embed a user-controlled string `account_number` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following method attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```ruby\ndef escape_quotes(s)\n  s.sub \"'\", \"''\"\nend\n```\nAs written, this sanitizer is ineffective: `String#sub` will replace only the *first* occurrence of that string.\n\nAs mentioned above, the method `escape_quotes` should be replaced with a purpose-built sanitizer, such as `ActiveRecord::Base::sanitize_sql` in Rails, or by using ORM methods that automatically sanitize parameters.\n\nIf this is not an option, `escape_quotes` should be rewritten to use the `String#gsub` method instead:\n\n\n```ruby\ndef escape_quotes(s)\n  s.gsub \"'\", \"''\"\nend\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Rails: [ActiveRecord::Base::sanitize_sql](https://api.rubyonrails.org/classes/ActiveRecord/Sanitization/ClassMethods.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This does not escape backslash characters in the input."
+      },
+      "location": {
+        "path": "rubocop/cops_documentation_generator.rb",
+        "start_line": 118,
+        "end_line": 118,
+        "start_column": 42,
+        "end_column": 59
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/95/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 94,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/94",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/94",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "rb/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the `String#sub` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed. Otherwise, make sure to use `String#gsub` rather than `String#sub`, to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nAs an example, assume that we want to embed a user-controlled string `account_number` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following method attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```ruby\ndef escape_quotes(s)\n  s.sub \"'\", \"''\"\nend\n```\nAs written, this sanitizer is ineffective: `String#sub` will replace only the *first* occurrence of that string.\n\nAs mentioned above, the method `escape_quotes` should be replaced with a purpose-built sanitizer, such as `ActiveRecord::Base::sanitize_sql` in Rails, or by using ORM methods that automatically sanitize parameters.\n\nIf this is not an option, `escape_quotes` should be rewritten to use the `String#gsub` method instead:\n\n\n```ruby\ndef escape_quotes(s)\n  s.gsub \"'\", \"''\"\nend\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Rails: [ActiveRecord::Base::sanitize_sql](https://api.rubyonrails.org/classes/ActiveRecord/Sanitization/ClassMethods.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This replaces only the first occurrence of \"/\"."
+      },
+      "location": {
+        "path": "spec/requests/api/npm_project_packages_spec.rb",
+        "start_line": 543,
+        "end_line": 543,
+        "start_column": 77,
+        "end_column": 105
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/94/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 93,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/93",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/93",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "rb/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the `String#sub` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed. Otherwise, make sure to use `String#gsub` rather than `String#sub`, to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nAs an example, assume that we want to embed a user-controlled string `account_number` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following method attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```ruby\ndef escape_quotes(s)\n  s.sub \"'\", \"''\"\nend\n```\nAs written, this sanitizer is ineffective: `String#sub` will replace only the *first* occurrence of that string.\n\nAs mentioned above, the method `escape_quotes` should be replaced with a purpose-built sanitizer, such as `ActiveRecord::Base::sanitize_sql` in Rails, or by using ORM methods that automatically sanitize parameters.\n\nIf this is not an option, `escape_quotes` should be rewritten to use the `String#gsub` method instead:\n\n\n```ruby\ndef escape_quotes(s)\n  s.gsub \"'\", \"''\"\nend\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Rails: [ActiveRecord::Base::sanitize_sql](https://api.rubyonrails.org/classes/ActiveRecord/Sanitization/ClassMethods.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This replaces only the first occurrence of \"\\\\\"."
+      },
+      "location": {
+        "path": "lib/banzai/filter/markdown_post_escape_legacy_filter.rb",
+        "start_line": 50,
+        "end_line": 50,
+        "start_column": 26,
+        "end_column": 55
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/93/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 92,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/92",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/92",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-sanitization",
+      "severity": "warning",
+      "description": "Incomplete string escaping or encoding",
+      "name": "rb/incomplete-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A string transformer that does not replace or escape all occurrences of a meta-character may be ineffective.",
+      "help": "# Incomplete string escaping or encoding\nSanitizing untrusted input is a common technique for preventing injection attacks such as SQL injection or cross-site scripting. Usually, this is done by escaping meta-characters such as quotes in a domain-specific way so that they are treated as normal characters.\n\nHowever, directly using the `String#sub` method to perform escaping is notoriously error-prone. Common mistakes include only replacing the first occurrence of a meta-character, or backslash-escaping various meta-characters but not the backslash itself.\n\nIn the former case, later meta-characters are left undisturbed and can be used to subvert the sanitization. In the latter case, preceding a meta-character with a backslash leads to the backslash being escaped, but the meta-character appearing un-escaped, which again makes the sanitization ineffective.\n\nEven if the escaped string is not used in a security-critical context, incomplete escaping may still have undesirable effects, such as badly rendered or confusing output.\n\n\n## Recommendation\nUse a (well-tested) sanitization library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\nAn even safer alternative is to design the application so that sanitization is not needed. Otherwise, make sure to use `String#gsub` rather than `String#sub`, to ensure that all occurrences are replaced, and remember to escape backslashes if applicable.\n\n\n## Example\nAs an example, assume that we want to embed a user-controlled string `account_number` into a SQL query as part of a string literal. To avoid SQL injection, we need to ensure that the string does not contain un-escaped single-quote characters. The following method attempts to ensure this by doubling single quotes, and thereby escaping them:\n\n\n```ruby\ndef escape_quotes(s)\n  s.sub \"'\", \"''\"\nend\n```\nAs written, this sanitizer is ineffective: `String#sub` will replace only the *first* occurrence of that string.\n\nAs mentioned above, the method `escape_quotes` should be replaced with a purpose-built sanitizer, such as `ActiveRecord::Base::sanitize_sql` in Rails, or by using ORM methods that automatically sanitize parameters.\n\nIf this is not an option, `escape_quotes` should be rewritten to use the `String#gsub` method instead:\n\n\n```ruby\ndef escape_quotes(s)\n  s.gsub \"'\", \"''\"\nend\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Rails: [ActiveRecord::Base::sanitize_sql](https://api.rubyonrails.org/classes/ActiveRecord/Sanitization/ClassMethods.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This replaces only the first occurrence of \"%5C\"."
+      },
+      "location": {
+        "path": "lib/banzai/filter/markdown_post_escape_legacy_filter.rb",
+        "start_line": 43,
+        "end_line": 43,
+        "start_column": 30,
+        "end_column": 57
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/92/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 91,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/91",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/91",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/bad-tag-filter",
+      "severity": "warning",
+      "description": "Bad HTML filtering regexp",
+      "name": "rb/bad-tag-filter",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-116","external/cwe/cwe-185","external/cwe/cwe-186","security"],
+      "full_description": "Matching HTML tags using regular expressions is hard to do right, and can easily lead to security issues.",
+      "help": "# Bad HTML filtering regexp\nIt is possible to match some single HTML tags using regular expressions (parsing general HTML using regular expressions is impossible). However, if the regular expression is not written well it might be possible to circumvent it, which can lead to cross-site scripting or other security issues.\n\nSome of these mistakes are caused by browsers having very forgiving HTML parsers, and will often render invalid HTML containing syntax errors. Regular expressions that attempt to match HTML should also recognize tags containing such syntax errors.\n\n\n## Recommendation\nUse a well-tested sanitization or parser library if at all possible. These libraries are much more likely to handle corner cases correctly than a custom implementation.\n\n\n## Example\nThe following example attempts to filters out all `<script>` tags.\n\n\n```ruby\ndef filter_script_tags(html)\n  old_html = \"\"\n  while (html != old_html)\n    old_html = html\n    html = html.gsub(/<script[^>]*>.*<\\/script>/m, \"\")\n  end\n  html\nend\n\n```\nThe above sanitizer does not filter out all `<script>` tags. Browsers will not only accept `</script>` as script end tags, but also tags such as `</script foo=\"bar\">` even though it is a parser error. This means that an attack string such as `<script>alert(1)</script foo=\"bar\">` will not be filtered by the function, and `alert(1)` will be executed by a browser if the string is rendered as HTML.\n\nOther corner cases include that HTML comments can end with `--!>`, and that HTML tag names can contain upper case characters.\n\n\n## References\n* Securitum: [The Curious Case of Copy &amp; Paste](https://research.securitum.com/the-curious-case-of-copy-paste/).\n* stackoverflow.com: [You can't parse \\[X\\]HTML with regex](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags#answer-1732454).\n* HTML Standard: [Comment end bang state](https://html.spec.whatwg.org/multipage/parsing.html#comment-end-bang-state).\n* stackoverflow.com: [Why aren't browsers strict about HTML?](https://stackoverflow.com/questions/25559999/why-arent-browsers-strict-about-html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-185](https://cwe.mitre.org/data/definitions/185.html).\n* Common Weakness Enumeration: [CWE-186](https://cwe.mitre.org/data/definitions/186.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This regular expression does not match comments containing newlines."
+      },
+      "location": {
+        "path": "scripts/semgrep_result_processor.rb",
+        "start_line": 112,
+        "end_line": 112,
+        "start_column": 30,
+        "end_column": 44
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/91/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 90,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/90",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/90",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-multi-character-sanitization",
+      "severity": "warning",
+      "description": "Incomplete multi-character sanitization",
+      "name": "rb/incomplete-multi-character-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A sanitizer that removes a sequence of characters may reintroduce the dangerous sequence.",
+      "help": "# Incomplete multi-character sanitization\nSanitizing untrusted input is a common technique for preventing injection attacks and other security vulnerabilities. Regular expressions are often used to perform this sanitization. However, when the regular expression matches multiple consecutive characters, replacing it just once can result in the unsafe text re-appearing in the sanitized input.\n\nAttackers can exploit this issue by crafting inputs that, when sanitized with an ineffective regular expression, still contain malicious code or content. This can lead to code execution, data exposure, or other vulnerabilities.\n\n\n## Recommendation\nTo prevent this issue, it is highly recommended to use a well-tested sanitization library whenever possible. These libraries are more likely to handle corner cases and ensure effective sanitization.\n\nIf a library is not an option, you can consider alternative strategies to fix the issue. For example, applying the regular expression replacement repeatedly until no more replacements can be performed, or rewriting the regular expression to match single characters instead of the entire unsafe text.\n\n\n## Example\nConsider the following Ruby code that aims to remove all HTML comment start and end tags:\n\n```ruby\n\nstr.gsub(/<!--|--!?>/, \"\")  \n\n```\nGiven the input string \"&lt;!&lt;!--- comment ---&gt;&gt;\", the output will be \"&lt;!-- comment --&gt;\", which still contains an HTML comment.\n\nOne possible fix for this issue is to apply the regular expression replacement repeatedly until no more replacements can be performed. This ensures that the unsafe text does not re-appear in the sanitized input, effectively removing all instances of the targeted pattern:\n\n```ruby\n\ndef remove_html_comments(input)  \n  previous = nil  \n  while input != previous  \n    previous = input  \n    input = input.gsub(/<!--|--!?>/, \"\")  \n  end  \n  input  \nend  \n\n```\n\n## Example\nAnother example is the following regular expression intended to remove script tags:\n\n```ruby\n\nstr.gsub(/<script\\b[^<]*(?:(?!<\\/script>)<[^<]*)*<\\/script>/, \"\")  \n\n```\nIf the input string is \"&lt;scrip&lt;script&gt;is removed&lt;/script&gt;t&gt;alert(123)&lt;/script&gt;\", the output will be \"&lt;script&gt;alert(123)&lt;/script&gt;\", which still contains a script tag.\n\nA fix for this issue is to rewrite the regular expression to match single characters (\"&lt;\" and \"&gt;\") instead of the entire unsafe text. This simplifies the sanitization process and ensures that all potentially unsafe characters are removed:\n\n```ruby\n\ndef remove_all_html_tags(input)  \n  input.gsub(/<|>/, \"\")  \nend  \n\n```\nAnother potential fix is to use the popular `sanitize` gem. It keeps most of the safe HTML tags while removing all unsafe tags and attributes.\n\n```ruby\n\nrequire 'sanitize'\n\ndef sanitize_html(input)\n  Sanitize.fragment(input)\nend\n\n```\n\n## Example\nLastly, consider a path sanitizer using the regular expression `/\\.\\.\\//`:\n\n```ruby\n\nstr.gsub(/\\.\\.\\//, \"\")  \n\n```\nThe regular expression attempts to strip out all occurences of `/../` from `str`. This will not work as expected: for the string `/./.././`, for example, it will remove the single occurrence of `/../` in the middle, but the remainder of the string then becomes `/../`, which is another instance of the substring we were trying to remove.\n\nA possible fix for this issue is to use the `File.sanitize` function from the Ruby Facets gem. This library is specifically designed to handle path sanitization, and should handle all corner cases and ensure effective sanitization:\n\n```ruby\n\nrequire 'facets'  \n  \ndef sanitize_path(input)  \n  File.sanitize(input)  \nend  \n\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Stack Overflow: [Removing all script tags from HTML with JS regular expression](https://stackoverflow.com/questions/6659351/removing-all-script-tags-from-html-with-js-regular-expression).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This string may still contain <!--, which may cause an HTML element injection vulnerability."
+      },
+      "location": {
+        "path": "config/initializers/wikicloth_redos_patch.rb",
+        "start_line": 163,
+        "end_line": 163,
+        "start_column": 11,
+        "end_column": 38
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/90/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 89,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/89",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/89",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-multi-character-sanitization",
+      "severity": "warning",
+      "description": "Incomplete multi-character sanitization",
+      "name": "rb/incomplete-multi-character-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A sanitizer that removes a sequence of characters may reintroduce the dangerous sequence.",
+      "help": "# Incomplete multi-character sanitization\nSanitizing untrusted input is a common technique for preventing injection attacks and other security vulnerabilities. Regular expressions are often used to perform this sanitization. However, when the regular expression matches multiple consecutive characters, replacing it just once can result in the unsafe text re-appearing in the sanitized input.\n\nAttackers can exploit this issue by crafting inputs that, when sanitized with an ineffective regular expression, still contain malicious code or content. This can lead to code execution, data exposure, or other vulnerabilities.\n\n\n## Recommendation\nTo prevent this issue, it is highly recommended to use a well-tested sanitization library whenever possible. These libraries are more likely to handle corner cases and ensure effective sanitization.\n\nIf a library is not an option, you can consider alternative strategies to fix the issue. For example, applying the regular expression replacement repeatedly until no more replacements can be performed, or rewriting the regular expression to match single characters instead of the entire unsafe text.\n\n\n## Example\nConsider the following Ruby code that aims to remove all HTML comment start and end tags:\n\n```ruby\n\nstr.gsub(/<!--|--!?>/, \"\")  \n\n```\nGiven the input string \"&lt;!&lt;!--- comment ---&gt;&gt;\", the output will be \"&lt;!-- comment --&gt;\", which still contains an HTML comment.\n\nOne possible fix for this issue is to apply the regular expression replacement repeatedly until no more replacements can be performed. This ensures that the unsafe text does not re-appear in the sanitized input, effectively removing all instances of the targeted pattern:\n\n```ruby\n\ndef remove_html_comments(input)  \n  previous = nil  \n  while input != previous  \n    previous = input  \n    input = input.gsub(/<!--|--!?>/, \"\")  \n  end  \n  input  \nend  \n\n```\n\n## Example\nAnother example is the following regular expression intended to remove script tags:\n\n```ruby\n\nstr.gsub(/<script\\b[^<]*(?:(?!<\\/script>)<[^<]*)*<\\/script>/, \"\")  \n\n```\nIf the input string is \"&lt;scrip&lt;script&gt;is removed&lt;/script&gt;t&gt;alert(123)&lt;/script&gt;\", the output will be \"&lt;script&gt;alert(123)&lt;/script&gt;\", which still contains a script tag.\n\nA fix for this issue is to rewrite the regular expression to match single characters (\"&lt;\" and \"&gt;\") instead of the entire unsafe text. This simplifies the sanitization process and ensures that all potentially unsafe characters are removed:\n\n```ruby\n\ndef remove_all_html_tags(input)  \n  input.gsub(/<|>/, \"\")  \nend  \n\n```\nAnother potential fix is to use the popular `sanitize` gem. It keeps most of the safe HTML tags while removing all unsafe tags and attributes.\n\n```ruby\n\nrequire 'sanitize'\n\ndef sanitize_html(input)\n  Sanitize.fragment(input)\nend\n\n```\n\n## Example\nLastly, consider a path sanitizer using the regular expression `/\\.\\.\\//`:\n\n```ruby\n\nstr.gsub(/\\.\\.\\//, \"\")  \n\n```\nThe regular expression attempts to strip out all occurences of `/../` from `str`. This will not work as expected: for the string `/./.././`, for example, it will remove the single occurrence of `/../` in the middle, but the remainder of the string then becomes `/../`, which is another instance of the substring we were trying to remove.\n\nA possible fix for this issue is to use the `File.sanitize` function from the Ruby Facets gem. This library is specifically designed to handle path sanitization, and should handle all corner cases and ensure effective sanitization:\n\n```ruby\n\nrequire 'facets'  \n  \ndef sanitize_path(input)  \n  File.sanitize(input)  \nend  \n\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Stack Overflow: [Removing all script tags from HTML with JS regular expression](https://stackoverflow.com/questions/6659351/removing-all-script-tags-from-html-with-js-regular-expression).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This string may still contain <!--, which may cause an HTML element injection vulnerability."
+      },
+      "location": {
+        "path": "config/initializers/wikicloth_redos_patch.rb",
+        "start_line": 89,
+        "end_line": 89,
+        "start_column": 7,
+        "end_column": 35
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/89/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 88,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/88",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/88",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-multi-character-sanitization",
+      "severity": "warning",
+      "description": "Incomplete multi-character sanitization",
+      "name": "rb/incomplete-multi-character-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A sanitizer that removes a sequence of characters may reintroduce the dangerous sequence.",
+      "help": "# Incomplete multi-character sanitization\nSanitizing untrusted input is a common technique for preventing injection attacks and other security vulnerabilities. Regular expressions are often used to perform this sanitization. However, when the regular expression matches multiple consecutive characters, replacing it just once can result in the unsafe text re-appearing in the sanitized input.\n\nAttackers can exploit this issue by crafting inputs that, when sanitized with an ineffective regular expression, still contain malicious code or content. This can lead to code execution, data exposure, or other vulnerabilities.\n\n\n## Recommendation\nTo prevent this issue, it is highly recommended to use a well-tested sanitization library whenever possible. These libraries are more likely to handle corner cases and ensure effective sanitization.\n\nIf a library is not an option, you can consider alternative strategies to fix the issue. For example, applying the regular expression replacement repeatedly until no more replacements can be performed, or rewriting the regular expression to match single characters instead of the entire unsafe text.\n\n\n## Example\nConsider the following Ruby code that aims to remove all HTML comment start and end tags:\n\n```ruby\n\nstr.gsub(/<!--|--!?>/, \"\")  \n\n```\nGiven the input string \"&lt;!&lt;!--- comment ---&gt;&gt;\", the output will be \"&lt;!-- comment --&gt;\", which still contains an HTML comment.\n\nOne possible fix for this issue is to apply the regular expression replacement repeatedly until no more replacements can be performed. This ensures that the unsafe text does not re-appear in the sanitized input, effectively removing all instances of the targeted pattern:\n\n```ruby\n\ndef remove_html_comments(input)  \n  previous = nil  \n  while input != previous  \n    previous = input  \n    input = input.gsub(/<!--|--!?>/, \"\")  \n  end  \n  input  \nend  \n\n```\n\n## Example\nAnother example is the following regular expression intended to remove script tags:\n\n```ruby\n\nstr.gsub(/<script\\b[^<]*(?:(?!<\\/script>)<[^<]*)*<\\/script>/, \"\")  \n\n```\nIf the input string is \"&lt;scrip&lt;script&gt;is removed&lt;/script&gt;t&gt;alert(123)&lt;/script&gt;\", the output will be \"&lt;script&gt;alert(123)&lt;/script&gt;\", which still contains a script tag.\n\nA fix for this issue is to rewrite the regular expression to match single characters (\"&lt;\" and \"&gt;\") instead of the entire unsafe text. This simplifies the sanitization process and ensures that all potentially unsafe characters are removed:\n\n```ruby\n\ndef remove_all_html_tags(input)  \n  input.gsub(/<|>/, \"\")  \nend  \n\n```\nAnother potential fix is to use the popular `sanitize` gem. It keeps most of the safe HTML tags while removing all unsafe tags and attributes.\n\n```ruby\n\nrequire 'sanitize'\n\ndef sanitize_html(input)\n  Sanitize.fragment(input)\nend\n\n```\n\n## Example\nLastly, consider a path sanitizer using the regular expression `/\\.\\.\\//`:\n\n```ruby\n\nstr.gsub(/\\.\\.\\//, \"\")  \n\n```\nThe regular expression attempts to strip out all occurences of `/../` from `str`. This will not work as expected: for the string `/./.././`, for example, it will remove the single occurrence of `/../` in the middle, but the remainder of the string then becomes `/../`, which is another instance of the substring we were trying to remove.\n\nA possible fix for this issue is to use the `File.sanitize` function from the Ruby Facets gem. This library is specifically designed to handle path sanitization, and should handle all corner cases and ensure effective sanitization:\n\n```ruby\n\nrequire 'facets'  \n  \ndef sanitize_path(input)  \n  File.sanitize(input)  \nend  \n\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Stack Overflow: [Removing all script tags from HTML with JS regular expression](https://stackoverflow.com/questions/6659351/removing-all-script-tags-from-html-with-js-regular-expression).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This string may still contain <script, which may cause an HTML element injection vulnerability."
+      },
+      "location": {
+        "path": "spec/lib/gitlab/asciidoc_spec.rb",
+        "start_line": 962,
+        "end_line": 962,
+        "start_column": 20,
+        "end_column": 46
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/88/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 87,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/87",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/87",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-multi-character-sanitization",
+      "severity": "warning",
+      "description": "Incomplete multi-character sanitization",
+      "name": "rb/incomplete-multi-character-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A sanitizer that removes a sequence of characters may reintroduce the dangerous sequence.",
+      "help": "# Incomplete multi-character sanitization\nSanitizing untrusted input is a common technique for preventing injection attacks and other security vulnerabilities. Regular expressions are often used to perform this sanitization. However, when the regular expression matches multiple consecutive characters, replacing it just once can result in the unsafe text re-appearing in the sanitized input.\n\nAttackers can exploit this issue by crafting inputs that, when sanitized with an ineffective regular expression, still contain malicious code or content. This can lead to code execution, data exposure, or other vulnerabilities.\n\n\n## Recommendation\nTo prevent this issue, it is highly recommended to use a well-tested sanitization library whenever possible. These libraries are more likely to handle corner cases and ensure effective sanitization.\n\nIf a library is not an option, you can consider alternative strategies to fix the issue. For example, applying the regular expression replacement repeatedly until no more replacements can be performed, or rewriting the regular expression to match single characters instead of the entire unsafe text.\n\n\n## Example\nConsider the following Ruby code that aims to remove all HTML comment start and end tags:\n\n```ruby\n\nstr.gsub(/<!--|--!?>/, \"\")  \n\n```\nGiven the input string \"&lt;!&lt;!--- comment ---&gt;&gt;\", the output will be \"&lt;!-- comment --&gt;\", which still contains an HTML comment.\n\nOne possible fix for this issue is to apply the regular expression replacement repeatedly until no more replacements can be performed. This ensures that the unsafe text does not re-appear in the sanitized input, effectively removing all instances of the targeted pattern:\n\n```ruby\n\ndef remove_html_comments(input)  \n  previous = nil  \n  while input != previous  \n    previous = input  \n    input = input.gsub(/<!--|--!?>/, \"\")  \n  end  \n  input  \nend  \n\n```\n\n## Example\nAnother example is the following regular expression intended to remove script tags:\n\n```ruby\n\nstr.gsub(/<script\\b[^<]*(?:(?!<\\/script>)<[^<]*)*<\\/script>/, \"\")  \n\n```\nIf the input string is \"&lt;scrip&lt;script&gt;is removed&lt;/script&gt;t&gt;alert(123)&lt;/script&gt;\", the output will be \"&lt;script&gt;alert(123)&lt;/script&gt;\", which still contains a script tag.\n\nA fix for this issue is to rewrite the regular expression to match single characters (\"&lt;\" and \"&gt;\") instead of the entire unsafe text. This simplifies the sanitization process and ensures that all potentially unsafe characters are removed:\n\n```ruby\n\ndef remove_all_html_tags(input)  \n  input.gsub(/<|>/, \"\")  \nend  \n\n```\nAnother potential fix is to use the popular `sanitize` gem. It keeps most of the safe HTML tags while removing all unsafe tags and attributes.\n\n```ruby\n\nrequire 'sanitize'\n\ndef sanitize_html(input)\n  Sanitize.fragment(input)\nend\n\n```\n\n## Example\nLastly, consider a path sanitizer using the regular expression `/\\.\\.\\//`:\n\n```ruby\n\nstr.gsub(/\\.\\.\\//, \"\")  \n\n```\nThe regular expression attempts to strip out all occurences of `/../` from `str`. This will not work as expected: for the string `/./.././`, for example, it will remove the single occurrence of `/../` in the middle, but the remainder of the string then becomes `/../`, which is another instance of the substring we were trying to remove.\n\nA possible fix for this issue is to use the `File.sanitize` function from the Ruby Facets gem. This library is specifically designed to handle path sanitization, and should handle all corner cases and ensure effective sanitization:\n\n```ruby\n\nrequire 'facets'  \n  \ndef sanitize_path(input)  \n  File.sanitize(input)  \nend  \n\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Stack Overflow: [Removing all script tags from HTML with JS regular expression](https://stackoverflow.com/questions/6659351/removing-all-script-tags-from-html-with-js-regular-expression).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This string may still contain <script, which may cause an HTML element injection vulnerability."
+      },
+      "location": {
+        "path": "spec/lib/gitlab/asciidoc_spec.rb",
+        "start_line": 896,
+        "end_line": 896,
+        "start_column": 20,
+        "end_column": 46
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/87/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 86,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/86",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/86",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-multi-character-sanitization",
+      "severity": "warning",
+      "description": "Incomplete multi-character sanitization",
+      "name": "rb/incomplete-multi-character-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A sanitizer that removes a sequence of characters may reintroduce the dangerous sequence.",
+      "help": "# Incomplete multi-character sanitization\nSanitizing untrusted input is a common technique for preventing injection attacks and other security vulnerabilities. Regular expressions are often used to perform this sanitization. However, when the regular expression matches multiple consecutive characters, replacing it just once can result in the unsafe text re-appearing in the sanitized input.\n\nAttackers can exploit this issue by crafting inputs that, when sanitized with an ineffective regular expression, still contain malicious code or content. This can lead to code execution, data exposure, or other vulnerabilities.\n\n\n## Recommendation\nTo prevent this issue, it is highly recommended to use a well-tested sanitization library whenever possible. These libraries are more likely to handle corner cases and ensure effective sanitization.\n\nIf a library is not an option, you can consider alternative strategies to fix the issue. For example, applying the regular expression replacement repeatedly until no more replacements can be performed, or rewriting the regular expression to match single characters instead of the entire unsafe text.\n\n\n## Example\nConsider the following Ruby code that aims to remove all HTML comment start and end tags:\n\n```ruby\n\nstr.gsub(/<!--|--!?>/, \"\")  \n\n```\nGiven the input string \"&lt;!&lt;!--- comment ---&gt;&gt;\", the output will be \"&lt;!-- comment --&gt;\", which still contains an HTML comment.\n\nOne possible fix for this issue is to apply the regular expression replacement repeatedly until no more replacements can be performed. This ensures that the unsafe text does not re-appear in the sanitized input, effectively removing all instances of the targeted pattern:\n\n```ruby\n\ndef remove_html_comments(input)  \n  previous = nil  \n  while input != previous  \n    previous = input  \n    input = input.gsub(/<!--|--!?>/, \"\")  \n  end  \n  input  \nend  \n\n```\n\n## Example\nAnother example is the following regular expression intended to remove script tags:\n\n```ruby\n\nstr.gsub(/<script\\b[^<]*(?:(?!<\\/script>)<[^<]*)*<\\/script>/, \"\")  \n\n```\nIf the input string is \"&lt;scrip&lt;script&gt;is removed&lt;/script&gt;t&gt;alert(123)&lt;/script&gt;\", the output will be \"&lt;script&gt;alert(123)&lt;/script&gt;\", which still contains a script tag.\n\nA fix for this issue is to rewrite the regular expression to match single characters (\"&lt;\" and \"&gt;\") instead of the entire unsafe text. This simplifies the sanitization process and ensures that all potentially unsafe characters are removed:\n\n```ruby\n\ndef remove_all_html_tags(input)  \n  input.gsub(/<|>/, \"\")  \nend  \n\n```\nAnother potential fix is to use the popular `sanitize` gem. It keeps most of the safe HTML tags while removing all unsafe tags and attributes.\n\n```ruby\n\nrequire 'sanitize'\n\ndef sanitize_html(input)\n  Sanitize.fragment(input)\nend\n\n```\n\n## Example\nLastly, consider a path sanitizer using the regular expression `/\\.\\.\\//`:\n\n```ruby\n\nstr.gsub(/\\.\\.\\//, \"\")  \n\n```\nThe regular expression attempts to strip out all occurences of `/../` from `str`. This will not work as expected: for the string `/./.././`, for example, it will remove the single occurrence of `/../` in the middle, but the remainder of the string then becomes `/../`, which is another instance of the substring we were trying to remove.\n\nA possible fix for this issue is to use the `File.sanitize` function from the Ruby Facets gem. This library is specifically designed to handle path sanitization, and should handle all corner cases and ensure effective sanitization:\n\n```ruby\n\nrequire 'facets'  \n  \ndef sanitize_path(input)  \n  File.sanitize(input)  \nend  \n\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Stack Overflow: [Removing all script tags from HTML with JS regular expression](https://stackoverflow.com/questions/6659351/removing-all-script-tags-from-html-with-js-regular-expression).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This string may still contain <script, which may cause an HTML element injection vulnerability."
+      },
+      "location": {
+        "path": "spec/lib/gitlab/asciidoc_spec.rb",
+        "start_line": 873,
+        "end_line": 873,
+        "start_column": 22,
+        "end_column": 48
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/86/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 85,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/85",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/85",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-multi-character-sanitization",
+      "severity": "warning",
+      "description": "Incomplete multi-character sanitization",
+      "name": "rb/incomplete-multi-character-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A sanitizer that removes a sequence of characters may reintroduce the dangerous sequence.",
+      "help": "# Incomplete multi-character sanitization\nSanitizing untrusted input is a common technique for preventing injection attacks and other security vulnerabilities. Regular expressions are often used to perform this sanitization. However, when the regular expression matches multiple consecutive characters, replacing it just once can result in the unsafe text re-appearing in the sanitized input.\n\nAttackers can exploit this issue by crafting inputs that, when sanitized with an ineffective regular expression, still contain malicious code or content. This can lead to code execution, data exposure, or other vulnerabilities.\n\n\n## Recommendation\nTo prevent this issue, it is highly recommended to use a well-tested sanitization library whenever possible. These libraries are more likely to handle corner cases and ensure effective sanitization.\n\nIf a library is not an option, you can consider alternative strategies to fix the issue. For example, applying the regular expression replacement repeatedly until no more replacements can be performed, or rewriting the regular expression to match single characters instead of the entire unsafe text.\n\n\n## Example\nConsider the following Ruby code that aims to remove all HTML comment start and end tags:\n\n```ruby\n\nstr.gsub(/<!--|--!?>/, \"\")  \n\n```\nGiven the input string \"&lt;!&lt;!--- comment ---&gt;&gt;\", the output will be \"&lt;!-- comment --&gt;\", which still contains an HTML comment.\n\nOne possible fix for this issue is to apply the regular expression replacement repeatedly until no more replacements can be performed. This ensures that the unsafe text does not re-appear in the sanitized input, effectively removing all instances of the targeted pattern:\n\n```ruby\n\ndef remove_html_comments(input)  \n  previous = nil  \n  while input != previous  \n    previous = input  \n    input = input.gsub(/<!--|--!?>/, \"\")  \n  end  \n  input  \nend  \n\n```\n\n## Example\nAnother example is the following regular expression intended to remove script tags:\n\n```ruby\n\nstr.gsub(/<script\\b[^<]*(?:(?!<\\/script>)<[^<]*)*<\\/script>/, \"\")  \n\n```\nIf the input string is \"&lt;scrip&lt;script&gt;is removed&lt;/script&gt;t&gt;alert(123)&lt;/script&gt;\", the output will be \"&lt;script&gt;alert(123)&lt;/script&gt;\", which still contains a script tag.\n\nA fix for this issue is to rewrite the regular expression to match single characters (\"&lt;\" and \"&gt;\") instead of the entire unsafe text. This simplifies the sanitization process and ensures that all potentially unsafe characters are removed:\n\n```ruby\n\ndef remove_all_html_tags(input)  \n  input.gsub(/<|>/, \"\")  \nend  \n\n```\nAnother potential fix is to use the popular `sanitize` gem. It keeps most of the safe HTML tags while removing all unsafe tags and attributes.\n\n```ruby\n\nrequire 'sanitize'\n\ndef sanitize_html(input)\n  Sanitize.fragment(input)\nend\n\n```\n\n## Example\nLastly, consider a path sanitizer using the regular expression `/\\.\\.\\//`:\n\n```ruby\n\nstr.gsub(/\\.\\.\\//, \"\")  \n\n```\nThe regular expression attempts to strip out all occurences of `/../` from `str`. This will not work as expected: for the string `/./.././`, for example, it will remove the single occurrence of `/../` in the middle, but the remainder of the string then becomes `/../`, which is another instance of the substring we were trying to remove.\n\nA possible fix for this issue is to use the `File.sanitize` function from the Ruby Facets gem. This library is specifically designed to handle path sanitization, and should handle all corner cases and ensure effective sanitization:\n\n```ruby\n\nrequire 'facets'  \n  \ndef sanitize_path(input)  \n  File.sanitize(input)  \nend  \n\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Stack Overflow: [Removing all script tags from HTML with JS regular expression](https://stackoverflow.com/questions/6659351/removing-all-script-tags-from-html-with-js-regular-expression).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This string may still contain <script, which may cause an HTML element injection vulnerability."
+      },
+      "location": {
+        "path": "spec/lib/gitlab/asciidoc_spec.rb",
+        "start_line": 857,
+        "end_line": 857,
+        "start_column": 20,
+        "end_column": 46
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/85/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 84,
+    "created_at": "2025-06-05T07:30:48Z",
+    "updated_at": "2025-06-05T07:30:49Z",
+    "url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/84",
+    "html_url": "https://github.com/NeerajK007/gitlabhq/security/code-scanning/84",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "rb/incomplete-multi-character-sanitization",
+      "severity": "warning",
+      "description": "Incomplete multi-character sanitization",
+      "name": "rb/incomplete-multi-character-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","external/cwe/cwe-080","external/cwe/cwe-116","security"],
+      "full_description": "A sanitizer that removes a sequence of characters may reintroduce the dangerous sequence.",
+      "help": "# Incomplete multi-character sanitization\nSanitizing untrusted input is a common technique for preventing injection attacks and other security vulnerabilities. Regular expressions are often used to perform this sanitization. However, when the regular expression matches multiple consecutive characters, replacing it just once can result in the unsafe text re-appearing in the sanitized input.\n\nAttackers can exploit this issue by crafting inputs that, when sanitized with an ineffective regular expression, still contain malicious code or content. This can lead to code execution, data exposure, or other vulnerabilities.\n\n\n## Recommendation\nTo prevent this issue, it is highly recommended to use a well-tested sanitization library whenever possible. These libraries are more likely to handle corner cases and ensure effective sanitization.\n\nIf a library is not an option, you can consider alternative strategies to fix the issue. For example, applying the regular expression replacement repeatedly until no more replacements can be performed, or rewriting the regular expression to match single characters instead of the entire unsafe text.\n\n\n## Example\nConsider the following Ruby code that aims to remove all HTML comment start and end tags:\n\n```ruby\n\nstr.gsub(/<!--|--!?>/, \"\")  \n\n```\nGiven the input string \"&lt;!&lt;!--- comment ---&gt;&gt;\", the output will be \"&lt;!-- comment --&gt;\", which still contains an HTML comment.\n\nOne possible fix for this issue is to apply the regular expression replacement repeatedly until no more replacements can be performed. This ensures that the unsafe text does not re-appear in the sanitized input, effectively removing all instances of the targeted pattern:\n\n```ruby\n\ndef remove_html_comments(input)  \n  previous = nil  \n  while input != previous  \n    previous = input  \n    input = input.gsub(/<!--|--!?>/, \"\")  \n  end  \n  input  \nend  \n\n```\n\n## Example\nAnother example is the following regular expression intended to remove script tags:\n\n```ruby\n\nstr.gsub(/<script\\b[^<]*(?:(?!<\\/script>)<[^<]*)*<\\/script>/, \"\")  \n\n```\nIf the input string is \"&lt;scrip&lt;script&gt;is removed&lt;/script&gt;t&gt;alert(123)&lt;/script&gt;\", the output will be \"&lt;script&gt;alert(123)&lt;/script&gt;\", which still contains a script tag.\n\nA fix for this issue is to rewrite the regular expression to match single characters (\"&lt;\" and \"&gt;\") instead of the entire unsafe text. This simplifies the sanitization process and ensures that all potentially unsafe characters are removed:\n\n```ruby\n\ndef remove_all_html_tags(input)  \n  input.gsub(/<|>/, \"\")  \nend  \n\n```\nAnother potential fix is to use the popular `sanitize` gem. It keeps most of the safe HTML tags while removing all unsafe tags and attributes.\n\n```ruby\n\nrequire 'sanitize'\n\ndef sanitize_html(input)\n  Sanitize.fragment(input)\nend\n\n```\n\n## Example\nLastly, consider a path sanitizer using the regular expression `/\\.\\.\\//`:\n\n```ruby\n\nstr.gsub(/\\.\\.\\//, \"\")  \n\n```\nThe regular expression attempts to strip out all occurences of `/../` from `str`. This will not work as expected: for the string `/./.././`, for example, it will remove the single occurrence of `/../` in the middle, but the remainder of the string then becomes `/../`, which is another instance of the substring we were trying to remove.\n\nA possible fix for this issue is to use the `File.sanitize` function from the Ruby Facets gem. This library is specifically designed to handle path sanitization, and should handle all corner cases and ensure effective sanitization:\n\n```ruby\n\nrequire 'facets'  \n  \ndef sanitize_path(input)  \n  File.sanitize(input)  \nend  \n\n```\n\n## References\n* OWASP Top 10: [A1 Injection](https://www.owasp.org/index.php/Top_10-2017_A1-Injection).\n* Stack Overflow: [Removing all script tags from HTML with JS regular expression](https://stackoverflow.com/questions/6659351/removing-all-script-tags-from-html-with-js-regular-expression).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n* Common Weakness Enumeration: [CWE-80](https://cwe.mitre.org/data/definitions/80.html).\n* Common Weakness Enumeration: [CWE-116](https://cwe.mitre.org/data/definitions/116.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/18.0.1_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"ruby\"}",
+      "category": "/language:ruby",
+      "state": "open",
+      "commit_sha": "e17f7d02f9d118e4b9e737cd7ef7889ea2ffa1f5",
+      "message": {
+        "text": "This string may still contain <script, which may cause an HTML element injection vulnerability."
+      },
+      "location": {
+        "path": "spec/lib/banzai/pipeline/plain_markdown_pipeline_spec.rb",
+        "start_line": 216,
+        "end_line": 216,
+        "start_column": 20,
+        "end_column": 46
+      },
+      "classifications": ["test"]
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/gitlabhq/code-scanning/alerts/84/instances",
+    "dismissal_approved_by": null
+  }
+]
+

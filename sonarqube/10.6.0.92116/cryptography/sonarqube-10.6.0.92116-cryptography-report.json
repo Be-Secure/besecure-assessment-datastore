@@ -1,0 +1,416 @@
+{
+  "bomFormat" : "CycloneDX",
+  "specVersion" : "1.6",
+  "serialNumber" : "urn:uuid:0521072c-0589-4de8-8f23-41099469153a",
+  "version" : 1,
+  "metadata" : {
+    "timestamp" : "2025-06-05T06:23:59Z",
+    "tools" : {
+      "components" : [ ],
+      "services" : [
+        {
+          "provider" : {
+            "name" : "PQCA"
+          },
+          "name" : "CBOMkit-action"
+        }
+      ]
+    },
+    "properties" : [
+      {
+        "name" : "gitUrl",
+        "value" : "https://github.com/Be-Secure/sonarqube"
+      },
+      {
+        "name" : "revision",
+        "value" : "10.6.0.92116_release"
+      },
+      {
+        "name" : "commit",
+        "value" : "e0da0f2"
+      }
+    ]
+  },
+  "components" : [
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "a64a11e6-6262-4721-b2ae-a5da95714b70",
+      "name" : "key@a64a11e6-6262-4721-b2ae-a5da95714b70",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "server/sonar-alm-client/src/main/java/org/sonar/alm/client/github/security/GithubAppSecurityImpl.java",
+            "line" : 81,
+            "offset" : 30,
+            "additionalContext" : "java.security.KeyFactory#getInstance(Ljava/lang/String;)Ljava/security/KeyFactory;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "secret-key"
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "a17e0d94-6374-4035-b65a-3d9c70d12dc5",
+      "name" : "secret-key@a17e0d94-6374-4035-b65a-3d9c70d12dc5",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "server/sonar-webserver-auth/src/main/java/org/sonar/server/authentication/CredentialsLocalAuthentication.java",
+            "line" : 238,
+            "offset" : 31,
+            "additionalContext" : "javax.crypto.SecretKeyFactory#getInstance(Ljava/lang/String;)Ljavax/crypto/SecretKeyFactory;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "secret-key",
+          "size" : 4096
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "6218dc10-3c51-4e7d-83f4-3861586a8b0a",
+      "name" : "AES128-GCM",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "sonar-plugin-api-impl/src/main/java/org/sonar/api/config/internal/AesGCMCipher.java",
+            "line" : 43,
+            "offset" : 35,
+            "additionalContext" : "javax.crypto.Cipher#getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+          },
+          {
+            "location" : "sonar-plugin-api-impl/src/main/java/org/sonar/api/config/internal/AesGCMCipher.java",
+            "line" : 63,
+            "offset" : 35,
+            "additionalContext" : "javax.crypto.Cipher#getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "ae",
+          "parameterSetIdentifier" : "128",
+          "mode" : "gcm"
+        },
+        "oid" : "2.16.840.1.101.3.4.1"
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "bd88cd91-3cd3-46af-9d12-a9f2b0baf183",
+      "name" : "RSA-2048",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "server/sonar-alm-client/src/main/java/org/sonar/alm/client/github/security/GithubAppSecurityImpl.java",
+            "line" : 81,
+            "offset" : 30,
+            "additionalContext" : "java.security.KeyFactory#getInstance(Ljava/lang/String;)Ljava/security/KeyFactory;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "pke",
+          "parameterSetIdentifier" : "2048",
+          "cryptoFunctions" : [
+            "keygen"
+          ]
+        },
+        "oid" : "1.2.840.113549.1.1.1"
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "0b49512a-bf8e-4efd-ac76-1aaf787d3543",
+      "name" : "SHA256",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "server/sonar-webserver/src/main/java/org/sonar/server/platform/web/CspFilter.java",
+            "line" : 90,
+            "offset" : 27,
+            "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "hash",
+          "parameterSetIdentifier" : "256",
+          "cryptoFunctions" : [
+            "digest"
+          ]
+        },
+        "oid" : "2.16.840.1.101.3.4.2.1"
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "d6f5a8d4-999a-4906-bbb1-023c1e246249",
+      "name" : "salt@d6f5a8d4-999a-4906-bbb1-023c1e246249",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "server/sonar-webserver-auth/src/main/java/org/sonar/server/authentication/CredentialsLocalAuthentication.java",
+            "line" : 219,
+            "offset" : 28
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "salt",
+          "size" : 160
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "eadc1519-3270-46a8-afce-4a997d61673a",
+      "name" : "AES128",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "sonar-plugin-api-impl/src/main/java/org/sonar/api/config/internal/AesECBCipher.java",
+            "line" : 42,
+            "offset" : 35,
+            "additionalContext" : "javax.crypto.Cipher#getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+          },
+          {
+            "location" : "sonar-plugin-api-impl/src/main/java/org/sonar/api/config/internal/AesECBCipher.java",
+            "line" : 56,
+            "offset" : 35,
+            "additionalContext" : "javax.crypto.Cipher#getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "block-cipher",
+          "parameterSetIdentifier" : "128"
+        },
+        "oid" : "2.16.840.1.101.3.4.1"
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "4b68c3fe-a8e0-49a8-a759-91a9aec812d9",
+      "name" : "HMAC-SHA512",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "server/sonar-webserver-auth/src/main/java/org/sonar/server/authentication/CredentialsLocalAuthentication.java",
+            "line" : 238,
+            "offset" : 31,
+            "additionalContext" : "javax.crypto.SecretKeyFactory#getInstance(Ljava/lang/String;)Ljavax/crypto/SecretKeyFactory;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "mac",
+          "cryptoFunctions" : [
+            "tag"
+          ]
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "b5f04c67-f062-4aec-8874-e8a9ace96886",
+      "name" : "salt@b5f04c67-f062-4aec-8874-e8a9ace96886",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "server/sonar-webserver-auth/src/main/java/org/sonar/server/authentication/CredentialsLocalAuthentication.java",
+            "line" : 219,
+            "offset" : 28
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "salt",
+          "size" : 160
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "736f4a83-af2f-464c-85bb-2bfc37b4946d",
+      "name" : "AES256",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "sonar-plugin-api-impl/src/main/java/org/sonar/api/config/internal/AesCipher.java",
+            "line" : 82,
+            "offset" : 28,
+            "additionalContext" : "javax.crypto.KeyGenerator#getInstance(Ljava/lang/String;)Ljavax/crypto/KeyGenerator;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "block-cipher",
+          "parameterSetIdentifier" : "256",
+          "cryptoFunctions" : [
+            "keygen"
+          ]
+        },
+        "oid" : "2.16.840.1.101.3.4.1"
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "e50d377e-9ab5-4377-8078-8159c71b2429",
+      "name" : "TLS",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "server/sonar-telemetry/src/main/java/org/sonar/telemetry/legacy/CloudUsageDataProvider.java",
+            "line" : 149,
+            "offset" : 30,
+            "additionalContext" : "javax.net.ssl.SSLContext#getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+          },
+          {
+            "location" : "sonar-ws/src/main/java/org/sonarqube/ws/client/OkHttpClientBuilder.java",
+            "line" : 289,
+            "offset" : 30,
+            "additionalContext" : "javax.net.ssl.SSLContext#getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "protocol",
+        "protocolProperties" : {
+          "type" : "tls"
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "dccb91b4-a680-4773-941e-67667ecf7808",
+      "name" : "secret-key@dccb91b4-a680-4773-941e-67667ecf7808",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "sonar-plugin-api-impl/src/main/java/org/sonar/api/config/internal/AesCipher.java",
+            "line" : 82,
+            "offset" : 28,
+            "additionalContext" : "javax.crypto.KeyGenerator#getInstance(Ljava/lang/String;)Ljavax/crypto/KeyGenerator;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "secret-key",
+          "size" : 256
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "124f3b6c-6f04-4a70-ad9e-4523f6f32661",
+      "name" : "SHA512",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "server/sonar-webserver-auth/src/main/java/org/sonar/server/authentication/CredentialsLocalAuthentication.java",
+            "line" : 238,
+            "offset" : 31,
+            "additionalContext" : "javax.crypto.SecretKeyFactory#getInstance(Ljava/lang/String;)Ljavax/crypto/SecretKeyFactory;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "hash",
+          "parameterSetIdentifier" : "512",
+          "cryptoFunctions" : [
+            "digest"
+          ]
+        },
+        "oid" : "2.16.840.1.101.3.4.2.3"
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "3c4e3dfa-3ce4-46b3-b143-fc75a8f1dbcb",
+      "name" : "PBKDF2-HMAC-SHA512",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "server/sonar-webserver-auth/src/main/java/org/sonar/server/authentication/CredentialsLocalAuthentication.java",
+            "line" : 238,
+            "offset" : 31,
+            "additionalContext" : "javax.crypto.SecretKeyFactory#getInstance(Ljava/lang/String;)Ljavax/crypto/SecretKeyFactory;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "kdf",
+          "parameterSetIdentifier" : "4096",
+          "cryptoFunctions" : [
+            "keygen"
+          ]
+        }
+      }
+    }
+  ],
+  "dependencies" : [
+    {
+      "ref" : "a17e0d94-6374-4035-b65a-3d9c70d12dc5",
+      "dependsOn" : [
+        "3c4e3dfa-3ce4-46b3-b143-fc75a8f1dbcb",
+        "b5f04c67-f062-4aec-8874-e8a9ace96886"
+      ]
+    },
+    {
+      "ref" : "3c4e3dfa-3ce4-46b3-b143-fc75a8f1dbcb",
+      "dependsOn" : [
+        "4b68c3fe-a8e0-49a8-a759-91a9aec812d9",
+        "d6f5a8d4-999a-4906-bbb1-023c1e246249"
+      ]
+    },
+    {
+      "ref" : "dccb91b4-a680-4773-941e-67667ecf7808",
+      "dependsOn" : [
+        "736f4a83-af2f-464c-85bb-2bfc37b4946d"
+      ]
+    },
+    {
+      "ref" : "a64a11e6-6262-4721-b2ae-a5da95714b70",
+      "dependsOn" : [
+        "bd88cd91-3cd3-46af-9d12-a9f2b0baf183"
+      ]
+    },
+    {
+      "ref" : "4b68c3fe-a8e0-49a8-a759-91a9aec812d9",
+      "dependsOn" : [
+        "124f3b6c-6f04-4a70-ad9e-4523f6f32661"
+      ]
+    }
+  ]
+}

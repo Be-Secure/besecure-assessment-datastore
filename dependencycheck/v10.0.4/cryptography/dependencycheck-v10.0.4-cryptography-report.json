@@ -1,0 +1,132 @@
+{
+  "bomFormat" : "CycloneDX",
+  "specVersion" : "1.6",
+  "serialNumber" : "urn:uuid:a57cd6cf-7d97-4491-ad00-a2327764e2e9",
+  "version" : 1,
+  "metadata" : {
+    "timestamp" : "2025-06-05T06:06:47Z",
+    "tools" : {
+      "components" : [ ],
+      "services" : [
+        {
+          "provider" : {
+            "name" : "PQCA"
+          },
+          "name" : "CBOMkit-action"
+        }
+      ]
+    },
+    "properties" : [
+      {
+        "name" : "gitUrl",
+        "value" : "https://github.com/Be-Secure/DependencyCheck"
+      },
+      {
+        "name" : "revision",
+        "value" : "v10.0.4_release"
+      },
+      {
+        "name" : "commit",
+        "value" : "15449e4"
+      }
+    ]
+  },
+  "components" : [
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "b2455348-ee10-4fae-a578-f64adff6902f",
+      "name" : "SHA256",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "utils/src/main/java/org/owasp/dependencycheck/utils/Checksum.java",
+            "line" : 95,
+            "offset" : 68
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "hash",
+          "parameterSetIdentifier" : "256",
+          "cryptoFunctions" : [
+            "digest"
+          ]
+        },
+        "oid" : "2.16.840.1.101.3.4.2.1"
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "3924d85d-ad64-4a5b-ad34-e23ec80b3b72",
+      "name" : "SHA1",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "utils/src/main/java/org/owasp/dependencycheck/utils/Checksum.java",
+            "line" : 94,
+            "offset" : 66
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "hash",
+          "parameterSetIdentifier" : "160",
+          "cryptoFunctions" : [
+            "digest"
+          ]
+        },
+        "oid" : "1.3.14.3.2.26"
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "4684c3b1-8276-4b28-8dcb-a9b9ef9b037c",
+      "name" : "TLS",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "utils/src/main/java/org/owasp/dependencycheck/utils/SSLSocketFactoryEx.java",
+            "line" : 242,
+            "offset" : 18,
+            "additionalContext" : "javax.net.ssl.SSLContext#getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "protocol",
+        "protocolProperties" : {
+          "type" : "tls"
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "382049ef-d5d9-496c-9754-d21844653b90",
+      "name" : "MD5",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "utils/src/main/java/org/owasp/dependencycheck/utils/Checksum.java",
+            "line" : 93,
+            "offset" : 65
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "hash",
+          "parameterSetIdentifier" : "128",
+          "cryptoFunctions" : [
+            "digest"
+          ]
+        }
+      }
+    }
+  ],
+  "dependencies" : [ ]
+}
