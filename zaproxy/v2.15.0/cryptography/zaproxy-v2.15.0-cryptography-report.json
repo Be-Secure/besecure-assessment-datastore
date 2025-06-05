@@ -1,0 +1,512 @@
+{
+  "bomFormat" : "CycloneDX",
+  "specVersion" : "1.6",
+  "serialNumber" : "urn:uuid:fbcadb55-de11-4e42-a875-343810616c91",
+  "version" : 1,
+  "metadata" : {
+    "timestamp" : "2025-06-05T06:01:12Z",
+    "tools" : {
+      "components" : [ ],
+      "services" : [
+        {
+          "provider" : {
+            "name" : "PQCA"
+          },
+          "name" : "CBOMkit-action"
+        }
+      ]
+    },
+    "properties" : [
+      {
+        "name" : "gitUrl",
+        "value" : "https://github.com/Be-Secure/zaproxy"
+      },
+      {
+        "name" : "revision",
+        "value" : "v2.15.0_release"
+      },
+      {
+        "name" : "commit",
+        "value" : "12778de"
+      }
+    ]
+  },
+  "components" : [
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "e35c5729-95e8-444d-9e41-3fb1b44b2dcd",
+      "name" : "RC4",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 594,
+            "offset" : 31,
+            "additionalContext" : "javax.crypto.Cipher#getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+          },
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 595,
+            "offset" : 42,
+            "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+          },
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 844,
+            "offset" : 25,
+            "additionalContext" : "javax.crypto.Cipher#getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+          },
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 847,
+            "offset" : 54,
+            "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+          },
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 851,
+            "offset" : 54,
+            "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "stream-cipher",
+          "cryptoFunctions" : [
+            "encrypt"
+          ]
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "f31daa3e-c443-4a24-9986-ff8dff4ef0e4",
+      "name" : "secret-key@f31daa3e-c443-4a24-9986-ff8dff4ef0e4",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 847,
+            "offset" : 54,
+            "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "secret-key"
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "a8eed43a-80f3-4879-a4aa-7ed908f8e175",
+      "name" : "secret-key@a8eed43a-80f3-4879-a4aa-7ed908f8e175",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 847,
+            "offset" : 54,
+            "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "secret-key"
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "a6d7635d-dbca-4565-82c6-04a208f358cb",
+      "name" : "secret-key@a6d7635d-dbca-4565-82c6-04a208f358cb",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 851,
+            "offset" : 54,
+            "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "secret-key"
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "5acfbc2e-3e9d-4e12-89f9-925b977e9507",
+      "name" : "secret-key@5acfbc2e-3e9d-4e12-89f9-925b977e9507",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 1026,
+            "offset" : 15,
+            "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "secret-key",
+          "size" : 64
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "10717692-e399-4d34-8e71-e2c295fc2bdb",
+      "name" : "DES56-ECB",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 565,
+            "offset" : 33,
+            "additionalContext" : "javax.crypto.Cipher#getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+          },
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 568,
+            "offset" : 26,
+            "additionalContext" : "javax.crypto.Cipher#getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+          },
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 647,
+            "offset" : 31,
+            "additionalContext" : "javax.crypto.Cipher#getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+          },
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 737,
+            "offset" : 31,
+            "additionalContext" : "javax.crypto.Cipher#getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "block-cipher",
+          "parameterSetIdentifier" : "56",
+          "mode" : "ecb",
+          "cryptoFunctions" : [
+            "encrypt"
+          ]
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "4afd508a-f36c-48b7-b0cd-00d3dc5b6771",
+      "name" : "RSA-2048",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/parosproxy/paros/security/SslCertificateServiceImpl.java",
+            "line" : 140,
+            "offset" : 40,
+            "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+          },
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/extension/dynssl/SslCertificateUtils.java",
+            "line" : 232,
+            "offset" : 29,
+            "additionalContext" : "java.security.KeyFactory#getInstance(Ljava/lang/String;)Ljava/security/KeyFactory;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "pke",
+          "parameterSetIdentifier" : "2048",
+          "cryptoFunctions" : [
+            "keygen"
+          ]
+        },
+        "oid" : "1.2.840.113549.1.1.1"
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "82c342f0-9b6a-45f1-8caf-e88d5d3cbcf7",
+      "name" : "DES64",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 1026,
+            "offset" : 15,
+            "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "block-cipher",
+          "parameterSetIdentifier" : "64",
+          "cryptoFunctions" : [
+            "keygen"
+          ]
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "f2e49f3a-04bd-4052-9da2-8816e23ba83d",
+      "name" : "SHA256",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 1803,
+            "offset" : 45,
+            "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "hash",
+          "parameterSetIdentifier" : "256",
+          "cryptoFunctions" : [
+            "digest"
+          ]
+        },
+        "oid" : "2.16.840.1.101.3.4.2.1"
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "58cd40ac-bc10-4eb1-a996-e35deb4c9e27",
+      "name" : "secret-key@58cd40ac-bc10-4eb1-a996-e35deb4c9e27",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 595,
+            "offset" : 42,
+            "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "secret-key"
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "f687da1e-100d-47e2-89ce-157f16695aec",
+      "name" : "TLS",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/parosproxy/paros/network/SSLConnector.java",
+            "line" : 218,
+            "offset" : 58
+          },
+          {
+            "location" : "zap/src/main/java/org/parosproxy/paros/network/SSLConnector.java",
+            "line" : 242,
+            "offset" : 58
+          },
+          {
+            "location" : "zap/src/main/java/org/parosproxy/paros/network/SSLConnector.java",
+            "line" : 336,
+            "offset" : 37,
+            "additionalContext" : "javax.net.ssl.SSLContext#getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+          },
+          {
+            "location" : "zap/src/main/java/org/parosproxy/paros/network/SSLConnector.java",
+            "line" : 691,
+            "offset" : 29,
+            "additionalContext" : "javax.net.ssl.SSLContext#getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+          },
+          {
+            "location" : "zap/src/main/java/ch/csnc/extension/httpclient/SSLContextManager.java",
+            "line" : 151,
+            "offset" : 35,
+            "additionalContext" : "javax.net.ssl.SSLContext#getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+          },
+          {
+            "location" : "zap/src/main/java/ch/csnc/extension/httpclient/SSLContextManager.java",
+            "line" : 533,
+            "offset" : 17,
+            "additionalContext" : "javax.net.ssl.SSLContext#getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "protocol",
+        "protocolProperties" : {
+          "type" : "tls"
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "704b9898-4ba3-4aea-b777-2f2ad3c50125",
+      "name" : "secret-key@704b9898-4ba3-4aea-b777-2f2ad3c50125",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 595,
+            "offset" : 42,
+            "additionalContext" : "javax.crypto.spec.SecretKeySpec#<init>([BLjava/lang/String;)V"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "secret-key"
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "0e08ee8c-1f40-48df-a91f-790c0bf21834",
+      "name" : "key@0e08ee8c-1f40-48df-a91f-790c0bf21834",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/parosproxy/paros/security/SslCertificateServiceImpl.java",
+            "line" : 140,
+            "offset" : 40,
+            "additionalContext" : "java.security.KeyPairGenerator#getInstance(Ljava/lang/String;)Ljava/security/KeyPairGenerator;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "secret-key",
+          "size" : 2048
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "7f537a96-65a4-49d5-8bcb-7909f93e40c2",
+      "name" : "key@7f537a96-65a4-49d5-8bcb-7909f93e40c2",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/extension/dynssl/SslCertificateUtils.java",
+            "line" : 232,
+            "offset" : 29,
+            "additionalContext" : "java.security.KeyFactory#getInstance(Ljava/lang/String;)Ljava/security/KeyFactory;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "related-crypto-material",
+        "relatedCryptoMaterialProperties" : {
+          "type" : "secret-key"
+        }
+      }
+    },
+    {
+      "type" : "cryptographic-asset",
+      "bom-ref" : "259a0093-55b1-4cac-8a58-de97e359b84e",
+      "name" : "MD5",
+      "evidence" : {
+        "occurrences" : [
+          {
+            "location" : "zap/src/main/java/org/zaproxy/zap/network/ZapNTLMEngineImpl.java",
+            "line" : 1860,
+            "offset" : 19,
+            "additionalContext" : "java.security.MessageDigest#getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+          }
+        ]
+      },
+      "cryptoProperties" : {
+        "assetType" : "algorithm",
+        "algorithmProperties" : {
+          "primitive" : "hash",
+          "parameterSetIdentifier" : "128",
+          "cryptoFunctions" : [
+            "digest"
+          ]
+        }
+      }
+    }
+  ],
+  "dependencies" : [
+    {
+      "ref" : "0e08ee8c-1f40-48df-a91f-790c0bf21834",
+      "dependsOn" : [
+        "4afd508a-f36c-48b7-b0cd-00d3dc5b6771"
+      ]
+    },
+    {
+      "ref" : "5acfbc2e-3e9d-4e12-89f9-925b977e9507",
+      "dependsOn" : [
+        "82c342f0-9b6a-45f1-8caf-e88d5d3cbcf7"
+      ]
+    },
+    {
+      "ref" : "f31daa3e-c443-4a24-9986-ff8dff4ef0e4",
+      "dependsOn" : [
+        "e35c5729-95e8-444d-9e41-3fb1b44b2dcd"
+      ]
+    },
+    {
+      "ref" : "7f537a96-65a4-49d5-8bcb-7909f93e40c2",
+      "dependsOn" : [
+        "4afd508a-f36c-48b7-b0cd-00d3dc5b6771"
+      ]
+    },
+    {
+      "ref" : "a6d7635d-dbca-4565-82c6-04a208f358cb",
+      "dependsOn" : [
+        "e35c5729-95e8-444d-9e41-3fb1b44b2dcd"
+      ]
+    },
+    {
+      "ref" : "704b9898-4ba3-4aea-b777-2f2ad3c50125",
+      "dependsOn" : [
+        "e35c5729-95e8-444d-9e41-3fb1b44b2dcd"
+      ]
+    },
+    {
+      "ref" : "58cd40ac-bc10-4eb1-a996-e35deb4c9e27",
+      "dependsOn" : [
+        "e35c5729-95e8-444d-9e41-3fb1b44b2dcd"
+      ]
+    },
+    {
+      "ref" : "a8eed43a-80f3-4879-a4aa-7ed908f8e175",
+      "dependsOn" : [
+        "e35c5729-95e8-444d-9e41-3fb1b44b2dcd"
+      ]
+    },
+    {
+      "ref" : "e35c5729-95e8-444d-9e41-3fb1b44b2dcd",
+      "dependsOn" : [
+        "704b9898-4ba3-4aea-b777-2f2ad3c50125",
+        "a8eed43a-80f3-4879-a4aa-7ed908f8e175"
+      ]
+    }
+  ]
+}
