@@ -1,0 +1,56 @@
+[
+  {
+    "number": 1,
+    "created_at": "2025-06-12T06:56:35Z",
+    "updated_at": "2025-06-12T06:56:35Z",
+    "url": "https://api.github.com/repos/NeerajK007/BeSLighthouse/code-scanning/alerts/1",
+    "html_url": "https://github.com/NeerajK007/BeSLighthouse/security/code-scanning/1",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "actions/missing-workflow-permissions",
+      "severity": "warning",
+      "description": "Workflow does not contain permissions",
+      "name": "actions/missing-workflow-permissions",
+      "tags": [
+        "actions",
+        "external/cwe/cwe-275",
+        "maintainability",
+        "security"
+      ],
+      "full_description": "Workflows should contain explicit permissions to restrict the scope of the default GITHUB_TOKEN.",
+      "help": "# Actions Job and Workflow Permissions are not set\n\n## Description\n\nIf a GitHub Actions job or workflow has no explicit permissions set, then the repository permissions are used. Repositories created under organizations inherit the organization permissions. The organizations or repositories created before February 2023 have the default permissions set to read-write. Often these permissions do not adhere to the principle of least privilege and can be reduced to read-only, leaving the `write` permission only to a specific types as `issues: write` or `pull-requests: write`.\n\n## Recommendations\n\nAdd the `permissions` key to the job or the root of workflow (in this case it is applied to all jobs in the workflow that do not have their own `permissions` key) and assign the least privileges required to complete the task:\n\n```yaml\nname: \"My workflow\"\npermissions:\n  contents: read\n  pull-requests: write\n```\n\nor\n\n```yaml\njobs:\n  my-job:\n    permissions:\n      contents: read\n      pull-requests: write\n```\n\n## References\n\n- [Assigning permissions to jobs](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/assigning-permissions-to-jobs)\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.21.4"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/0.28.7_release",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"actions\"}",
+      "category": "/language:actions",
+      "state": "open",
+      "commit_sha": "6b039338270823f8fe09b2399ba6ba9c04eaa752",
+      "message": {
+        "text": "Actions job or workflow does not limit the permissions of the GITHUB_TOKEN. Consider setting an explicit permissions block, using the following as a minimal starting point: {{contents: read}}"
+      },
+      "location": {
+        "path": ".github/workflows/ci-workflow.yml",
+        "start_line": 18,
+        "end_line": 46,
+        "start_column": 5,
+        "end_column": 28
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/BeSLighthouse/code-scanning/alerts/1/instances",
+    "dismissal_approved_by": null
+  }
+]
