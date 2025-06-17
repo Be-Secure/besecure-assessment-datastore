@@ -1,0 +1,1472 @@
+[
+  {
+    "number": 66,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/66",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/66",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'float' before it is converted to 'double'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-opt.cpp",
+        "start_line": 644,
+        "end_line": 644,
+        "start_column": 24,
+        "end_column": 47
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/66/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 65,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/65",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/65",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ops.cpp",
+        "start_line": 6046,
+        "end_line": 6046,
+        "start_column": 59,
+        "end_column": 69
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/65/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 64,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/64",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/64",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ops.cpp",
+        "start_line": 7659,
+        "end_line": 7659,
+        "start_column": 50,
+        "end_column": 54
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/64/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 63,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/63",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/63",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ops.cpp",
+        "start_line": 7659,
+        "end_line": 7659,
+        "start_column": 29,
+        "end_column": 33
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/63/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 62,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/62",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/62",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ops.cpp",
+        "start_line": 7653,
+        "end_line": 7653,
+        "start_column": 45,
+        "end_column": 49
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/62/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 61,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/61",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/61",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ops.cpp",
+        "start_line": 7652,
+        "end_line": 7652,
+        "start_column": 45,
+        "end_column": 49
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/61/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 60,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/60",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/60",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-backend.cpp",
+        "start_line": 1303,
+        "end_line": 1303,
+        "start_column": 54,
+        "end_column": 87
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/60/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 59,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/59",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/59",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-backend.cpp",
+        "start_line": 1289,
+        "end_line": 1289,
+        "start_column": 50,
+        "end_column": 83
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/59/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 58,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/58",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/58",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-backend.cpp",
+        "start_line": 1262,
+        "end_line": 1262,
+        "start_column": 46,
+        "end_column": 106
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/58/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 57,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/57",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/57",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-backend.cpp",
+        "start_line": 1216,
+        "end_line": 1216,
+        "start_column": 36,
+        "end_column": 91
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/57/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 56,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/56",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/56",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-backend.cpp",
+        "start_line": 1209,
+        "end_line": 1209,
+        "start_column": 29,
+        "end_column": 70
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/56/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 55,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/55",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/55",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-backend.cpp",
+        "start_line": 1200,
+        "end_line": 1200,
+        "start_column": 25,
+        "end_column": 66
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/55/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 54,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/54",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/54",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-backend.cpp",
+        "start_line": 1189,
+        "end_line": 1189,
+        "start_column": 29,
+        "end_column": 70
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/54/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 53,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/53",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/53",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-backend.cpp",
+        "start_line": 1175,
+        "end_line": 1175,
+        "start_column": 25,
+        "end_column": 66
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/53/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 52,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/52",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/52",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-backend.cpp",
+        "start_line": 1139,
+        "end_line": 1139,
+        "start_column": 65,
+        "end_column": 102
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/52/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 51,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/51",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/51",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-backend.cpp",
+        "start_line": 1369,
+        "end_line": 1369,
+        "start_column": 46,
+        "end_column": 99
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/51/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 50,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/50",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/50",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ggml-cpu-aarch64.cpp",
+        "start_line": 5813,
+        "end_line": 5813,
+        "start_column": 38,
+        "end_column": 49
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/50/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 49,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/49",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/49",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ggml-cpu-aarch64.cpp",
+        "start_line": 5804,
+        "end_line": 5804,
+        "start_column": 30,
+        "end_column": 44
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/49/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 48,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/48",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/48",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ggml-cpu-aarch64.cpp",
+        "start_line": 5843,
+        "end_line": 5843,
+        "start_column": 38,
+        "end_column": 49
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/48/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 47,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/47",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/47",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ggml-cpu-aarch64.cpp",
+        "start_line": 5834,
+        "end_line": 5834,
+        "start_column": 30,
+        "end_column": 44
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/47/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 46,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/46",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/46",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ggml-cpu-aarch64.cpp",
+        "start_line": 5874,
+        "end_line": 5874,
+        "start_column": 38,
+        "end_column": 49
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/46/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 45,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/45",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/45",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ggml-cpu-aarch64.cpp",
+        "start_line": 5865,
+        "end_line": 5865,
+        "start_column": 30,
+        "end_column": 44
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/45/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 44,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/44",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/44",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ggml-cpu-aarch64.cpp",
+        "start_line": 5941,
+        "end_line": 5941,
+        "start_column": 38,
+        "end_column": 49
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/44/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 43,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/43",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/43",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/integer-multiplication-cast-to-long",
+      "severity": "warning",
+      "description": "Multiplication result converted to larger type",
+      "name": "cpp/integer-multiplication-cast-to-long",
+      "tags": ["correctness","external/cwe/cwe-190","external/cwe/cwe-192","external/cwe/cwe-197","external/cwe/cwe-681","reliability","security","types"],
+      "full_description": "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from.",
+      "help": "# Multiplication result converted to larger type\nThis rule finds code that converts the result of an integer multiplication to a larger type. Since the conversion applies *after* the multiplication, arithmetic overflow may still occur.\n\nThe rule flags every multiplication of two non-constant integer expressions that is (explicitly or implicitly) converted to a larger integer type. The conversion is an indication that the expression would produce a result that would be too large to fit in the smaller integer type.\n\n\n## Recommendation\nUse a cast to ensure that the multiplication is done using the larger integer type to avoid overflow.\n\n\n## Example\n\n```cpp\nint i = 2000000000;\nlong j = i * i; //Wrong: due to overflow on the multiplication between ints, \n                //will result to j being -1651507200, not 4000000000000000000\n\nlong k = (long) i * i; //Correct: the multiplication is done on longs instead of ints, \n                       //and will not overflow\n\nlong l = static_cast<long>(i) * i; //Correct: modern C++\n\n```\n\n## References\n* MSDN Library: [Multiplicative Operators and the Modulus Operator](https://docs.microsoft.com/en-us/cpp/cpp/multiplicative-operators-and-the-modulus-operator).\n* Cplusplus.com: [Integer overflow](http://www.cplusplus.com/articles/DE18T05o/).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-192](https://cwe.mitre.org/data/definitions/192.html).\n* Common Weakness Enumeration: [CWE-197](https://cwe.mitre.org/data/definitions/197.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Multiplication result may overflow 'int' before it is converted to 'unsigned long'."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ggml-cpu-aarch64.cpp",
+        "start_line": 5932,
+        "end_line": 5932,
+        "start_column": 30,
+        "end_column": 44
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/43/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 42,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/42",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/42",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/suspicious-add-sizeof",
+      "severity": "warning",
+      "description": "Suspicious add with sizeof",
+      "name": "cpp/suspicious-add-sizeof",
+      "tags": ["external/cwe/cwe-468","security"],
+      "full_description": "Explicitly scaled pointer arithmetic expressions can cause buffer overflow conditions if the offset is also implicitly scaled.",
+      "help": "# Suspicious add with sizeof\nPointer arithmetic in C and C++ is automatically scaled according to the size of the data type. For example, if the type of `p` is `T*` and `sizeof(T) == 4` then the expression `p+1` adds 4 bytes to `p`.\n\nThis query finds code of the form `p + k*sizeof(T)`. Such code is usually a mistake because there is no need to manually scale the offset by `sizeof(T)`.\n\n\n## Recommendation\n1. Whenever possible, use the array subscript operator rather than pointer arithmetic. For example, replace `*(p+k)` with `p[k]`.\n1. Cast to the correct type before using pointer arithmetic. For example, if the type of `p` is `char*` but it really points to an array of type `double[]` then use the syntax `(double*)p + k` to get a pointer to the `k`'th element of the array.\n\n## Example\n\n```cpp\nint example1(int i) {\n  int intArray[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };\n  int *intPointer = intArray;\n  // BAD: the offset is already automatically scaled by sizeof(int),\n  // so this code will compute the wrong offset.\n  return *(intPointer + (i * sizeof(int)));\n}\n\nint example2(int i) {\n  int intArray[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };\n  int *intPointer = intArray;\n  // GOOD: the offset is automatically scaled by sizeof(int).\n  return *(intPointer + i);\n}\n\n```\n\n## References\n* Common Weakness Enumeration: [CWE-468](https://cwe.mitre.org/data/definitions/468.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Suspicious sizeof offset in a pointer arithmetic expression. The type of the pointer is const block_q8_0 *."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ggml-cpu-quants.c",
+        "start_line": 2350,
+        "end_line": 2350,
+        "start_column": 35,
+        "end_column": 53
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/42/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 41,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/41",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/41",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/suspicious-add-sizeof",
+      "severity": "warning",
+      "description": "Suspicious add with sizeof",
+      "name": "cpp/suspicious-add-sizeof",
+      "tags": ["external/cwe/cwe-468","security"],
+      "full_description": "Explicitly scaled pointer arithmetic expressions can cause buffer overflow conditions if the offset is also implicitly scaled.",
+      "help": "# Suspicious add with sizeof\nPointer arithmetic in C and C++ is automatically scaled according to the size of the data type. For example, if the type of `p` is `T*` and `sizeof(T) == 4` then the expression `p+1` adds 4 bytes to `p`.\n\nThis query finds code of the form `p + k*sizeof(T)`. Such code is usually a mistake because there is no need to manually scale the offset by `sizeof(T)`.\n\n\n## Recommendation\n1. Whenever possible, use the array subscript operator rather than pointer arithmetic. For example, replace `*(p+k)` with `p[k]`.\n1. Cast to the correct type before using pointer arithmetic. For example, if the type of `p` is `char*` but it really points to an array of type `double[]` then use the syntax `(double*)p + k` to get a pointer to the `k`'th element of the array.\n\n## Example\n\n```cpp\nint example1(int i) {\n  int intArray[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };\n  int *intPointer = intArray;\n  // BAD: the offset is already automatically scaled by sizeof(int),\n  // so this code will compute the wrong offset.\n  return *(intPointer + (i * sizeof(int)));\n}\n\nint example2(int i) {\n  int intArray[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };\n  int *intPointer = intArray;\n  // GOOD: the offset is automatically scaled by sizeof(int).\n  return *(intPointer + i);\n}\n\n```\n\n## References\n* Common Weakness Enumeration: [CWE-468](https://cwe.mitre.org/data/definitions/468.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Suspicious sizeof offset in a pointer arithmetic expression. The type of the pointer is const block_q4_0 *."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ggml-cpu-quants.c",
+        "start_line": 2349,
+        "end_line": 2349,
+        "start_column": 35,
+        "end_column": 53
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/41/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 40,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/40",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/40",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/suspicious-add-sizeof",
+      "severity": "warning",
+      "description": "Suspicious add with sizeof",
+      "name": "cpp/suspicious-add-sizeof",
+      "tags": ["external/cwe/cwe-468","security"],
+      "full_description": "Explicitly scaled pointer arithmetic expressions can cause buffer overflow conditions if the offset is also implicitly scaled.",
+      "help": "# Suspicious add with sizeof\nPointer arithmetic in C and C++ is automatically scaled according to the size of the data type. For example, if the type of `p` is `T*` and `sizeof(T) == 4` then the expression `p+1` adds 4 bytes to `p`.\n\nThis query finds code of the form `p + k*sizeof(T)`. Such code is usually a mistake because there is no need to manually scale the offset by `sizeof(T)`.\n\n\n## Recommendation\n1. Whenever possible, use the array subscript operator rather than pointer arithmetic. For example, replace `*(p+k)` with `p[k]`.\n1. Cast to the correct type before using pointer arithmetic. For example, if the type of `p` is `char*` but it really points to an array of type `double[]` then use the syntax `(double*)p + k` to get a pointer to the `k`'th element of the array.\n\n## Example\n\n```cpp\nint example1(int i) {\n  int intArray[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };\n  int *intPointer = intArray;\n  // BAD: the offset is already automatically scaled by sizeof(int),\n  // so this code will compute the wrong offset.\n  return *(intPointer + (i * sizeof(int)));\n}\n\nint example2(int i) {\n  int intArray[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };\n  int *intPointer = intArray;\n  // GOOD: the offset is automatically scaled by sizeof(int).\n  return *(intPointer + i);\n}\n\n```\n\n## References\n* Common Weakness Enumeration: [CWE-468](https://cwe.mitre.org/data/definitions/468.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Suspicious sizeof offset in a pointer arithmetic expression. The type of the pointer is const block_q8_0 *."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ggml-cpu-quants.c",
+        "start_line": 2332,
+        "end_line": 2332,
+        "start_column": 31,
+        "end_column": 49
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/40/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 39,
+    "created_at": "2025-06-13T07:08:52Z",
+    "updated_at": "2025-06-13T07:08:52Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/39",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/39",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "cpp/suspicious-add-sizeof",
+      "severity": "warning",
+      "description": "Suspicious add with sizeof",
+      "name": "cpp/suspicious-add-sizeof",
+      "tags": ["external/cwe/cwe-468","security"],
+      "full_description": "Explicitly scaled pointer arithmetic expressions can cause buffer overflow conditions if the offset is also implicitly scaled.",
+      "help": "# Suspicious add with sizeof\nPointer arithmetic in C and C++ is automatically scaled according to the size of the data type. For example, if the type of `p` is `T*` and `sizeof(T) == 4` then the expression `p+1` adds 4 bytes to `p`.\n\nThis query finds code of the form `p + k*sizeof(T)`. Such code is usually a mistake because there is no need to manually scale the offset by `sizeof(T)`.\n\n\n## Recommendation\n1. Whenever possible, use the array subscript operator rather than pointer arithmetic. For example, replace `*(p+k)` with `p[k]`.\n1. Cast to the correct type before using pointer arithmetic. For example, if the type of `p` is `char*` but it really points to an array of type `double[]` then use the syntax `(double*)p + k` to get a pointer to the `k`'th element of the array.\n\n## Example\n\n```cpp\nint example1(int i) {\n  int intArray[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };\n  int *intPointer = intArray;\n  // BAD: the offset is already automatically scaled by sizeof(int),\n  // so this code will compute the wrong offset.\n  return *(intPointer + (i * sizeof(int)));\n}\n\nint example2(int i) {\n  int intArray[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };\n  int *intPointer = intArray;\n  // GOOD: the offset is automatically scaled by sizeof(int).\n  return *(intPointer + i);\n}\n\n```\n\n## References\n* Common Weakness Enumeration: [CWE-468](https://cwe.mitre.org/data/definitions/468.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
+      "category": "/language:c-cpp",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "Suspicious sizeof offset in a pointer arithmetic expression. The type of the pointer is const block_q4_0 *."
+      },
+      "location": {
+        "path": "ml/backend/ggml/ggml/src/ggml-cpu/ggml-cpu-quants.c",
+        "start_line": 2331,
+        "end_line": 2331,
+        "start_column": 31,
+        "end_column": 49
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/39/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 38,
+    "created_at": "2025-06-13T07:02:56Z",
+    "updated_at": "2025-06-13T07:02:56Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/38",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/38",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/path-injection",
+      "severity": "error",
+      "description": "Uncontrolled data used in path expression",
+      "name": "go/path-injection",
+      "tags": ["external/cwe/cwe-022","external/cwe/cwe-023","external/cwe/cwe-036","external/cwe/cwe-073","external/cwe/cwe-099","security"],
+      "full_description": "Accessing paths influenced by users can allow an attacker to access unexpected resources.",
+      "help": "# Uncontrolled data used in path expression\nAccessing files using paths constructed from user-controlled data can allow an attacker to access unexpected resources. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\nPaths that are naively constructed from data controlled by a user may be absolute paths, or may contain unexpected special characters such as \"..\". Such a path could point anywhere on the file system.\n\n\n## Recommendation\nValidate user input before using it to construct a file path.\n\nCommon validation methods include checking that the normalized path is relative and does not contain any \"..\" components, or checking that the path is contained within a safe folder. The method you should use depends on how the path is used in the application, and whether the path should be a single path component.\n\nIf the path should be a single path component (such as a file name), you can check for the existence of any path separators (\"/\" or \"\\\\\"), or \"..\" sequences in the input, and reject the input if any are found.\n\nNote that removing \"../\" sequences is *not* sufficient, since the input could still contain a path separator followed by \"..\". For example, the input \".../...//\" would still result in the string \"../\" if only \"../\" sequences are removed.\n\nFinally, the simplest (but most restrictive) option is to use an allow list of safe patterns and make sure that the user input matches one of these patterns.\n\n\n## Example\nIn the first example, a file name is read from an HTTP request and then used to access a file. However, a malicious user could enter a file name which is an absolute path, such as \"/etc/passwd\".\n\nIn the second example, it appears that the user is restricted to opening a file within the `\"user\"` home directory. However, a malicious user could enter a file name containing special characters. For example, the string `\"../../etc/passwd\"` will result in the code reading the file located at \"/home/user/../../etc/passwd\", which is the system's password file. This file would then be sent back to the user, giving them access to password information.\n\n\n```go\npackage main\n\nimport (\n\t\"io/ioutil\"\n\t\"net/http\"\n\t\"path/filepath\"\n)\n\nfunc handler(w http.ResponseWriter, r *http.Request) {\n\tpath := r.URL.Query()[\"path\"][0]\n\n\t// BAD: This could read any file on the file system\n\tdata, _ := ioutil.ReadFile(path)\n\tw.Write(data)\n\n\t// BAD: This could still read any file on the file system\n\tdata, _ = ioutil.ReadFile(filepath.Join(\"/home/user/\", path))\n\tw.Write(data)\n}\n\n```\nIf the input should only be a file name, you can check that it doesn't contain any path separators or \"..\" sequences.\n\n\n```go\npackage main\n\nimport (\n\t\"io/ioutil\"\n\t\"net/http\"\n\t\"path/filepath\"\n\t\"strings\"\n)\n\nfunc handler(w http.ResponseWriter, r *http.Request) {\n\tpath := r.URL.Query()[\"path\"][0]\n\n\t// GOOD: ensure that the filename has no path separators or parent directory references\n\t// (Note that this is only suitable if `path` is expected to have a single component!)\n\tif strings.Contains(path, \"/\") || strings.Contains(path, \"\\\\\") || strings.Contains(path, \"..\") {\n\t\thttp.Error(w, \"Invalid file name\", http.StatusBadRequest)\n\t\treturn\n\t}\n\tdata, _ := ioutil.ReadFile(filepath.Join(\"/home/user/\", path))\n\tw.Write(data)\n}\n\n```\nNote that this approach is only suitable if the input is expected to be a single file name.\n\nIf the input can be a path with multiple components, you can make it safe by verifying that the path is within a specific directory that is considered safe. You can do this by resolving the input with respect to that directory, and then checking that the resulting path is still within it.\n\n\n```go\npackage main\n\nimport (\n\t\"io/ioutil\"\n\t\"net/http\"\n\t\"path/filepath\"\n\t\"strings\"\n)\n\nconst safeDir = \"/home/user/\"\n\nfunc handler(w http.ResponseWriter, r *http.Request) {\n\tpath := r.URL.Query()[\"path\"][0]\n\n\t// GOOD: ensure that the resolved path is within the safe directory\n\tabsPath, err := filepath.Abs(filepath.Join(safeDir, path))\n\tif err != nil || !strings.HasPrefix(absPath, safeDir) {\n\t\thttp.Error(w, \"Invalid file name\", http.StatusBadRequest)\n\t\treturn\n\t}\n\tdata, _ := ioutil.ReadFile(absPath)\n\tw.Write(data)\n}\n\n```\nNote that `/home/user` is just an example, you should replace it with the actual safe directory in your application. Also, while in this example the path of the safe directory is absolute, this may not always be the case, and you may need to resolve it first before checking the input.\n\n\n## References\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n* Common Weakness Enumeration: [CWE-23](https://cwe.mitre.org/data/definitions/23.html).\n* Common Weakness Enumeration: [CWE-36](https://cwe.mitre.org/data/definitions/36.html).\n* Common Weakness Enumeration: [CWE-73](https://cwe.mitre.org/data/definitions/73.html).\n* Common Weakness Enumeration: [CWE-99](https://cwe.mitre.org/data/definitions/99.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "This path depends on a user-provided value."
+      },
+      "location": {
+        "path": "server/routes.go",
+        "start_line": 1036,
+        "end_line": 1036,
+        "start_column": 19,
+        "end_column": 23
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/38/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 37,
+    "created_at": "2025-06-13T07:02:56Z",
+    "updated_at": "2025-06-13T07:02:56Z",
+    "url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/37",
+    "html_url": "https://github.com/NeerajK007/ollama/security/code-scanning/37",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/path-injection",
+      "severity": "error",
+      "description": "Uncontrolled data used in path expression",
+      "name": "go/path-injection",
+      "tags": ["external/cwe/cwe-022","external/cwe/cwe-023","external/cwe/cwe-036","external/cwe/cwe-073","external/cwe/cwe-099","security"],
+      "full_description": "Accessing paths influenced by users can allow an attacker to access unexpected resources.",
+      "help": "# Uncontrolled data used in path expression\nAccessing files using paths constructed from user-controlled data can allow an attacker to access unexpected resources. This can result in sensitive information being revealed or deleted, or an attacker being able to influence behavior by modifying unexpected files.\n\nPaths that are naively constructed from data controlled by a user may be absolute paths, or may contain unexpected special characters such as \"..\". Such a path could point anywhere on the file system.\n\n\n## Recommendation\nValidate user input before using it to construct a file path.\n\nCommon validation methods include checking that the normalized path is relative and does not contain any \"..\" components, or checking that the path is contained within a safe folder. The method you should use depends on how the path is used in the application, and whether the path should be a single path component.\n\nIf the path should be a single path component (such as a file name), you can check for the existence of any path separators (\"/\" or \"\\\\\"), or \"..\" sequences in the input, and reject the input if any are found.\n\nNote that removing \"../\" sequences is *not* sufficient, since the input could still contain a path separator followed by \"..\". For example, the input \".../...//\" would still result in the string \"../\" if only \"../\" sequences are removed.\n\nFinally, the simplest (but most restrictive) option is to use an allow list of safe patterns and make sure that the user input matches one of these patterns.\n\n\n## Example\nIn the first example, a file name is read from an HTTP request and then used to access a file. However, a malicious user could enter a file name which is an absolute path, such as \"/etc/passwd\".\n\nIn the second example, it appears that the user is restricted to opening a file within the `\"user\"` home directory. However, a malicious user could enter a file name containing special characters. For example, the string `\"../../etc/passwd\"` will result in the code reading the file located at \"/home/user/../../etc/passwd\", which is the system's password file. This file would then be sent back to the user, giving them access to password information.\n\n\n```go\npackage main\n\nimport (\n\t\"io/ioutil\"\n\t\"net/http\"\n\t\"path/filepath\"\n)\n\nfunc handler(w http.ResponseWriter, r *http.Request) {\n\tpath := r.URL.Query()[\"path\"][0]\n\n\t// BAD: This could read any file on the file system\n\tdata, _ := ioutil.ReadFile(path)\n\tw.Write(data)\n\n\t// BAD: This could still read any file on the file system\n\tdata, _ = ioutil.ReadFile(filepath.Join(\"/home/user/\", path))\n\tw.Write(data)\n}\n\n```\nIf the input should only be a file name, you can check that it doesn't contain any path separators or \"..\" sequences.\n\n\n```go\npackage main\n\nimport (\n\t\"io/ioutil\"\n\t\"net/http\"\n\t\"path/filepath\"\n\t\"strings\"\n)\n\nfunc handler(w http.ResponseWriter, r *http.Request) {\n\tpath := r.URL.Query()[\"path\"][0]\n\n\t// GOOD: ensure that the filename has no path separators or parent directory references\n\t// (Note that this is only suitable if `path` is expected to have a single component!)\n\tif strings.Contains(path, \"/\") || strings.Contains(path, \"\\\\\") || strings.Contains(path, \"..\") {\n\t\thttp.Error(w, \"Invalid file name\", http.StatusBadRequest)\n\t\treturn\n\t}\n\tdata, _ := ioutil.ReadFile(filepath.Join(\"/home/user/\", path))\n\tw.Write(data)\n}\n\n```\nNote that this approach is only suitable if the input is expected to be a single file name.\n\nIf the input can be a path with multiple components, you can make it safe by verifying that the path is within a specific directory that is considered safe. You can do this by resolving the input with respect to that directory, and then checking that the resulting path is still within it.\n\n\n```go\npackage main\n\nimport (\n\t\"io/ioutil\"\n\t\"net/http\"\n\t\"path/filepath\"\n\t\"strings\"\n)\n\nconst safeDir = \"/home/user/\"\n\nfunc handler(w http.ResponseWriter, r *http.Request) {\n\tpath := r.URL.Query()[\"path\"][0]\n\n\t// GOOD: ensure that the resolved path is within the safe directory\n\tabsPath, err := filepath.Abs(filepath.Join(safeDir, path))\n\tif err != nil || !strings.HasPrefix(absPath, safeDir) {\n\t\thttp.Error(w, \"Invalid file name\", http.StatusBadRequest)\n\t\treturn\n\t}\n\tdata, _ := ioutil.ReadFile(absPath)\n\tw.Write(data)\n}\n\n```\nNote that `/home/user` is just an example, you should replace it with the actual safe directory in your application. Also, while in this example the path of the safe directory is absolute, this may not always be the case, and you may need to resolve it first before checking the input.\n\n\n## References\n* OWASP: [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal).\n* Common Weakness Enumeration: [CWE-22](https://cwe.mitre.org/data/definitions/22.html).\n* Common Weakness Enumeration: [CWE-23](https://cwe.mitre.org/data/definitions/23.html).\n* Common Weakness Enumeration: [CWE-36](https://cwe.mitre.org/data/definitions/36.html).\n* Common Weakness Enumeration: [CWE-73](https://cwe.mitre.org/data/definitions/73.html).\n* Common Weakness Enumeration: [CWE-99](https://cwe.mitre.org/data/definitions/99.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.0"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/v0.9.0_tavoss",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "fb2b9f8ab26dacc503eefdedf60998752212816a",
+      "message": {
+        "text": "This path depends on a user-provided value."
+      },
+      "location": {
+        "path": "server/routes.go",
+        "start_line": 1002,
+        "end_line": 1002,
+        "start_column": 23,
+        "end_column": 27
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/NeerajK007/ollama/code-scanning/alerts/37/instances",
+    "dismissal_approved_by": null
+  }
+]
