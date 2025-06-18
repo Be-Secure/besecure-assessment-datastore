@@ -1,0 +1,150 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "TheHive",
+        "version": "4.1.24",
+        "url": "https://github.com/Be-Secure/TheHive",
+        "environment": "TheHive-RT-env"
+    },
+    "assessments": [
+        {
+            "tool": {
+                "name": "CriticalityScore",
+                "type": "PIA",
+                "version": "2.0.3",
+                "playbook": "besman-PIA-CriticalityScore-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-17T13:04:42Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/TheHive/4.1.24/criticality_score/TheHive-4.1.24-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 0.33042
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "fossology",
+                "type": "license-compliance",
+                "version": "N/A",
+                "playbook": "besman-license-compliance-fossology-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-17T13:05:00Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/TheHive/4.1.24/license-compliance/TheHive-4.1.24-fossology-report.json"
+            },
+            "results": [
+                {
+                    "feature": "License Compliance",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "sonarqube",
+                "type": "sast",
+                "version": "9.9.4",
+                "playbook": "besman-sast-sonarqube-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-17T13:05:10Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/TheHive/4.1.24/sast/TheHive-4.1.24-sonarqube-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MINOR",
+                    "value": 8
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "CRITICAL",
+                    "value": 49
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MAJOR",
+                    "value": 41
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "INFO",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "scorecard",
+                "type": "RIP",
+                "version": "v4.13.1",
+                "playbook": "besman-RIP-scorecard-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-17T13:05:18Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/TheHive/4.1.24/scorecard/TheHive-4.1.24-scorecard-report.json"
+            },
+            "results": [
+                {
+                    "feature": "ScoreCard",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 4.8
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "SpdxSbomGenerator",
+                "type": "sbom",
+                "version": "v0.0.15",
+                "playbook": "besman-sbom-SpdxSbomGenerator-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-17T13:05:25Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/TheHive/4.1.24/sbom/TheHive-4.1.24-sbom-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Dependency",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 2
+                }
+            ]
+        }
+    ]
+}
