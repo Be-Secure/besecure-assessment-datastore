@@ -1,0 +1,156 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "Nettacker",
+        "version": "0.3.1",
+        "url": "https://github.com/Be-Secure/Nettacker",
+        "environment": "Nettacker-RT-env"
+    },
+    "assessments": [
+        {
+            "tool": {
+                "name": "scorecard",
+                "type": "RIP",
+                "version": "v4.13.1",
+                "playbook": "besman-RIP-scorecard-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "RT-env",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-17T11:53:07Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/Nettacker/0.3.1/scorecard/Nettacker-0.3.1-scorecard-report.json"
+            },
+            "results": [
+                {
+                    "feature": "ScoreCard",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 7.0
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "CriticalityScore",
+                "type": "PIA",
+                "version": "2.0.3",
+                "playbook": "besman-PIA-CriticalityScore-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "RT-env",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-17T12:45:33Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/Nettacker/0.3.1/criticality_score/Nettacker-0.3.1-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 0.35026
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "fossology",
+                "type": "license-compliance",
+                "version": "N/A",
+                "playbook": "besman-license-compliance-fossology-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "RT-env",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-17T12:50:11Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/Nettacker/0.3.1/license-compliance/Nettacker-0.3.1-fossology-report.json"
+            },
+            "results": [
+                {
+                    "feature": "License Compliance",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "sonarqube",
+                "type": "sast",
+                "version": "9.9.4",
+                "playbook": "besman-sast-sonarqube-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "RT-env",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-17T12:55:37Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/Nettacker/0.3.1/sast/Nettacker-0.3.1-sonarqube-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "CRITICAL",
+                    "value": 39
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MAJOR",
+                    "value": 35
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MINOR",
+                    "value": 12
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "INFO",
+                    "value": 3
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "BLOCKER",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "SpdxSbomGenerator",
+                "type": "sbom",
+                "version": "v0.0.15",
+                "playbook": "besman-sbom-SpdxSbomGenerator-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "RT-env",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-17T12:56:03Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/Nettacker/0.3.1/sbom/Nettacker-0.3.1-sbom-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Dependency",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 39
+                }
+            ]
+        }
+    ]
+}
