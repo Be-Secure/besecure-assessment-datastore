@@ -1,0 +1,156 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "counterfit",
+        "version": "v1.1.0",
+        "url": "https://github.com/Be-Secure/counterfit",
+        "environment": "counterfit-RT-env"
+    },
+    "assessments": [
+        {
+            "tool": {
+                "name": "SpdxSbomGenerator",
+                "type": "sbom",
+                "version": "v0.0.15",
+                "playbook": "besman-sbom-SpdxSbomGenerator-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-20T09:02:50Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/counterfit/v1.1.0/sbom/counterfit-v1.1.0-sbom-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Dependency",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "scorecard",
+                "type": "RIP",
+                "version": "v4.13.1",
+                "playbook": "besman-RIP-scorecard-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-20T09:03:04Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/counterfit/v1.1.0/scorecard/counterfit-v1.1.0-scorecard-report.json"
+            },
+            "results": [
+                {
+                    "feature": "ScoreCard",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 3.4
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "sonarqube",
+                "type": "sast",
+                "version": "9.9.4",
+                "playbook": "besman-sast-sonarqube-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-20T09:03:25Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/counterfit/v1.1.0/sast/counterfit-v1.1.0-sonarqube-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MAJOR",
+                    "value": 56
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MINOR",
+                    "value": 7
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "INFO",
+                    "value": 4
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "CRITICAL",
+                    "value": 30
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "BLOCKER",
+                    "value": 3
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "fossology",
+                "type": "license-compliance",
+                "version": "N/A",
+                "playbook": "besman-license-compliance-fossology-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-20T09:03:36Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/counterfit/v1.1.0/license-compliance/counterfit-v1.1.0-fossology-report.json"
+            },
+            "results": [
+                {
+                    "feature": "License Compliance",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 0
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "CriticalityScore",
+                "type": "PIA",
+                "version": "2.0.3",
+                "playbook": "besman-PIA-CriticalityScore-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "Success",
+                "timestamp": "2025-06-20T09:03:46Z",
+                "duration": "60 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/counterfit/v1.1.0/criticality_score/counterfit-v1.1.0-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 0.24448
+                }
+            ]
+        }
+    ]
+}
