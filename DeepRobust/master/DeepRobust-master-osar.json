@@ -1,0 +1,132 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "DeepRobust",
+        "version": "master",
+        "url": "https://github.com/Be-Secure/DeepRobust",
+        "environment": "DeepRobust-RT-env"
+    },
+    "assessments": [
+        {
+            "tool": {
+                "name": "scorecard",
+                "type": "RIP",
+                "version": "v4.13.1",
+                "playbook": "besman-RIP-scorecard-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Tue Jun 24 01:09:03 PM IST 2025",
+                "duration": "29 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/DeepRobust/master/scorecard/DeepRobust-master-scorecard-report.json"
+            },
+            "results": [
+                {
+                    "feature": "ScoreCard",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 1.9
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "CriticalityScore",
+                "type": "PIA",
+                "version": "2.0.3",
+                "playbook": "besman-PIA-CriticalityScore-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Tue Jun 24 01:09:55 PM IST 2025",
+                "duration": "10 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/DeepRobust/master/criticality_score/DeepRobust-master-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": "0.32690"
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "sonarqube",
+                "type": "sast",
+                "version": "9.9.4",
+                "playbook": "besman-SAST-sonarqube-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Tue Jun 24 02:37:23 PM IST 2025",
+                "duration": "33 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/DeepRobust/master/sast/DeepRobust-master-sonarqube-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MAJOR",
+                    "value": 5
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "fossology",
+                "type": "license-compliance",
+                "version": "",
+                "playbook": "besman-LC-fossology-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Tue Jun 24 02:53:58 PM IST 2025",
+                "duration": "45 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/DeepRobust/master/license-compliance/DeepRobust-master-fossology-report.json"
+            },
+            "results": [
+                {
+                    "feature": "License Compliance",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 0
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "CyclonedxSbomGenerator",
+                "type": "SBOM",
+                "version": "0.0.1",
+                "playbook": "besman-SBOM-CyclonedxSbomGenerator-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Tue Jun 24 03:02:52 PM IST 2025",
+                "duration": "210 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/DeepRobust/master/sbom/DeepRobust-master-cdx-sbom-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Dependency",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 145
+                }
+            ]
+        }
+    ]
+}
