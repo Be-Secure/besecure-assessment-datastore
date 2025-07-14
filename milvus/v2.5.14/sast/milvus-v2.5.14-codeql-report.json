@@ -1,233 +1,1472 @@
 [
   {
-    "ref": "refs/heads/release-v2.5.14",
-    "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
-    "analysis_key": ".github/workflows/codeql.yml:analyze",
-    "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
-    "category": "/language:go",
-    "error": "",
-    "created_at": "2025-07-01T15:07:19Z",
-    "results_count": 26,
-    "rules_count": 30,
-    "id": 552537894,
-    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/analyses/552537894",
-    "sarif_id": "14aef9b8-568d-11f0-8d89-7b2c3e0bfd63",
-    "tool": {
-      "name": "CodeQL",
-      "guid": null,
-      "version": "2.22.1"
-    },
-    "deletable": true,
-    "warning": ""
-  },
-  {
-    "ref": "refs/heads/release-v2.5.14",
-    "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
-    "analysis_key": ".github/workflows/codeql.yml:analyze",
-    "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
-    "category": "/language:python",
-    "error": "",
-    "created_at": "2025-07-01T15:01:45Z",
-    "results_count": 0,
-    "rules_count": 41,
-    "id": 552526769,
-    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/analyses/552526769",
-    "sarif_id": "4d893cfe-568c-11f0-8971-59a641798263",
-    "tool": {
-      "name": "CodeQL",
-      "guid": null,
-      "version": "2.22.1"
-    },
-    "deletable": true,
-    "warning": ""
-  },
-  {
-    "ref": "refs/heads/release-v2.5.14",
-    "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
-    "analysis_key": ".github/workflows/codeql.yml:analyze",
-    "environment": "{\"build-mode\":\"none\",\"language\":\"actions\"}",
-    "category": "/language:actions",
-    "error": "",
-    "created_at": "2025-07-01T15:00:41Z",
-    "results_count": 33,
-    "rules_count": 17,
-    "id": 552524741,
-    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/analyses/552524741",
-    "sarif_id": "277ec6c8-568c-11f0-9714-085d88e1c95e",
-    "tool": {
-      "name": "CodeQL",
-      "guid": null,
-      "version": "2.22.1"
-    },
-    "deletable": true,
-    "warning": ""
-  },
-  {
-    "ref": "refs/heads/release-v2.5.14",
-    "commit_sha": "3b87abed3b8f8dbbf3b96dad5eeb4e3c2c428c4c",
-    "analysis_key": ".github/workflows/codeql.yml:analyze",
-    "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
-    "category": "/language:go",
-    "error": "",
-    "created_at": "2025-07-01T14:56:59Z",
-    "results_count": 26,
-    "rules_count": 30,
-    "id": 552517725,
-    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/analyses/552517725",
-    "sarif_id": "a36f14b4-568b-11f0-9add-2deae0749f86",
-    "tool": {
-      "name": "CodeQL",
-      "guid": null,
-      "version": "2.22.1"
-    },
-    "deletable": false,
-    "warning": ""
-  },
-  {
-    "ref": "refs/heads/release-v2.5.14",
-    "commit_sha": "f09452293ae92c525d558c7214e3220965a95701",
-    "analysis_key": ".github/workflows/codeql.yml:analyze",
-    "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
-    "category": "/language:go",
-    "error": "",
+    "number": 292,
     "created_at": "2025-07-01T14:56:51Z",
-    "results_count": 26,
-    "rules_count": 30,
-    "id": 552517478,
-    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/analyses/552517478",
-    "sarif_id": "9e8bd39c-568b-11f0-8982-e37a41387c74",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/292",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/292",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
     "tool": {
       "name": "CodeQL",
       "guid": null,
       "version": "2.22.1"
     },
-    "deletable": false,
-    "warning": ""
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of an integer with architecture-dependent bit size from strconv.Atoi to a lower bit size type uint32 without an upper bound check."
+      },
+      "location": {
+        "path": "pkg/util/gc/gc_tuner.go",
+        "start_line": 128,
+        "end_line": 128,
+        "start_column": 18,
+        "end_column": 37
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/292/instances",
+    "dismissal_approved_by": null
   },
   {
-    "ref": "refs/heads/release-v2.5.14",
-    "commit_sha": "3b87abed3b8f8dbbf3b96dad5eeb4e3c2c428c4c",
-    "analysis_key": ".github/workflows/codeql.yml:analyze",
-    "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
-    "category": "/language:c-cpp",
-    "error": "unsuccessful execution, exit code: 0, description:  ",
-    "created_at": "2025-07-01T14:53:19Z",
-    "results_count": 0,
-    "rules_count": 0,
-    "id": 552510146,
-    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/analyses/552510146",
-    "sarif_id": "2084ff28-568b-11f0-8941-d12526afb388",
+    "number": 291,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/291",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/291",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
     "tool": {
       "name": "CodeQL",
       "guid": null,
       "version": "2.22.1"
     },
-    "deletable": true,
-    "warning": ""
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of an unsigned 64-bit integer from strconv.ParseUint to a lower bit size type int64 without an upper bound check."
+      },
+      "location": {
+        "path": "pkg/streaming/walimpls/impls/rmq/message_id.go",
+        "start_line": 34,
+        "end_line": 34,
+        "start_column": 9,
+        "end_column": 17
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/291/instances",
+    "dismissal_approved_by": null
   },
   {
-    "ref": "refs/heads/release-v2.5.14",
-    "commit_sha": "f09452293ae92c525d558c7214e3220965a95701",
-    "analysis_key": ".github/workflows/codeql.yml:analyze",
-    "environment": "{\"build-mode\":\"autobuild\",\"language\":\"c-cpp\"}",
-    "category": "/language:c-cpp",
-    "error": "unsuccessful execution, exit code: 0, description:  ",
-    "created_at": "2025-07-01T14:52:37Z",
-    "results_count": 0,
-    "rules_count": 0,
-    "id": 552508600,
-    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/analyses/552508600",
-    "sarif_id": "071ed36a-568b-11f0-9064-b21c1fbce8f2",
+    "number": 290,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/290",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/290",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
     "tool": {
       "name": "CodeQL",
       "guid": null,
       "version": "2.22.1"
     },
-    "deletable": true,
-    "warning": ""
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int without an upper bound check."
+      },
+      "location": {
+        "path": "pkg/streaming/util/message/version.go",
+        "start_line": 21,
+        "end_line": 21,
+        "start_column": 9,
+        "end_column": 19
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/290/instances",
+    "dismissal_approved_by": null
   },
   {
-    "ref": "refs/heads/release-v2.5.14",
-    "commit_sha": "3b87abed3b8f8dbbf3b96dad5eeb4e3c2c428c4c",
-    "analysis_key": ".github/workflows/codeql.yml:analyze",
-    "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
-    "category": "/language:python",
-    "error": "",
-    "created_at": "2025-07-01T14:51:26Z",
-    "results_count": 0,
-    "rules_count": 41,
-    "id": 552506227,
-    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/analyses/552506227",
-    "sarif_id": "dcc0b20a-568a-11f0-89af-88b86f3c452b",
+    "number": 289,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/289",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/289",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
     "tool": {
       "name": "CodeQL",
       "guid": null,
       "version": "2.22.1"
     },
-    "deletable": false,
-    "warning": ""
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int32 without an upper bound check."
+      },
+      "location": {
+        "path": "internal/rootcoord/alter_database_task.go",
+        "start_line": 191,
+        "end_line": 191,
+        "start_column": 21,
+        "end_column": 44
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/289/instances",
+    "dismissal_approved_by": null
   },
   {
-    "ref": "refs/heads/release-v2.5.14",
-    "commit_sha": "f09452293ae92c525d558c7214e3220965a95701",
-    "analysis_key": ".github/workflows/codeql.yml:analyze",
-    "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
-    "category": "/language:python",
-    "error": "",
-    "created_at": "2025-07-01T14:51:01Z",
-    "results_count": 0,
-    "rules_count": 41,
-    "id": 552505473,
-    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/analyses/552505473",
-    "sarif_id": "ce2dca02-568a-11f0-9b59-f500891dd370",
+    "number": 288,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/288",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/288",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
     "tool": {
       "name": "CodeQL",
       "guid": null,
       "version": "2.22.1"
     },
-    "deletable": false,
-    "warning": ""
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int32 without an upper bound check."
+      },
+      "location": {
+        "path": "internal/rootcoord/alter_collection_task.go",
+        "start_line": 193,
+        "end_line": 193,
+        "start_column": 21,
+        "end_column": 44
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/288/instances",
+    "dismissal_approved_by": null
   },
   {
-    "ref": "refs/heads/release-v2.5.14",
-    "commit_sha": "3b87abed3b8f8dbbf3b96dad5eeb4e3c2c428c4c",
-    "analysis_key": ".github/workflows/codeql.yml:analyze",
-    "environment": "{\"build-mode\":\"none\",\"language\":\"actions\"}",
-    "category": "/language:actions",
-    "error": "",
-    "created_at": "2025-07-01T14:50:47Z",
-    "results_count": 33,
-    "rules_count": 17,
-    "id": 552505065,
-    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/analyses/552505065",
-    "sarif_id": "c596268c-568a-11f0-8b2c-a8a42680ff65",
+    "number": 287,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/287",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/287",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
     "tool": {
       "name": "CodeQL",
       "guid": null,
       "version": "2.22.1"
     },
-    "deletable": false,
-    "warning": ""
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int32 without an upper bound check."
+      },
+      "location": {
+        "path": "internal/querycoordv2/server.go",
+        "start_line": 978,
+        "end_line": 978,
+        "start_column": 20,
+        "end_column": 37
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/287/instances",
+    "dismissal_approved_by": null
   },
   {
-    "ref": "refs/heads/release-v2.5.14",
-    "commit_sha": "f09452293ae92c525d558c7214e3220965a95701",
-    "analysis_key": ".github/workflows/codeql.yml:analyze",
-    "environment": "{\"build-mode\":\"none\",\"language\":\"actions\"}",
-    "category": "/language:actions",
-    "error": "",
+    "number": 286,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/286",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/286",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int32 without an upper bound check.\nIncorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int32 without an upper bound check."
+      },
+      "location": {
+        "path": "internal/querycoordv2/services.go",
+        "start_line": 399,
+        "end_line": 399,
+        "start_column": 24,
+        "end_column": 39
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/286/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 285,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/285",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/285",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int32 without an upper bound check.\nIncorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int32 without an upper bound check."
+      },
+      "location": {
+        "path": "internal/querycoordv2/services.go",
+        "start_line": 244,
+        "end_line": 244,
+        "start_column": 25,
+        "end_column": 40
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/285/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 284,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/284",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/284",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type uint32 without an upper bound check."
+      },
+      "location": {
+        "path": "internal/proxy/search_util.go",
+        "start_line": 145,
+        "end_line": 145,
+        "start_column": 14,
+        "end_column": 31
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/284/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 283,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/283",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/283",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int without an upper bound check."
+      },
+      "location": {
+        "path": "internal/flushcommon/syncmgr/sync_manager.go",
+        "start_line": 94,
+        "end_line": 94,
+        "start_column": 49,
+        "end_column": 58
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/283/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 282,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/282",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/282",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int32 without an upper bound check."
+      },
+      "location": {
+        "path": "internal/distributed/proxy/httpserver/handler_v2.go",
+        "start_line": 1543,
+        "end_line": 1543,
+        "start_column": 16,
+        "end_column": 29
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/282/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 281,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/281",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/281",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int without an upper bound check."
+      },
+      "location": {
+        "path": "client/row/data.go",
+        "start_line": 249,
+        "end_line": 249,
+        "start_column": 54,
+        "end_column": 62
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/281/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 280,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/280",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/280",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int without an upper bound check."
+      },
+      "location": {
+        "path": "client/row/data.go",
+        "start_line": 242,
+        "end_line": 242,
+        "start_column": 53,
+        "end_column": 61
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/280/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 279,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/279",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/279",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int without an upper bound check."
+      },
+      "location": {
+        "path": "client/row/data.go",
+        "start_line": 235,
+        "end_line": 235,
+        "start_column": 52,
+        "end_column": 60
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/279/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 278,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/278",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/278",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/incorrect-integer-conversion",
+      "severity": "warning",
+      "description": "Incorrect conversion between integer types",
+      "name": "go/incorrect-integer-conversion",
+      "tags": ["external/cwe/cwe-190","external/cwe/cwe-681","security"],
+      "full_description": "Converting the result of `strconv.Atoi`, `strconv.ParseInt`, and `strconv.ParseUint` to integer types of smaller bit size can produce unexpected values.",
+      "help": "# Incorrect conversion between integer types\nIf a string is parsed into an int using `strconv.Atoi`, and subsequently that int is converted into another integer type of a smaller size, the result can produce unexpected values.\n\nThis also applies to the results of `strconv.ParseInt` and `strconv.ParseUint` when the specified size is larger than the size of the type that number is converted to.\n\n\n## Recommendation\nIf you need to parse integer values with specific bit sizes, avoid `strconv.Atoi`, and instead use `strconv.ParseInt` or `strconv.ParseUint`, which also allow specifying the bit size.\n\nWhen using those functions, be careful to not convert the result to another type with a smaller bit size than the bit size you specified when parsing the number.\n\nIf this is not possible, then add upper (and lower) bound checks specific to each type and bit size (you can find the minimum and maximum value for each type in the `math` package).\n\nNote that CodeQL is only able to identify bounds checks that compare against a constant value. When a variable is used in the comparison, CodeQL is unable to determine the value of the variable at runtime and will not recognize the bounds check.\n\n\n## Example\nIn the first example, assume that an input string is passed to `parseAllocateBad1` function, parsed by `strconv.Atoi`, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nThe bounds are not checked, so this means that if the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should either use the other functions provided by the `strconv` package to parse the specific types and bit sizes as shown in the `parseAllocateGood2` function; or check bounds as in the `parseAllocateGood1` function.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## Example\nIn the second example, assume that an input string is passed to `parseAllocateBad2` function, parsed by `strconv.ParseInt` with a bit size set to 64, and then converted into an `int32` type:\n\n\n```go\npackage main\n\nimport (\n\t\"strconv\"\n)\n\nfunc parseAllocateBad1(wanted string) int32 {\n\tparsed, err := strconv.Atoi(wanted)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateBad2(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\n\n```\nIf the provided number is greater than the maximum value of type `int32`, the resulting value from the conversion will be different from the actual provided value.\n\nTo avoid unexpected values, you should specify the correct bit size as in `parseAllocateGood3`; or check bounds before making the conversion as in `parseAllocateGood4`.\n\n\n```go\npackage main\n\nimport (\n\t\"math\"\n\t\"strconv\"\n)\n\nfunc main() {\n\n}\n\nconst DefaultAllocate int32 = 256\n\nfunc parseAllocateGood1(desired string) int32 {\n\tparsed, err := strconv.Atoi(desired)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\t// GOOD: check for lower and upper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\nfunc parseAllocateGood2(desired string) int32 {\n\t// GOOD: parse specifying the bit size\n\tparsed, err := strconv.ParseInt(desired, 10, 32)\n\tif err != nil {\n\t\treturn DefaultAllocate\n\t}\n\treturn int32(parsed)\n}\n\nfunc parseAllocateGood3(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 32)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn int32(parsed)\n}\nfunc parseAllocateGood4(wanted string) int32 {\n\tparsed, err := strconv.ParseInt(wanted, 10, 64)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\t// GOOD: check for lower and uppper bounds\n\tif parsed > 0 && parsed <= math.MaxInt32 {\n\t\treturn int32(parsed)\n\t}\n\treturn DefaultAllocate\n}\n\n```\n\n## References\n* Wikipedia [Integer overflow](https://en.wikipedia.org/wiki/Integer_overflow).\n* Go language specification [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* Documentation for [strconv.Atoi](https://golang.org/pkg/strconv/#Atoi).\n* Documentation for [strconv.ParseInt](https://golang.org/pkg/strconv/#ParseInt).\n* Documentation for [strconv.ParseUint](https://golang.org/pkg/strconv/#ParseUint).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n* Common Weakness Enumeration: [CWE-681](https://cwe.mitre.org/data/definitions/681.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Incorrect conversion of a signed 64-bit integer from strconv.ParseInt to a lower bit size type int without an upper bound check."
+      },
+      "location": {
+        "path": "client/row/data.go",
+        "start_line": 228,
+        "end_line": 228,
+        "start_column": 51,
+        "end_column": 59
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/278/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 277,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/277",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/277",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/uncontrolled-allocation-size",
+      "severity": "error",
+      "description": "Slice memory allocation with excessive size value",
+      "name": "go/uncontrolled-allocation-size",
+      "tags": ["external/cwe/cwe-770","security"],
+      "full_description": "Allocating memory for slices with the built-in make function from user-controlled sources can lead to a denial of service.",
+      "help": "# Slice memory allocation with excessive size value\nUsing untrusted input to allocate slices with the built-in `make` function could lead to excessive memory allocation and potentially cause the program to crash due to running out of memory. This vulnerability could be exploited to perform a denial-of-service attack by consuming all available server resources.\n\n\n## Recommendation\nImplement a maximum allowed value for size allocations with the built-in `make` function to prevent excessively large allocations.\n\n\n## Example\nIn the following example snippet, the `n` parameter is user-controlled.\n\nIf the external user provides an excessively large value, the application allocates a slice of size `n` without further verification, potentially exhausting all the available memory.\n\n\n```go\npackage main\n\nimport (\n\t\"encoding/json\"\n\t\"fmt\"\n\t\"net/http\"\n\t\"strconv\"\n)\n\nfunc OutOfMemoryBad(w http.ResponseWriter, r *http.Request) {\n\tquery := r.URL.Query()\n\n\tqueryStr := query.Get(\"n\")\n\tcollectionSize, err := strconv.Atoi(queryStr)\n\tif err != nil {\n\t\thttp.Error(w, err.Error(), http.StatusBadRequest)\n\t\treturn\n\t}\n\n\tresult := make([]string, collectionSize)\n\tfor i := 0; i < collectionSize; i++ {\n\t\tresult[i] = fmt.Sprintf(\"Item %d\", i+1)\n\t}\n\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tjson.NewEncoder(w).Encode(result)\n}\n\n```\nOne way to prevent this vulnerability is by implementing a maximum allowed value for the user-controlled input, as seen in the following example:\n\n\n```go\npackage main\n\nimport (\n\t\"encoding/json\"\n\t\"fmt\"\n\t\"net/http\"\n\t\"strconv\"\n)\n\nfunc OutOfMemoryGood(w http.ResponseWriter, r *http.Request) {\n\tquery := r.URL.Query()\n\tMaxValue := 6\n\tqueryStr := query.Get(\"n\")\n\tcollectionSize, err := strconv.Atoi(queryStr)\n\tif err != nil {\n\t\thttp.Error(w, err.Error(), http.StatusBadRequest)\n\t\treturn\n\t}\n\tif collectionSize < 0 || collectionSize > MaxValue {\n\t\thttp.Error(w, \"Bad request\", http.StatusBadRequest)\n\t\treturn\n\t}\n\tresult := make([]string, collectionSize)\n\tfor i := 0; i < collectionSize; i++ {\n\t\tresult[i] = fmt.Sprintf(\"Item %d\", i+1)\n\t}\n\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tjson.NewEncoder(w).Encode(result)\n}\n\n```\n\n## References\n* OWASP: [Denial of Service Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-770](https://cwe.mitre.org/data/definitions/770.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "This memory allocation depends on a user-provided value."
+      },
+      "location": {
+        "path": "internal/proxy/impl.go",
+        "start_line": 2682,
+        "end_line": 2682,
+        "start_column": 31,
+        "end_column": 38
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/277/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 276,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/276",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/276",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/uncontrolled-allocation-size",
+      "severity": "error",
+      "description": "Slice memory allocation with excessive size value",
+      "name": "go/uncontrolled-allocation-size",
+      "tags": ["external/cwe/cwe-770","security"],
+      "full_description": "Allocating memory for slices with the built-in make function from user-controlled sources can lead to a denial of service.",
+      "help": "# Slice memory allocation with excessive size value\nUsing untrusted input to allocate slices with the built-in `make` function could lead to excessive memory allocation and potentially cause the program to crash due to running out of memory. This vulnerability could be exploited to perform a denial-of-service attack by consuming all available server resources.\n\n\n## Recommendation\nImplement a maximum allowed value for size allocations with the built-in `make` function to prevent excessively large allocations.\n\n\n## Example\nIn the following example snippet, the `n` parameter is user-controlled.\n\nIf the external user provides an excessively large value, the application allocates a slice of size `n` without further verification, potentially exhausting all the available memory.\n\n\n```go\npackage main\n\nimport (\n\t\"encoding/json\"\n\t\"fmt\"\n\t\"net/http\"\n\t\"strconv\"\n)\n\nfunc OutOfMemoryBad(w http.ResponseWriter, r *http.Request) {\n\tquery := r.URL.Query()\n\n\tqueryStr := query.Get(\"n\")\n\tcollectionSize, err := strconv.Atoi(queryStr)\n\tif err != nil {\n\t\thttp.Error(w, err.Error(), http.StatusBadRequest)\n\t\treturn\n\t}\n\n\tresult := make([]string, collectionSize)\n\tfor i := 0; i < collectionSize; i++ {\n\t\tresult[i] = fmt.Sprintf(\"Item %d\", i+1)\n\t}\n\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tjson.NewEncoder(w).Encode(result)\n}\n\n```\nOne way to prevent this vulnerability is by implementing a maximum allowed value for the user-controlled input, as seen in the following example:\n\n\n```go\npackage main\n\nimport (\n\t\"encoding/json\"\n\t\"fmt\"\n\t\"net/http\"\n\t\"strconv\"\n)\n\nfunc OutOfMemoryGood(w http.ResponseWriter, r *http.Request) {\n\tquery := r.URL.Query()\n\tMaxValue := 6\n\tqueryStr := query.Get(\"n\")\n\tcollectionSize, err := strconv.Atoi(queryStr)\n\tif err != nil {\n\t\thttp.Error(w, err.Error(), http.StatusBadRequest)\n\t\treturn\n\t}\n\tif collectionSize < 0 || collectionSize > MaxValue {\n\t\thttp.Error(w, \"Bad request\", http.StatusBadRequest)\n\t\treturn\n\t}\n\tresult := make([]string, collectionSize)\n\tfor i := 0; i < collectionSize; i++ {\n\t\tresult[i] = fmt.Sprintf(\"Item %d\", i+1)\n\t}\n\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tjson.NewEncoder(w).Encode(result)\n}\n\n```\n\n## References\n* OWASP: [Denial of Service Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html)\n* Common Weakness Enumeration: [CWE-770](https://cwe.mitre.org/data/definitions/770.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "This memory allocation depends on a user-provided value."
+      },
+      "location": {
+        "path": "internal/proxy/impl.go",
+        "start_line": 2650,
+        "end_line": 2650,
+        "start_column": 30,
+        "end_column": 37
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/276/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 275,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/275",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/275",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/clear-text-logging",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "go/clear-text-logging",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-315","external/cwe/cwe-359","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nSensitive information that is logged unencrypted is accessible to an attacker who gains access to the logs.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted or obfuscated before being logged.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the standard out and standard error streams of the application, causing logged sensitive information to be stored.\n\n\n## Example\nThe following example code logs user credentials (in this case, their password) in plain text:\n\n\n```go\npackage main\n\nimport (\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc serve() {\n\thttp.HandleFunc(\"/register\", func(w http.ResponseWriter, r *http.Request) {\n\t\tr.ParseForm()\n\t\tuser := r.Form.Get(\"user\")\n\t\tpw := r.Form.Get(\"password\")\n\n\t\tlog.Printf(\"Registering new user %s with password %s.\\n\", user, pw)\n\t})\n\thttp.ListenAndServe(\":80\", nil)\n}\n\n```\nInstead, the credentials should be encrypted, obfuscated, or omitted entirely:\n\n\n```go\npackage main\n\nimport (\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc serve1() {\n\thttp.HandleFunc(\"/register\", func(w http.ResponseWriter, r *http.Request) {\n\t\tr.ParseForm()\n\t\tuser := r.Form.Get(\"user\")\n\t\tpw := r.Form.Get(\"password\")\n\n\t\tlog.Printf(\"Registering new user %s.\\n\", user)\n\n\t\t// ...\n\t\tuse(pw)\n\t})\n\thttp.ListenAndServe(\":80\", nil)\n}\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* OWASP: [Password Plaintext Storage](https://www.owasp.org/index.php/Password_Plaintext_Storage).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-315](https://cwe.mitre.org/data/definitions/315.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Sensitive data returned by an access to PassWord flows to a logging call."
+      },
+      "location": {
+        "path": "pkg/config/etcd_source.go",
+        "start_line": 52,
+        "end_line": 52,
+        "start_column": 52,
+        "end_column": 81
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/275/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 274,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/274",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/274",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/clear-text-logging",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "go/clear-text-logging",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-315","external/cwe/cwe-359","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nSensitive information that is logged unencrypted is accessible to an attacker who gains access to the logs.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted or obfuscated before being logged.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the standard out and standard error streams of the application, causing logged sensitive information to be stored.\n\n\n## Example\nThe following example code logs user credentials (in this case, their password) in plain text:\n\n\n```go\npackage main\n\nimport (\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc serve() {\n\thttp.HandleFunc(\"/register\", func(w http.ResponseWriter, r *http.Request) {\n\t\tr.ParseForm()\n\t\tuser := r.Form.Get(\"user\")\n\t\tpw := r.Form.Get(\"password\")\n\n\t\tlog.Printf(\"Registering new user %s with password %s.\\n\", user, pw)\n\t})\n\thttp.ListenAndServe(\":80\", nil)\n}\n\n```\nInstead, the credentials should be encrypted, obfuscated, or omitted entirely:\n\n\n```go\npackage main\n\nimport (\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc serve1() {\n\thttp.HandleFunc(\"/register\", func(w http.ResponseWriter, r *http.Request) {\n\t\tr.ParseForm()\n\t\tuser := r.Form.Get(\"user\")\n\t\tpw := r.Form.Get(\"password\")\n\n\t\tlog.Printf(\"Registering new user %s.\\n\", user)\n\n\t\t// ...\n\t\tuse(pw)\n\t})\n\thttp.ListenAndServe(\":80\", nil)\n}\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* OWASP: [Password Plaintext Storage](https://www.owasp.org/index.php/Password_Plaintext_Storage).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-315](https://cwe.mitre.org/data/definitions/315.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Sensitive data returned by an access to Password flows to a logging call."
+      },
+      "location": {
+        "path": "internal/proxy/util.go",
+        "start_line": 1372,
+        "end_line": 1372,
+        "start_column": 69,
+        "end_column": 100
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/274/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 273,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/273",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/273",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/clear-text-logging",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "go/clear-text-logging",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-315","external/cwe/cwe-359","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nSensitive information that is logged unencrypted is accessible to an attacker who gains access to the logs.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted or obfuscated before being logged.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the standard out and standard error streams of the application, causing logged sensitive information to be stored.\n\n\n## Example\nThe following example code logs user credentials (in this case, their password) in plain text:\n\n\n```go\npackage main\n\nimport (\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc serve() {\n\thttp.HandleFunc(\"/register\", func(w http.ResponseWriter, r *http.Request) {\n\t\tr.ParseForm()\n\t\tuser := r.Form.Get(\"user\")\n\t\tpw := r.Form.Get(\"password\")\n\n\t\tlog.Printf(\"Registering new user %s with password %s.\\n\", user, pw)\n\t})\n\thttp.ListenAndServe(\":80\", nil)\n}\n\n```\nInstead, the credentials should be encrypted, obfuscated, or omitted entirely:\n\n\n```go\npackage main\n\nimport (\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc serve1() {\n\thttp.HandleFunc(\"/register\", func(w http.ResponseWriter, r *http.Request) {\n\t\tr.ParseForm()\n\t\tuser := r.Form.Get(\"user\")\n\t\tpw := r.Form.Get(\"password\")\n\n\t\tlog.Printf(\"Registering new user %s.\\n\", user)\n\n\t\t// ...\n\t\tuse(pw)\n\t})\n\thttp.ListenAndServe(\":80\", nil)\n}\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* OWASP: [Password Plaintext Storage](https://www.owasp.org/index.php/Password_Plaintext_Storage).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-315](https://cwe.mitre.org/data/definitions/315.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Sensitive data returned by HTTP request headers flows to a logging call."
+      },
+      "location": {
+        "path": "internal/proxy/util.go",
+        "start_line": 1354,
+        "end_line": 1354,
+        "start_column": 45,
+        "end_column": 77
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/273/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 272,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/272",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/272",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/clear-text-logging",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "go/clear-text-logging",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-315","external/cwe/cwe-359","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nSensitive information that is logged unencrypted is accessible to an attacker who gains access to the logs.\n\n\n## Recommendation\nEnsure that sensitive information is always encrypted or obfuscated before being logged.\n\nIn general, decrypt sensitive information only at the point where it is necessary for it to be used in cleartext.\n\nBe aware that external processes often store the standard out and standard error streams of the application, causing logged sensitive information to be stored.\n\n\n## Example\nThe following example code logs user credentials (in this case, their password) in plain text:\n\n\n```go\npackage main\n\nimport (\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc serve() {\n\thttp.HandleFunc(\"/register\", func(w http.ResponseWriter, r *http.Request) {\n\t\tr.ParseForm()\n\t\tuser := r.Form.Get(\"user\")\n\t\tpw := r.Form.Get(\"password\")\n\n\t\tlog.Printf(\"Registering new user %s with password %s.\\n\", user, pw)\n\t})\n\thttp.ListenAndServe(\":80\", nil)\n}\n\n```\nInstead, the credentials should be encrypted, obfuscated, or omitted entirely:\n\n\n```go\npackage main\n\nimport (\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc serve1() {\n\thttp.HandleFunc(\"/register\", func(w http.ResponseWriter, r *http.Request) {\n\t\tr.ParseForm()\n\t\tuser := r.Form.Get(\"user\")\n\t\tpw := r.Form.Get(\"password\")\n\n\t\tlog.Printf(\"Registering new user %s.\\n\", user)\n\n\t\t// ...\n\t\tuse(pw)\n\t})\n\thttp.ListenAndServe(\":80\", nil)\n}\n\n```\n\n## References\n* M. Dowd, J. McDonald and J. Schuhm, *The Art of Software Security Assessment*, 1st Edition, Chapter 2 - 'Common Vulnerabilities of Encryption', p. 43. Addison Wesley, 2006.\n* M. Howard and D. LeBlanc, *Writing Secure Code*, 2nd Edition, Chapter 9 - 'Protecting Secret Data', p. 299. Microsoft, 2002.\n* OWASP: [Password Plaintext Storage](https://www.owasp.org/index.php/Password_Plaintext_Storage).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-315](https://cwe.mitre.org/data/definitions/315.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Sensitive data returned by HTTP request headers flows to a logging call."
+      },
+      "location": {
+        "path": "internal/distributed/proxy/service.go",
+        "start_line": 133,
+        "end_line": 133,
+        "start_column": 53,
+        "end_column": 85
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/272/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 271,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/271",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/271",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/allocation-size-overflow",
+      "severity": "warning",
+      "description": "Size computation for allocation may overflow",
+      "name": "go/allocation-size-overflow",
+      "tags": ["external/cwe/cwe-190","security"],
+      "full_description": "When computing the size of an allocation based on the size of a large object, the result may overflow and cause a runtime panic.",
+      "help": "# Size computation for allocation may overflow\nPerforming calculations involving the size of potentially large strings or slices can result in an overflow (for signed integer types) or a wraparound (for unsigned types). An overflow causes the result of the calculation to become negative, while a wraparound results in a small (positive) number.\n\nThis can cause further issues. If, for example, the result is then used in an allocation, it will cause a runtime panic if it is negative, and allocate an unexpectedly small buffer otherwise.\n\n\n## Recommendation\nAlways guard against overflow in arithmetic operations involving potentially large numbers by doing one of the following:\n\n* Validate the size of the data from which the numbers are computed.\n* Define a guard on the arithmetic expression, so that the operation is performed only if the result can be known to be less than, or equal to, the maximum value for the type.\n* Use a wider type (such as `uint64` instead of `int`), so that larger input values do not cause overflow.\n\n## Example\nIn the following example, assume that there is a function `encryptBuffer` that encrypts byte slices whose length must be padded to be a multiple of 16. The function `encryptValue` provides a convenience wrapper around this function: when passed an arbitrary value, it first encodes that value as JSON, pads the resulting byte slice, and then passes it to `encryptBuffer`.\n\n\n```go\npackage main\n\nimport \"encoding/json\"\n\nfunc encryptValue(v interface{}) ([]byte, error) {\n\tjsonData, err := json.Marshal(v)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tsize := len(jsonData) + (len(jsonData) % 16)\n\tbuffer := make([]byte, size)\n\tcopy(buffer, jsonData)\n\treturn encryptBuffer(buffer)\n}\n\n```\nWhen passed a value whose JSON encoding is close to the maximum value of type `int` in length, the computation of `size` will overflow, producing a negative value. When that negative value is passed to `make`, a runtime panic will occur.\n\nTo guard against this, the function should be improved to check the length of the JSON-encoded value. For example, here is a version of `encryptValue` that ensures the value is no larger than 64 MB, which fits comfortably within an `int` and avoids the overflow:\n\n\n```go\npackage main\n\nimport (\n\t\"encoding/json\"\n\t\"errors\"\n)\n\nfunc encryptValueGood(v interface{}) ([]byte, error) {\n\tjsonData, err := json.Marshal(v)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tif len(jsonData) > 64*1024*1024 {\n\t\treturn nil, errors.New(\"value too large\")\n\t}\n\tsize := len(jsonData) + (len(jsonData) % 16)\n\tbuffer := make([]byte, size)\n\tcopy(buffer, jsonData)\n\treturn encryptBuffer(buffer)\n}\n\n```\n\n## References\n* The Go Programming Language Specification: [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* The Go Programming Language Specification: [Making slices, maps and channels](https://golang.org/ref/spec#Making_slices_maps_and_channels).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "This operation, which is used in an allocation, involves a potentially large value and might overflow."
+      },
+      "location": {
+        "path": "pkg/util/typeutil/convension.go",
+        "start_line": 192,
+        "end_line": 192,
+        "start_column": 28,
+        "end_column": 35
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/271/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 270,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/270",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/270",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/allocation-size-overflow",
+      "severity": "warning",
+      "description": "Size computation for allocation may overflow",
+      "name": "go/allocation-size-overflow",
+      "tags": ["external/cwe/cwe-190","security"],
+      "full_description": "When computing the size of an allocation based on the size of a large object, the result may overflow and cause a runtime panic.",
+      "help": "# Size computation for allocation may overflow\nPerforming calculations involving the size of potentially large strings or slices can result in an overflow (for signed integer types) or a wraparound (for unsigned types). An overflow causes the result of the calculation to become negative, while a wraparound results in a small (positive) number.\n\nThis can cause further issues. If, for example, the result is then used in an allocation, it will cause a runtime panic if it is negative, and allocate an unexpectedly small buffer otherwise.\n\n\n## Recommendation\nAlways guard against overflow in arithmetic operations involving potentially large numbers by doing one of the following:\n\n* Validate the size of the data from which the numbers are computed.\n* Define a guard on the arithmetic expression, so that the operation is performed only if the result can be known to be less than, or equal to, the maximum value for the type.\n* Use a wider type (such as `uint64` instead of `int`), so that larger input values do not cause overflow.\n\n## Example\nIn the following example, assume that there is a function `encryptBuffer` that encrypts byte slices whose length must be padded to be a multiple of 16. The function `encryptValue` provides a convenience wrapper around this function: when passed an arbitrary value, it first encodes that value as JSON, pads the resulting byte slice, and then passes it to `encryptBuffer`.\n\n\n```go\npackage main\n\nimport \"encoding/json\"\n\nfunc encryptValue(v interface{}) ([]byte, error) {\n\tjsonData, err := json.Marshal(v)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tsize := len(jsonData) + (len(jsonData) % 16)\n\tbuffer := make([]byte, size)\n\tcopy(buffer, jsonData)\n\treturn encryptBuffer(buffer)\n}\n\n```\nWhen passed a value whose JSON encoding is close to the maximum value of type `int` in length, the computation of `size` will overflow, producing a negative value. When that negative value is passed to `make`, a runtime panic will occur.\n\nTo guard against this, the function should be improved to check the length of the JSON-encoded value. For example, here is a version of `encryptValue` that ensures the value is no larger than 64 MB, which fits comfortably within an `int` and avoids the overflow:\n\n\n```go\npackage main\n\nimport (\n\t\"encoding/json\"\n\t\"errors\"\n)\n\nfunc encryptValueGood(v interface{}) ([]byte, error) {\n\tjsonData, err := json.Marshal(v)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tif len(jsonData) > 64*1024*1024 {\n\t\treturn nil, errors.New(\"value too large\")\n\t}\n\tsize := len(jsonData) + (len(jsonData) % 16)\n\tbuffer := make([]byte, size)\n\tcopy(buffer, jsonData)\n\treturn encryptBuffer(buffer)\n}\n\n```\n\n## References\n* The Go Programming Language Specification: [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* The Go Programming Language Specification: [Making slices, maps and channels](https://golang.org/ref/spec#Making_slices_maps_and_channels).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "This operation, which is used in an allocation, involves a potentially large value and might overflow."
+      },
+      "location": {
+        "path": "pkg/util/typeutil/convension.go",
+        "start_line": 183,
+        "end_line": 183,
+        "start_column": 28,
+        "end_column": 35
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/270/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 269,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/269",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/269",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/allocation-size-overflow",
+      "severity": "warning",
+      "description": "Size computation for allocation may overflow",
+      "name": "go/allocation-size-overflow",
+      "tags": ["external/cwe/cwe-190","security"],
+      "full_description": "When computing the size of an allocation based on the size of a large object, the result may overflow and cause a runtime panic.",
+      "help": "# Size computation for allocation may overflow\nPerforming calculations involving the size of potentially large strings or slices can result in an overflow (for signed integer types) or a wraparound (for unsigned types). An overflow causes the result of the calculation to become negative, while a wraparound results in a small (positive) number.\n\nThis can cause further issues. If, for example, the result is then used in an allocation, it will cause a runtime panic if it is negative, and allocate an unexpectedly small buffer otherwise.\n\n\n## Recommendation\nAlways guard against overflow in arithmetic operations involving potentially large numbers by doing one of the following:\n\n* Validate the size of the data from which the numbers are computed.\n* Define a guard on the arithmetic expression, so that the operation is performed only if the result can be known to be less than, or equal to, the maximum value for the type.\n* Use a wider type (such as `uint64` instead of `int`), so that larger input values do not cause overflow.\n\n## Example\nIn the following example, assume that there is a function `encryptBuffer` that encrypts byte slices whose length must be padded to be a multiple of 16. The function `encryptValue` provides a convenience wrapper around this function: when passed an arbitrary value, it first encodes that value as JSON, pads the resulting byte slice, and then passes it to `encryptBuffer`.\n\n\n```go\npackage main\n\nimport \"encoding/json\"\n\nfunc encryptValue(v interface{}) ([]byte, error) {\n\tjsonData, err := json.Marshal(v)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tsize := len(jsonData) + (len(jsonData) % 16)\n\tbuffer := make([]byte, size)\n\tcopy(buffer, jsonData)\n\treturn encryptBuffer(buffer)\n}\n\n```\nWhen passed a value whose JSON encoding is close to the maximum value of type `int` in length, the computation of `size` will overflow, producing a negative value. When that negative value is passed to `make`, a runtime panic will occur.\n\nTo guard against this, the function should be improved to check the length of the JSON-encoded value. For example, here is a version of `encryptValue` that ensures the value is no larger than 64 MB, which fits comfortably within an `int` and avoids the overflow:\n\n\n```go\npackage main\n\nimport (\n\t\"encoding/json\"\n\t\"errors\"\n)\n\nfunc encryptValueGood(v interface{}) ([]byte, error) {\n\tjsonData, err := json.Marshal(v)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tif len(jsonData) > 64*1024*1024 {\n\t\treturn nil, errors.New(\"value too large\")\n\t}\n\tsize := len(jsonData) + (len(jsonData) % 16)\n\tbuffer := make([]byte, size)\n\tcopy(buffer, jsonData)\n\treturn encryptBuffer(buffer)\n}\n\n```\n\n## References\n* The Go Programming Language Specification: [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* The Go Programming Language Specification: [Making slices, maps and channels](https://golang.org/ref/spec#Making_slices_maps_and_channels).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "This operation, which is used in an allocation, involves a potentially large value and might overflow."
+      },
+      "location": {
+        "path": "internal/proxy/task_query.go",
+        "start_line": 91,
+        "end_line": 91,
+        "start_column": 40,
+        "end_column": 57
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/269/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 268,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/268",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/268",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/allocation-size-overflow",
+      "severity": "warning",
+      "description": "Size computation for allocation may overflow",
+      "name": "go/allocation-size-overflow",
+      "tags": ["external/cwe/cwe-190","security"],
+      "full_description": "When computing the size of an allocation based on the size of a large object, the result may overflow and cause a runtime panic.",
+      "help": "# Size computation for allocation may overflow\nPerforming calculations involving the size of potentially large strings or slices can result in an overflow (for signed integer types) or a wraparound (for unsigned types). An overflow causes the result of the calculation to become negative, while a wraparound results in a small (positive) number.\n\nThis can cause further issues. If, for example, the result is then used in an allocation, it will cause a runtime panic if it is negative, and allocate an unexpectedly small buffer otherwise.\n\n\n## Recommendation\nAlways guard against overflow in arithmetic operations involving potentially large numbers by doing one of the following:\n\n* Validate the size of the data from which the numbers are computed.\n* Define a guard on the arithmetic expression, so that the operation is performed only if the result can be known to be less than, or equal to, the maximum value for the type.\n* Use a wider type (such as `uint64` instead of `int`), so that larger input values do not cause overflow.\n\n## Example\nIn the following example, assume that there is a function `encryptBuffer` that encrypts byte slices whose length must be padded to be a multiple of 16. The function `encryptValue` provides a convenience wrapper around this function: when passed an arbitrary value, it first encodes that value as JSON, pads the resulting byte slice, and then passes it to `encryptBuffer`.\n\n\n```go\npackage main\n\nimport \"encoding/json\"\n\nfunc encryptValue(v interface{}) ([]byte, error) {\n\tjsonData, err := json.Marshal(v)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tsize := len(jsonData) + (len(jsonData) % 16)\n\tbuffer := make([]byte, size)\n\tcopy(buffer, jsonData)\n\treturn encryptBuffer(buffer)\n}\n\n```\nWhen passed a value whose JSON encoding is close to the maximum value of type `int` in length, the computation of `size` will overflow, producing a negative value. When that negative value is passed to `make`, a runtime panic will occur.\n\nTo guard against this, the function should be improved to check the length of the JSON-encoded value. For example, here is a version of `encryptValue` that ensures the value is no larger than 64 MB, which fits comfortably within an `int` and avoids the overflow:\n\n\n```go\npackage main\n\nimport (\n\t\"encoding/json\"\n\t\"errors\"\n)\n\nfunc encryptValueGood(v interface{}) ([]byte, error) {\n\tjsonData, err := json.Marshal(v)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tif len(jsonData) > 64*1024*1024 {\n\t\treturn nil, errors.New(\"value too large\")\n\t}\n\tsize := len(jsonData) + (len(jsonData) % 16)\n\tbuffer := make([]byte, size)\n\tcopy(buffer, jsonData)\n\treturn encryptBuffer(buffer)\n}\n\n```\n\n## References\n* The Go Programming Language Specification: [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* The Go Programming Language Specification: [Making slices, maps and channels](https://golang.org/ref/spec#Making_slices_maps_and_channels).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "This operation, which is used in an allocation, involves a potentially large value and might overflow.\nThis operation, which is used in an allocation, involves a potentially large value and might overflow."
+      },
+      "location": {
+        "path": "internal/kv/etcd/etcd_kv.go",
+        "start_line": 469,
+        "end_line": 469,
+        "start_column": 32,
+        "end_column": 42
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/268/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 267,
+    "created_at": "2025-07-01T14:56:51Z",
+    "updated_at": "2025-07-01T14:56:51Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/267",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/267",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "go/allocation-size-overflow",
+      "severity": "warning",
+      "description": "Size computation for allocation may overflow",
+      "name": "go/allocation-size-overflow",
+      "tags": ["external/cwe/cwe-190","security"],
+      "full_description": "When computing the size of an allocation based on the size of a large object, the result may overflow and cause a runtime panic.",
+      "help": "# Size computation for allocation may overflow\nPerforming calculations involving the size of potentially large strings or slices can result in an overflow (for signed integer types) or a wraparound (for unsigned types). An overflow causes the result of the calculation to become negative, while a wraparound results in a small (positive) number.\n\nThis can cause further issues. If, for example, the result is then used in an allocation, it will cause a runtime panic if it is negative, and allocate an unexpectedly small buffer otherwise.\n\n\n## Recommendation\nAlways guard against overflow in arithmetic operations involving potentially large numbers by doing one of the following:\n\n* Validate the size of the data from which the numbers are computed.\n* Define a guard on the arithmetic expression, so that the operation is performed only if the result can be known to be less than, or equal to, the maximum value for the type.\n* Use a wider type (such as `uint64` instead of `int`), so that larger input values do not cause overflow.\n\n## Example\nIn the following example, assume that there is a function `encryptBuffer` that encrypts byte slices whose length must be padded to be a multiple of 16. The function `encryptValue` provides a convenience wrapper around this function: when passed an arbitrary value, it first encodes that value as JSON, pads the resulting byte slice, and then passes it to `encryptBuffer`.\n\n\n```go\npackage main\n\nimport \"encoding/json\"\n\nfunc encryptValue(v interface{}) ([]byte, error) {\n\tjsonData, err := json.Marshal(v)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tsize := len(jsonData) + (len(jsonData) % 16)\n\tbuffer := make([]byte, size)\n\tcopy(buffer, jsonData)\n\treturn encryptBuffer(buffer)\n}\n\n```\nWhen passed a value whose JSON encoding is close to the maximum value of type `int` in length, the computation of `size` will overflow, producing a negative value. When that negative value is passed to `make`, a runtime panic will occur.\n\nTo guard against this, the function should be improved to check the length of the JSON-encoded value. For example, here is a version of `encryptValue` that ensures the value is no larger than 64 MB, which fits comfortably within an `int` and avoids the overflow:\n\n\n```go\npackage main\n\nimport (\n\t\"encoding/json\"\n\t\"errors\"\n)\n\nfunc encryptValueGood(v interface{}) ([]byte, error) {\n\tjsonData, err := json.Marshal(v)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tif len(jsonData) > 64*1024*1024 {\n\t\treturn nil, errors.New(\"value too large\")\n\t}\n\tsize := len(jsonData) + (len(jsonData) % 16)\n\tbuffer := make([]byte, size)\n\tcopy(buffer, jsonData)\n\treturn encryptBuffer(buffer)\n}\n\n```\n\n## References\n* The Go Programming Language Specification: [Integer overflow](https://golang.org/ref/spec#Integer_overflow).\n* The Go Programming Language Specification: [Making slices, maps and channels](https://golang.org/ref/spec#Making_slices_maps_and_channels).\n* Common Weakness Enumeration: [CWE-190](https://cwe.mitre.org/data/definitions/190.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"autobuild\",\"language\":\"go\"}",
+      "category": "/language:go",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "This operation, which is used in an allocation, involves a potentially large value and might overflow.\nThis operation, which is used in an allocation, involves a potentially large value and might overflow."
+      },
+      "location": {
+        "path": "internal/kv/etcd/embed_etcd_kv.go",
+        "start_line": 468,
+        "end_line": 468,
+        "start_column": 32,
+        "end_column": 42
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/267/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 33,
     "created_at": "2025-07-01T14:50:09Z",
-    "results_count": 33,
-    "rules_count": 17,
-    "id": 552503964,
-    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/analyses/552503964",
-    "sarif_id": "aec8fab0-568a-11f0-854b-803312edd038",
+    "updated_at": "2025-07-01T14:50:09Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/33",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/33",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "actions/missing-workflow-permissions",
+      "severity": "warning",
+      "description": "Workflow does not contain permissions",
+      "name": "actions/missing-workflow-permissions",
+      "tags": ["actions","external/cwe/cwe-275","maintainability","security"],
+      "full_description": "Workflows should contain explicit permissions to restrict the scope of the default GITHUB_TOKEN.",
+      "help": "# Actions Job and Workflow Permissions are not set\n\n## Description\n\nIf a GitHub Actions job or workflow has no explicit permissions set, then the repository permissions are used. Repositories created under organizations inherit the organization permissions. The organizations or repositories created before February 2023 have the default permissions set to read-write. Often these permissions do not adhere to the principle of least privilege and can be reduced to read-only, leaving the `write` permission only to a specific types as `issues: write` or `pull-requests: write`.\n\n## Recommendations\n\nAdd the `permissions` key to the job or the root of workflow (in this case it is applied to all jobs in the workflow that do not have their own `permissions` key) and assign the least privileges required to complete the task:\n\n```yaml\nname: \"My workflow\"\npermissions:\n  contents: read\n  pull-requests: write\n```\n\nor\n\n```yaml\njobs:\n  my-job:\n    permissions:\n      contents: read\n      pull-requests: write\n```\n\n## References\n\n- [Assigning permissions to jobs](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/assigning-permissions-to-jobs)\n",
+      "security_severity_level": "medium"
+    },
     "tool": {
       "name": "CodeQL",
       "guid": null,
       "version": "2.22.1"
     },
-    "deletable": false,
-    "warning": ""
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"actions\"}",
+      "category": "/language:actions",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Actions job or workflow does not limit the permissions of the GITHUB_TOKEN. Consider setting an explicit permissions block, using the following as a minimal starting point: {{contents: read}}"
+      },
+      "location": {
+        "path": ".github/workflows/update-knowhere-commit.yaml",
+        "start_line": 20,
+        "end_line": 76,
+        "start_column": 5,
+        "end_column": 20
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/33/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 32,
+    "created_at": "2025-07-01T14:50:09Z",
+    "updated_at": "2025-07-01T14:50:09Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/32",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/32",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "actions/missing-workflow-permissions",
+      "severity": "warning",
+      "description": "Workflow does not contain permissions",
+      "name": "actions/missing-workflow-permissions",
+      "tags": ["actions","external/cwe/cwe-275","maintainability","security"],
+      "full_description": "Workflows should contain explicit permissions to restrict the scope of the default GITHUB_TOKEN.",
+      "help": "# Actions Job and Workflow Permissions are not set\n\n## Description\n\nIf a GitHub Actions job or workflow has no explicit permissions set, then the repository permissions are used. Repositories created under organizations inherit the organization permissions. The organizations or repositories created before February 2023 have the default permissions set to read-write. Often these permissions do not adhere to the principle of least privilege and can be reduced to read-only, leaving the `write` permission only to a specific types as `issues: write` or `pull-requests: write`.\n\n## Recommendations\n\nAdd the `permissions` key to the job or the root of workflow (in this case it is applied to all jobs in the workflow that do not have their own `permissions` key) and assign the least privileges required to complete the task:\n\n```yaml\nname: \"My workflow\"\npermissions:\n  contents: read\n  pull-requests: write\n```\n\nor\n\n```yaml\njobs:\n  my-job:\n    permissions:\n      contents: read\n      pull-requests: write\n```\n\n## References\n\n- [Assigning permissions to jobs](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/assigning-permissions-to-jobs)\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"actions\"}",
+      "category": "/language:actions",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Actions job or workflow does not limit the permissions of the GITHUB_TOKEN. Consider setting an explicit permissions block, using the following as a minimal starting point: {{contents: read}}"
+      },
+      "location": {
+        "path": ".github/workflows/weekly-release.yml",
+        "start_line": 17,
+        "end_line": 69,
+        "start_column": 5,
+        "end_column": 37
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/32/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 31,
+    "created_at": "2025-07-01T14:50:09Z",
+    "updated_at": "2025-07-01T14:50:09Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/31",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/31",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "actions/missing-workflow-permissions",
+      "severity": "warning",
+      "description": "Workflow does not contain permissions",
+      "name": "actions/missing-workflow-permissions",
+      "tags": ["actions","external/cwe/cwe-275","maintainability","security"],
+      "full_description": "Workflows should contain explicit permissions to restrict the scope of the default GITHUB_TOKEN.",
+      "help": "# Actions Job and Workflow Permissions are not set\n\n## Description\n\nIf a GitHub Actions job or workflow has no explicit permissions set, then the repository permissions are used. Repositories created under organizations inherit the organization permissions. The organizations or repositories created before February 2023 have the default permissions set to read-write. Often these permissions do not adhere to the principle of least privilege and can be reduced to read-only, leaving the `write` permission only to a specific types as `issues: write` or `pull-requests: write`.\n\n## Recommendations\n\nAdd the `permissions` key to the job or the root of workflow (in this case it is applied to all jobs in the workflow that do not have their own `permissions` key) and assign the least privileges required to complete the task:\n\n```yaml\nname: \"My workflow\"\npermissions:\n  contents: read\n  pull-requests: write\n```\n\nor\n\n```yaml\njobs:\n  my-job:\n    permissions:\n      contents: read\n      pull-requests: write\n```\n\n## References\n\n- [Assigning permissions to jobs](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/assigning-permissions-to-jobs)\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"actions\"}",
+      "category": "/language:actions",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Actions job or workflow does not limit the permissions of the GITHUB_TOKEN. Consider setting an explicit permissions block, using the following as a minimal starting point: {{contents: read}}"
+      },
+      "location": {
+        "path": ".github/workflows/simd-compatibility-test.yaml",
+        "start_line": 10,
+        "end_line": 87,
+        "start_column": 5,
+        "end_column": 42
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/31/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 30,
+    "created_at": "2025-07-01T14:50:09Z",
+    "updated_at": "2025-07-01T14:50:09Z",
+    "url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/30",
+    "html_url": "https://github.com/Be-Secure/milvus/security/code-scanning/30",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "actions/missing-workflow-permissions",
+      "severity": "warning",
+      "description": "Workflow does not contain permissions",
+      "name": "actions/missing-workflow-permissions",
+      "tags": ["actions","external/cwe/cwe-275","maintainability","security"],
+      "full_description": "Workflows should contain explicit permissions to restrict the scope of the default GITHUB_TOKEN.",
+      "help": "# Actions Job and Workflow Permissions are not set\n\n## Description\n\nIf a GitHub Actions job or workflow has no explicit permissions set, then the repository permissions are used. Repositories created under organizations inherit the organization permissions. The organizations or repositories created before February 2023 have the default permissions set to read-write. Often these permissions do not adhere to the principle of least privilege and can be reduced to read-only, leaving the `write` permission only to a specific types as `issues: write` or `pull-requests: write`.\n\n## Recommendations\n\nAdd the `permissions` key to the job or the root of workflow (in this case it is applied to all jobs in the workflow that do not have their own `permissions` key) and assign the least privileges required to complete the task:\n\n```yaml\nname: \"My workflow\"\npermissions:\n  contents: read\n  pull-requests: write\n```\n\nor\n\n```yaml\njobs:\n  my-job:\n    permissions:\n      contents: read\n      pull-requests: write\n```\n\n## References\n\n- [Assigning permissions to jobs](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/assigning-permissions-to-jobs)\n",
+      "security_severity_level": "medium"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v2.5.14",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"actions\"}",
+      "category": "/language:actions",
+      "state": "open",
+      "commit_sha": "473575e85ed655d9c45ae0edd00d1c173b26b333",
+      "message": {
+        "text": "Actions job or workflow does not limit the permissions of the GITHUB_TOKEN. Consider setting an explicit permissions block, using the following as a minimal starting point: {{contents: read}}"
+      },
+      "location": {
+        "path": ".github/workflows/rerun-failure-checks.yaml",
+        "start_line": 7,
+        "end_line": 47,
+        "start_column": 5,
+        "end_column": 2
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/milvus/code-scanning/alerts/30/instances",
+    "dismissal_approved_by": null
   }
 ]
