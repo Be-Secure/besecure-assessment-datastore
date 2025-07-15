@@ -1,0 +1,198 @@
+[
+  {
+    "number": 4,
+    "created_at": "2025-07-01T14:40:26Z",
+    "updated_at": "2025-07-01T14:40:26Z",
+    "url": "https://api.github.com/repos/Be-Secure/llama_index/code-scanning/alerts/4",
+    "html_url": "https://github.com/Be-Secure/llama_index/security/code-scanning/4",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/clear-text-logging-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "py/clear-text-logging-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nIf sensitive data is written to a log entry it could be exposed to an attacker who gains access to the logs.\n\nPotential attackers can obtain sensitive user data when the log output is displayed. Additionally that data may expose system information such as full path names, system information, and sometimes usernames and passwords.\n\n\n## Recommendation\nSensitive data should not be logged.\n\n\n## Example\nIn the example the entire process environment is logged using \\`print\\`. Regular users of the production deployed application should not have access to this much information about the environment configuration.\n\n\n```python\n# BAD: Logging cleartext sensitive data\nimport os\nprint(f\"[INFO] Environment: {os.environ}\")\n```\nIn the second example the data that is logged is not sensitive.\n\n\n```python\nnot_sensitive_data = {'a': 1, 'b': 2}\n# GOOD: it is fine to log data that is not sensitive\nprint(f\"[INFO] Some object contains: {not_sensitive_data}\")\n```\n\n## References\n* OWASP: [Insertion of Sensitive Information into Log File](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v0.12.44",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "3238bd00d4b775b8fd30b65683a4e42f89f439c3",
+      "message": {
+        "text": "This expression logs sensitive data (private) as clear text."
+      },
+      "location": {
+        "path": "experimental/openai_fine_tuning/validate_json.py",
+        "start_line": 159,
+        "end_line": 160,
+        "start_column": 9,
+        "end_column": 41
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/llama_index/code-scanning/alerts/4/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 3,
+    "created_at": "2025-07-01T14:40:26Z",
+    "updated_at": "2025-07-01T14:40:26Z",
+    "url": "https://api.github.com/repos/Be-Secure/llama_index/code-scanning/alerts/3",
+    "html_url": "https://github.com/Be-Secure/llama_index/security/code-scanning/3",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/clear-text-logging-sensitive-data",
+      "severity": "error",
+      "description": "Clear-text logging of sensitive information",
+      "name": "py/clear-text-logging-sensitive-data",
+      "tags": ["external/cwe/cwe-312","external/cwe/cwe-359","external/cwe/cwe-532","security"],
+      "full_description": "Logging sensitive information without encryption or hashing can expose it to an attacker.",
+      "help": "# Clear-text logging of sensitive information\nIf sensitive data is written to a log entry it could be exposed to an attacker who gains access to the logs.\n\nPotential attackers can obtain sensitive user data when the log output is displayed. Additionally that data may expose system information such as full path names, system information, and sometimes usernames and passwords.\n\n\n## Recommendation\nSensitive data should not be logged.\n\n\n## Example\nIn the example the entire process environment is logged using \\`print\\`. Regular users of the production deployed application should not have access to this much information about the environment configuration.\n\n\n```python\n# BAD: Logging cleartext sensitive data\nimport os\nprint(f\"[INFO] Environment: {os.environ}\")\n```\nIn the second example the data that is logged is not sensitive.\n\n\n```python\nnot_sensitive_data = {'a': 1, 'b': 2}\n# GOOD: it is fine to log data that is not sensitive\nprint(f\"[INFO] Some object contains: {not_sensitive_data}\")\n```\n\n## References\n* OWASP: [Insertion of Sensitive Information into Log File](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/).\n* Common Weakness Enumeration: [CWE-312](https://cwe.mitre.org/data/definitions/312.html).\n* Common Weakness Enumeration: [CWE-359](https://cwe.mitre.org/data/definitions/359.html).\n* Common Weakness Enumeration: [CWE-532](https://cwe.mitre.org/data/definitions/532.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v0.12.44",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "3238bd00d4b775b8fd30b65683a4e42f89f439c3",
+      "message": {
+        "text": "This expression logs sensitive data (private) as clear text."
+      },
+      "location": {
+        "path": "llama-index-finetuning/llama_index/finetuning/openai/validate_json.py",
+        "start_line": 162,
+        "end_line": 163,
+        "start_column": 9,
+        "end_column": 41
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/llama_index/code-scanning/alerts/3/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 2,
+    "created_at": "2025-07-01T14:40:26Z",
+    "updated_at": "2025-07-01T14:40:26Z",
+    "url": "https://api.github.com/repos/Be-Secure/llama_index/code-scanning/alerts/2",
+    "html_url": "https://github.com/Be-Secure/llama_index/security/code-scanning/2",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/incomplete-url-substring-sanitization",
+      "severity": "warning",
+      "description": "Incomplete URL substring sanitization",
+      "name": "py/incomplete-url-substring-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","security"],
+      "full_description": "Security checks on the substrings of an unparsed URL are often vulnerable to bypassing.",
+      "help": "# Incomplete URL substring sanitization\nSanitizing untrusted URLs is a common technique for preventing attacks such as request forgeries and malicious redirections. Usually, this is done by checking that the host of a URL is in a set of allowed hosts.\n\nHowever, treating the URL as a string and checking if one of the allowed hosts is a substring of the URL is very prone to errors. Malicious URLs can bypass such security checks by embedding one of the allowed hosts in an unexpected location.\n\nEven if the substring check is not used in a security-critical context, the incomplete check may still cause undesirable behaviors when the check succeeds accidentally.\n\n\n## Recommendation\nParse a URL before performing a check on its host value, and ensure that the check handles arbitrary subdomain sequences correctly.\n\n\n## Example\nThe following example code checks that a URL redirection will reach the `example.com` domain.\n\n\n```python\nfrom flask import Flask, request, redirect\nfrom urllib.parse import urlparse\n\napp = Flask(__name__)\n\n# Not safe, as \"evil-example.net/example.com\" would be accepted\n\n@app.route('/some/path/bad1')\ndef unsafe1(request):\n    target = request.args.get('target', '')\n    if \"example.com\" in target:\n        return redirect(target)\n\n# Not safe, as \"benign-looking-prefix-example.com\" would be accepted\n\n@app.route('/some/path/bad2')\ndef unsafe2(request):\n    target = request.args.get('target', '')\n    if target.endswith(\"example.com\"):\n        return redirect(target)\n\n\n\n#Simplest and safest approach is to use an allowlist\n\n@app.route('/some/path/good1')\ndef safe1(request):\n    allowlist = [\n        \"example.com/home\",\n        \"example.com/login\",\n    ]\n    target = request.args.get('target', '')\n    if target in allowlist:\n        return redirect(target)\n\n#More complex example allowing sub-domains.\n\n@app.route('/some/path/good2')\ndef safe2(request):\n    target = request.args.get('target', '')\n    host = urlparse(target).hostname\n    #Note the '.' preceding example.com\n    if host and host.endswith(\".example.com\"):\n        return redirect(target)\n\n\n```\nThe first two examples show unsafe checks that are easily bypassed. In `unsafe1` the attacker can simply add `example.com` anywhere in the url. For example, `http://evil-example.net/example.com`.\n\nIn `unsafe2` the attacker must use a hostname ending in `example.com`, but that is easy to do. For example, `http://benign-looking-prefix-example.com`.\n\nThe second two examples show safe checks. In `safe1`, an allowlist is used. Although fairly inflexible, this is easy to get right and is most likely to be safe.\n\nIn `safe2`, `urlparse` is used to parse the URL, then the hostname is checked to make sure it ends with `.example.com`.\n\n\n## References\n* OWASP: [SSRF](https://www.owasp.org/index.php/Server_Side_Request_Forgery)\n* OWASP: [XSS Unvalidated Redirects and Forwards Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v0.12.44",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "3238bd00d4b775b8fd30b65683a4e42f89f439c3",
+      "message": {
+        "text": "The string cloud.ibm.com may be at an arbitrary position in the sanitized URL."
+      },
+      "location": {
+        "path": "llama-index-integrations/llms/llama-index-llms-ibm/llama_index/llms/ibm/utils.py",
+        "start_line": 40,
+        "end_line": 40,
+        "start_column": 8,
+        "end_column": 51
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/llama_index/code-scanning/alerts/2/instances",
+    "dismissal_approved_by": null
+  },
+  {
+    "number": 1,
+    "created_at": "2025-07-01T14:40:26Z",
+    "updated_at": "2025-07-01T14:40:26Z",
+    "url": "https://api.github.com/repos/Be-Secure/llama_index/code-scanning/alerts/1",
+    "html_url": "https://github.com/Be-Secure/llama_index/security/code-scanning/1",
+    "state": "open",
+    "fixed_at": null,
+    "dismissed_by": null,
+    "dismissed_at": null,
+    "dismissed_reason": null,
+    "dismissed_comment": null,
+    "rule": {
+      "id": "py/incomplete-url-substring-sanitization",
+      "severity": "warning",
+      "description": "Incomplete URL substring sanitization",
+      "name": "py/incomplete-url-substring-sanitization",
+      "tags": ["correctness","external/cwe/cwe-020","security"],
+      "full_description": "Security checks on the substrings of an unparsed URL are often vulnerable to bypassing.",
+      "help": "# Incomplete URL substring sanitization\nSanitizing untrusted URLs is a common technique for preventing attacks such as request forgeries and malicious redirections. Usually, this is done by checking that the host of a URL is in a set of allowed hosts.\n\nHowever, treating the URL as a string and checking if one of the allowed hosts is a substring of the URL is very prone to errors. Malicious URLs can bypass such security checks by embedding one of the allowed hosts in an unexpected location.\n\nEven if the substring check is not used in a security-critical context, the incomplete check may still cause undesirable behaviors when the check succeeds accidentally.\n\n\n## Recommendation\nParse a URL before performing a check on its host value, and ensure that the check handles arbitrary subdomain sequences correctly.\n\n\n## Example\nThe following example code checks that a URL redirection will reach the `example.com` domain.\n\n\n```python\nfrom flask import Flask, request, redirect\nfrom urllib.parse import urlparse\n\napp = Flask(__name__)\n\n# Not safe, as \"evil-example.net/example.com\" would be accepted\n\n@app.route('/some/path/bad1')\ndef unsafe1(request):\n    target = request.args.get('target', '')\n    if \"example.com\" in target:\n        return redirect(target)\n\n# Not safe, as \"benign-looking-prefix-example.com\" would be accepted\n\n@app.route('/some/path/bad2')\ndef unsafe2(request):\n    target = request.args.get('target', '')\n    if target.endswith(\"example.com\"):\n        return redirect(target)\n\n\n\n#Simplest and safest approach is to use an allowlist\n\n@app.route('/some/path/good1')\ndef safe1(request):\n    allowlist = [\n        \"example.com/home\",\n        \"example.com/login\",\n    ]\n    target = request.args.get('target', '')\n    if target in allowlist:\n        return redirect(target)\n\n#More complex example allowing sub-domains.\n\n@app.route('/some/path/good2')\ndef safe2(request):\n    target = request.args.get('target', '')\n    host = urlparse(target).hostname\n    #Note the '.' preceding example.com\n    if host and host.endswith(\".example.com\"):\n        return redirect(target)\n\n\n```\nThe first two examples show unsafe checks that are easily bypassed. In `unsafe1` the attacker can simply add `example.com` anywhere in the url. For example, `http://evil-example.net/example.com`.\n\nIn `unsafe2` the attacker must use a hostname ending in `example.com`, but that is easy to do. For example, `http://benign-looking-prefix-example.com`.\n\nThe second two examples show safe checks. In `safe1`, an allowlist is used. Although fairly inflexible, this is easy to get right and is most likely to be safe.\n\nIn `safe2`, `urlparse` is used to parse the URL, then the hostname is checked to make sure it ends with `.example.com`.\n\n\n## References\n* OWASP: [SSRF](https://www.owasp.org/index.php/Server_Side_Request_Forgery)\n* OWASP: [XSS Unvalidated Redirects and Forwards Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html).\n* Common Weakness Enumeration: [CWE-20](https://cwe.mitre.org/data/definitions/20.html).\n",
+      "security_severity_level": "high"
+    },
+    "tool": {
+      "name": "CodeQL",
+      "guid": null,
+      "version": "2.22.1"
+    },
+    "most_recent_instance": {
+      "ref": "refs/heads/release-v0.12.44",
+      "analysis_key": ".github/workflows/codeql.yml:analyze",
+      "environment": "{\"build-mode\":\"none\",\"language\":\"python\"}",
+      "category": "/language:python",
+      "state": "open",
+      "commit_sha": "3238bd00d4b775b8fd30b65683a4e42f89f439c3",
+      "message": {
+        "text": "The string cloud.ibm.com may be at an arbitrary position in the sanitized URL."
+      },
+      "location": {
+        "path": "llama-index-integrations/embeddings/llama-index-embeddings-ibm/llama_index/embeddings/ibm/utils.py",
+        "start_line": 42,
+        "end_line": 42,
+        "start_column": 8,
+        "end_column": 51
+      },
+      "classifications": []
+    },
+    "instances_url": "https://api.github.com/repos/Be-Secure/llama_index/code-scanning/alerts/1/instances",
+    "dismissal_approved_by": null
+  }
+]
