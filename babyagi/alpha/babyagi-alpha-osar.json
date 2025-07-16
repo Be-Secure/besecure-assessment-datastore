@@ -1,0 +1,60 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "babyagi",
+        "version": "alpha",
+        "url": "https://github.com/Be-Secure/babyagi",
+        "environment": "babyagi-RT-env"
+    },
+    "assessments": [
+        {
+            "tool": {
+                "name": "scorecard",
+                "type": "RIP",
+                "version": "v4.13.1",
+                "playbook": "besman-RIP-scorecard-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Fri Jun 27 13:17:17 UTC 2025",
+                "duration": "132 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/babyagi/alpha/scorecard/babyagi-alpha-scorecard-report.json"
+            },
+            "results": [
+                {
+                    "feature": "ScoreCard",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 4.8
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "CriticalityScore",
+                "type": "PIA",
+                "version": "2.0.3",
+                "playbook": "besman-PIA-CriticalityScore-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Fri Jun 27 13:17:56 UTC 2025",
+                "duration": "3 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/babyagi/alpha/criticality_score/babyagi-alpha-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": "0.22833"
+                }
+            ]
+        }
+    ]
+}

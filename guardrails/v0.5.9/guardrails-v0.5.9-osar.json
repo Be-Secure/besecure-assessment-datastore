@@ -1,0 +1,60 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "guardrails",
+        "version": "v0.5.9",
+        "url": "https://github.com/Be-Secure/guardrails",
+        "environment": "guardrails-RT-env"
+    },
+    "assessments": [
+        {
+            "tool": {
+                "name": "CriticalityScore",
+                "type": "PIA",
+                "version": "2.0.3",
+                "playbook": "besman-PIA-CriticalityScore-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Mon Jun 30 17:24:44 UTC 2025",
+                "duration": "4 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/guardrails/v0.5.9/criticality_score/guardrails-v0.5.9-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": "0.36260"
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "scorecard",
+                "type": "RIP",
+                "version": "v4.13.1",
+                "playbook": "besman-RIP-scorecard-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Organization",
+                "id": "Be-Secure",
+                "status": "success",
+                "timestamp": "Mon Jul 14 12:21:44 UTC 2025",
+                "duration": "26 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/guardrails/v0.5.9/scorecard/guardrails-v0.5.9-scorecard-report.json"
+            },
+            "results": [
+                {
+                    "feature": "ScoreCard",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 3.1
+                }
+            ]
+        }
+    ]
+}
