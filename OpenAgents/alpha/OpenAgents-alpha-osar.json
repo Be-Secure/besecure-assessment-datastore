@@ -1,0 +1,132 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "OpenAgents",
+        "version": "alpha",
+        "url": "https://github.com/Be-Secure/OpenAgents",
+        "environment": "OpenAgents-RT-env"
+    },
+    "assessments": [
+        {
+            "tool": {
+                "name": "scorecard",
+                "type": "RIP",
+                "version": "v4.13.1",
+                "playbook": "besman-RIP-scorecard-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Lab",
+                "id": "BeSLab",
+                "status": "success",
+                "timestamp": "Mon Jun 30 04:09:56 PM IST 2025",
+                "duration": "27 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/OpenAgents/alpha/scorecard/OpenAgents-alpha-scorecard-report.json"
+            },
+            "results": [
+                {
+                    "feature": "ScoreCard",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 3.3
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "CriticalityScore",
+                "type": "PIA",
+                "version": "2.0.3",
+                "playbook": "besman-PIA-CriticalityScore-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Lab",
+                "id": "BeSLab",
+                "status": "success",
+                "timestamp": "Mon Jun 30 04:09:00 PM IST 2025",
+                "duration": "4 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/OpenAgents/alpha/criticality_score/OpenAgents-alpha-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": "0.29809"
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "sonarqube",
+                "type": "sast",
+                "version": "9.9.4",
+                "playbook": "besman-SAST-sonarqube-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Lab",
+                "id": "BeSLab",
+                "status": "success",
+                "timestamp": "Fri Jun 27 04:06:00 PM IST 2025",
+                "duration": "1433 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/OpenAgents/alpha/sast/OpenAgents-alpha-sonarqube-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MAJOR",
+                    "value": 261
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MINOR",
+                    "value": 134
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "INFO",
+                    "value": 18
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "CRITICAL",
+                    "value": 63
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "BLOCKER",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "CyclonedxSbomGenerator",
+                "type": "SBOM",
+                "version": "0.0.1",
+                "playbook": "besman-SBOM-CyclonedxSbomGenerator-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Lab",
+                "id": "BeSLab",
+                "status": "success",
+                "timestamp": "Fri Jul  4 04:44:51 UTC 2025",
+                "duration": "6 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/OpenAgents/alpha/sbom/OpenAgents-alpha-cdx-sbom-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Dependency",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 1196
+                }
+            ]
+        }
+    ]
+}

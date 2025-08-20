@@ -1,0 +1,132 @@
+{
+    "schema_version": "0.1.0",
+    "asset": {
+        "type": "project",
+        "name": "EvoAgentX",
+        "version": "v0.1.0-alpha",
+        "url": "https://github.com/Be-Secure/EvoAgentX",
+        "environment": "EvoAgentX-RT-env"
+    },
+    "assessments": [
+        {
+            "tool": {
+                "name": "CriticalityScore",
+                "type": "PIA",
+                "version": "2.0.3",
+                "playbook": "besman-PIA-CriticalityScore-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Lab",
+                "id": "BeSLab",
+                "status": "success",
+                "timestamp": "Mon Jun 30 04:10:39 PM IST 2025",
+                "duration": "5 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/EvoAgentX/v0.1.0-alpha/criticality_score/EvoAgentX-v0.1.0-alpha-criticality_score-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Criticality Score",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": "0.29698"
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "scorecard",
+                "type": "RIP",
+                "version": "v4.13.1",
+                "playbook": "besman-RIP-scorecard-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Lab",
+                "id": "BeSLab",
+                "status": "success",
+                "timestamp": "Mon Jun 30 04:11:05 PM IST 2025",
+                "duration": "20 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/EvoAgentX/v0.1.0-alpha/scorecard/EvoAgentX-v0.1.0-alpha-scorecard-report.json"
+            },
+            "results": [
+                {
+                    "feature": "ScoreCard",
+                    "aspect": "Score",
+                    "attribute": "N/A",
+                    "value": 2.4
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "sonarqube",
+                "type": "sast",
+                "version": "9.9.4",
+                "playbook": "besman-SAST-sonarqube-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Lab",
+                "id": "BeSLab",
+                "status": "success",
+                "timestamp": "Mon Jun 30 04:31:02 PM IST 2025",
+                "duration": "1143 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/EvoAgentX/v0.1.0-alpha/sast/EvoAgentX-v0.1.0-alpha-sonarqube-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "CRITICAL",
+                    "value": 122
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MAJOR",
+                    "value": 234
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "BLOCKER",
+                    "value": 5
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "INFO",
+                    "value": 15
+                },
+                {
+                    "feature": "Vulnerability",
+                    "aspect": "Severity",
+                    "attribute": "MINOR",
+                    "value": 63
+                }
+            ]
+        },
+        {
+            "tool": {
+                "name": "CyclonedxSbomGenerator",
+                "type": "SBOM",
+                "version": "0.0.1",
+                "playbook": "besman-SBOM-CyclonedxSbomGenerator-playbook-0.0.1.sh"
+            },
+            "execution": {
+                "type": "Lab",
+                "id": "BeSLab",
+                "status": "success",
+                "timestamp": "Fri Jul  4 08:21:42 UTC 2025",
+                "duration": "37 sec",
+                "output_path": "https://github.com/Be-Secure/besecure-assessment-datastore/EvoAgentX/v0.1.0-alpha/sbom/EvoAgentX-v0.1.0-alpha-cdx-sbom-report.json"
+            },
+            "results": [
+                {
+                    "feature": "Dependency",
+                    "aspect": "Count",
+                    "attribute": "N/A",
+                    "value": 67
+                }
+            ]
+        }
+    ]
+}
